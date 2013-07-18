@@ -72,6 +72,47 @@ class Mat3
 class Mat4
 {
 
+	// Calculates the adjugate of a mat4
+	// @returns {mat4} out
+	/// <param name="output">@param {mat4} out the receiving matrix</param>
+	/// <param name="a">@param {mat4} a the source matrix</param>
+	static function Adjoint(&$output, &$a)
+	{
+		$a00 = $a[0];
+		$a01 = $a[1];
+		$a02 = $a[2];
+		$a03 = $a[3];
+		$a10 = $a[4];
+		$a11 = $a[5];
+		$a12 = $a[6];
+		$a13 = $a[7];
+		$a20 = $a[8];
+		$a21 = $a[9];
+		$a22 = $a[10];
+		$a23 = $a[11];
+		$a30 = $a[12];
+		$a31 = $a[13];
+		$a32 = $a[14];
+		$a33 = $a[15];
+		$output[0] = $a11 * ($a22 * $a33 - $a23 * $a32) - $a21 * ($a12 * $a33 - $a13 * $a32) + $a31 * ($a12 * $a23 - $a13 * $a22);
+		$output[1] = -($a01 * ($a22 * $a33 - $a23 * $a32) - $a21 * ($a02 * $a33 - $a03 * $a32) + $a31 * ($a02 * $a23 - $a03 * $a22));
+		$output[2] = $a01 * ($a12 * $a33 - $a13 * $a32) - $a11 * ($a02 * $a33 - $a03 * $a32) + $a31 * ($a02 * $a13 - $a03 * $a12);
+		$output[3] = -($a01 * ($a12 * $a23 - $a13 * $a22) - $a11 * ($a02 * $a23 - $a03 * $a22) + $a21 * ($a02 * $a13 - $a03 * $a12));
+		$output[4] = -($a10 * ($a22 * $a33 - $a23 * $a32) - $a20 * ($a12 * $a33 - $a13 * $a32) + $a30 * ($a12 * $a23 - $a13 * $a22));
+		$output[5] = $a00 * ($a22 * $a33 - $a23 * $a32) - $a20 * ($a02 * $a33 - $a03 * $a32) + $a30 * ($a02 * $a23 - $a03 * $a22);
+		$output[6] = -($a00 * ($a12 * $a33 - $a13 * $a32) - $a10 * ($a02 * $a33 - $a03 * $a32) + $a30 * ($a02 * $a13 - $a03 * $a12));
+		$output[7] = $a00 * ($a12 * $a23 - $a13 * $a22) - $a10 * ($a02 * $a23 - $a03 * $a22) + $a20 * ($a02 * $a13 - $a03 * $a12);
+		$output[8] = $a10 * ($a21 * $a33 - $a23 * $a31) - $a20 * ($a11 * $a33 - $a13 * $a31) + $a30 * ($a11 * $a23 - $a13 * $a21);
+		$output[9] = -($a00 * ($a21 * $a33 - $a23 * $a31) - $a20 * ($a01 * $a33 - $a03 * $a31) + $a30 * ($a01 * $a23 - $a03 * $a21));
+		$output[10] = $a00 * ($a11 * $a33 - $a13 * $a31) - $a10 * ($a01 * $a33 - $a03 * $a31) + $a30 * ($a01 * $a13 - $a03 * $a11);
+		$output[11] = -($a00 * ($a11 * $a23 - $a13 * $a21) - $a10 * ($a01 * $a23 - $a03 * $a21) + $a20 * ($a01 * $a13 - $a03 * $a11));
+		$output[12] = -($a10 * ($a21 * $a32 - $a22 * $a31) - $a20 * ($a11 * $a32 - $a12 * $a31) + $a30 * ($a11 * $a22 - $a12 * $a21));
+		$output[13] = $a00 * ($a21 * $a32 - $a22 * $a31) - $a20 * ($a01 * $a32 - $a02 * $a31) + $a30 * ($a01 * $a22 - $a02 * $a21);
+		$output[14] = -($a00 * ($a11 * $a32 - $a12 * $a31) - $a10 * ($a01 * $a32 - $a02 * $a31) + $a30 * ($a01 * $a12 - $a02 * $a11));
+		$output[15] = $a00 * ($a11 * $a22 - $a12 * $a21) - $a10 * ($a01 * $a22 - $a02 * $a21) + $a20 * ($a01 * $a12 - $a02 * $a11);
+		return $output;
+	}
+
 	// Creates a new mat4 initialized with values from an existing matrix
 	// Returns {mat4} a new 4x4 matrix
 	/// <param name="a">{mat4} a matrix to clone</param>
@@ -144,6 +185,42 @@ class Mat4
 		$output[14] = 0;
 		$output[15] = 1;
 		return $output;
+	}
+
+	// Calculates the determinant of a mat4
+	// @param {mat4} a the source matrix
+	// @returns {Number} determinant of a
+	static function Determinant(&$a)
+	{
+		$a00 = $a[0];
+		$a01 = $a[1];
+		$a02 = $a[2];
+		$a03 = $a[3];
+		$a10 = $a[4];
+		$a11 = $a[5];
+		$a12 = $a[6];
+		$a13 = $a[7];
+		$a20 = $a[8];
+		$a21 = $a[9];
+		$a22 = $a[10];
+		$a23 = $a[11];
+		$a30 = $a[12];
+		$a31 = $a[13];
+		$a32 = $a[14];
+		$a33 = $a[15];
+		$b00 = $a00 * $a11 - $a01 * $a10;
+		$b01 = $a00 * $a12 - $a02 * $a10;
+		$b02 = $a00 * $a13 - $a03 * $a10;
+		$b03 = $a01 * $a12 - $a02 * $a11;
+		$b04 = $a01 * $a13 - $a03 * $a11;
+		$b05 = $a02 * $a13 - $a03 * $a12;
+		$b06 = $a20 * $a31 - $a21 * $a30;
+		$b07 = $a20 * $a32 - $a22 * $a30;
+		$b08 = $a20 * $a33 - $a23 * $a30;
+		$b09 = $a21 * $a32 - $a22 * $a31;
+		$b10 = $a21 * $a33 - $a23 * $a31;
+		$b11 = $a22 * $a33 - $a23 * $a32;
+		return $b00 * $b11 - $b01 * $b10 + $b02 * $b09 + $b03 * $b08 - $b04 * $b07 + $b05 * $b06;
 	}
 
 	// Set a mat4 to the identity matrix
@@ -251,8 +328,6 @@ class Mat4
 		return $output;
 	}
 
-	// **
-	// **
 	// **
 	// **
 	// **

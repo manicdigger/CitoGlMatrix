@@ -1154,66 +1154,65 @@ public class Mat4
         return output;
     }
 
-    ///**
-    // * Calculates the adjugate of a mat4
-    // *
-    // * @param {mat4} out the receiving matrix
-    // * @param {mat4} a the source matrix
-    // * @returns {mat4} out
-    // */
-    //mat4.adjoint = function(out, a) {
-    //    var a00 = a[0], a01 = a[1], a02 = a[2], a03 = a[3],
-    //        a10 = a[4], a11 = a[5], a12 = a[6], a13 = a[7],
-    //        a20 = a[8], a21 = a[9], a22 = a[10], a23 = a[11],
-    //        a30 = a[12], a31 = a[13], a32 = a[14], a33 = a[15];
+    /// Calculates the adjugate of a mat4
+    /// @returns {mat4} out
+    public static float[] Adjoint(
+        /// @param {mat4} out the receiving matrix
+        float[] output,
+        /// @param {mat4} a the source matrix
+        float[] a)
+    {
+        float a00 = a[0]; float a01 = a[1]; float a02 = a[2]; float a03 = a[3];
+        float a10 = a[4]; float a11 = a[5]; float a12 = a[6]; float a13 = a[7];
+        float a20 = a[8]; float a21 = a[9]; float a22 = a[10]; float a23 = a[11];
+        float a30 = a[12]; float a31 = a[13]; float a32 = a[14]; float a33 = a[15];
 
-    //    out[0]  =  (a11 * (a22 * a33 - a23 * a32) - a21 * (a12 * a33 - a13 * a32) + a31 * (a12 * a23 - a13 * a22));
-    //    out[1]  = -(a01 * (a22 * a33 - a23 * a32) - a21 * (a02 * a33 - a03 * a32) + a31 * (a02 * a23 - a03 * a22));
-    //    out[2]  =  (a01 * (a12 * a33 - a13 * a32) - a11 * (a02 * a33 - a03 * a32) + a31 * (a02 * a13 - a03 * a12));
-    //    out[3]  = -(a01 * (a12 * a23 - a13 * a22) - a11 * (a02 * a23 - a03 * a22) + a21 * (a02 * a13 - a03 * a12));
-    //    out[4]  = -(a10 * (a22 * a33 - a23 * a32) - a20 * (a12 * a33 - a13 * a32) + a30 * (a12 * a23 - a13 * a22));
-    //    out[5]  =  (a00 * (a22 * a33 - a23 * a32) - a20 * (a02 * a33 - a03 * a32) + a30 * (a02 * a23 - a03 * a22));
-    //    out[6]  = -(a00 * (a12 * a33 - a13 * a32) - a10 * (a02 * a33 - a03 * a32) + a30 * (a02 * a13 - a03 * a12));
-    //    out[7]  =  (a00 * (a12 * a23 - a13 * a22) - a10 * (a02 * a23 - a03 * a22) + a20 * (a02 * a13 - a03 * a12));
-    //    out[8]  =  (a10 * (a21 * a33 - a23 * a31) - a20 * (a11 * a33 - a13 * a31) + a30 * (a11 * a23 - a13 * a21));
-    //    out[9]  = -(a00 * (a21 * a33 - a23 * a31) - a20 * (a01 * a33 - a03 * a31) + a30 * (a01 * a23 - a03 * a21));
-    //    out[10] =  (a00 * (a11 * a33 - a13 * a31) - a10 * (a01 * a33 - a03 * a31) + a30 * (a01 * a13 - a03 * a11));
-    //    out[11] = -(a00 * (a11 * a23 - a13 * a21) - a10 * (a01 * a23 - a03 * a21) + a20 * (a01 * a13 - a03 * a11));
-    //    out[12] = -(a10 * (a21 * a32 - a22 * a31) - a20 * (a11 * a32 - a12 * a31) + a30 * (a11 * a22 - a12 * a21));
-    //    out[13] =  (a00 * (a21 * a32 - a22 * a31) - a20 * (a01 * a32 - a02 * a31) + a30 * (a01 * a22 - a02 * a21));
-    //    out[14] = -(a00 * (a11 * a32 - a12 * a31) - a10 * (a01 * a32 - a02 * a31) + a30 * (a01 * a12 - a02 * a11));
-    //    out[15] =  (a00 * (a11 * a22 - a12 * a21) - a10 * (a01 * a22 - a02 * a21) + a20 * (a01 * a12 - a02 * a11));
-    //    return out;
-    //};
+        output[0] = (a11 * (a22 * a33 - a23 * a32) - a21 * (a12 * a33 - a13 * a32) + a31 * (a12 * a23 - a13 * a22));
+        output[1] = -(a01 * (a22 * a33 - a23 * a32) - a21 * (a02 * a33 - a03 * a32) + a31 * (a02 * a23 - a03 * a22));
+        output[2] = (a01 * (a12 * a33 - a13 * a32) - a11 * (a02 * a33 - a03 * a32) + a31 * (a02 * a13 - a03 * a12));
+        output[3] = -(a01 * (a12 * a23 - a13 * a22) - a11 * (a02 * a23 - a03 * a22) + a21 * (a02 * a13 - a03 * a12));
+        output[4] = -(a10 * (a22 * a33 - a23 * a32) - a20 * (a12 * a33 - a13 * a32) + a30 * (a12 * a23 - a13 * a22));
+        output[5] = (a00 * (a22 * a33 - a23 * a32) - a20 * (a02 * a33 - a03 * a32) + a30 * (a02 * a23 - a03 * a22));
+        output[6] = -(a00 * (a12 * a33 - a13 * a32) - a10 * (a02 * a33 - a03 * a32) + a30 * (a02 * a13 - a03 * a12));
+        output[7] = (a00 * (a12 * a23 - a13 * a22) - a10 * (a02 * a23 - a03 * a22) + a20 * (a02 * a13 - a03 * a12));
+        output[8] = (a10 * (a21 * a33 - a23 * a31) - a20 * (a11 * a33 - a13 * a31) + a30 * (a11 * a23 - a13 * a21));
+        output[9] = -(a00 * (a21 * a33 - a23 * a31) - a20 * (a01 * a33 - a03 * a31) + a30 * (a01 * a23 - a03 * a21));
+        output[10] = (a00 * (a11 * a33 - a13 * a31) - a10 * (a01 * a33 - a03 * a31) + a30 * (a01 * a13 - a03 * a11));
+        output[11] = -(a00 * (a11 * a23 - a13 * a21) - a10 * (a01 * a23 - a03 * a21) + a20 * (a01 * a13 - a03 * a11));
+        output[12] = -(a10 * (a21 * a32 - a22 * a31) - a20 * (a11 * a32 - a12 * a31) + a30 * (a11 * a22 - a12 * a21));
+        output[13] = (a00 * (a21 * a32 - a22 * a31) - a20 * (a01 * a32 - a02 * a31) + a30 * (a01 * a22 - a02 * a21));
+        output[14] = -(a00 * (a11 * a32 - a12 * a31) - a10 * (a01 * a32 - a02 * a31) + a30 * (a01 * a12 - a02 * a11));
+        output[15] = (a00 * (a11 * a22 - a12 * a21) - a10 * (a01 * a22 - a02 * a21) + a20 * (a01 * a12 - a02 * a11));
+        return output;
+    }
 
-    ///**
-    // * Calculates the determinant of a mat4
-    // *
-    // * @param {mat4} a the source matrix
-    // * @returns {Number} determinant of a
-    // */
+    /// Calculates the determinant of a mat4
+    /// @param {mat4} a the source matrix
+    /// @returns {Number} determinant of a
     //mat4.determinant = function (a) {
-    //    var a00 = a[0], a01 = a[1], a02 = a[2], a03 = a[3],
-    //        a10 = a[4], a11 = a[5], a12 = a[6], a13 = a[7],
-    //        a20 = a[8], a21 = a[9], a22 = a[10], a23 = a[11],
-    //        a30 = a[12], a31 = a[13], a32 = a[14], a33 = a[15],
+    public static float Determinant(float[] a)
+    {
+        float a00 = a[0]; float a01 = a[1]; float a02 = a[2]; float a03 = a[3];
+        float a10 = a[4]; float a11 = a[5]; float a12 = a[6]; float a13 = a[7];
+        float a20 = a[8]; float a21 = a[9]; float a22 = a[10]; float a23 = a[11];
+        float a30 = a[12]; float a31 = a[13]; float a32 = a[14]; float a33 = a[15];
 
-    //        b00 = a00 * a11 - a01 * a10,
-    //        b01 = a00 * a12 - a02 * a10,
-    //        b02 = a00 * a13 - a03 * a10,
-    //        b03 = a01 * a12 - a02 * a11,
-    //        b04 = a01 * a13 - a03 * a11,
-    //        b05 = a02 * a13 - a03 * a12,
-    //        b06 = a20 * a31 - a21 * a30,
-    //        b07 = a20 * a32 - a22 * a30,
-    //        b08 = a20 * a33 - a23 * a30,
-    //        b09 = a21 * a32 - a22 * a31,
-    //        b10 = a21 * a33 - a23 * a31,
-    //        b11 = a22 * a33 - a23 * a32;
+        float b00 = a00 * a11 - a01 * a10;
+        float b01 = a00 * a12 - a02 * a10;
+        float b02 = a00 * a13 - a03 * a10;
+        float b03 = a01 * a12 - a02 * a11;
+        float b04 = a01 * a13 - a03 * a11;
+        float b05 = a02 * a13 - a03 * a12;
+        float b06 = a20 * a31 - a21 * a30;
+        float b07 = a20 * a32 - a22 * a30;
+        float b08 = a20 * a33 - a23 * a30;
+        float b09 = a21 * a32 - a22 * a31;
+        float b10 = a21 * a33 - a23 * a31;
+        float b11 = a22 * a33 - a23 * a32;
 
-    //    // Calculate the determinant
-    //    return b00 * b11 - b01 * b10 + b02 * b09 + b03 * b08 - b04 * b07 + b05 * b06;
-    //};
+        // Calculate the determinant
+        return b00 * b11 - b01 * b10 + b02 * b09 + b03 * b08 - b04 * b07 + b05 * b06;
+    }
 
     ///**
     // * Multiplies two mat4's

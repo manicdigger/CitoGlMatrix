@@ -21,6 +21,14 @@ typedef struct Vec3 Vec3;
 typedef struct Vec4 Vec4;
 
 /**
+ * Calculates the adjugate of a mat4
+ * @returns {mat4} out
+ * @param output @param {mat4} out the receiving matrix
+ * @param a @param {mat4} a the source matrix
+ */
+float const *Mat4_Adjoint(float *output, float const *a);
+
+/**
  * Creates a new mat4 initialized with values from an existing matrix
  * Returns {mat4} a new 4x4 matrix
  * @param a {mat4} a matrix to clone
@@ -40,6 +48,13 @@ float const *Mat4_Copy(float *output, float const *a);
  * Returns {mat4} a new 4x4 matrix
  */
 float const *Mat4_Create(void);
+
+/**
+ * Calculates the determinant of a mat4
+ * @param {mat4} a the source matrix
+ * @returns {Number} determinant of a
+ */
+float Mat4_Determinant(float const *a);
 
 /**
  * Set a mat4 to the identity matrix

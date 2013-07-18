@@ -215,16 +215,161 @@ class Mat2d
 {
 
 	// **
+	static function Clone(&$a)
+	{
+		$output = array();
+		$output[0] = $a[0];
+		$output[1] = $a[1];
+		$output[2] = $a[2];
+		$output[3] = $a[3];
+		$output[4] = $a[4];
+		$output[5] = $a[5];
+		return $output;
+	}
+
 	// **
+	static function Copy(&$output, &$a)
+	{
+		$output[0] = $a[0];
+		$output[1] = $a[1];
+		$output[2] = $a[2];
+		$output[3] = $a[3];
+		$output[4] = $a[4];
+		$output[5] = $a[5];
+		return $output;
+	}
+
 	// **
+	static function Create()
+	{
+		$output = array();
+		$output[0] = 1;
+		$output[1] = 0;
+		$output[2] = 0;
+		$output[3] = 1;
+		$output[4] = 0;
+		$output[5] = 0;
+		return $output;
+	}
+
 	// **
+	static function Determinant(&$a)
+	{
+		return $a[0] * $a[3] - $a[1] * $a[2];
+	}
+
 	// **
+	static function Identity(&$output)
+	{
+		$output[0] = 1;
+		$output[1] = 0;
+		$output[2] = 0;
+		$output[3] = 1;
+		$output[4] = 0;
+		$output[5] = 0;
+		return $output;
+	}
+
 	// **
+	static function Invert(&$output, &$a)
+	{
+		$aa = $a[0];
+		$ab = $a[1];
+		$ac = $a[2];
+		$ad = $a[3];
+		$atx = $a[4];
+		$aty = $a[5];
+		$det = $aa * $ad - $ab * $ac;
+		if ($det == 0) {
+			return null;
+		}
+		$one = 1;
+		$det = $one / $det;
+		$output[0] = $ad * $det;
+		$output[1] = -$ab * $det;
+		$output[2] = -$ac * $det;
+		$output[3] = $aa * $det;
+		$output[4] = ($ac * $aty - $ad * $atx) * $det;
+		$output[5] = ($ab * $atx - $aa * $aty) * $det;
+		return $output;
+	}
+
 	// **
+	static function Mul(&$output, &$a, &$b)
+	{
+		return Mat2d::Multiply($output, $a, $b);
+	}
+
 	// **
+	static function Multiply(&$output, &$a, &$b)
+	{
+		$aa = $a[0];
+		$ab = $a[1];
+		$ac = $a[2];
+		$ad = $a[3];
+		$atx = $a[4];
+		$aty = $a[5];
+		$ba = $b[0];
+		$bb = $b[1];
+		$bc = $b[2];
+		$bd = $b[3];
+		$btx = $b[4];
+		$bty = $b[5];
+		$output[0] = $aa * $ba + $ab * $bc;
+		$output[1] = $aa * $bb + $ab * $bd;
+		$output[2] = $ac * $ba + $ad * $bc;
+		$output[3] = $ac * $bb + $ad * $bd;
+		$output[4] = $ba * $atx + $bc * $aty + $btx;
+		$output[5] = $bb * $atx + $bd * $aty + $bty;
+		return $output;
+	}
+
 	// **
+	static function Rotate(&$output, &$a, $rad)
+	{
+		$aa = $a[0];
+		$ab = $a[1];
+		$ac = $a[2];
+		$ad = $a[3];
+		$atx = $a[4];
+		$aty = $a[5];
+		$st = Platform::Sin($rad);
+		$ct = Platform::Cos($rad);
+		$output[0] = $aa * $ct + $ab * $st;
+		$output[1] = -$aa * $st + $ab * $ct;
+		$output[2] = $ac * $ct + $ad * $st;
+		$output[3] = -$ac * $st + $ct * $ad;
+		$output[4] = $ct * $atx + $st * $aty;
+		$output[5] = $ct * $aty - $st * $atx;
+		return $output;
+	}
+
 	// **
+	static function Scale(&$output, &$a, &$v)
+	{
+		$vx = $v[0];
+		$vy = $v[1];
+		$output[0] = $a[0] * $vx;
+		$output[1] = $a[1] * $vy;
+		$output[2] = $a[2] * $vx;
+		$output[3] = $a[3] * $vy;
+		$output[4] = $a[4] * $vx;
+		$output[5] = $a[5] * $vy;
+		return $output;
+	}
+
 	// **
+	static function Translate(&$output, &$a, &$v)
+	{
+		$output[0] = $a[0];
+		$output[1] = $a[1];
+		$output[2] = $a[2];
+		$output[3] = $a[3];
+		$output[4] = $a[4] + $v[0];
+		$output[5] = $a[5] + $v[1];
+		return $output;
+	}
+
 	// **
 	private function f()
 	{

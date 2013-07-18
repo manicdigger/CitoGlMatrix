@@ -333,6 +333,216 @@ sub new($) {
 	return $self;
 }
 
+=head2 C<Mat2d::clone(\@a)>
+
+**
+
+=cut
+
+sub clone($) {
+	my ($a) = @_;
+	my $output = [];
+	$output->[0] = $a->[0];
+	$output->[1] = $a->[1];
+	$output->[2] = $a->[2];
+	$output->[3] = $a->[3];
+	$output->[4] = $a->[4];
+	$output->[5] = $a->[5];
+	return $output;
+}
+
+=head2 C<Mat2d::copy(\@output, \@a)>
+
+**
+
+=cut
+
+sub copy($$) {
+	my ($output, $a) = @_;
+	$output->[0] = $a->[0];
+	$output->[1] = $a->[1];
+	$output->[2] = $a->[2];
+	$output->[3] = $a->[3];
+	$output->[4] = $a->[4];
+	$output->[5] = $a->[5];
+	return $output;
+}
+
+=head2 C<Mat2d::create()>
+
+**
+
+=cut
+
+sub create() {
+	my $output = [];
+	$output->[0] = 1;
+	$output->[1] = 0;
+	$output->[2] = 0;
+	$output->[3] = 1;
+	$output->[4] = 0;
+	$output->[5] = 0;
+	return $output;
+}
+
+=head2 C<Mat2d::determinant(\@a)>
+
+**
+
+=cut
+
+sub determinant($) {
+	my ($a) = @_;
+	return $a->[0] * $a->[3] - $a->[1] * $a->[2];
+}
+
+=head2 C<Mat2d::identity(\@output)>
+
+**
+
+=cut
+
+sub identity($) {
+	my ($output) = @_;
+	$output->[0] = 1;
+	$output->[1] = 0;
+	$output->[2] = 0;
+	$output->[3] = 1;
+	$output->[4] = 0;
+	$output->[5] = 0;
+	return $output;
+}
+
+=head2 C<Mat2d::invert(\@output, \@a)>
+
+**
+
+=cut
+
+sub invert($$) {
+	my ($output, $a) = @_;
+	my $aa = $a->[0];
+	my $ab = $a->[1];
+	my $ac = $a->[2];
+	my $ad = $a->[3];
+	my $atx = $a->[4];
+	my $aty = $a->[5];
+	my $det = $aa * $ad - $ab * $ac;
+	if ($det == 0) {
+		return undef;
+	}
+	my $one = 1;
+	$det = $one / $det;
+	$output->[0] = $ad * $det;
+	$output->[1] = -$ab * $det;
+	$output->[2] = -$ac * $det;
+	$output->[3] = $aa * $det;
+	$output->[4] = ($ac * $aty - $ad * $atx) * $det;
+	$output->[5] = ($ab * $atx - $aa * $aty) * $det;
+	return $output;
+}
+
+=head2 C<Mat2d::mul(\@output, \@a, \@b)>
+
+**
+
+=cut
+
+sub mul($$$) {
+	my ($output, $a, $b) = @_;
+	return Mat2d::multiply($output, $a, $b);
+}
+
+=head2 C<Mat2d::multiply(\@output, \@a, \@b)>
+
+**
+
+=cut
+
+sub multiply($$$) {
+	my ($output, $a, $b) = @_;
+	my $aa = $a->[0];
+	my $ab = $a->[1];
+	my $ac = $a->[2];
+	my $ad = $a->[3];
+	my $atx = $a->[4];
+	my $aty = $a->[5];
+	my $ba = $b->[0];
+	my $bb = $b->[1];
+	my $bc = $b->[2];
+	my $bd = $b->[3];
+	my $btx = $b->[4];
+	my $bty = $b->[5];
+	$output->[0] = $aa * $ba + $ab * $bc;
+	$output->[1] = $aa * $bb + $ab * $bd;
+	$output->[2] = $ac * $ba + $ad * $bc;
+	$output->[3] = $ac * $bb + $ad * $bd;
+	$output->[4] = $ba * $atx + $bc * $aty + $btx;
+	$output->[5] = $bb * $atx + $bd * $aty + $bty;
+	return $output;
+}
+
+=head2 C<Mat2d::rotate(\@output, \@a, $rad)>
+
+**
+
+=cut
+
+sub rotate($$$) {
+	my ($output, $a, $rad) = @_;
+	my $aa = $a->[0];
+	my $ab = $a->[1];
+	my $ac = $a->[2];
+	my $ad = $a->[3];
+	my $atx = $a->[4];
+	my $aty = $a->[5];
+	my $st = Platform::sin($rad);
+	my $ct = Platform::cos($rad);
+	$output->[0] = $aa * $ct + $ab * $st;
+	$output->[1] = -$aa * $st + $ab * $ct;
+	$output->[2] = $ac * $ct + $ad * $st;
+	$output->[3] = -$ac * $st + $ct * $ad;
+	$output->[4] = $ct * $atx + $st * $aty;
+	$output->[5] = $ct * $aty - $st * $atx;
+	return $output;
+}
+
+=head2 C<Mat2d::scale(\@output, \@a, \@v)>
+
+**
+
+=cut
+
+sub scale($$$) {
+	my ($output, $a, $v) = @_;
+	my $vx = $v->[0];
+	my $vy = $v->[1];
+	$output->[0] = $a->[0] * $vx;
+	$output->[1] = $a->[1] * $vy;
+	$output->[2] = $a->[2] * $vx;
+	$output->[3] = $a->[3] * $vy;
+	$output->[4] = $a->[4] * $vx;
+	$output->[5] = $a->[5] * $vy;
+	return $output;
+}
+
+=head2 C<Mat2d::translate(\@output, \@a, \@v)>
+
+**
+
+=cut
+
+sub translate($$$) {
+	my ($output, $a, $v) = @_;
+	$output->[0] = $a->[0];
+	$output->[1] = $a->[1];
+	$output->[2] = $a->[2];
+	$output->[3] = $a->[3];
+	$output->[4] = $a->[4] + $v->[0];
+	$output->[5] = $a->[5] + $v->[1];
+	return $output;
+}
+
 sub f($) {
 	my ($self) = @_;
 }

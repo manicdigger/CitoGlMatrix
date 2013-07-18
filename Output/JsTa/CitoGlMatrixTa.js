@@ -173,6 +173,140 @@ function Mat2d()
 {
 }
 
+Mat2d.clone = function(a) {
+	var output = new Float32Array(new ArrayBuffer(6 << 2));
+	output[0] = a[0];
+	output[1] = a[1];
+	output[2] = a[2];
+	output[3] = a[3];
+	output[4] = a[4];
+	output[5] = a[5];
+	return output;
+}
+
+Mat2d.copy = function(output, a) {
+	output[0] = a[0];
+	output[1] = a[1];
+	output[2] = a[2];
+	output[3] = a[3];
+	output[4] = a[4];
+	output[5] = a[5];
+	return output;
+}
+
+Mat2d.create = function() {
+	var output = new Float32Array(new ArrayBuffer(6 << 2));
+	output[0] = 1;
+	output[1] = 0;
+	output[2] = 0;
+	output[3] = 1;
+	output[4] = 0;
+	output[5] = 0;
+	return output;
+}
+
+Mat2d.determinant = function(a) {
+	return a[0] * a[3] - a[1] * a[2];
+}
+
+Mat2d.identity = function(output) {
+	output[0] = 1;
+	output[1] = 0;
+	output[2] = 0;
+	output[3] = 1;
+	output[4] = 0;
+	output[5] = 0;
+	return output;
+}
+
+Mat2d.invert = function(output, a) {
+	var aa = a[0];
+	var ab = a[1];
+	var ac = a[2];
+	var ad = a[3];
+	var atx = a[4];
+	var aty = a[5];
+	var det = aa * ad - ab * ac;
+	if (det == 0) {
+		return null;
+	}
+	var one = 1;
+	det = one / (det);
+	output[0] = ad * det;
+	output[1] = -ab * det;
+	output[2] = -ac * det;
+	output[3] = aa * det;
+	output[4] = (ac * aty - ad * atx) * det;
+	output[5] = (ab * atx - aa * aty) * det;
+	return output;
+}
+
+Mat2d.mul = function(output, a, b) {
+	return Mat2d.multiply(output, a, b);
+}
+
+Mat2d.multiply = function(output, a, b) {
+	var aa = a[0];
+	var ab = a[1];
+	var ac = a[2];
+	var ad = a[3];
+	var atx = a[4];
+	var aty = a[5];
+	var ba = b[0];
+	var bb = b[1];
+	var bc = b[2];
+	var bd = b[3];
+	var btx = b[4];
+	var bty = b[5];
+	output[0] = aa * ba + ab * bc;
+	output[1] = aa * bb + ab * bd;
+	output[2] = ac * ba + ad * bc;
+	output[3] = ac * bb + ad * bd;
+	output[4] = ba * atx + bc * aty + btx;
+	output[5] = bb * atx + bd * aty + bty;
+	return output;
+}
+
+Mat2d.rotate = function(output, a, rad) {
+	var aa = a[0];
+	var ab = a[1];
+	var ac = a[2];
+	var ad = a[3];
+	var atx = a[4];
+	var aty = a[5];
+	var st = Platform.sin(rad);
+	var ct = Platform.cos(rad);
+	output[0] = aa * ct + ab * st;
+	output[1] = -aa * st + ab * ct;
+	output[2] = ac * ct + ad * st;
+	output[3] = -ac * st + ct * ad;
+	output[4] = ct * atx + st * aty;
+	output[5] = ct * aty - st * atx;
+	return output;
+}
+
+Mat2d.scale = function(output, a, v) {
+	var vx = v[0];
+	var vy = v[1];
+	output[0] = a[0] * vx;
+	output[1] = a[1] * vy;
+	output[2] = a[2] * vx;
+	output[3] = a[3] * vy;
+	output[4] = a[4] * vx;
+	output[5] = a[5] * vy;
+	return output;
+}
+
+Mat2d.translate = function(output, a, v) {
+	output[0] = a[0];
+	output[1] = a[1];
+	output[2] = a[2];
+	output[3] = a[3];
+	output[4] = a[4] + v[0];
+	output[5] = a[5] + v[1];
+	return output;
+}
+
 Mat2d.prototype.f = function() {
 }
 

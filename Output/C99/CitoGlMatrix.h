@@ -91,6 +91,61 @@ float const *Mat2_Transpose(float *output, float const *a);
 /**
  * **
  */
+float const *Mat2d_Clone(float const *a);
+
+/**
+ * **
+ */
+float const *Mat2d_Copy(float *output, float const *a);
+
+/**
+ * **
+ */
+float const *Mat2d_Create(void);
+
+/**
+ * **
+ */
+float Mat2d_Determinant(float const *a);
+
+/**
+ * **
+ */
+float const *Mat2d_Identity(float *output);
+
+/**
+ * **
+ */
+float const *Mat2d_Invert(float *output, float const *a);
+
+/**
+ * **
+ */
+float const *Mat2d_Mul(float *output, float const *a, float const *b);
+
+/**
+ * **
+ */
+float const *Mat2d_Multiply(float *output, float const *a, float const *b);
+
+/**
+ * **
+ */
+float const *Mat2d_Rotate(float *output, float const *a, float rad);
+
+/**
+ * **
+ */
+float const *Mat2d_Scale(float *output, float const *a, float const *v);
+
+/**
+ * **
+ */
+float const *Mat2d_Translate(float *output, float const *a, float const *v);
+
+/**
+ * **
+ */
 float const *Mat3_Adjoint(float *output, float const *a);
 
 /**

@@ -188,6 +188,151 @@ float const *Mat2_Transpose(float *output, float const *a)
 	return output;
 }
 
+float const *Mat2d_Clone(float const *a)
+{
+	float *output = (float *) malloc(6 * sizeof(float ));
+	output[0] = a[0];
+	output[1] = a[1];
+	output[2] = a[2];
+	output[3] = a[3];
+	output[4] = a[4];
+	output[5] = a[5];
+	return output;
+}
+
+float const *Mat2d_Copy(float *output, float const *a)
+{
+	output[0] = a[0];
+	output[1] = a[1];
+	output[2] = a[2];
+	output[3] = a[3];
+	output[4] = a[4];
+	output[5] = a[5];
+	return output;
+}
+
+float const *Mat2d_Create(void)
+{
+	float *output = (float *) malloc(6 * sizeof(float ));
+	output[0] = 1;
+	output[1] = 0;
+	output[2] = 0;
+	output[3] = 1;
+	output[4] = 0;
+	output[5] = 0;
+	return output;
+}
+
+float Mat2d_Determinant(float const *a)
+{
+	return a[0] * a[3] - a[1] * a[2];
+}
+
+float const *Mat2d_Identity(float *output)
+{
+	output[0] = 1;
+	output[1] = 0;
+	output[2] = 0;
+	output[3] = 1;
+	output[4] = 0;
+	output[5] = 0;
+	return output;
+}
+
+float const *Mat2d_Invert(float *output, float const *a)
+{
+	float aa = a[0];
+	float ab = a[1];
+	float ac = a[2];
+	float ad = a[3];
+	float atx = a[4];
+	float aty = a[5];
+	float det = aa * ad - ab * ac;
+	if (det == 0) {
+		return NULL;
+	}
+	float one = 1;
+	det = one / det;
+	output[0] = ad * det;
+	output[1] = -ab * det;
+	output[2] = -ac * det;
+	output[3] = aa * det;
+	output[4] = (ac * aty - ad * atx) * det;
+	output[5] = (ab * atx - aa * aty) * det;
+	return output;
+}
+
+float const *Mat2d_Mul(float *output, float const *a, float const *b)
+{
+	return Mat2d_Multiply(output, a, b);
+}
+
+float const *Mat2d_Multiply(float *output, float const *a, float const *b)
+{
+	float aa = a[0];
+	float ab = a[1];
+	float ac = a[2];
+	float ad = a[3];
+	float atx = a[4];
+	float aty = a[5];
+	float ba = b[0];
+	float bb = b[1];
+	float bc = b[2];
+	float bd = b[3];
+	float btx = b[4];
+	float bty = b[5];
+	output[0] = aa * ba + ab * bc;
+	output[1] = aa * bb + ab * bd;
+	output[2] = ac * ba + ad * bc;
+	output[3] = ac * bb + ad * bd;
+	output[4] = ba * atx + bc * aty + btx;
+	output[5] = bb * atx + bd * aty + bty;
+	return output;
+}
+
+float const *Mat2d_Rotate(float *output, float const *a, float rad)
+{
+	float aa = a[0];
+	float ab = a[1];
+	float ac = a[2];
+	float ad = a[3];
+	float atx = a[4];
+	float aty = a[5];
+	float st = Platform_Sin(rad);
+	float ct = Platform_Cos(rad);
+	output[0] = aa * ct + ab * st;
+	output[1] = -aa * st + ab * ct;
+	output[2] = ac * ct + ad * st;
+	output[3] = -ac * st + ct * ad;
+	output[4] = ct * atx + st * aty;
+	output[5] = ct * aty - st * atx;
+	return output;
+}
+
+float const *Mat2d_Scale(float *output, float const *a, float const *v)
+{
+	float vx = v[0];
+	float vy = v[1];
+	output[0] = a[0] * vx;
+	output[1] = a[1] * vy;
+	output[2] = a[2] * vx;
+	output[3] = a[3] * vy;
+	output[4] = a[4] * vx;
+	output[5] = a[5] * vy;
+	return output;
+}
+
+float const *Mat2d_Translate(float *output, float const *a, float const *v)
+{
+	output[0] = a[0];
+	output[1] = a[1];
+	output[2] = a[2];
+	output[3] = a[3];
+	output[4] = a[4] + v[0];
+	output[5] = a[5] + v[1];
+	return output;
+}
+
 float const *Mat3_Adjoint(float *output, float const *a)
 {
 	float a00 = a[0];

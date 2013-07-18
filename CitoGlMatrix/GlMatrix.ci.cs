@@ -254,16 +254,17 @@ public class Mat2d
     // *
     // * @returns {mat2d} a new 2x3 matrix
     // */
-    //mat2d.create = function() {
-    //    var output = new GLMAT_ARRAY_TYPE(6);
-    //    output[0] = 1;
-    //    output[1] = 0;
-    //    output[2] = 0;
-    //    output[3] = 1;
-    //    output[4] = 0;
-    //    output[5] = 0;
-    //    return output;
-    //};
+    public static float[] Create()
+    {
+        float[] output = new float[6];
+        output[0] = 1;
+        output[1] = 0;
+        output[2] = 0;
+        output[3] = 1;
+        output[4] = 0;
+        output[5] = 0;
+        return output;
+    }
 
     ///**
     // * Creates a new mat2d initialized with values from an existing matrix
@@ -271,16 +272,17 @@ public class Mat2d
     // * @param {mat2d} a matrix to clone
     // * @returns {mat2d} a new 2x3 matrix
     // */
-    //mat2d.clone = function(a) {
-    //    var output = new GLMAT_ARRAY_TYPE(6);
-    //    output[0] = a[0];
-    //    output[1] = a[1];
-    //    output[2] = a[2];
-    //    output[3] = a[3];
-    //    output[4] = a[4];
-    //    output[5] = a[5];
-    //    return output;
-    //};
+    public static float[] Clone(float[] a)
+    {
+        float[] output = new float[6];
+        output[0] = a[0];
+        output[1] = a[1];
+        output[2] = a[2];
+        output[3] = a[3];
+        output[4] = a[4];
+        output[5] = a[5];
+        return output;
+    }
 
     ///**
     // * Copy the values from one mat2d to another
@@ -289,15 +291,16 @@ public class Mat2d
     // * @param {mat2d} a the source matrix
     // * @returns {mat2d} output
     // */
-    //mat2d.copy = function(output, a) {
-    //    output[0] = a[0];
-    //    output[1] = a[1];
-    //    output[2] = a[2];
-    //    output[3] = a[3];
-    //    output[4] = a[4];
-    //    output[5] = a[5];
-    //    return output;
-    //};
+    public static float[] Copy(float[] output, float[] a)
+    {
+        output[0] = a[0];
+        output[1] = a[1];
+        output[2] = a[2];
+        output[3] = a[3];
+        output[4] = a[4];
+        output[5] = a[5];
+        return output;
+    }
 
     ///**
     // * Set a mat2d to the identity matrix
@@ -305,15 +308,16 @@ public class Mat2d
     // * @param {mat2d} output the receiving matrix
     // * @returns {mat2d} output
     // */
-    //mat2d.identity = function(output) {
-    //    output[0] = 1;
-    //    output[1] = 0;
-    //    output[2] = 0;
-    //    output[3] = 1;
-    //    output[4] = 0;
-    //    output[5] = 0;
-    //    return output;
-    //};
+    public static float[] Identity(float[] output)
+    {
+        output[0] = 1;
+        output[1] = 0;
+        output[2] = 0;
+        output[3] = 1;
+        output[4] = 0;
+        output[5] = 0;
+        return output;
+    }
 
     ///**
     // * Inverts a mat2d
@@ -322,24 +326,27 @@ public class Mat2d
     // * @param {mat2d} a the source matrix
     // * @returns {mat2d} output
     // */
-    //mat2d.invert = function(output, a) {
-    //    var aa = a[0], ab = a[1], ac = a[2], ad = a[3],
-    //        atx = a[4], aty = a[5];
+    public static float[] Invert(float[] output, float[] a)
+    {
+        float aa = a[0]; float ab = a[1]; float ac = a[2]; float ad = a[3];
+        float atx = a[4]; float aty = a[5];
 
-    //    var det = aa * ad - ab * ac;
-    //    if(!det){
-    //        return null;
-    //    }
-    //    det = 1.0 / det;
+        float det = aa * ad - ab * ac;
+        if (det == 0)
+        {
+            return null;
+        }
+        float one = 1;
+        det = one / det;
 
-    //    output[0] = ad * det;
-    //    output[1] = -ab * det;
-    //    output[2] = -ac * det;
-    //    output[3] = aa * det;
-    //    output[4] = (ac * aty - ad * atx) * det;
-    //    output[5] = (ab * atx - aa * aty) * det;
-    //    return output;
-    //};
+        output[0] = ad * det;
+        output[1] = -ab * det;
+        output[2] = -ac * det;
+        output[3] = aa * det;
+        output[4] = (ac * aty - ad * atx) * det;
+        output[5] = (ab * atx - aa * aty) * det;
+        return output;
+    }
 
     ///**
     // * Calculates the determinant of a mat2d
@@ -347,9 +354,10 @@ public class Mat2d
     // * @param {mat2d} a the source matrix
     // * @returns {Number} determinant of a
     // */
-    //mat2d.determinant = function (a) {
-    //    return a[0] * a[3] - a[1] * a[2];
-    //};
+    public static float Determinant(float[] a)
+    {
+        return a[0] * a[3] - a[1] * a[2];
+    }
 
     ///**
     // * Multiplies two mat2d's
@@ -359,26 +367,30 @@ public class Mat2d
     // * @param {mat2d} b the second operand
     // * @returns {mat2d} output
     // */
-    //mat2d.multiply = function (output, a, b) {
-    //    var aa = a[0], ab = a[1], ac = a[2], ad = a[3],
-    //        atx = a[4], aty = a[5],
-    //        ba = b[0], bb = b[1], bc = b[2], bd = b[3],
-    //        btx = b[4], bty = b[5];
+    public static float[] Multiply(float[] output, float[] a, float[] b)
+    {
+        float aa = a[0]; float ab = a[1]; float ac = a[2]; float ad = a[3];
+        float atx = a[4]; float aty = a[5];
+        float ba = b[0]; float bb = b[1]; float bc = b[2]; float bd = b[3];
+        float btx = b[4]; float bty = b[5];
 
-    //    output[0] = aa*ba + ab*bc;
-    //    output[1] = aa*bb + ab*bd;
-    //    output[2] = ac*ba + ad*bc;
-    //    output[3] = ac*bb + ad*bd;
-    //    output[4] = ba*atx + bc*aty + btx;
-    //    output[5] = bb*atx + bd*aty + bty;
-    //    return output;
-    //};
+        output[0] = aa * ba + ab * bc;
+        output[1] = aa * bb + ab * bd;
+        output[2] = ac * ba + ad * bc;
+        output[3] = ac * bb + ad * bd;
+        output[4] = ba * atx + bc * aty + btx;
+        output[5] = bb * atx + bd * aty + bty;
+        return output;
+    }
 
     ///**
     // * Alias for {@link mat2d.multiply}
     // * @function
     // */
-    //mat2d.mul = mat2d.multiply;
+    public static float[] Mul(float[] output, float[] a, float[] b)
+    {
+        return Multiply(output, a, b);
+    }
 
 
     ///**
@@ -389,24 +401,25 @@ public class Mat2d
     // * @param {Number} rad the angle to rotate the matrix by
     // * @returns {mat2d} output
     // */
-    //mat2d.rotate = function (output, a, rad) {
-    //    var aa = a[0],
-    //        ab = a[1],
-    //        ac = a[2],
-    //        ad = a[3],
-    //        atx = a[4],
-    //        aty = a[5],
-    //        st = Math.sin(rad),
-    //        ct = Math.cos(rad);
+    public static float[] Rotate(float[] output, float[] a, float rad)
+    {
+        float aa = a[0];
+        float ab = a[1];
+        float ac = a[2];
+        float ad = a[3];
+        float atx = a[4];
+        float aty = a[5];
+        float st = Platform.Sin(rad);
+        float ct = Platform.Cos(rad);
 
-    //    output[0] = aa*ct + ab*st;
-    //    output[1] = -aa*st + ab*ct;
-    //    output[2] = ac*ct + ad*st;
-    //    output[3] = -ac*st + ct*ad;
-    //    output[4] = ct*atx + st*aty;
-    //    output[5] = ct*aty - st*atx;
-    //    return output;
-    //};
+        output[0] = aa * ct + ab * st;
+        output[1] = -aa * st + ab * ct;
+        output[2] = ac * ct + ad * st;
+        output[3] = -ac * st + ct * ad;
+        output[4] = ct * atx + st * aty;
+        output[5] = ct * aty - st * atx;
+        return output;
+    }
 
     ///**
     // * Scales the mat2d by the dimensions in the given vec2
@@ -416,16 +429,17 @@ public class Mat2d
     // * @param {vec2} v the vec2 to scale the matrix by
     // * @returns {mat2d} output
     // **/
-    //mat2d.scale = function(output, a, v) {
-    //    var vx = v[0], vy = v[1];
-    //    output[0] = a[0] * vx;
-    //    output[1] = a[1] * vy;
-    //    output[2] = a[2] * vx;
-    //    output[3] = a[3] * vy;
-    //    output[4] = a[4] * vx;
-    //    output[5] = a[5] * vy;
-    //    return output;
-    //};
+    public static float[] Scale(float[] output, float[] a, float[] v)
+    {
+        float vx = v[0]; float vy = v[1];
+        output[0] = a[0] * vx;
+        output[1] = a[1] * vy;
+        output[2] = a[2] * vx;
+        output[3] = a[3] * vy;
+        output[4] = a[4] * vx;
+        output[5] = a[5] * vy;
+        return output;
+    }
 
     ///**
     // * Translates the mat2d by the dimensions in the given vec2
@@ -435,15 +449,16 @@ public class Mat2d
     // * @param {vec2} v the vec2 to translate the matrix by
     // * @returns {mat2d} output
     // **/
-    //mat2d.translate = function(output, a, v) {
-    //    output[0] = a[0];
-    //    output[1] = a[1];
-    //    output[2] = a[2];
-    //    output[3] = a[3];
-    //    output[4] = a[4] + v[0];
-    //    output[5] = a[5] + v[1];
-    //    return output;
-    //};
+    public static float[] Translate(float[] output, float[] a, float[] v)
+    {
+        output[0] = a[0];
+        output[1] = a[1];
+        output[2] = a[2];
+        output[3] = a[3];
+        output[4] = a[4] + v[0];
+        output[5] = a[5] + v[1];
+        return output;
+    }
 
     ///**
     // * Returns a string representation of a mat2d

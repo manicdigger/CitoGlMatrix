@@ -91,7 +91,87 @@ float const *Mat2_Transpose(float *output, float const *a);
 /**
  * **
  */
+float const *Mat3_Adjoint(float *output, float const *a);
+
+/**
+ * **
+ */
+float const *Mat3_Clone(float const *a);
+
+/**
+ * **
+ */
+float const *Mat3_Copy(float *output, float const *a);
+
+/**
+ * **
+ */
 float *Mat3_Create(void);
+
+/**
+ * **
+ */
+float Mat3_Determinant(float const *a);
+
+/**
+ * **
+ */
+float const *Mat3_FromMat2d(float *output, float const *a);
+
+/**
+ * **
+ */
+float const *Mat3_FromMat4(float *output, float const *a);
+
+/**
+ * **
+ */
+float const *Mat3_FromQuat(float *output, float const *q);
+
+/**
+ * **
+ */
+float const *Mat3_Identity(float *output);
+
+/**
+ * **
+ */
+float const *Mat3_Invert(float *output, float const *a);
+
+/**
+ * **
+ */
+float const *Mat3_Mul(float *output, float const *a, float const *b);
+
+/**
+ * **
+ */
+float const *Mat3_Multiply(float *output, float const *a, float const *b);
+
+/**
+ * **
+ */
+float const *Mat3_NormalFromMat4(float *output, float const *a);
+
+/**
+ * **
+ */
+float const *Mat3_Rotate(float *output, float const *a, float rad);
+
+/**
+ * **
+ */
+float const *Mat3_Scale(float *output, float const *a, float const *v);
+
+/**
+ * **
+ */
+float const *Mat3_Translate(float *output, float const *a, float const *v);
+
+/**
+ * **
+ */
+float const *Mat3_Transpose(float *output, float const *a);
 
 /**
  * Calculates the adjugate of a mat4

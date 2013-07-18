@@ -51,23 +51,44 @@ float const *Mat4_Create(void);
 
 /**
  * Calculates the determinant of a mat4
- * @param {mat4} a the source matrix
  * @returns {Number} determinant of a
+ * @param a @param {mat4} a the source matrix
  */
 float Mat4_Determinant(float const *a);
 
 /**
  * Calculates a 4x4 matrix from the given quaternion
+ * @returns {mat4} out
+ * @param output {mat4} out mat4 receiving operation result
+ * @param q {quat} q Quaternion to create matrix from
  */
 float const *Mat4_FromQuat(float *output, float const *q);
 
 /**
  * Creates a matrix from a quaternion rotation and vector translation
+ * This is equivalent to (but much faster than):
+ * mat4.identity(dest);
+ * mat4.translate(dest, vec);
+ * var quatMat = mat4.create();
+ * quat4.toMat4(quat, quatMat);
+ * mat4.multiply(dest, quatMat);
+ * @returns {mat4} out
+ * @param output {mat4} out mat4 receiving operation result
+ * @param q {quat4} q Rotation quaternion
+ * @param v {vec3} v Translation vector
  */
 float const *Mat4_FromRotationTranslation(float *output, float const *q, float const *v);
 
 /**
  * Generates a frustum matrix with the given bounds
+ * @returns {mat4} out
+ * @param output {mat4} out mat4 frustum matrix will be written into
+ * @param left {Number} left Left bound of the frustum
+ * @param right {Number} right Right bound of the frustum
+ * @param bottom {Number} bottom Bottom bound of the frustum
+ * @param top {Number} top Top bound of the frustum
+ * @param near {Number} near Near bound of the frustum
+ * @param far {Number} far Far bound of the frustum
  */
 float const *Mat4_Frustum(float *output, float left, float right, float bottom, float top, float near, float far);
 
@@ -80,11 +101,19 @@ float const *Mat4_Identity(float *output);
 
 /**
  * Inverts a mat4
+ * @returns {mat4} out
+ * @param output {mat4} out the receiving matrix
+ * @param a {mat4} a the source matrix
  */
 float const *Mat4_Invert(float *output, float const *a);
 
 /**
  * Generates a look-at matrix with the given eye position, focal point, and up axis
+ * @returns {mat4} out
+ * @param output {mat4} out mat4 frustum matrix will be written into
+ * @param eye {vec3} eye Position of the viewer
+ * @param center {vec3} center Point the viewer is looking at
+ * @param up {vec3} up vec3 pointing up
  */
 float const *Mat4_LookAt(float *output, float const *eye, float const *center, float const *up);
 
@@ -95,67 +124,89 @@ float const *Mat4_Mul(float *output, float const *a, float const *b);
 
 /**
  * Multiplies two mat4's
- * @param {mat4} out the receiving matrix
- * @param {mat4} a the first operand
- * @param {mat4} b the second operand
  * @returns {mat4} out
+ * @param output @param {mat4} out the receiving matrix
+ * @param a @param {mat4} a the first operand
+ * @param b @param {mat4} b the second operand
  */
 float const *Mat4_Multiply(float *output, float const *a, float const *b);
 
 /**
- * **
+ * Generates a orthogonal projection matrix with the given bounds
+ * @returns {mat4} out
+ * @param output {mat4} out mat4 frustum matrix will be written into
+ * @param left {number} left Left bound of the frustum
+ * @param right {number} right Right bound of the frustum
+ * @param bottom {number} bottom Bottom bound of the frustum
+ * @param top {number} top Top bound of the frustum
+ * @param near {number} near Near bound of the frustum
+ * @param far {number} far Far bound of the frustum
  */
 float const *Mat4_Ortho(float *output, float left, float right, float bottom, float top, float near, float far);
 
 /**
- * **
+ * Generates a perspective projection matrix with the given bounds
+ * @returns {mat4} out
+ * @param output {mat4} out mat4 frustum matrix will be written into
+ * @param fovy {number} fovy Vertical field of view in radians
+ * @param aspect {number} aspect Aspect ratio. typically viewport width/height
+ * @param near {number} near Near bound of the frustum
+ * @param far {number} far Far bound of the frustum
  */
 float const *Mat4_Perspective(float *output, float fovy, float aspect, float near, float far);
 
 /**
  * Rotates a mat4 by the given angle
  * @returns {mat4} out
- * @param output @param {mat4} out the receiving matrix
- * @param a @param {mat4} a the matrix to rotate
- * @param rad @param {Number} rad the angle to rotate the matrix by
- * @param axis @param {vec3} axis the axis to rotate around
+ * @param output {mat4} out the receiving matrix
+ * @param a {mat4} a the matrix to rotate
+ * @param rad {Number} rad the angle to rotate the matrix by
+ * @param axis {vec3} axis the axis to rotate around
  */
 float const *Mat4_Rotate(float *output, float const *a, float rad, float const *axis);
 
 /**
  * Rotates a matrix by the given angle around the X axis
+ * @returns {mat4} out
+ * @param output {mat4} out the receiving matrix
+ * @param a {mat4} a the matrix to rotate
+ * @param rad {Number} rad the angle to rotate the matrix by
  */
 float const *Mat4_RotateX(float *output, float const *a, float rad);
 
 /**
  * Rotates a matrix by the given angle around the Y axis
- * @param {mat4} out the receiving matrix
- * @param {mat4} a the matrix to rotate
- * @param {Number} rad the angle to rotate the matrix by
  * @returns {mat4} out
+ * @param output {mat4} out the receiving matrix
+ * @param a {mat4} a the matrix to rotate
+ * @param rad {Number} rad the angle to rotate the matrix by
  */
 float const *Mat4_RotateY(float *output, float const *a, float rad);
 
 /**
  * Rotates a matrix by the given angle around the Z axis
+ * @returns {mat4} out
+ * @param output {mat4} out the receiving matrix
+ * @param a {mat4} a the matrix to rotate
+ * @param rad {Number} rad the angle to rotate the matrix by
  */
 float const *Mat4_RotateZ(float *output, float const *a, float rad);
 
 /**
  * Scales the mat4 by the dimensions in the given vec3
- * @param {mat4} out the receiving matrix
- * @param {mat4} a the matrix to scale
- * @param {vec3} v the vec3 to scale the matrix by
  * @returns {mat4} out
+ * @param output {mat4} out the receiving matrix
+ * @param a {mat4} a the matrix to scale
+ * @param v {vec3} v the vec3 to scale the matrix by
  */
 float const *Mat4_Scale(float *output, float const *a, float const *v);
 
 /**
  * Translate a mat4 by the given vector
- * @param {mat4} out the receiving matrix
- * @param {mat4} a the matrix to translate
- * @param {vec3} v vector to translate by
  * @returns {mat4} out
+ * @param output {mat4} out the receiving matrix
+ * @param a {mat4} a the matrix to translate
+ * @param v {vec3} v vector to translate by
  */
 float const *Mat4_Translate(float *output, float const *a, float const *v);
 

@@ -191,8 +191,9 @@ class Mat4
 	}
 
 	/// Calculates the determinant of a mat4
-	/// @param {mat4} a the source matrix
 	/// @returns {Number} determinant of a
+	/// Params:
+	/// a = @param {mat4} a the source matrix
 	static float Determinant(const(float)[] a)
 	{
 		float a00 = a[0];
@@ -227,6 +228,10 @@ class Mat4
 	}
 
 	/// Calculates a 4x4 matrix from the given quaternion
+	/// @returns {mat4} out
+	/// Params:
+	/// output = {mat4} out mat4 receiving operation result
+	/// q = {quat} q Quaternion to create matrix from
 	static const(float)[] FromQuat(float[] output, const(float)[] q)
 	{
 		float x = q[0];
@@ -265,6 +270,17 @@ class Mat4
 	}
 
 	/// Creates a matrix from a quaternion rotation and vector translation
+	/// This is equivalent to (but much faster than):
+	/// mat4.identity(dest);
+	/// mat4.translate(dest, vec);
+	/// var quatMat = mat4.create();
+	/// quat4.toMat4(quat, quatMat);
+	/// mat4.multiply(dest, quatMat);
+	/// @returns {mat4} out
+	/// Params:
+	/// output = {mat4} out mat4 receiving operation result
+	/// q = {quat4} q Rotation quaternion
+	/// v = {vec3} v Translation vector
 	static const(float)[] FromRotationTranslation(float[] output, const(float)[] q, const(float)[] v)
 	{
 		float x = q[0];
@@ -303,6 +319,15 @@ class Mat4
 	}
 
 	/// Generates a frustum matrix with the given bounds
+	/// @returns {mat4} out
+	/// Params:
+	/// output = {mat4} out mat4 frustum matrix will be written into
+	/// left = {Number} left Left bound of the frustum
+	/// right = {Number} right Right bound of the frustum
+	/// bottom = {Number} bottom Bottom bound of the frustum
+	/// top = {Number} top Top bound of the frustum
+	/// near = {Number} near Near bound of the frustum
+	/// far = {Number} far Far bound of the frustum
 	static const(float)[] Frustum(float[] output, float left, float right, float bottom, float top, float near, float far)
 	{
 		float rl = 1 / (right - left);
@@ -353,6 +378,10 @@ class Mat4
 	}
 
 	/// Inverts a mat4
+	/// @returns {mat4} out
+	/// Params:
+	/// output = {mat4} out the receiving matrix
+	/// a = {mat4} a the source matrix
 	static const(float)[] Invert(float[] output, const(float)[] a)
 	{
 		float a00 = a[0];
@@ -409,6 +438,12 @@ class Mat4
 	}
 
 	/// Generates a look-at matrix with the given eye position, focal point, and up axis
+	/// @returns {mat4} out
+	/// Params:
+	/// output = {mat4} out mat4 frustum matrix will be written into
+	/// eye = {vec3} eye Position of the viewer
+	/// center = {vec3} center Point the viewer is looking at
+	/// up = {vec3} up vec3 pointing up
 	static const(float)[] LookAt(float[] output, const(float)[] eye, const(float)[] center, const(float)[] up)
 	{
 		float x0;
@@ -496,10 +531,11 @@ class Mat4
 	}
 
 	/// Multiplies two mat4's
-	/// @param {mat4} out the receiving matrix
-	/// @param {mat4} a the first operand
-	/// @param {mat4} b the second operand
 	/// @returns {mat4} out
+	/// Params:
+	/// output = @param {mat4} out the receiving matrix
+	/// a = @param {mat4} a the first operand
+	/// b = @param {mat4} b the second operand
 	static const(float)[] Multiply(float[] output, const(float)[] a, const(float)[] b)
 	{
 		float a00 = a[0];
@@ -553,7 +589,16 @@ class Mat4
 		return output;
 	}
 
-	/// **
+	/// Generates a orthogonal projection matrix with the given bounds
+	/// @returns {mat4} out
+	/// Params:
+	/// output = {mat4} out mat4 frustum matrix will be written into
+	/// left = {number} left Left bound of the frustum
+	/// right = {number} right Right bound of the frustum
+	/// bottom = {number} bottom Bottom bound of the frustum
+	/// top = {number} top Top bound of the frustum
+	/// near = {number} near Near bound of the frustum
+	/// far = {number} far Far bound of the frustum
 	static const(float)[] Ortho(float[] output, float left, float right, float bottom, float top, float near, float far)
 	{
 		float lr = 1 / (left - right);
@@ -578,7 +623,14 @@ class Mat4
 		return output;
 	}
 
-	/// **
+	/// Generates a perspective projection matrix with the given bounds
+	/// @returns {mat4} out
+	/// Params:
+	/// output = {mat4} out mat4 frustum matrix will be written into
+	/// fovy = {number} fovy Vertical field of view in radians
+	/// aspect = {number} aspect Aspect ratio. typically viewport width/height
+	/// near = {number} near Near bound of the frustum
+	/// far = {number} far Far bound of the frustum
 	static const(float)[] Perspective(float[] output, float fovy, float aspect, float near, float far)
 	{
 		float one = 1;
@@ -606,10 +658,10 @@ class Mat4
 	/// Rotates a mat4 by the given angle
 	/// @returns {mat4} out
 	/// Params:
-	/// output = @param {mat4} out the receiving matrix
-	/// a = @param {mat4} a the matrix to rotate
-	/// rad = @param {Number} rad the angle to rotate the matrix by
-	/// axis = @param {vec3} axis the axis to rotate around
+	/// output = {mat4} out the receiving matrix
+	/// a = {mat4} a the matrix to rotate
+	/// rad = {Number} rad the angle to rotate the matrix by
+	/// axis = {vec3} axis the axis to rotate around
 	static const(float)[] Rotate(float[] output, const(float)[] a, float rad, const(float)[] axis)
 	{
 		float x = axis[0];
@@ -691,6 +743,11 @@ class Mat4
 	}
 
 	/// Rotates a matrix by the given angle around the X axis
+	/// @returns {mat4} out
+	/// Params:
+	/// output = {mat4} out the receiving matrix
+	/// a = {mat4} a the matrix to rotate
+	/// rad = {Number} rad the angle to rotate the matrix by
 	static const(float)[] RotateX(float[] output, const(float)[] a, float rad)
 	{
 		float s = Platform.Sin(rad);
@@ -723,10 +780,11 @@ class Mat4
 	}
 
 	/// Rotates a matrix by the given angle around the Y axis
-	/// @param {mat4} out the receiving matrix
-	/// @param {mat4} a the matrix to rotate
-	/// @param {Number} rad the angle to rotate the matrix by
 	/// @returns {mat4} out
+	/// Params:
+	/// output = {mat4} out the receiving matrix
+	/// a = {mat4} a the matrix to rotate
+	/// rad = {Number} rad the angle to rotate the matrix by
 	static const(float)[] RotateY(float[] output, const(float)[] a, float rad)
 	{
 		float s = Platform.Sin(rad);
@@ -759,6 +817,11 @@ class Mat4
 	}
 
 	/// Rotates a matrix by the given angle around the Z axis
+	/// @returns {mat4} out
+	/// Params:
+	/// output = {mat4} out the receiving matrix
+	/// a = {mat4} a the matrix to rotate
+	/// rad = {Number} rad the angle to rotate the matrix by
 	static const(float)[] RotateZ(float[] output, const(float)[] a, float rad)
 	{
 		float s = Platform.Sin(rad);
@@ -791,10 +854,11 @@ class Mat4
 	}
 
 	/// Scales the mat4 by the dimensions in the given vec3
-	/// @param {mat4} out the receiving matrix
-	/// @param {mat4} a the matrix to scale
-	/// @param {vec3} v the vec3 to scale the matrix by
 	/// @returns {mat4} out
+	/// Params:
+	/// output = {mat4} out the receiving matrix
+	/// a = {mat4} a the matrix to scale
+	/// v = {vec3} v the vec3 to scale the matrix by
 	static const(float)[] Scale(float[] output, const(float)[] a, const(float)[] v)
 	{
 		float x = v[0];
@@ -820,10 +884,11 @@ class Mat4
 	}
 
 	/// Translate a mat4 by the given vector
-	/// @param {mat4} out the receiving matrix
-	/// @param {mat4} a the matrix to translate
-	/// @param {vec3} v vector to translate by
 	/// @returns {mat4} out
+	/// Params:
+	/// output = {mat4} out the receiving matrix
+	/// a = {mat4} a the matrix to translate
+	/// v = {vec3} v vector to translate by
 	static const(float)[] Translate(float[] output, const(float)[] a, const(float)[] v)
 	{
 		float x = v[0];

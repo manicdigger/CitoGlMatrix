@@ -246,8 +246,17 @@ sub create() {
 =head2 C<Mat4::determinant(\@a)>
 
 Calculates the determinant of a mat4
-@param {mat4} a the source matrix
 @returns {Number} determinant of a
+
+Parameters:
+
+=over
+
+=item \@a
+
+@param {mat4} a the source matrix
+
+=back
 
 =cut
 
@@ -287,6 +296,21 @@ sub determinant($) {
 =head2 C<Mat4::from_quat(\@output, \@q)>
 
 Calculates a 4x4 matrix from the given quaternion
+@returns {mat4} out
+
+Parameters:
+
+=over
+
+=item \@output
+
+{mat4} out mat4 receiving operation result
+
+=item \@q
+
+{quat} q Quaternion to create matrix from
+
+=back
 
 =cut
 
@@ -330,6 +354,31 @@ sub from_quat($$) {
 =head2 C<Mat4::from_rotation_translation(\@output, \@q, \@v)>
 
 Creates a matrix from a quaternion rotation and vector translation
+This is equivalent to (but much faster than):
+mat4.identity(dest);
+mat4.translate(dest, vec);
+var quatMat = mat4.create();
+quat4.toMat4(quat, quatMat);
+mat4.multiply(dest, quatMat);
+@returns {mat4} out
+
+Parameters:
+
+=over
+
+=item \@output
+
+{mat4} out mat4 receiving operation result
+
+=item \@q
+
+{quat4} q Rotation quaternion
+
+=item \@v
+
+{vec3} v Translation vector
+
+=back
 
 =cut
 
@@ -373,6 +422,41 @@ sub from_rotation_translation($$$) {
 =head2 C<Mat4::frustum(\@output, $left, $right, $bottom, $top, $near, $far)>
 
 Generates a frustum matrix with the given bounds
+@returns {mat4} out
+
+Parameters:
+
+=over
+
+=item \@output
+
+{mat4} out mat4 frustum matrix will be written into
+
+=item $left
+
+{Number} left Left bound of the frustum
+
+=item $right
+
+{Number} right Right bound of the frustum
+
+=item $bottom
+
+{Number} bottom Bottom bound of the frustum
+
+=item $top
+
+{Number} top Top bound of the frustum
+
+=item $near
+
+{Number} near Near bound of the frustum
+
+=item $far
+
+{Number} far Far bound of the frustum
+
+=back
 
 =cut
 
@@ -441,6 +525,21 @@ sub identity($) {
 =head2 C<Mat4::invert(\@output, \@a)>
 
 Inverts a mat4
+@returns {mat4} out
+
+Parameters:
+
+=over
+
+=item \@output
+
+{mat4} out the receiving matrix
+
+=item \@a
+
+{mat4} a the source matrix
+
+=back
 
 =cut
 
@@ -502,6 +601,29 @@ sub invert($$) {
 =head2 C<Mat4::look_at(\@output, \@eye, \@center, \@up)>
 
 Generates a look-at matrix with the given eye position, focal point, and up axis
+@returns {mat4} out
+
+Parameters:
+
+=over
+
+=item \@output
+
+{mat4} out mat4 frustum matrix will be written into
+
+=item \@eye
+
+{vec3} eye Position of the viewer
+
+=item \@center
+
+{vec3} center Point the viewer is looking at
+
+=item \@up
+
+{vec3} up vec3 pointing up
+
+=back
 
 =cut
 
@@ -599,10 +721,25 @@ sub mul($$$) {
 =head2 C<Mat4::multiply(\@output, \@a, \@b)>
 
 Multiplies two mat4's
-@param {mat4} out the receiving matrix
-@param {mat4} a the first operand
-@param {mat4} b the second operand
 @returns {mat4} out
+
+Parameters:
+
+=over
+
+=item \@output
+
+@param {mat4} out the receiving matrix
+
+=item \@a
+
+@param {mat4} a the first operand
+
+=item \@b
+
+@param {mat4} b the second operand
+
+=back
 
 =cut
 
@@ -661,7 +798,42 @@ sub multiply($$$) {
 
 =head2 C<Mat4::ortho(\@output, $left, $right, $bottom, $top, $near, $far)>
 
-**
+Generates a orthogonal projection matrix with the given bounds
+@returns {mat4} out
+
+Parameters:
+
+=over
+
+=item \@output
+
+{mat4} out mat4 frustum matrix will be written into
+
+=item $left
+
+{number} left Left bound of the frustum
+
+=item $right
+
+{number} right Right bound of the frustum
+
+=item $bottom
+
+{number} bottom Bottom bound of the frustum
+
+=item $top
+
+{number} top Top bound of the frustum
+
+=item $near
+
+{number} near Near bound of the frustum
+
+=item $far
+
+{number} far Far bound of the frustum
+
+=back
 
 =cut
 
@@ -691,7 +863,34 @@ sub ortho($$$$$$$) {
 
 =head2 C<Mat4::perspective(\@output, $fovy, $aspect, $near, $far)>
 
-**
+Generates a perspective projection matrix with the given bounds
+@returns {mat4} out
+
+Parameters:
+
+=over
+
+=item \@output
+
+{mat4} out mat4 frustum matrix will be written into
+
+=item $fovy
+
+{number} fovy Vertical field of view in radians
+
+=item $aspect
+
+{number} aspect Aspect ratio. typically viewport width/height
+
+=item $near
+
+{number} near Near bound of the frustum
+
+=item $far
+
+{number} far Far bound of the frustum
+
+=back
 
 =cut
 
@@ -730,19 +929,19 @@ Parameters:
 
 =item \@output
 
-@param {mat4} out the receiving matrix
+{mat4} out the receiving matrix
 
 =item \@a
 
-@param {mat4} a the matrix to rotate
+{mat4} a the matrix to rotate
 
 =item $rad
 
-@param {Number} rad the angle to rotate the matrix by
+{Number} rad the angle to rotate the matrix by
 
 =item \@axis
 
-@param {vec3} axis the axis to rotate around
+{vec3} axis the axis to rotate around
 
 =back
 
@@ -831,6 +1030,25 @@ sub rotate($$$$) {
 =head2 C<Mat4::rotate_x(\@output, \@a, $rad)>
 
 Rotates a matrix by the given angle around the X axis
+@returns {mat4} out
+
+Parameters:
+
+=over
+
+=item \@output
+
+{mat4} out the receiving matrix
+
+=item \@a
+
+{mat4} a the matrix to rotate
+
+=item $rad
+
+{Number} rad the angle to rotate the matrix by
+
+=back
 
 =cut
 
@@ -868,10 +1086,25 @@ sub rotate_x($$$) {
 =head2 C<Mat4::rotate_y(\@output, \@a, $rad)>
 
 Rotates a matrix by the given angle around the Y axis
-@param {mat4} out the receiving matrix
-@param {mat4} a the matrix to rotate
-@param {Number} rad the angle to rotate the matrix by
 @returns {mat4} out
+
+Parameters:
+
+=over
+
+=item \@output
+
+{mat4} out the receiving matrix
+
+=item \@a
+
+{mat4} a the matrix to rotate
+
+=item $rad
+
+{Number} rad the angle to rotate the matrix by
+
+=back
 
 =cut
 
@@ -909,6 +1142,25 @@ sub rotate_y($$$) {
 =head2 C<Mat4::rotate_z(\@output, \@a, $rad)>
 
 Rotates a matrix by the given angle around the Z axis
+@returns {mat4} out
+
+Parameters:
+
+=over
+
+=item \@output
+
+{mat4} out the receiving matrix
+
+=item \@a
+
+{mat4} a the matrix to rotate
+
+=item $rad
+
+{Number} rad the angle to rotate the matrix by
+
+=back
 
 =cut
 
@@ -946,10 +1198,25 @@ sub rotate_z($$$) {
 =head2 C<Mat4::scale(\@output, \@a, \@v)>
 
 Scales the mat4 by the dimensions in the given vec3
-@param {mat4} out the receiving matrix
-@param {mat4} a the matrix to scale
-@param {vec3} v the vec3 to scale the matrix by
 @returns {mat4} out
+
+Parameters:
+
+=over
+
+=item \@output
+
+{mat4} out the receiving matrix
+
+=item \@a
+
+{mat4} a the matrix to scale
+
+=item \@v
+
+{vec3} v the vec3 to scale the matrix by
+
+=back
 
 =cut
 
@@ -980,10 +1247,25 @@ sub scale($$$) {
 =head2 C<Mat4::translate(\@output, \@a, \@v)>
 
 Translate a mat4 by the given vector
-@param {mat4} out the receiving matrix
-@param {mat4} a the matrix to translate
-@param {vec3} v vector to translate by
 @returns {mat4} out
+
+Parameters:
+
+=over
+
+=item \@output
+
+{mat4} out the receiving matrix
+
+=item \@a
+
+{mat4} a the matrix to translate
+
+=item \@v
+
+{vec3} v vector to translate by
+
+=back
 
 =cut
 

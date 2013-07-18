@@ -188,8 +188,8 @@ class Mat4
 	}
 
 	// Calculates the determinant of a mat4
-	// @param {mat4} a the source matrix
 	// @returns {Number} determinant of a
+	/// <param name="a">@param {mat4} a the source matrix</param>
 	static function Determinant(&$a)
 	{
 		$a00 = $a[0];
@@ -224,6 +224,9 @@ class Mat4
 	}
 
 	// Calculates a 4x4 matrix from the given quaternion
+	// @returns {mat4} out
+	/// <param name="output">{mat4} out mat4 receiving operation result</param>
+	/// <param name="q">{quat} q Quaternion to create matrix from</param>
 	static function FromQuat(&$output, &$q)
 	{
 		$x = $q[0];
@@ -262,6 +265,16 @@ class Mat4
 	}
 
 	// Creates a matrix from a quaternion rotation and vector translation
+	// This is equivalent to (but much faster than):
+	// mat4.identity(dest);
+	// mat4.translate(dest, vec);
+	// var quatMat = mat4.create();
+	// quat4.toMat4(quat, quatMat);
+	// mat4.multiply(dest, quatMat);
+	// @returns {mat4} out
+	/// <param name="output">{mat4} out mat4 receiving operation result</param>
+	/// <param name="q">{quat4} q Rotation quaternion</param>
+	/// <param name="v">{vec3} v Translation vector</param>
 	static function FromRotationTranslation(&$output, &$q, &$v)
 	{
 		$x = $q[0];
@@ -300,6 +313,14 @@ class Mat4
 	}
 
 	// Generates a frustum matrix with the given bounds
+	// @returns {mat4} out
+	/// <param name="output">{mat4} out mat4 frustum matrix will be written into</param>
+	/// <param name="left">{Number} left Left bound of the frustum</param>
+	/// <param name="right">{Number} right Right bound of the frustum</param>
+	/// <param name="bottom">{Number} bottom Bottom bound of the frustum</param>
+	/// <param name="top">{Number} top Top bound of the frustum</param>
+	/// <param name="near">{Number} near Near bound of the frustum</param>
+	/// <param name="far">{Number} far Far bound of the frustum</param>
 	static function Frustum(&$output, $left, $right, $bottom, $top, $near, $far)
 	{
 		$rl = 1 / ($right - $left);
@@ -349,6 +370,9 @@ class Mat4
 	}
 
 	// Inverts a mat4
+	// @returns {mat4} out
+	/// <param name="output">{mat4} out the receiving matrix</param>
+	/// <param name="a">{mat4} a the source matrix</param>
 	static function Invert(&$output, &$a)
 	{
 		$a00 = $a[0];
@@ -405,6 +429,11 @@ class Mat4
 	}
 
 	// Generates a look-at matrix with the given eye position, focal point, and up axis
+	// @returns {mat4} out
+	/// <param name="output">{mat4} out mat4 frustum matrix will be written into</param>
+	/// <param name="eye">{vec3} eye Position of the viewer</param>
+	/// <param name="center">{vec3} center Point the viewer is looking at</param>
+	/// <param name="up">{vec3} up vec3 pointing up</param>
 	static function LookAt(&$output, &$eye, &$center, &$up)
 	{
 		$x0;
@@ -492,10 +521,10 @@ class Mat4
 	}
 
 	// Multiplies two mat4's
-	// @param {mat4} out the receiving matrix
-	// @param {mat4} a the first operand
-	// @param {mat4} b the second operand
 	// @returns {mat4} out
+	/// <param name="output">@param {mat4} out the receiving matrix</param>
+	/// <param name="a">@param {mat4} a the first operand</param>
+	/// <param name="b">@param {mat4} b the second operand</param>
 	static function Multiply(&$output, &$a, &$b)
 	{
 		$a00 = $a[0];
@@ -549,7 +578,15 @@ class Mat4
 		return $output;
 	}
 
-	// **
+	// Generates a orthogonal projection matrix with the given bounds
+	// @returns {mat4} out
+	/// <param name="output">{mat4} out mat4 frustum matrix will be written into</param>
+	/// <param name="left">{number} left Left bound of the frustum</param>
+	/// <param name="right">{number} right Right bound of the frustum</param>
+	/// <param name="bottom">{number} bottom Bottom bound of the frustum</param>
+	/// <param name="top">{number} top Top bound of the frustum</param>
+	/// <param name="near">{number} near Near bound of the frustum</param>
+	/// <param name="far">{number} far Far bound of the frustum</param>
 	static function Ortho(&$output, $left, $right, $bottom, $top, $near, $far)
 	{
 		$lr = 1 / ($left - $right);
@@ -574,7 +611,13 @@ class Mat4
 		return $output;
 	}
 
-	// **
+	// Generates a perspective projection matrix with the given bounds
+	// @returns {mat4} out
+	/// <param name="output">{mat4} out mat4 frustum matrix will be written into</param>
+	/// <param name="fovy">{number} fovy Vertical field of view in radians</param>
+	/// <param name="aspect">{number} aspect Aspect ratio. typically viewport width/height</param>
+	/// <param name="near">{number} near Near bound of the frustum</param>
+	/// <param name="far">{number} far Far bound of the frustum</param>
 	static function Perspective(&$output, $fovy, $aspect, $near, $far)
 	{
 		$one = 1;
@@ -601,10 +644,10 @@ class Mat4
 
 	// Rotates a mat4 by the given angle
 	// @returns {mat4} out
-	/// <param name="output">@param {mat4} out the receiving matrix</param>
-	/// <param name="a">@param {mat4} a the matrix to rotate</param>
-	/// <param name="rad">@param {Number} rad the angle to rotate the matrix by</param>
-	/// <param name="axis">@param {vec3} axis the axis to rotate around</param>
+	/// <param name="output">{mat4} out the receiving matrix</param>
+	/// <param name="a">{mat4} a the matrix to rotate</param>
+	/// <param name="rad">{Number} rad the angle to rotate the matrix by</param>
+	/// <param name="axis">{vec3} axis the axis to rotate around</param>
 	static function Rotate(&$output, &$a, $rad, &$axis)
 	{
 		$x = $axis[0];
@@ -686,6 +729,10 @@ class Mat4
 	}
 
 	// Rotates a matrix by the given angle around the X axis
+	// @returns {mat4} out
+	/// <param name="output">{mat4} out the receiving matrix</param>
+	/// <param name="a">{mat4} a the matrix to rotate</param>
+	/// <param name="rad">{Number} rad the angle to rotate the matrix by</param>
 	static function RotateX(&$output, &$a, $rad)
 	{
 		$s = Platform::Sin($rad);
@@ -718,10 +765,10 @@ class Mat4
 	}
 
 	// Rotates a matrix by the given angle around the Y axis
-	// @param {mat4} out the receiving matrix
-	// @param {mat4} a the matrix to rotate
-	// @param {Number} rad the angle to rotate the matrix by
 	// @returns {mat4} out
+	/// <param name="output">{mat4} out the receiving matrix</param>
+	/// <param name="a">{mat4} a the matrix to rotate</param>
+	/// <param name="rad">{Number} rad the angle to rotate the matrix by</param>
 	static function RotateY(&$output, &$a, $rad)
 	{
 		$s = Platform::Sin($rad);
@@ -754,6 +801,10 @@ class Mat4
 	}
 
 	// Rotates a matrix by the given angle around the Z axis
+	// @returns {mat4} out
+	/// <param name="output">{mat4} out the receiving matrix</param>
+	/// <param name="a">{mat4} a the matrix to rotate</param>
+	/// <param name="rad">{Number} rad the angle to rotate the matrix by</param>
 	static function RotateZ(&$output, &$a, $rad)
 	{
 		$s = Platform::Sin($rad);
@@ -786,10 +837,10 @@ class Mat4
 	}
 
 	// Scales the mat4 by the dimensions in the given vec3
-	// @param {mat4} out the receiving matrix
-	// @param {mat4} a the matrix to scale
-	// @param {vec3} v the vec3 to scale the matrix by
 	// @returns {mat4} out
+	/// <param name="output">{mat4} out the receiving matrix</param>
+	/// <param name="a">{mat4} a the matrix to scale</param>
+	/// <param name="v">{vec3} v the vec3 to scale the matrix by</param>
 	static function Scale(&$output, &$a, &$v)
 	{
 		$x = $v[0];
@@ -815,10 +866,10 @@ class Mat4
 	}
 
 	// Translate a mat4 by the given vector
-	// @param {mat4} out the receiving matrix
-	// @param {mat4} a the matrix to translate
-	// @param {vec3} v vector to translate by
 	// @returns {mat4} out
+	/// <param name="output">{mat4} out the receiving matrix</param>
+	/// <param name="a">{mat4} a the matrix to translate</param>
+	/// <param name="v">{vec3} v vector to translate by</param>
 	static function Translate(&$output, &$a, &$v)
 	{
 		$x = $v[0];

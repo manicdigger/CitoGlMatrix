@@ -134,8 +134,8 @@ package
 
 		/**
 		 * Calculates the determinant of a mat4
-		 * @param {mat4} a the source matrix
 		 * @returns {Number} determinant of a
+		 * @param a @param {mat4} a the source matrix
 		 */
 		public static function determinant(a : Array) : float
 		{
@@ -172,6 +172,9 @@ package
 
 		/**
 		 * Calculates a 4x4 matrix from the given quaternion
+		 * @returns {mat4} out
+		 * @param output {mat4} out mat4 receiving operation result
+		 * @param q {quat} q Quaternion to create matrix from
 		 */
 		public static function fromQuat(output : Array, q : Array) : Array
 		{
@@ -212,6 +215,16 @@ package
 
 		/**
 		 * Creates a matrix from a quaternion rotation and vector translation
+		 * This is equivalent to (but much faster than):
+		 * mat4.identity(dest);
+		 * mat4.translate(dest, vec);
+		 * var quatMat = mat4.create();
+		 * quat4.toMat4(quat, quatMat);
+		 * mat4.multiply(dest, quatMat);
+		 * @returns {mat4} out
+		 * @param output {mat4} out mat4 receiving operation result
+		 * @param q {quat4} q Rotation quaternion
+		 * @param v {vec3} v Translation vector
 		 */
 		public static function fromRotationTranslation(output : Array, q : Array, v : Array) : Array
 		{
@@ -252,6 +265,14 @@ package
 
 		/**
 		 * Generates a frustum matrix with the given bounds
+		 * @returns {mat4} out
+		 * @param output {mat4} out mat4 frustum matrix will be written into
+		 * @param left {Number} left Left bound of the frustum
+		 * @param right {Number} right Right bound of the frustum
+		 * @param bottom {Number} bottom Bottom bound of the frustum
+		 * @param top {Number} top Top bound of the frustum
+		 * @param near {Number} near Near bound of the frustum
+		 * @param far {Number} far Far bound of the frustum
 		 */
 		public static function frustum(output : Array, left : float, right : float, bottom : float, top : float, near : float, far : float) : Array
 		{
@@ -305,6 +326,9 @@ package
 
 		/**
 		 * Inverts a mat4
+		 * @returns {mat4} out
+		 * @param output {mat4} out the receiving matrix
+		 * @param a {mat4} a the source matrix
 		 */
 		public static function invert(output : Array, a : Array) : Array
 		{
@@ -363,6 +387,11 @@ package
 
 		/**
 		 * Generates a look-at matrix with the given eye position, focal point, and up axis
+		 * @returns {mat4} out
+		 * @param output {mat4} out mat4 frustum matrix will be written into
+		 * @param eye {vec3} eye Position of the viewer
+		 * @param center {vec3} center Point the viewer is looking at
+		 * @param up {vec3} up vec3 pointing up
 		 */
 		public static function lookAt(output : Array, eye : Array, center : Array, up : Array) : Array
 		{
@@ -454,10 +483,10 @@ package
 
 		/**
 		 * Multiplies two mat4's
-		 * @param {mat4} out the receiving matrix
-		 * @param {mat4} a the first operand
-		 * @param {mat4} b the second operand
 		 * @returns {mat4} out
+		 * @param output @param {mat4} out the receiving matrix
+		 * @param a @param {mat4} a the first operand
+		 * @param b @param {mat4} b the second operand
 		 */
 		public static function multiply(output : Array, a : Array, b : Array) : Array
 		{
@@ -513,7 +542,15 @@ package
 		}
 
 		/**
-		 * **
+		 * Generates a orthogonal projection matrix with the given bounds
+		 * @returns {mat4} out
+		 * @param output {mat4} out mat4 frustum matrix will be written into
+		 * @param left {number} left Left bound of the frustum
+		 * @param right {number} right Right bound of the frustum
+		 * @param bottom {number} bottom Bottom bound of the frustum
+		 * @param top {number} top Top bound of the frustum
+		 * @param near {number} near Near bound of the frustum
+		 * @param far {number} far Far bound of the frustum
 		 */
 		public static function ortho(output : Array, left : float, right : float, bottom : float, top : float, near : float, far : float) : Array
 		{
@@ -540,7 +577,13 @@ package
 		}
 
 		/**
-		 * **
+		 * Generates a perspective projection matrix with the given bounds
+		 * @returns {mat4} out
+		 * @param output {mat4} out mat4 frustum matrix will be written into
+		 * @param fovy {number} fovy Vertical field of view in radians
+		 * @param aspect {number} aspect Aspect ratio. typically viewport width/height
+		 * @param near {number} near Near bound of the frustum
+		 * @param far {number} far Far bound of the frustum
 		 */
 		public static function perspective(output : Array, fovy : float, aspect : float, near : float, far : float) : Array
 		{
@@ -569,10 +612,10 @@ package
 		/**
 		 * Rotates a mat4 by the given angle
 		 * @returns {mat4} out
-		 * @param output @param {mat4} out the receiving matrix
-		 * @param a @param {mat4} a the matrix to rotate
-		 * @param rad @param {Number} rad the angle to rotate the matrix by
-		 * @param axis @param {vec3} axis the axis to rotate around
+		 * @param output {mat4} out the receiving matrix
+		 * @param a {mat4} a the matrix to rotate
+		 * @param rad {Number} rad the angle to rotate the matrix by
+		 * @param axis {vec3} axis the axis to rotate around
 		 */
 		public static function rotate(output : Array, a : Array, rad : float, axis : Array) : Array
 		{
@@ -656,6 +699,10 @@ package
 
 		/**
 		 * Rotates a matrix by the given angle around the X axis
+		 * @returns {mat4} out
+		 * @param output {mat4} out the receiving matrix
+		 * @param a {mat4} a the matrix to rotate
+		 * @param rad {Number} rad the angle to rotate the matrix by
 		 */
 		public static function rotateX(output : Array, a : Array, rad : float) : Array
 		{
@@ -690,10 +737,10 @@ package
 
 		/**
 		 * Rotates a matrix by the given angle around the Y axis
-		 * @param {mat4} out the receiving matrix
-		 * @param {mat4} a the matrix to rotate
-		 * @param {Number} rad the angle to rotate the matrix by
 		 * @returns {mat4} out
+		 * @param output {mat4} out the receiving matrix
+		 * @param a {mat4} a the matrix to rotate
+		 * @param rad {Number} rad the angle to rotate the matrix by
 		 */
 		public static function rotateY(output : Array, a : Array, rad : float) : Array
 		{
@@ -728,6 +775,10 @@ package
 
 		/**
 		 * Rotates a matrix by the given angle around the Z axis
+		 * @returns {mat4} out
+		 * @param output {mat4} out the receiving matrix
+		 * @param a {mat4} a the matrix to rotate
+		 * @param rad {Number} rad the angle to rotate the matrix by
 		 */
 		public static function rotateZ(output : Array, a : Array, rad : float) : Array
 		{
@@ -762,10 +813,10 @@ package
 
 		/**
 		 * Scales the mat4 by the dimensions in the given vec3
-		 * @param {mat4} out the receiving matrix
-		 * @param {mat4} a the matrix to scale
-		 * @param {vec3} v the vec3 to scale the matrix by
 		 * @returns {mat4} out
+		 * @param output {mat4} out the receiving matrix
+		 * @param a {mat4} a the matrix to scale
+		 * @param v {vec3} v the vec3 to scale the matrix by
 		 */
 		public static function scale(output : Array, a : Array, v : Array) : Array
 		{
@@ -793,10 +844,10 @@ package
 
 		/**
 		 * Translate a mat4 by the given vector
-		 * @param {mat4} out the receiving matrix
-		 * @param {mat4} a the matrix to translate
-		 * @param {vec3} v vector to translate by
 		 * @returns {mat4} out
+		 * @param output {mat4} out the receiving matrix
+		 * @param a {mat4} a the matrix to translate
+		 * @param v {vec3} v vector to translate by
 		 */
 		public static function translate(output : Array, a : Array, v : Array) : Array
 		{

@@ -1156,6 +1156,11 @@ class Mat4
 class Platform
 {
 
+	static function Acos($a)
+	{
+		return 0;
+	}
+
 	static function Cos($r)
 	{
 		return 0;
@@ -1186,6 +1191,12 @@ class Quat
 {
 
 	// **
+	static function Add(&$output, &$a, &$b)
+	{
+		return Vec4::Add($output, $a, $b);
+	}
+
+	// **
 	static function CalculateW(&$output, &$a)
 	{
 		$x = $a[0];
@@ -1200,6 +1211,12 @@ class Quat
 	}
 
 	// **
+	static function Clone(&$a)
+	{
+		return Vec4::Clone($a);
+	}
+
+	// **
 	function Conjugate(&$output, &$a)
 	{
 		$output[0] = -$a[0];
@@ -1207,6 +1224,12 @@ class Quat
 		$output[2] = -$a[2];
 		$output[3] = $a[3];
 		return $output;
+	}
+
+	// **
+	static function Copy(&$output, &$a)
+	{
+		return Vec4::Copy($output, $a);
 	}
 
 	// **
@@ -1218,6 +1241,12 @@ class Quat
 		$output[2] = 0;
 		$output[3] = 1;
 		return $output;
+	}
+
+	// **
+	static function Dot(&$a, &$b)
+	{
+		return Vec4::Dot($a, $b);
 	}
 
 	// **
@@ -1255,6 +1284,12 @@ class Quat
 	}
 
 	// **
+	static function FromValues($x, $y, $z, $w)
+	{
+		return Vec4::FromValues($x, $y, $z, $w);
+	}
+
+	// **
 	static function Identity(&$output)
 	{
 		$output[0] = 0;
@@ -1264,9 +1299,6 @@ class Quat
 		return $output;
 	}
 
-	// **
-	// **
-	// **
 	// **
 	function Invert(&$output, &$a)
 	{
@@ -1285,6 +1317,29 @@ class Quat
 	}
 
 	// **
+	static function Len(&$a)
+	{
+		return Quat::Length($a);
+	}
+
+	// **
+	static function Length(&$a)
+	{
+		return Vec4::Length($a);
+	}
+
+	// **
+	static function Lerp(&$output, &$a, &$b, $t)
+	{
+		return Vec4::Lerp($output, $a, $b, $t);
+	}
+
+	// **
+	static function Mul(&$output, &$a, &$b)
+	{
+		return Quat::Multiply($output, $a, $b);
+	}
+
 	// **
 	static function Multiply(&$output, &$a, &$b)
 	{
@@ -1304,17 +1359,11 @@ class Quat
 	}
 
 	// **
-	// **
-	// **
-	// **
-	// **
 	static function Normalize(&$output, &$a)
 	{
 		return Vec4::Normalize($output, $a);
 	}
 
-	// **
-	// **
 	// **
 	static function RotateX(&$output, &$a, $rad)
 	{
@@ -1403,8 +1452,11 @@ class Quat
 	}
 
 	// **
-	// **
-	// **
+	static function Scale(&$output, &$a, $b)
+	{
+		return Vec4::Scale($output, $a, $b);
+	}
+
 	// **
 	static function Set(&$output, $x, $y, $z, $w)
 	{
@@ -1437,6 +1489,61 @@ class Quat
 		$output[2] = $s * $axis[2];
 		$output[3] = Platform::Cos($rad);
 		return $output;
+	}
+
+	// **
+	static function Slerp(&$output, &$a, &$b, $t)
+	{
+		$ax = $a[0];
+		$ay = $a[1];
+		$az = $a[2];
+		$aw = $a[3];
+		$bx = $b[0];
+		$by = $b[1];
+		$bz = $b[2];
+		$bw = $b[3];
+		$omega;
+		$cosom;
+		$sinom;
+		$scale0;
+		$scale1;
+		$cosom = $ax * $bx + $ay * $by + $az * $bz + $aw * $bw;
+		if ($cosom < 0) {
+			$cosom = -$cosom;
+			$bx = -$bx;
+			$by = -$by;
+			$bz = -$bz;
+			$bw = -$bw;
+		}
+		$one = 1;
+		$epsilon = $one / 1000000;
+		if ($one - $cosom > $epsilon) {
+			$omega = Platform::Acos($cosom);
+			$sinom = Platform::Sin($omega);
+			$scale0 = Platform::Sin(($one - $t) * $omega) / $sinom;
+			$scale1 = Platform::Sin($t * $omega) / $sinom;
+		}
+		else {
+			$scale0 = $one - $t;
+			$scale1 = $t;
+		}
+		$output[0] = $scale0 * $ax + $scale1 * $bx;
+		$output[1] = $scale0 * $ay + $scale1 * $by;
+		$output[2] = $scale0 * $az + $scale1 * $bz;
+		$output[3] = $scale0 * $aw + $scale1 * $bw;
+		return $output;
+	}
+
+	// **
+	static function SqrLen(&$a)
+	{
+		return Quat::SquaredLength($a);
+	}
+
+	// **
+	static function SquaredLength(&$a)
+	{
+		return Vec4::SquaredLength($a);
 	}
 
 	// **

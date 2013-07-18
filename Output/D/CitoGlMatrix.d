@@ -1177,6 +1177,11 @@ class Mat4
 class Platform
 {
 
+	static float Acos(float a)
+	{
+		return 0;
+	}
+
 	static float Cos(float r)
 	{
 		return 0;
@@ -1207,6 +1212,12 @@ class Quat
 {
 
 	/// **
+	static const(float)[] Add(float[] output, const(float)[] a, const(float)[] b)
+	{
+		return Vec4.Add(output, a, b);
+	}
+
+	/// **
 	static const(float)[] CalculateW(float[] output, const(float)[] a)
 	{
 		float x = a[0];
@@ -1221,6 +1232,12 @@ class Quat
 	}
 
 	/// **
+	static const(float)[] Clone(const(float)[] a)
+	{
+		return Vec4.Clone(a);
+	}
+
+	/// **
 	final const(float)[] Conjugate(float[] output, const(float)[] a)
 	{
 		output[0] = -a[0];
@@ -1228,6 +1245,12 @@ class Quat
 		output[2] = -a[2];
 		output[3] = a[3];
 		return output;
+	}
+
+	/// **
+	static const(float)[] Copy(float[] output, const(float)[] a)
+	{
+		return Vec4.Copy(output, a);
 	}
 
 	/// **
@@ -1239,6 +1262,12 @@ class Quat
 		output[2] = 0;
 		output[3] = 1;
 		return output;
+	}
+
+	/// **
+	static float Dot(const(float)[] a, const(float)[] b)
+	{
+		return Vec4.Dot(a, b);
 	}
 
 	/// **
@@ -1276,6 +1305,12 @@ class Quat
 	}
 
 	/// **
+	static const(float)[] FromValues(float x, float y, float z, float w)
+	{
+		return Vec4.FromValues(x, y, z, w);
+	}
+
+	/// **
 	static const(float)[] Identity(float[] output)
 	{
 		output[0] = 0;
@@ -1285,9 +1320,6 @@ class Quat
 		return output;
 	}
 
-	/// **
-	/// **
-	/// **
 	/// **
 	final const(float)[] Invert(float[] output, const(float)[] a)
 	{
@@ -1306,6 +1338,29 @@ class Quat
 	}
 
 	/// **
+	static float Len(const(float)[] a)
+	{
+		return Quat.Length(a);
+	}
+
+	/// **
+	static float Length(const(float)[] a)
+	{
+		return Vec4.Length(a);
+	}
+
+	/// **
+	static const(float)[] Lerp(float[] output, const(float)[] a, const(float)[] b, float t)
+	{
+		return Vec4.Lerp(output, a, b, t);
+	}
+
+	/// **
+	static const(float)[] Mul(float[] output, const(float)[] a, const(float)[] b)
+	{
+		return Quat.Multiply(output, a, b);
+	}
+
 	/// **
 	static const(float)[] Multiply(float[] output, const(float)[] a, const(float)[] b)
 	{
@@ -1325,17 +1380,11 @@ class Quat
 	}
 
 	/// **
-	/// **
-	/// **
-	/// **
-	/// **
 	static const(float)[] Normalize(float[] output, const(float)[] a)
 	{
 		return Vec4.Normalize(output, a);
 	}
 
-	/// **
-	/// **
 	/// **
 	static const(float)[] RotateX(float[] output, const(float)[] a, float rad)
 	{
@@ -1424,8 +1473,11 @@ class Quat
 	}
 
 	/// **
-	/// **
-	/// **
+	static const(float)[] Scale(float[] output, const(float)[] a, float b)
+	{
+		return Vec4.Scale(output, a, b);
+	}
+
 	/// **
 	static const(float)[] Set(float[] output, float x, float y, float z, float w)
 	{
@@ -1458,6 +1510,61 @@ class Quat
 		output[2] = s * axis[2];
 		output[3] = Platform.Cos(rad);
 		return output;
+	}
+
+	/// **
+	static const(float)[] Slerp(float[] output, const(float)[] a, const(float)[] b, float t)
+	{
+		float ax = a[0];
+		float ay = a[1];
+		float az = a[2];
+		float aw = a[3];
+		float bx = b[0];
+		float by = b[1];
+		float bz = b[2];
+		float bw = b[3];
+		float omega;
+		float cosom;
+		float sinom;
+		float scale0;
+		float scale1;
+		cosom = ax * bx + ay * by + az * bz + aw * bw;
+		if (cosom < 0) {
+			cosom = -cosom;
+			bx = -bx;
+			by = -by;
+			bz = -bz;
+			bw = -bw;
+		}
+		float one = 1;
+		float epsilon = one / 1000000;
+		if (one - cosom > epsilon) {
+			omega = Platform.Acos(cosom);
+			sinom = Platform.Sin(omega);
+			scale0 = Platform.Sin((one - t) * omega) / sinom;
+			scale1 = Platform.Sin(t * omega) / sinom;
+		}
+		else {
+			scale0 = one - t;
+			scale1 = t;
+		}
+		output[0] = scale0 * ax + scale1 * bx;
+		output[1] = scale0 * ay + scale1 * by;
+		output[2] = scale0 * az + scale1 * bz;
+		output[3] = scale0 * aw + scale1 * bw;
+		return output;
+	}
+
+	/// **
+	static float SqrLen(const(float)[] a)
+	{
+		return Quat.SquaredLength(a);
+	}
+
+	/// **
+	static float SquaredLength(const(float)[] a)
+	{
+		return Vec4.SquaredLength(a);
 	}
 
 	/// **

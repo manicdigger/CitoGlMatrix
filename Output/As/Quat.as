@@ -9,6 +9,14 @@ package
 		/**
 		 * **
 		 */
+		public static function add(output : Array, a : Array, b : Array) : Array
+		{
+			return Vec4.add(output, a, b);
+		}
+
+		/**
+		 * **
+		 */
 		public static function calculateW(output : Array, a : Array) : Array
 		{
 			var x : float = a[0];
@@ -20,6 +28,14 @@ package
 			var one : float = 1;
 			output[3] = -Platform.sqrt(GlMatrixMath.abs(one - x * x - y * y - z * z));
 			return output;
+		}
+
+		/**
+		 * **
+		 */
+		public static function clone(a : Array) : Array
+		{
+			return Vec4.clone(a);
 		}
 
 		/**
@@ -37,6 +53,14 @@ package
 		/**
 		 * **
 		 */
+		public static function copy(output : Array, a : Array) : Array
+		{
+			return Vec4.copy(output, a);
+		}
+
+		/**
+		 * **
+		 */
 		public static function create() : Array
 		{
 			var output : Array = new Array(4);
@@ -45,6 +69,14 @@ package
 			output[2] = 0;
 			output[3] = 1;
 			return output;
+		}
+
+		/**
+		 * **
+		 */
+		public static function dot(a : Array, b : Array) : float
+		{
+			return Vec4.dot(a, b);
 		}
 
 		/**
@@ -86,6 +118,14 @@ package
 		/**
 		 * **
 		 */
+		public static function fromValues(x : float, y : float, z : float, w : float) : Array
+		{
+			return Vec4.fromValues(x, y, z, w);
+		}
+
+		/**
+		 * **
+		 */
 		public static function identity(output : Array) : Array
 		{
 			output[0] = 0;
@@ -96,9 +136,6 @@ package
 		}
 
 		/**
-		 * **
-		 * **
-		 * **
 		 * **
 		 */
 		public final function invert(output : Array, a : Array) : Array
@@ -119,6 +156,37 @@ package
 
 		/**
 		 * **
+		 */
+		public static function len(a : Array) : float
+		{
+			return Quat.length(a);
+		}
+
+		/**
+		 * **
+		 */
+		public static function length(a : Array) : float
+		{
+			return Vec4.length(a);
+		}
+
+		/**
+		 * **
+		 */
+		public static function lerp(output : Array, a : Array, b : Array, t : float) : Array
+		{
+			return Vec4.lerp(output, a, b, t);
+		}
+
+		/**
+		 * **
+		 */
+		public static function mul(output : Array, a : Array, b : Array) : Array
+		{
+			return Quat.multiply(output, a, b);
+		}
+
+		/**
 		 * **
 		 */
 		public static function multiply(output : Array, a : Array, b : Array) : Array
@@ -140,10 +208,6 @@ package
 
 		/**
 		 * **
-		 * **
-		 * **
-		 * **
-		 * **
 		 */
 		public static function normalize(output : Array, a : Array) : Array
 		{
@@ -151,8 +215,6 @@ package
 		}
 
 		/**
-		 * **
-		 * **
 		 * **
 		 */
 		public static function rotateX(output : Array, a : Array, rad : float) : Array
@@ -249,8 +311,13 @@ package
 
 		/**
 		 * **
-		 * **
-		 * **
+		 */
+		public static function scale(output : Array, a : Array, b : float) : Array
+		{
+			return Vec4.scale(output, a, b);
+		}
+
+		/**
 		 * **
 		 */
 		public static function set(output : Array, x : float, y : float, z : float, w : float) : Array
@@ -288,6 +355,67 @@ package
 			output[2] = s * axis[2];
 			output[3] = Platform.cos(rad);
 			return output;
+		}
+
+		/**
+		 * **
+		 */
+		public static function slerp(output : Array, a : Array, b : Array, t : float) : Array
+		{
+			var ax : float = a[0];
+			var ay : float = a[1];
+			var az : float = a[2];
+			var aw : float = a[3];
+			var bx : float = b[0];
+			var by : float = b[1];
+			var bz : float = b[2];
+			var bw : float = b[3];
+			var omega : float;
+			var cosom : float;
+			var sinom : float;
+			var scale0 : float;
+			var scale1 : float;
+			cosom = ax * bx + ay * by + az * bz + aw * bw;
+			if (cosom < 0) {
+				cosom = -cosom;
+				bx = -bx;
+				by = -by;
+				bz = -bz;
+				bw = -bw;
+			}
+			var one : float = 1;
+			var epsilon : float = one / (1000000);
+			if (one - cosom > epsilon) {
+				omega = Platform.acos(cosom);
+				sinom = Platform.sin(omega);
+				scale0 = Platform.sin((one - t) * omega) / (sinom);
+				scale1 = Platform.sin(t * omega) / (sinom);
+			}
+			else {
+				scale0 = one - t;
+				scale1 = t;
+			}
+			output[0] = scale0 * ax + scale1 * bx;
+			output[1] = scale0 * ay + scale1 * by;
+			output[2] = scale0 * az + scale1 * bz;
+			output[3] = scale0 * aw + scale1 * bw;
+			return output;
+		}
+
+		/**
+		 * **
+		 */
+		public static function sqrLen(a : Array) : float
+		{
+			return Quat.squaredLength(a);
+		}
+
+		/**
+		 * **
+		 */
+		public static function squaredLength(a : Array) : float
+		{
+			return Vec4.squaredLength(a);
 		}
 
 		/**

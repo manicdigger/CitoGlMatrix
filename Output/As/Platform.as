@@ -6,6 +6,11 @@ package
 	public class Platform
 	{
 
+		public static function acos(a : float) : float
+		{
+			return 0;
+		}
+
 		public static function cos(r : float) : float
 		{
 			return 0;

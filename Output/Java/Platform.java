@@ -4,6 +4,11 @@ package CitoGlMatrix.lib;
 public class Platform
 {
 
+	public static float acos(float a)
+	{
+		return 0;
+	}
+
 	public static float cos(float r)
 	{
 		return 0;

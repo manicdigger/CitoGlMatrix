@@ -966,6 +966,11 @@ float const *Mat4_Transpose(float *output, float const *a)
 	return output;
 }
 
+float Platform_Acos(float a)
+{
+	return 0;
+}
+
 float Platform_Cos(float r)
 {
 	return 0;
@@ -991,6 +996,11 @@ float Platform_Tan(float p)
 	return 0;
 }
 
+float const *Quat_Add(float *output, float const *a, float const *b)
+{
+	return Vec4_Add(output, a, b);
+}
+
 float const *Quat_CalculateW(float *output, float const *a)
 {
 	float x = a[0];
@@ -1005,6 +1015,11 @@ float const *Quat_CalculateW(float *output, float const *a)
 	return output;
 }
 
+float const *Quat_Clone(float const *a)
+{
+	return Vec4_Clone(a);
+}
+
 float const *Quat_Conjugate(Quat const *self, float *output, float const *a)
 {
 	output[0] = -a[0];
@@ -1012,6 +1027,11 @@ float const *Quat_Conjugate(Quat const *self, float *output, float const *a)
 	output[2] = -a[2];
 	output[3] = a[3];
 	return output;
+}
+
+float const *Quat_Copy(float *output, float const *a)
+{
+	return Vec4_Copy(output, a);
 }
 
 float const *Quat_Create(void)
@@ -1022,6 +1042,11 @@ float const *Quat_Create(void)
 	output[2] = 0;
 	output[3] = 1;
 	return output;
+}
+
+float Quat_Dot(float const *a, float const *b)
+{
+	return Vec4_Dot(a, b);
 }
 
 float const *Quat_FromMat3(float *output, float const *m)
@@ -1059,6 +1084,11 @@ float const *Quat_FromMat3(float *output, float const *m)
 	return output;
 }
 
+float const *Quat_FromValues(float x, float y, float z, float w)
+{
+	return Vec4_FromValues(x, y, z, w);
+}
+
 float const *Quat_Identity(float *output)
 {
 	output[0] = 0;
@@ -1082,6 +1112,26 @@ float const *Quat_Invert(Quat const *self, float *output, float const *a)
 	output[2] = -a2 * invDot;
 	output[3] = a3 * invDot;
 	return output;
+}
+
+float Quat_Len(float const *a)
+{
+	return Quat_Length(a);
+}
+
+float Quat_Length(float const *a)
+{
+	return Vec4_Length(a);
+}
+
+float const *Quat_Lerp(float *output, float const *a, float const *b, float t)
+{
+	return Vec4_Lerp(output, a, b, t);
+}
+
+float const *Quat_Mul(float *output, float const *a, float const *b)
+{
+	return Quat_Multiply(output, a, b);
 }
 
 float const *Quat_Multiply(float *output, float const *a, float const *b)
@@ -1208,6 +1258,11 @@ float const *Quat_RotationTo(float *output, float const *a, float const *b)
 	}
 }
 
+float const *Quat_Scale(float *output, float const *a, float b)
+{
+	return Vec4_Scale(output, a, b);
+}
+
 float const *Quat_Set(float *output, float x, float y, float z, float w)
 {
 	return Vec4_Set(output, x, y, z, w);
@@ -1238,6 +1293,60 @@ float const *Quat_SetAxisAngle(float *output, float const *axis, float rad)
 	output[2] = s * axis[2];
 	output[3] = Platform_Cos(rad);
 	return output;
+}
+
+float const *Quat_Slerp(float *output, float const *a, float const *b, float t)
+{
+	float ax = a[0];
+	float ay = a[1];
+	float az = a[2];
+	float aw = a[3];
+	float bx = b[0];
+	float by = b[1];
+	float bz = b[2];
+	float bw = b[3];
+	float omega;
+	float cosom;
+	float sinom;
+	float scale0;
+	float scale1;
+	float one;
+	float epsilon;
+	cosom = ax * bx + ay * by + az * bz + aw * bw;
+	if (cosom < 0) {
+		cosom = -cosom;
+		bx = -bx;
+		by = -by;
+		bz = -bz;
+		bw = -bw;
+	}
+	one = 1;
+	epsilon = one / 1000000;
+	if (one - cosom > epsilon) {
+		omega = Platform_Acos(cosom);
+		sinom = Platform_Sin(omega);
+		scale0 = Platform_Sin((one - t) * omega) / sinom;
+		scale1 = Platform_Sin(t * omega) / sinom;
+	}
+	else {
+		scale0 = one - t;
+		scale1 = t;
+	}
+	output[0] = scale0 * ax + scale1 * bx;
+	output[1] = scale0 * ay + scale1 * by;
+	output[2] = scale0 * az + scale1 * bz;
+	output[3] = scale0 * aw + scale1 * bw;
+	return output;
+}
+
+float Quat_SqrLen(float const *a)
+{
+	return Quat_SquaredLength(a);
+}
+
+float Quat_SquaredLength(float const *a)
+{
+	return Vec4_SquaredLength(a);
 }
 
 float const *Vec3_Add(float *output, float const *a, float const *b)

@@ -7,6 +7,14 @@ public class Quat
 	/**
 	 * **
 	 */
+	public static float[] add(float[] output, float[] a, float[] b)
+	{
+		return Vec4.add(output, a, b);
+	}
+
+	/**
+	 * **
+	 */
 	public static float[] calculateW(float[] output, float[] a)
 	{
 		float x = a[0];
@@ -18,6 +26,14 @@ public class Quat
 		float one = 1;
 		output[3] = -Platform.sqrt(GlMatrixMath.abs(one - x * x - y * y - z * z));
 		return output;
+	}
+
+	/**
+	 * **
+	 */
+	public static float[] clone(float[] a)
+	{
+		return Vec4.clone(a);
 	}
 
 	/**
@@ -35,6 +51,14 @@ public class Quat
 	/**
 	 * **
 	 */
+	public static float[] copy(float[] output, float[] a)
+	{
+		return Vec4.copy(output, a);
+	}
+
+	/**
+	 * **
+	 */
 	public static float[] create()
 	{
 		float[] output = new float[4];
@@ -43,6 +67,14 @@ public class Quat
 		output[2] = 0;
 		output[3] = 1;
 		return output;
+	}
+
+	/**
+	 * **
+	 */
+	public static float dot(float[] a, float[] b)
+	{
+		return Vec4.dot(a, b);
 	}
 
 	/**
@@ -84,6 +116,14 @@ public class Quat
 	/**
 	 * **
 	 */
+	public static float[] fromValues(float x, float y, float z, float w)
+	{
+		return Vec4.fromValues(x, y, z, w);
+	}
+
+	/**
+	 * **
+	 */
 	public static float[] identity(float[] output)
 	{
 		output[0] = 0;
@@ -94,9 +134,6 @@ public class Quat
 	}
 
 	/**
-	 * **
-	 * **
-	 * **
 	 * **
 	 */
 	public final float[] invert(float[] output, float[] a)
@@ -117,6 +154,37 @@ public class Quat
 
 	/**
 	 * **
+	 */
+	public static float len(float[] a)
+	{
+		return Quat.length(a);
+	}
+
+	/**
+	 * **
+	 */
+	public static float length(float[] a)
+	{
+		return Vec4.length(a);
+	}
+
+	/**
+	 * **
+	 */
+	public static float[] lerp(float[] output, float[] a, float[] b, float t)
+	{
+		return Vec4.lerp(output, a, b, t);
+	}
+
+	/**
+	 * **
+	 */
+	public static float[] mul(float[] output, float[] a, float[] b)
+	{
+		return Quat.multiply(output, a, b);
+	}
+
+	/**
 	 * **
 	 */
 	public static float[] multiply(float[] output, float[] a, float[] b)
@@ -138,10 +206,6 @@ public class Quat
 
 	/**
 	 * **
-	 * **
-	 * **
-	 * **
-	 * **
 	 */
 	public static float[] normalize(float[] output, float[] a)
 	{
@@ -149,8 +213,6 @@ public class Quat
 	}
 
 	/**
-	 * **
-	 * **
 	 * **
 	 */
 	public static float[] rotateX(float[] output, float[] a, float rad)
@@ -247,8 +309,13 @@ public class Quat
 
 	/**
 	 * **
-	 * **
-	 * **
+	 */
+	public static float[] scale(float[] output, float[] a, float b)
+	{
+		return Vec4.scale(output, a, b);
+	}
+
+	/**
 	 * **
 	 */
 	public static float[] set(float[] output, float x, float y, float z, float w)
@@ -286,6 +353,67 @@ public class Quat
 		output[2] = s * axis[2];
 		output[3] = Platform.cos(rad);
 		return output;
+	}
+
+	/**
+	 * **
+	 */
+	public static float[] slerp(float[] output, float[] a, float[] b, float t)
+	{
+		float ax = a[0];
+		float ay = a[1];
+		float az = a[2];
+		float aw = a[3];
+		float bx = b[0];
+		float by = b[1];
+		float bz = b[2];
+		float bw = b[3];
+		float omega;
+		float cosom;
+		float sinom;
+		float scale0;
+		float scale1;
+		cosom = ax * bx + ay * by + az * bz + aw * bw;
+		if (cosom < 0) {
+			cosom = -cosom;
+			bx = -bx;
+			by = -by;
+			bz = -bz;
+			bw = -bw;
+		}
+		float one = 1;
+		float epsilon = one / 1000000;
+		if (one - cosom > epsilon) {
+			omega = Platform.acos(cosom);
+			sinom = Platform.sin(omega);
+			scale0 = Platform.sin((one - t) * omega) / sinom;
+			scale1 = Platform.sin(t * omega) / sinom;
+		}
+		else {
+			scale0 = one - t;
+			scale1 = t;
+		}
+		output[0] = scale0 * ax + scale1 * bx;
+		output[1] = scale0 * ay + scale1 * by;
+		output[2] = scale0 * az + scale1 * bz;
+		output[3] = scale0 * aw + scale1 * bw;
+		return output;
+	}
+
+	/**
+	 * **
+	 */
+	public static float sqrLen(float[] a)
+	{
+		return Quat.squaredLength(a);
+	}
+
+	/**
+	 * **
+	 */
+	public static float squaredLength(float[] a)
+	{
+		return Vec4.squaredLength(a);
 	}
 
 	/**

@@ -947,6 +947,10 @@ function Platform()
 {
 }
 
+Platform.acos = function(a) {
+	return 0;
+}
+
 Platform.cos = function(r) {
 	return 0;
 }
@@ -971,6 +975,10 @@ function Quat()
 {
 }
 
+Quat.add = function(output, a, b) {
+	return Vec4.add(output, a, b);
+}
+
 Quat.calculateW = function(output, a) {
 	var x = a[0];
 	var y = a[1];
@@ -983,12 +991,20 @@ Quat.calculateW = function(output, a) {
 	return output;
 }
 
+Quat.clone = function(a) {
+	return Vec4.clone(a);
+}
+
 Quat.prototype.conjugate = function(output, a) {
 	output[0] = -a[0];
 	output[1] = -a[1];
 	output[2] = -a[2];
 	output[3] = a[3];
 	return output;
+}
+
+Quat.copy = function(output, a) {
+	return Vec4.copy(output, a);
 }
 
 Quat.create = function() {
@@ -998,6 +1014,10 @@ Quat.create = function() {
 	output[2] = 0;
 	output[3] = 1;
 	return output;
+}
+
+Quat.dot = function(a, b) {
+	return Vec4.dot(a, b);
 }
 
 Quat.fromMat3 = function(output, m) {
@@ -1032,6 +1052,10 @@ Quat.fromMat3 = function(output, m) {
 	return output;
 }
 
+Quat.fromValues = function(x, y, z, w) {
+	return Vec4.fromValues(x, y, z, w);
+}
+
 Quat.identity = function(output) {
 	output[0] = 0;
 	output[1] = 0;
@@ -1053,6 +1077,22 @@ Quat.prototype.invert = function(output, a) {
 	output[2] = -a2 * invDot;
 	output[3] = a3 * invDot;
 	return output;
+}
+
+Quat.len = function(a) {
+	return Quat.length(a);
+}
+
+Quat.length = function(a) {
+	return Vec4.length(a);
+}
+
+Quat.lerp = function(output, a, b, t) {
+	return Vec4.lerp(output, a, b, t);
+}
+
+Quat.mul = function(output, a, b) {
+	return Quat.multiply(output, a, b);
 }
 
 Quat.multiply = function(output, a, b) {
@@ -1154,6 +1194,10 @@ Quat.rotationTo = function(output, a, b) {
 	}
 }
 
+Quat.scale = function(output, a, b) {
+	return Vec4.scale(output, a, b);
+}
+
 Quat.set = function(output, x, y, z, w) {
 	return Vec4.set(output, x, y, z, w);
 }
@@ -1180,6 +1224,55 @@ Quat.setAxisAngle = function(output, axis, rad) {
 	output[2] = s * axis[2];
 	output[3] = Platform.cos(rad);
 	return output;
+}
+
+Quat.slerp = function(output, a, b, t) {
+	var ax = a[0];
+	var ay = a[1];
+	var az = a[2];
+	var aw = a[3];
+	var bx = b[0];
+	var by = b[1];
+	var bz = b[2];
+	var bw = b[3];
+	var omega;
+	var cosom;
+	var sinom;
+	var scale0;
+	var scale1;
+	cosom = ax * bx + ay * by + az * bz + aw * bw;
+	if (cosom < 0) {
+		cosom = -cosom;
+		bx = -bx;
+		by = -by;
+		bz = -bz;
+		bw = -bw;
+	}
+	var one = 1;
+	var epsilon = one / (1000000);
+	if (one - cosom > epsilon) {
+		omega = Platform.acos(cosom);
+		sinom = Platform.sin(omega);
+		scale0 = Platform.sin((one - t) * omega) / (sinom);
+		scale1 = Platform.sin(t * omega) / (sinom);
+	}
+	else {
+		scale0 = one - t;
+		scale1 = t;
+	}
+	output[0] = scale0 * ax + scale1 * bx;
+	output[1] = scale0 * ay + scale1 * by;
+	output[2] = scale0 * az + scale1 * bz;
+	output[3] = scale0 * aw + scale1 * bw;
+	return output;
+}
+
+Quat.sqrLen = function(a) {
+	return Quat.squaredLength(a);
+}
+
+Quat.squaredLength = function(a) {
+	return Vec4.squaredLength(a);
 }
 
 Quat.prototype.f = function() {

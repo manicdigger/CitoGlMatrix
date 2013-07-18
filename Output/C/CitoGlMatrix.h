@@ -297,6 +297,8 @@ float const *Mat4_Translate(float *output, float const *a, float const *v);
  */
 float const *Mat4_Transpose(float *output, float const *a);
 
+float Platform_Acos(float a);
+
 float Platform_Cos(float r);
 
 float Platform_Random(void);
@@ -310,7 +312,17 @@ float Platform_Tan(float p);
 /**
  * **
  */
+float const *Quat_Add(float *output, float const *a, float const *b);
+
+/**
+ * **
+ */
 float const *Quat_CalculateW(float *output, float const *a);
+
+/**
+ * **
+ */
+float const *Quat_Clone(float const *a);
 
 /**
  * **
@@ -320,7 +332,17 @@ float const *Quat_Conjugate(Quat const *self, float *output, float const *a);
 /**
  * **
  */
+float const *Quat_Copy(float *output, float const *a);
+
+/**
+ * **
+ */
 float const *Quat_Create(void);
+
+/**
+ * **
+ */
+float Quat_Dot(float const *a, float const *b);
 
 /**
  * **
@@ -330,34 +352,49 @@ float const *Quat_FromMat3(float *output, float const *m);
 /**
  * **
  */
-float const *Quat_Identity(float *output);
+float const *Quat_FromValues(float x, float y, float z, float w);
 
 /**
  * **
- * **
- * **
+ */
+float const *Quat_Identity(float *output);
+
+/**
  * **
  */
 float const *Quat_Invert(Quat const *self, float *output, float const *a);
 
 /**
  * **
+ */
+float Quat_Len(float const *a);
+
+/**
+ * **
+ */
+float Quat_Length(float const *a);
+
+/**
+ * **
+ */
+float const *Quat_Lerp(float *output, float const *a, float const *b, float t);
+
+/**
+ * **
+ */
+float const *Quat_Mul(float *output, float const *a, float const *b);
+
+/**
  * **
  */
 float const *Quat_Multiply(float *output, float const *a, float const *b);
 
 /**
  * **
- * **
- * **
- * **
- * **
  */
 float const *Quat_Normalize(float *output, float const *a);
 
 /**
- * **
- * **
  * **
  */
 float const *Quat_RotateX(float *output, float const *a, float rad);
@@ -379,8 +416,10 @@ float const *Quat_RotationTo(float *output, float const *a, float const *b);
 
 /**
  * **
- * **
- * **
+ */
+float const *Quat_Scale(float *output, float const *a, float b);
+
+/**
  * **
  */
 float const *Quat_Set(float *output, float x, float y, float z, float w);
@@ -394,6 +433,21 @@ float const *Quat_SetAxes(float *output, float const *view, float const *right, 
  * **
  */
 float const *Quat_SetAxisAngle(float *output, float const *axis, float rad);
+
+/**
+ * **
+ */
+float const *Quat_Slerp(float *output, float const *a, float const *b, float t);
+
+/**
+ * **
+ */
+float Quat_SqrLen(float const *a);
+
+/**
+ * **
+ */
+float Quat_SquaredLength(float const *a);
 
 /**
  * Adds two vec3's

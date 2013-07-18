@@ -1961,7 +1961,10 @@ public class Quat
     // * @returns {quat} a new quaternion
     // * @function
     // */
-    //quat.clone = vec4.clone;
+    public static float[] Clone(float[] a)
+    {
+        return Vec4.Clone(a);
+    }
 
     ///**
     // * Creates a new quat initialized with the given values
@@ -1973,7 +1976,10 @@ public class Quat
     // * @returns {quat} a new quaternion
     // * @function
     // */
-    //quat.fromValues = vec4.fromValues;
+    public static float[] FromValues(float x, float y, float z, float w)
+    {
+        return Vec4.FromValues(x, y, z, w);
+    }
 
     ///**
     // * Copy the values from one quat to another
@@ -1983,7 +1989,10 @@ public class Quat
     // * @returns {quat} output
     // * @function
     // */
-    //quat.copy = vec4.copy;
+    public static float[] Copy(float[] output, float[] a)
+    {
+        return Vec4.Copy(output, a);
+    }
 
     ///**
     // * Set the components of a quat to the given values
@@ -2046,6 +2055,10 @@ public class Quat
     // * @function
     // */
     //quat.add = vec4.add;
+    public static float[] Add(float[] output, float[] a, float[] b)
+    {
+        return Vec4.Add(output, a, b);
+    }
 
     ///**
     // * Multiplies two quat's
@@ -2071,7 +2084,10 @@ public class Quat
     // * Alias for {@link quat.multiply}
     // * @function
     // */
-    //quat.mul = quat.multiply;
+    public static float[] Mul(float[] output, float[] a, float[] b)
+    {
+        return Multiply(output, a, b);
+    }
 
     ///**
     // * Scales a quat by a scalar number
@@ -2083,6 +2099,10 @@ public class Quat
     // * @function
     // */
     //quat.scale = vec4.scale;
+    public static float[] Scale(float[] output, float[] a, float b)
+    {
+        return Vec4.Scale(output, a, b);
+    }
 
     ///**
     // * Rotates a quaternion by the given angle aboutput the X axis
@@ -2179,7 +2199,10 @@ public class Quat
     // * @returns {Number} dot product of a and b
     // * @function
     // */
-    //quat.dot = vec4.dot;
+    public static float Dot(float[] a, float[] b)
+    {
+        return Vec4.Dot(a, b);
+    }
 
     ///**
     // * Performs a linear interpolation between two quat's
@@ -2191,7 +2214,10 @@ public class Quat
     // * @returns {quat} output
     // * @function
     // */
-    //quat.lerp = vec4.lerp;
+    public static float[] Lerp(float[] output, float[] a, float[] b, float t)
+    {
+        return Vec4.Lerp(output, a, b, t);
+    }
 
     ///**
     // * Performs a spherical linear interpolation between two quat
@@ -2203,45 +2229,53 @@ public class Quat
     // * @returns {quat} output
     // */
     //quat.slerp = function (output, a, b, t) {
-    //    // benchmarks:
-    //    //    http://jsperf.com/quaternion-slerp-implementations
+    public static float[] Slerp(float[] output, float[] a, float[] b, float t)
+    {
+        //    // benchmarks:
+        //    //    http://jsperf.com/quaternion-slerp-implementations
 
-    //    var ax = a[0], ay = a[1], az = a[2], aw = a[3],
-    //        bx = b[0], by = b[1], bz = b[2], bw = b[3];
+        float ax = a[0]; float ay = a[1]; float az = a[2]; float aw = a[3];
+        float bx = b[0]; float by = b[1]; float bz = b[2]; float bw = b[3];
 
-    //    var        omega, cosom, sinom, scale0, scale1;
+        float omega; float cosom; float sinom; float scale0; float scale1;
 
-    //    // calc cosine
-    //    cosom = ax * bx + ay * by + az * bz + aw * bw;
-    //    // adjust signs (if necessary)
-    //    if ( cosom < 0.0 ) {
-    //        cosom = -cosom;
-    //        bx = - bx;
-    //        by = - by;
-    //        bz = - bz;
-    //        bw = - bw;
-    //    }
-    //    // calculate coefficients
-    //    if ( (1.0 - cosom) > 0.000001 ) {
-    //        // standard case (slerp)
-    //        omega  = Math.acos(cosom);
-    //        sinom  = Math.sin(omega);
-    //        scale0 = Math.sin((1.0 - t) * omega) / sinom;
-    //        scale1 = Math.sin(t * omega) / sinom;
-    //    } else {        
-    //        // "from" and "to" quaternions are very close 
-    //        //  ... so we can do a linear interpolation
-    //        scale0 = 1.0 - t;
-    //        scale1 = t;
-    //    }
-    //    // calculate final values
-    //    output[0] = scale0 * ax + scale1 * bx;
-    //    output[1] = scale0 * ay + scale1 * by;
-    //    output[2] = scale0 * az + scale1 * bz;
-    //    output[3] = scale0 * aw + scale1 * bw;
+        // calc cosine
+        cosom = ax * bx + ay * by + az * bz + aw * bw;
+        // adjust signs (if necessary)
+        if (cosom < 0)
+        {
+            cosom = -cosom;
+            bx = -bx;
+            by = -by;
+            bz = -bz;
+            bw = -bw;
+        }
+        float one = 1;
+        float epsilon = one / 1000000;
+        // calculate coefficients
+        if ((one - cosom) > epsilon)
+        {
+            // standard case (slerp)
+            omega = Platform.Acos(cosom);
+            sinom = Platform.Sin(omega);
+            scale0 = Platform.Sin((one - t) * omega) / sinom;
+            scale1 = Platform.Sin(t * omega) / sinom;
+        }
+        else
+        {
+            // "from" and "to" quaternions are very close 
+            //  ... so we can do a linear interpolation
+            scale0 = one - t;
+            scale1 = t;
+        }
+        // calculate final values
+        output[0] = scale0 * ax + scale1 * bx;
+        output[1] = scale0 * ay + scale1 * by;
+        output[2] = scale0 * az + scale1 * bz;
+        output[3] = scale0 * aw + scale1 * bw;
 
-    //    return output;
-    //};
+        return output;
+    }
 
     ///**
     // * Calculates the inverse of a quat
@@ -2291,12 +2325,19 @@ public class Quat
     // * @function
     // */
     //quat.length = vec4.length;
+    public static float Length(float[] a)
+    {
+        return Vec4.Length(a);
+    }
 
     ///**
     // * Alias for {@link quat.length}
     // * @function
     // */
-    //quat.len = quat.length;
+    public static float Len(float[] a)
+    {
+        return Length(a);
+    }
 
     ///**
     // * Calculates the squared length of a quat
@@ -2305,13 +2346,19 @@ public class Quat
     // * @returns {Number} squared length of a
     // * @function
     // */
-    //quat.squaredLength = vec4.squaredLength;
+    public static float SquaredLength(float[] a)
+    {
+        return Vec4.SquaredLength(a);
+    }
 
     ///**
     // * Alias for {@link quat.squaredLength}
     // * @function
     // */
-    //quat.sqrLen = quat.squaredLength;
+    public static float SqrLen(float[] a)
+    {
+        return SquaredLength(a);
+    }
 
     ///**
     // * Normalize a quat
@@ -4056,6 +4103,11 @@ public class Platform
 #else
         return 0;
 #endif
+    }
+
+    public static float Acos(float a)
+    {
+        return 0;
     }
 }
 

@@ -1155,6 +1155,11 @@ public class Mat4
 public class Platform
 {
 
+	public static float Acos(float a)
+	{
+		return 0;
+	}
+
 	public static float Cos(float r)
 	{
 		
@@ -1193,6 +1198,12 @@ public class Quat
 {
 
 	/// <summary>**</summary>
+	public static float[] Add(float[] output, float[] a, float[] b)
+	{
+		return Vec4.Add(output, a, b);
+	}
+
+	/// <summary>**</summary>
 	public static float[] CalculateW(float[] output, float[] a)
 	{
 		float x = a[0];
@@ -1207,6 +1218,12 @@ public class Quat
 	}
 
 	/// <summary>**</summary>
+	public static float[] Clone(float[] a)
+	{
+		return Vec4.Clone(a);
+	}
+
+	/// <summary>**</summary>
 	public float[] Conjugate(float[] output, float[] a)
 	{
 		output[0] = -a[0];
@@ -1214,6 +1231,12 @@ public class Quat
 		output[2] = -a[2];
 		output[3] = a[3];
 		return output;
+	}
+
+	/// <summary>**</summary>
+	public static float[] Copy(float[] output, float[] a)
+	{
+		return Vec4.Copy(output, a);
 	}
 
 	/// <summary>**</summary>
@@ -1225,6 +1248,12 @@ public class Quat
 		output[2] = 0;
 		output[3] = 1;
 		return output;
+	}
+
+	/// <summary>**</summary>
+	public static float Dot(float[] a, float[] b)
+	{
+		return Vec4.Dot(a, b);
 	}
 
 	/// <summary>**</summary>
@@ -1262,6 +1291,12 @@ public class Quat
 	}
 
 	/// <summary>**</summary>
+	public static float[] FromValues(float x, float y, float z, float w)
+	{
+		return Vec4.FromValues(x, y, z, w);
+	}
+
+	/// <summary>**</summary>
 	public static float[] Identity(float[] output)
 	{
 		output[0] = 0;
@@ -1271,10 +1306,7 @@ public class Quat
 		return output;
 	}
 
-	/// <summary>**
-	/// **
-	/// **
-	/// **</summary>
+	/// <summary>**</summary>
 	public float[] Invert(float[] output, float[] a)
 	{
 		float a0 = a[0];
@@ -1291,8 +1323,31 @@ public class Quat
 		return output;
 	}
 
-	/// <summary>**
-	/// **</summary>
+	/// <summary>**</summary>
+	public static float Len(float[] a)
+	{
+		return Quat.Length(a);
+	}
+
+	/// <summary>**</summary>
+	public static float Length(float[] a)
+	{
+		return Vec4.Length(a);
+	}
+
+	/// <summary>**</summary>
+	public static float[] Lerp(float[] output, float[] a, float[] b, float t)
+	{
+		return Vec4.Lerp(output, a, b, t);
+	}
+
+	/// <summary>**</summary>
+	public static float[] Mul(float[] output, float[] a, float[] b)
+	{
+		return Quat.Multiply(output, a, b);
+	}
+
+	/// <summary>**</summary>
 	public static float[] Multiply(float[] output, float[] a, float[] b)
 	{
 		float ax = a[0];
@@ -1310,19 +1365,13 @@ public class Quat
 		return output;
 	}
 
-	/// <summary>**
-	/// **
-	/// **
-	/// **
-	/// **</summary>
+	/// <summary>**</summary>
 	public static float[] Normalize(float[] output, float[] a)
 	{
 		return Vec4.Normalize(output, a);
 	}
 
-	/// <summary>**
-	/// **
-	/// **</summary>
+	/// <summary>**</summary>
 	public static float[] RotateX(float[] output, float[] a, float rad)
 	{
 		rad /= 2;
@@ -1409,10 +1458,13 @@ public class Quat
 		}
 	}
 
-	/// <summary>**
-	/// **
-	/// **
-	/// **</summary>
+	/// <summary>**</summary>
+	public static float[] Scale(float[] output, float[] a, float b)
+	{
+		return Vec4.Scale(output, a, b);
+	}
+
+	/// <summary>**</summary>
 	public static float[] Set(float[] output, float x, float y, float z, float w)
 	{
 		return Vec4.Set(output, x, y, z, w);
@@ -1444,6 +1496,61 @@ public class Quat
 		output[2] = s * axis[2];
 		output[3] = Platform.Cos(rad);
 		return output;
+	}
+
+	/// <summary>**</summary>
+	public static float[] Slerp(float[] output, float[] a, float[] b, float t)
+	{
+		float ax = a[0];
+		float ay = a[1];
+		float az = a[2];
+		float aw = a[3];
+		float bx = b[0];
+		float by = b[1];
+		float bz = b[2];
+		float bw = b[3];
+		float omega;
+		float cosom;
+		float sinom;
+		float scale0;
+		float scale1;
+		cosom = ax * bx + ay * by + az * bz + aw * bw;
+		if (cosom < 0) {
+			cosom = -cosom;
+			bx = -bx;
+			by = -by;
+			bz = -bz;
+			bw = -bw;
+		}
+		float one = 1;
+		float epsilon = one / 1000000;
+		if (one - cosom > epsilon) {
+			omega = Platform.Acos(cosom);
+			sinom = Platform.Sin(omega);
+			scale0 = Platform.Sin((one - t) * omega) / sinom;
+			scale1 = Platform.Sin(t * omega) / sinom;
+		}
+		else {
+			scale0 = one - t;
+			scale1 = t;
+		}
+		output[0] = scale0 * ax + scale1 * bx;
+		output[1] = scale0 * ay + scale1 * by;
+		output[2] = scale0 * az + scale1 * bz;
+		output[3] = scale0 * aw + scale1 * bw;
+		return output;
+	}
+
+	/// <summary>**</summary>
+	public static float SqrLen(float[] a)
+	{
+		return Quat.SquaredLength(a);
+	}
+
+	/// <summary>**</summary>
+	public static float SquaredLength(float[] a)
+	{
+		return Vec4.SquaredLength(a);
 	}
 
 	/// <summary>**</summary>

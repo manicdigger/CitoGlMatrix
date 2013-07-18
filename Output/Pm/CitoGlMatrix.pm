@@ -1695,6 +1695,15 @@ sub new($) {
 	return $self;
 }
 
+=head2 C<Platform::acos($a)>
+
+=cut
+
+sub acos($) {
+	my ($a) = @_;
+	return 0;
+}
+
 =head2 C<Platform::cos($r)>
 
 =cut
@@ -1754,6 +1763,17 @@ sub new($) {
 	return $self;
 }
 
+=head2 C<Quat::add(\@output, \@a, \@b)>
+
+**
+
+=cut
+
+sub add($$$) {
+	my ($output, $a, $b) = @_;
+	return Vec4::add($output, $a, $b);
+}
+
 =head2 C<Quat::calculate_w(\@output, \@a)>
 
 **
@@ -1773,6 +1793,17 @@ sub calculate_w($$) {
 	return $output;
 }
 
+=head2 C<Quat::clone(\@a)>
+
+**
+
+=cut
+
+sub clone($) {
+	my ($a) = @_;
+	return Vec4::clone($a);
+}
+
 =head2 C<$quat-E<gt>conjugate(\@output, \@a)>
 
 **
@@ -1788,6 +1819,17 @@ sub conjugate($$$) {
 	return $output;
 }
 
+=head2 C<Quat::copy(\@output, \@a)>
+
+**
+
+=cut
+
+sub copy($$) {
+	my ($output, $a) = @_;
+	return Vec4::copy($output, $a);
+}
+
 =head2 C<Quat::create()>
 
 **
@@ -1801,6 +1843,17 @@ sub create() {
 	$output->[2] = 0;
 	$output->[3] = 1;
 	return $output;
+}
+
+=head2 C<Quat::dot(\@a, \@b)>
+
+**
+
+=cut
+
+sub dot($$) {
+	my ($a, $b) = @_;
+	return Vec4::dot($a, $b);
 }
 
 =head2 C<Quat::from_mat3(\@output, \@m)>
@@ -1844,6 +1897,17 @@ sub from_mat3($$) {
 	return $output;
 }
 
+=head2 C<Quat::from_values($x, $y, $z, $w)>
+
+**
+
+=cut
+
+sub from_values($$$$) {
+	my ($x, $y, $z, $w) = @_;
+	return Vec4::from_values($x, $y, $z, $w);
+}
+
 =head2 C<Quat::identity(\@output)>
 
 **
@@ -1861,9 +1925,6 @@ sub identity($) {
 
 =head2 C<$quat-E<gt>invert(\@output, \@a)>
 
-**
-**
-**
 **
 
 =cut
@@ -1884,9 +1945,52 @@ sub invert($$$) {
 	return $output;
 }
 
-=head2 C<Quat::multiply(\@output, \@a, \@b)>
+=head2 C<Quat::len(\@a)>
 
 **
+
+=cut
+
+sub len($) {
+	my ($a) = @_;
+	return Quat::length($a);
+}
+
+=head2 C<Quat::length(\@a)>
+
+**
+
+=cut
+
+sub length($) {
+	my ($a) = @_;
+	return Vec4::length($a);
+}
+
+=head2 C<Quat::lerp(\@output, \@a, \@b, $t)>
+
+**
+
+=cut
+
+sub lerp($$$$) {
+	my ($output, $a, $b, $t) = @_;
+	return Vec4::lerp($output, $a, $b, $t);
+}
+
+=head2 C<Quat::mul(\@output, \@a, \@b)>
+
+**
+
+=cut
+
+sub mul($$$) {
+	my ($output, $a, $b) = @_;
+	return Quat::multiply($output, $a, $b);
+}
+
+=head2 C<Quat::multiply(\@output, \@a, \@b)>
+
 **
 
 =cut
@@ -1911,10 +2015,6 @@ sub multiply($$$) {
 =head2 C<Quat::normalize(\@output, \@a)>
 
 **
-**
-**
-**
-**
 
 =cut
 
@@ -1925,8 +2025,6 @@ sub normalize($$) {
 
 =head2 C<Quat::rotate_x(\@output, \@a, $rad)>
 
-**
-**
 **
 
 =cut
@@ -2033,11 +2131,19 @@ sub rotation_to($$$) {
 	}
 }
 
-=head2 C<Quat::set(\@output, $x, $y, $z, $w)>
+=head2 C<Quat::scale(\@output, \@a, $b)>
 
 **
-**
-**
+
+=cut
+
+sub scale($$$) {
+	my ($output, $a, $b) = @_;
+	return Vec4::scale($output, $a, $b);
+}
+
+=head2 C<Quat::set(\@output, $x, $y, $z, $w)>
+
 **
 
 =cut
@@ -2083,6 +2189,76 @@ sub set_axis_angle($$$) {
 	$output->[2] = $s * $axis->[2];
 	$output->[3] = Platform::cos($rad);
 	return $output;
+}
+
+=head2 C<Quat::slerp(\@output, \@a, \@b, $t)>
+
+**
+
+=cut
+
+sub slerp($$$$) {
+	my ($output, $a, $b, $t) = @_;
+	my $ax = $a->[0];
+	my $ay = $a->[1];
+	my $az = $a->[2];
+	my $aw = $a->[3];
+	my $bx = $b->[0];
+	my $by = $b->[1];
+	my $bz = $b->[2];
+	my $bw = $b->[3];
+	my $omega;
+	my $cosom;
+	my $sinom;
+	my $scale0;
+	my $scale1;
+	$cosom = $ax * $bx + $ay * $by + $az * $bz + $aw * $bw;
+	if ($cosom < 0) {
+		$cosom = -$cosom;
+		$bx = -$bx;
+		$by = -$by;
+		$bz = -$bz;
+		$bw = -$bw;
+	}
+	my $one = 1;
+	my $epsilon = $one / 1000000;
+	if ($one - $cosom > $epsilon) {
+		$omega = Platform::acos($cosom);
+		$sinom = Platform::sin($omega);
+		$scale0 = Platform::sin(($one - $t) * $omega) / $sinom;
+		$scale1 = Platform::sin($t * $omega) / $sinom;
+	}
+	else {
+		$scale0 = $one - $t;
+		$scale1 = $t;
+	}
+	$output->[0] = $scale0 * $ax + $scale1 * $bx;
+	$output->[1] = $scale0 * $ay + $scale1 * $by;
+	$output->[2] = $scale0 * $az + $scale1 * $bz;
+	$output->[3] = $scale0 * $aw + $scale1 * $bw;
+	return $output;
+}
+
+=head2 C<Quat::sqr_len(\@a)>
+
+**
+
+=cut
+
+sub sqr_len($) {
+	my ($a) = @_;
+	return Quat::squared_length($a);
+}
+
+=head2 C<Quat::squared_length(\@a)>
+
+**
+
+=cut
+
+sub squared_length($) {
+	my ($a) = @_;
+	return Vec4::squared_length($a);
 }
 
 sub f($) {

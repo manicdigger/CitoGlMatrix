@@ -412,7 +412,7 @@ public class Mat4
 		float centerx = center[0];
 		float centery = center[1];
 		float centerz = center[2];
-		if (Math.abs(eyex - centerx) < Math.gLMAT_EPSILON() && Math.abs(eyey - centery) < Math.gLMAT_EPSILON() && Math.abs(eyez - centerz) < Math.gLMAT_EPSILON()) {
+		if (GlMatrixMath.abs(eyex - centerx) < GlMatrixMath.gLMAT_EPSILON() && GlMatrixMath.abs(eyey - centery) < GlMatrixMath.gLMAT_EPSILON() && GlMatrixMath.abs(eyez - centerz) < GlMatrixMath.gLMAT_EPSILON()) {
 			return Mat4.identity(output);
 		}
 		z0 = eyex - centerx;
@@ -645,7 +645,7 @@ public class Mat4
 		float b20;
 		float b21;
 		float b22;
-		if (Math.abs(len) < Math.gLMAT_EPSILON()) {
+		if (GlMatrixMath.abs(len) < GlMatrixMath.gLMAT_EPSILON()) {
 			return null;
 		}
 		len = 1 / len;

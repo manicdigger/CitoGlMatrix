@@ -16,7 +16,7 @@ public class Quat
 		output[1] = y;
 		output[2] = z;
 		float one = 1;
-		output[3] = -Platform.sqrt(Math.abs(one - x * x - y * y - z * z));
+		output[3] = -Platform.sqrt(GlMatrixMath.abs(one - x * x - y * y - z * z));
 		return output;
 	}
 
@@ -225,7 +225,7 @@ public class Quat
 			if (Vec3.length(tmpvec3) < epsilon)
 				Vec3.cross(tmpvec3, yUnitVec3, a);
 			Vec3.normalize(tmpvec3, tmpvec3);
-			Quat.setAxisAngle(output, tmpvec3, Math.pI());
+			Quat.setAxisAngle(output, tmpvec3, GlMatrixMath.pI());
 			return output;
 		}
 		else if (dot > nines) {

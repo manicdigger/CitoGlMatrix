@@ -19,6 +19,16 @@ typedef struct Quat Quat;
 typedef struct Vec2 Vec2;
 typedef struct Vec4 Vec4;
 
+float GlMatrixMath_Abs(float len);
+
+float GlMatrixMath_GLMAT_EPSILON(void);
+
+float GlMatrixMath_PI(void);
+
+float GlMatrixMath_max(float a, float b);
+
+float GlMatrixMath_min(float a, float b);
+
 /**
  * Calculates the adjugate of a mat2
  */
@@ -286,16 +296,6 @@ float const *Mat4_Translate(float *output, float const *a, float const *v);
  * @param a @param {mat4} a the source matrix
  */
 float const *Mat4_Transpose(float *output, float const *a);
-
-float Math_Abs(float len);
-
-float Math_GLMAT_EPSILON(void);
-
-float Math_PI(void);
-
-float Math_max(float a, float b);
-
-float Math_min(float a, float b);
 
 float Platform_Cos(float r);
 

@@ -156,10 +156,10 @@ public class Vec4
 	 */
 	public static float[] max(float[] output, float[] a, float[] b)
 	{
-		output[0] = Math.max(a[0], b[0]);
-		output[1] = Math.max(a[1], b[1]);
-		output[2] = Math.max(a[2], b[2]);
-		output[3] = Math.max(a[3], b[3]);
+		output[0] = GlMatrixMath.max(a[0], b[0]);
+		output[1] = GlMatrixMath.max(a[1], b[1]);
+		output[2] = GlMatrixMath.max(a[2], b[2]);
+		output[3] = GlMatrixMath.max(a[3], b[3]);
 		return output;
 	}
 
@@ -168,10 +168,10 @@ public class Vec4
 	 */
 	public static float[] min(float[] output, float[] a, float[] b)
 	{
-		output[0] = Math.min(a[0], b[0]);
-		output[1] = Math.min(a[1], b[1]);
-		output[2] = Math.min(a[2], b[2]);
-		output[3] = Math.min(a[3], b[3]);
+		output[0] = GlMatrixMath.min(a[0], b[0]);
+		output[1] = GlMatrixMath.min(a[1], b[1]);
+		output[2] = GlMatrixMath.min(a[2], b[2]);
+		output[3] = GlMatrixMath.min(a[3], b[3]);
 		return output;
 	}
 

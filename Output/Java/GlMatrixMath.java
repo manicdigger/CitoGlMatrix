@@ -1,7 +1,7 @@
 // Generated automatically with "cito". Do not edit.
 package CitoGlMatrix.lib;
 
-public class Math
+public class GlMatrixMath
 {
 
 	public static float abs(float len)

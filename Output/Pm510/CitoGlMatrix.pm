@@ -2,6 +2,81 @@
 use integer;
 use strict;
 
+=head1 Class GlMatrixMath
+
+=cut
+
+package GlMatrixMath;
+
+=head2 C<$glmatrixmath = GlMatrixMath-E<gt>new()>
+
+=cut
+
+sub new($) {
+	my $self = bless {}, shift;
+	return $self;
+}
+
+=head2 C<GlMatrixMath::abs($len)>
+
+=cut
+
+sub abs($) {
+	my ($len) = @_;
+	if ($len < 0) {
+		return -$len;
+	}
+	else {
+		return $len;
+	}
+}
+
+=head2 C<GlMatrixMath::g_l_m_a_t__e_p_s_i_l_o_n()>
+
+=cut
+
+sub g_l_m_a_t__e_p_s_i_l_o_n() {
+	my $one = 1;
+	return $one / 1000000;
+}
+
+=head2 C<GlMatrixMath::p_i()>
+
+=cut
+
+sub p_i() {
+	my $a = 3141592;
+	return $a / 1000000;
+}
+
+=head2 C<GlMatrixMath::max($a, $b)>
+
+=cut
+
+sub max($$) {
+	my ($a, $b) = @_;
+	if ($a > $b) {
+		return $a;
+	}
+	else {
+		return $b;
+	}
+}
+
+=head2 C<GlMatrixMath::min($a, $b)>
+
+=cut
+
+sub min($$) {
+	my ($a, $b) = @_;
+	if ($a < $b) {
+		return $a;
+	}
+	else {
+		return $b;
+	}
+}
+
 =head1 Class Mat2
 
 2x2 Matrix
@@ -890,7 +965,7 @@ sub look_at($$$$) {
 	my $centerx = $center->[0];
 	my $centery = $center->[1];
 	my $centerz = $center->[2];
-	if (Math::abs($eyex - $centerx) < Math::g_l_m_a_t__e_p_s_i_l_o_n() && Math::abs($eyey - $centery) < Math::g_l_m_a_t__e_p_s_i_l_o_n() && Math::abs($eyez - $centerz) < Math::g_l_m_a_t__e_p_s_i_l_o_n()) {
+	if (GlMatrixMath::abs($eyex - $centerx) < GlMatrixMath::g_l_m_a_t__e_p_s_i_l_o_n() && GlMatrixMath::abs($eyey - $centery) < GlMatrixMath::g_l_m_a_t__e_p_s_i_l_o_n() && GlMatrixMath::abs($eyez - $centerz) < GlMatrixMath::g_l_m_a_t__e_p_s_i_l_o_n()) {
 		return Mat4::identity($output);
 	}
 	$z0 = $eyex - $centerx;
@@ -1219,7 +1294,7 @@ sub rotate($$$$) {
 	my $b20;
 	my $b21;
 	my $b22;
-	if (Math::abs($len) < Math::g_l_m_a_t__e_p_s_i_l_o_n()) {
+	if (GlMatrixMath::abs($len) < GlMatrixMath::g_l_m_a_t__e_p_s_i_l_o_n()) {
 		return undef;
 	}
 	$len = 1 / $len;
@@ -1605,81 +1680,6 @@ sub f($) {
 	my ($self) = @_;
 }
 
-=head1 Class Math
-
-=cut
-
-package Math;
-
-=head2 C<$math = Math-E<gt>new()>
-
-=cut
-
-sub new($) {
-	my $self = bless {}, shift;
-	return $self;
-}
-
-=head2 C<Math::abs($len)>
-
-=cut
-
-sub abs($) {
-	my ($len) = @_;
-	if ($len < 0) {
-		return -$len;
-	}
-	else {
-		return $len;
-	}
-}
-
-=head2 C<Math::g_l_m_a_t__e_p_s_i_l_o_n()>
-
-=cut
-
-sub g_l_m_a_t__e_p_s_i_l_o_n() {
-	my $one = 1;
-	return $one / 1000000;
-}
-
-=head2 C<Math::p_i()>
-
-=cut
-
-sub p_i() {
-	my $a = 3141592;
-	return $a / 1000000;
-}
-
-=head2 C<Math::max($a, $b)>
-
-=cut
-
-sub max($$) {
-	my ($a, $b) = @_;
-	if ($a > $b) {
-		return $a;
-	}
-	else {
-		return $b;
-	}
-}
-
-=head2 C<Math::min($a, $b)>
-
-=cut
-
-sub min($$) {
-	my ($a, $b) = @_;
-	if ($a < $b) {
-		return $a;
-	}
-	else {
-		return $b;
-	}
-}
-
 =head1 Class Platform
 
 =cut
@@ -1769,7 +1769,7 @@ sub calculate_w($$) {
 	$output->[1] = $y;
 	$output->[2] = $z;
 	my $one = 1;
-	$output->[3] = -Platform::sqrt(Math::abs($one - $x * $x - $y * $y - $z * $z));
+	$output->[3] = -Platform::sqrt(GlMatrixMath::abs($one - $x * $x - $y * $y - $z * $z));
 	return $output;
 }
 
@@ -2013,7 +2013,7 @@ sub rotation_to($$$) {
 			Vec3::cross($tmpvec3, $yUnitVec3, $a);
 		}
 		Vec3::normalize($tmpvec3, $tmpvec3);
-		Quat::set_axis_angle($output, $tmpvec3, Math::p_i());
+		Quat::set_axis_angle($output, $tmpvec3, GlMatrixMath::p_i());
 		return $output;
 	}
 	elsif ($dot > $nines) {
@@ -2514,9 +2514,9 @@ Parameters:
 
 sub max($$$) {
 	my ($output, $a, $b) = @_;
-	$output->[0] = Math::max($a->[0], $b->[0]);
-	$output->[1] = Math::max($a->[1], $b->[1]);
-	$output->[2] = Math::max($a->[2], $b->[2]);
+	$output->[0] = GlMatrixMath::max($a->[0], $b->[0]);
+	$output->[1] = GlMatrixMath::max($a->[1], $b->[1]);
+	$output->[2] = GlMatrixMath::max($a->[2], $b->[2]);
 	return $output;
 }
 
@@ -2547,9 +2547,9 @@ Parameters:
 
 sub min($$$) {
 	my ($output, $a, $b) = @_;
-	$output->[0] = Math::min($a->[0], $b->[0]);
-	$output->[1] = Math::min($a->[1], $b->[1]);
-	$output->[2] = Math::min($a->[2], $b->[2]);
+	$output->[0] = GlMatrixMath::min($a->[0], $b->[0]);
+	$output->[1] = GlMatrixMath::min($a->[1], $b->[1]);
+	$output->[2] = GlMatrixMath::min($a->[2], $b->[2]);
 	return $output;
 }
 
@@ -2688,7 +2688,7 @@ sub random($$) {
 	my ($output, $scale) = @_;
 	my $one = 1;
 	my $two = 2;
-	my $r = Platform::random() * $two * Math::p_i();
+	my $r = Platform::random() * $two * GlMatrixMath::p_i();
 	my $z = Platform::random() * $two - $one;
 	my $zScale = Platform::sqrt($one - $z * $z) * $scale;
 	$output->[0] = Platform::cos($r) * $zScale;
@@ -3259,10 +3259,10 @@ sub lerp($$$$) {
 
 sub max($$$) {
 	my ($output, $a, $b) = @_;
-	$output->[0] = Math::max($a->[0], $b->[0]);
-	$output->[1] = Math::max($a->[1], $b->[1]);
-	$output->[2] = Math::max($a->[2], $b->[2]);
-	$output->[3] = Math::max($a->[3], $b->[3]);
+	$output->[0] = GlMatrixMath::max($a->[0], $b->[0]);
+	$output->[1] = GlMatrixMath::max($a->[1], $b->[1]);
+	$output->[2] = GlMatrixMath::max($a->[2], $b->[2]);
+	$output->[3] = GlMatrixMath::max($a->[3], $b->[3]);
 	return $output;
 }
 
@@ -3274,10 +3274,10 @@ sub max($$$) {
 
 sub min($$$) {
 	my ($output, $a, $b) = @_;
-	$output->[0] = Math::min($a->[0], $b->[0]);
-	$output->[1] = Math::min($a->[1], $b->[1]);
-	$output->[2] = Math::min($a->[2], $b->[2]);
-	$output->[3] = Math::min($a->[3], $b->[3]);
+	$output->[0] = GlMatrixMath::min($a->[0], $b->[0]);
+	$output->[1] = GlMatrixMath::min($a->[1], $b->[1]);
+	$output->[2] = GlMatrixMath::min($a->[2], $b->[2]);
+	$output->[3] = GlMatrixMath::min($a->[3], $b->[3]);
 	return $output;
 }
 

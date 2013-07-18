@@ -205,9 +205,9 @@ public class Vec3
 	 */
 	public static float[] max(float[] output, float[] a, float[] b)
 	{
-		output[0] = Math.max(a[0], b[0]);
-		output[1] = Math.max(a[1], b[1]);
-		output[2] = Math.max(a[2], b[2]);
+		output[0] = GlMatrixMath.max(a[0], b[0]);
+		output[1] = GlMatrixMath.max(a[1], b[1]);
+		output[2] = GlMatrixMath.max(a[2], b[2]);
 		return output;
 	}
 
@@ -220,9 +220,9 @@ public class Vec3
 	 */
 	public static float[] min(float[] output, float[] a, float[] b)
 	{
-		output[0] = Math.min(a[0], b[0]);
-		output[1] = Math.min(a[1], b[1]);
-		output[2] = Math.min(a[2], b[2]);
+		output[0] = GlMatrixMath.min(a[0], b[0]);
+		output[1] = GlMatrixMath.min(a[1], b[1]);
+		output[2] = GlMatrixMath.min(a[2], b[2]);
 		return output;
 	}
 
@@ -295,7 +295,7 @@ public class Vec3
 	{
 		float one = 1;
 		float two = 2;
-		float r = Platform.random() * two * Math.pI();
+		float r = Platform.random() * two * GlMatrixMath.pI();
 		float z = Platform.random() * two - one;
 		float zScale = Platform.sqrt(one - z * z) * scale;
 		output[0] = Platform.cos(r) * zScale;

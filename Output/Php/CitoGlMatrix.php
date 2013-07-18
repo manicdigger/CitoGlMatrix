@@ -1,6 +1,52 @@
 <?php
 // Generated automatically with "cito". Do not edit.
 
+class GlMatrixMath
+{
+
+	static function Abs($len)
+	{
+		if ($len < 0) {
+			return -$len;
+		}
+		else {
+			return $len;
+		}
+	}
+
+	static function GLMAT_EPSILON()
+	{
+		$one = 1;
+		return $one / 1000000;
+	}
+
+	static function PI()
+	{
+		$a = 3141592;
+		return $a / 1000000;
+	}
+
+	static function max($a, $b)
+	{
+		if ($a > $b) {
+			return $a;
+		}
+		else {
+			return $b;
+		}
+	}
+
+	static function min($a, $b)
+	{
+		if ($a < $b) {
+			return $a;
+		}
+		else {
+			return $b;
+		}
+	}
+}
+
 // 2x2 Matrix
 class Mat2
 {
@@ -613,7 +659,7 @@ class Mat4
 		$centerx = $center[0];
 		$centery = $center[1];
 		$centerz = $center[2];
-		if (Math::Abs($eyex - $centerx) < Math::GLMAT_EPSILON() && Math::Abs($eyey - $centery) < Math::GLMAT_EPSILON() && Math::Abs($eyez - $centerz) < Math::GLMAT_EPSILON()) {
+		if (GlMatrixMath::Abs($eyex - $centerx) < GlMatrixMath::GLMAT_EPSILON() && GlMatrixMath::Abs($eyey - $centery) < GlMatrixMath::GLMAT_EPSILON() && GlMatrixMath::Abs($eyez - $centerz) < GlMatrixMath::GLMAT_EPSILON()) {
 			return Mat4::Identity($output);
 		}
 		$z0 = $eyex - $centerx;
@@ -836,7 +882,7 @@ class Mat4
 		$b20;
 		$b21;
 		$b22;
-		if (Math::Abs($len) < Math::GLMAT_EPSILON()) {
+		if (GlMatrixMath::Abs($len) < GlMatrixMath::GLMAT_EPSILON()) {
 			return null;
 		}
 		$len = 1 / $len;
@@ -1107,52 +1153,6 @@ class Mat4
 	}
 }
 
-class Math
-{
-
-	static function Abs($len)
-	{
-		if ($len < 0) {
-			return -$len;
-		}
-		else {
-			return $len;
-		}
-	}
-
-	static function GLMAT_EPSILON()
-	{
-		$one = 1;
-		return $one / 1000000;
-	}
-
-	static function PI()
-	{
-		$a = 3141592;
-		return $a / 1000000;
-	}
-
-	static function max($a, $b)
-	{
-		if ($a > $b) {
-			return $a;
-		}
-		else {
-			return $b;
-		}
-	}
-
-	static function min($a, $b)
-	{
-		if ($a < $b) {
-			return $a;
-		}
-		else {
-			return $b;
-		}
-	}
-}
-
 class Platform
 {
 
@@ -1195,7 +1195,7 @@ class Quat
 		$output[1] = $y;
 		$output[2] = $z;
 		$one = 1;
-		$output[3] = -Platform::Sqrt(Math::Abs($one - $x * $x - $y * $y - $z * $z));
+		$output[3] = -Platform::Sqrt(GlMatrixMath::Abs($one - $x * $x - $y * $y - $z * $z));
 		return $output;
 	}
 
@@ -1382,7 +1382,7 @@ class Quat
 			if (Vec3::Length($tmpvec3) < $epsilon)
 				Vec3::Cross($tmpvec3, $yUnitVec3, $a);
 			Vec3::Normalize($tmpvec3, $tmpvec3);
-			Quat::SetAxisAngle($output, $tmpvec3, Math::PI());
+			Quat::SetAxisAngle($output, $tmpvec3, GlMatrixMath::PI());
 			return $output;
 		}
 		else if ($dot > $nines) {
@@ -1661,9 +1661,9 @@ class Vec3
 	/// <param name="b">/@param {vec3} b the second operand</param>
 	static function Max(&$output, &$a, &$b)
 	{
-		$output[0] = Math::max($a[0], $b[0]);
-		$output[1] = Math::max($a[1], $b[1]);
-		$output[2] = Math::max($a[2], $b[2]);
+		$output[0] = GlMatrixMath::max($a[0], $b[0]);
+		$output[1] = GlMatrixMath::max($a[1], $b[1]);
+		$output[2] = GlMatrixMath::max($a[2], $b[2]);
 		return $output;
 	}
 
@@ -1674,9 +1674,9 @@ class Vec3
 	/// <param name="b">/@param {vec3} b the second operand</param>
 	static function Min(&$output, &$a, &$b)
 	{
-		$output[0] = Math::min($a[0], $b[0]);
-		$output[1] = Math::min($a[1], $b[1]);
-		$output[2] = Math::min($a[2], $b[2]);
+		$output[0] = GlMatrixMath::min($a[0], $b[0]);
+		$output[1] = GlMatrixMath::min($a[1], $b[1]);
+		$output[2] = GlMatrixMath::min($a[2], $b[2]);
 		return $output;
 	}
 
@@ -1739,7 +1739,7 @@ class Vec3
 	{
 		$one = 1;
 		$two = 2;
-		$r = Platform::Random() * $two * Math::PI();
+		$r = Platform::Random() * $two * GlMatrixMath::PI();
 		$z = Platform::Random() * $two - $one;
 		$zScale = Platform::Sqrt($one - $z * $z) * $scale;
 		$output[0] = Platform::Cos($r) * $zScale;
@@ -2033,20 +2033,20 @@ class Vec4
 	// **
 	static function Max(&$output, &$a, &$b)
 	{
-		$output[0] = Math::max($a[0], $b[0]);
-		$output[1] = Math::max($a[1], $b[1]);
-		$output[2] = Math::max($a[2], $b[2]);
-		$output[3] = Math::max($a[3], $b[3]);
+		$output[0] = GlMatrixMath::max($a[0], $b[0]);
+		$output[1] = GlMatrixMath::max($a[1], $b[1]);
+		$output[2] = GlMatrixMath::max($a[2], $b[2]);
+		$output[3] = GlMatrixMath::max($a[3], $b[3]);
 		return $output;
 	}
 
 	// **
 	static function Min(&$output, &$a, &$b)
 	{
-		$output[0] = Math::min($a[0], $b[0]);
-		$output[1] = Math::min($a[1], $b[1]);
-		$output[2] = Math::min($a[2], $b[2]);
-		$output[3] = Math::min($a[3], $b[3]);
+		$output[0] = GlMatrixMath::min($a[0], $b[0]);
+		$output[1] = GlMatrixMath::min($a[1], $b[1]);
+		$output[2] = GlMatrixMath::min($a[2], $b[2]);
+		$output[3] = GlMatrixMath::min($a[3], $b[3]);
 		return $output;
 	}
 

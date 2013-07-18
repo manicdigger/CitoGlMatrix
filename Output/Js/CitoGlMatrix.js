@@ -1,5 +1,46 @@
 // Generated automatically with "cito". Do not edit.
 
+function GlMatrixMath()
+{
+}
+
+GlMatrixMath.abs = function(len) {
+	if (len < 0) {
+		return -len;
+	}
+	else {
+		return len;
+	}
+}
+
+GlMatrixMath.gLMAT_EPSILON = function() {
+	var one = 1;
+	return one / (1000000);
+}
+
+GlMatrixMath.pI = function() {
+	var a = 3141592;
+	return a / (1000000);
+}
+
+GlMatrixMath.max = function(a, b) {
+	if (a > b) {
+		return a;
+	}
+	else {
+		return b;
+	}
+}
+
+GlMatrixMath.min = function(a, b) {
+	if (a < b) {
+		return a;
+	}
+	else {
+		return b;
+	}
+}
+
 function Mat2()
 {
 }
@@ -479,7 +520,7 @@ Mat4.lookAt = function(output, eye, center, up) {
 	var centerx = center[0];
 	var centery = center[1];
 	var centerz = center[2];
-	if (Math.abs(eyex - centerx) < Math.gLMAT_EPSILON() && Math.abs(eyey - centery) < Math.gLMAT_EPSILON() && Math.abs(eyez - centerz) < Math.gLMAT_EPSILON()) {
+	if (GlMatrixMath.abs(eyex - centerx) < GlMatrixMath.gLMAT_EPSILON() && GlMatrixMath.abs(eyey - centery) < GlMatrixMath.gLMAT_EPSILON() && GlMatrixMath.abs(eyez - centerz) < GlMatrixMath.gLMAT_EPSILON()) {
 		return Mat4.identity(output);
 	}
 	z0 = eyex - centerx;
@@ -669,7 +710,7 @@ Mat4.rotate = function(output, a, rad, axis) {
 	var b20;
 	var b21;
 	var b22;
-	if (Math.abs(len) < Math.gLMAT_EPSILON()) {
+	if (GlMatrixMath.abs(len) < GlMatrixMath.gLMAT_EPSILON()) {
 		return null;
 	}
 	len = 1 / (len);
@@ -902,47 +943,6 @@ Mat4.transpose = function(output, a) {
 Mat4.prototype.f = function() {
 }
 
-function Math()
-{
-}
-
-Math.abs = function(len) {
-	if (len < 0) {
-		return -len;
-	}
-	else {
-		return len;
-	}
-}
-
-Math.gLMAT_EPSILON = function() {
-	var one = 1;
-	return one / (1000000);
-}
-
-Math.pI = function() {
-	var a = 3141592;
-	return a / (1000000);
-}
-
-Math.max = function(a, b) {
-	if (a > b) {
-		return a;
-	}
-	else {
-		return b;
-	}
-}
-
-Math.min = function(a, b) {
-	if (a < b) {
-		return a;
-	}
-	else {
-		return b;
-	}
-}
-
 function Platform()
 {
 }
@@ -979,7 +979,7 @@ Quat.calculateW = function(output, a) {
 	output[1] = y;
 	output[2] = z;
 	var one = 1;
-	output[3] = -Platform.sqrt(Math.abs(one - x * x - y * y - z * z));
+	output[3] = -Platform.sqrt(GlMatrixMath.abs(one - x * x - y * y - z * z));
 	return output;
 }
 
@@ -1134,7 +1134,7 @@ Quat.rotationTo = function(output, a, b) {
 		if (Vec3.length(tmpvec3) < epsilon)
 			Vec3.cross(tmpvec3, yUnitVec3, a);
 		Vec3.normalize(tmpvec3, tmpvec3);
-		Quat.setAxisAngle(output, tmpvec3, Math.pI());
+		Quat.setAxisAngle(output, tmpvec3, GlMatrixMath.pI());
 		return output;
 	}
 	else if (dot > nines) {
@@ -1295,16 +1295,16 @@ Vec3.lerp = function(output, a, b, t) {
 }
 
 Vec3.max = function(output, a, b) {
-	output[0] = Math.max(a[0], b[0]);
-	output[1] = Math.max(a[1], b[1]);
-	output[2] = Math.max(a[2], b[2]);
+	output[0] = GlMatrixMath.max(a[0], b[0]);
+	output[1] = GlMatrixMath.max(a[1], b[1]);
+	output[2] = GlMatrixMath.max(a[2], b[2]);
 	return output;
 }
 
 Vec3.min = function(output, a, b) {
-	output[0] = Math.min(a[0], b[0]);
-	output[1] = Math.min(a[1], b[1]);
-	output[2] = Math.min(a[2], b[2]);
+	output[0] = GlMatrixMath.min(a[0], b[0]);
+	output[1] = GlMatrixMath.min(a[1], b[1]);
+	output[2] = GlMatrixMath.min(a[2], b[2]);
 	return output;
 }
 
@@ -1344,7 +1344,7 @@ Vec3.normalize = function(output, a) {
 Vec3.random = function(output, scale) {
 	var one = 1;
 	var two = 2;
-	var r = Platform.random() * two * Math.pI();
+	var r = Platform.random() * two * GlMatrixMath.pI();
 	var z = Platform.random() * two - one;
 	var zScale = Platform.sqrt(one - z * z) * scale;
 	output[0] = Platform.cos(r) * zScale;
@@ -1549,18 +1549,18 @@ Vec4.lerp = function(output, a, b, t) {
 }
 
 Vec4.max = function(output, a, b) {
-	output[0] = Math.max(a[0], b[0]);
-	output[1] = Math.max(a[1], b[1]);
-	output[2] = Math.max(a[2], b[2]);
-	output[3] = Math.max(a[3], b[3]);
+	output[0] = GlMatrixMath.max(a[0], b[0]);
+	output[1] = GlMatrixMath.max(a[1], b[1]);
+	output[2] = GlMatrixMath.max(a[2], b[2]);
+	output[3] = GlMatrixMath.max(a[3], b[3]);
 	return output;
 }
 
 Vec4.min = function(output, a, b) {
-	output[0] = Math.min(a[0], b[0]);
-	output[1] = Math.min(a[1], b[1]);
-	output[2] = Math.min(a[2], b[2]);
-	output[3] = Math.min(a[3], b[3]);
+	output[0] = GlMatrixMath.min(a[0], b[0]);
+	output[1] = GlMatrixMath.min(a[1], b[1]);
+	output[2] = GlMatrixMath.min(a[2], b[2]);
+	output[3] = GlMatrixMath.min(a[3], b[3]);
 	return output;
 }
 

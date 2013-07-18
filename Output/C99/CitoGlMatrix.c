@@ -13,6 +13,48 @@
 
 
 
+float GlMatrixMath_Abs(float len)
+{
+	if (len < 0) {
+		return -len;
+	}
+	else {
+		return len;
+	}
+}
+
+float GlMatrixMath_GLMAT_EPSILON(void)
+{
+	float one = 1;
+	return one / 1000000;
+}
+
+float GlMatrixMath_PI(void)
+{
+	float a = 3141592;
+	return a / 1000000;
+}
+
+float GlMatrixMath_max(float a, float b)
+{
+	if (a > b) {
+		return a;
+	}
+	else {
+		return b;
+	}
+}
+
+float GlMatrixMath_min(float a, float b)
+{
+	if (a < b) {
+		return a;
+	}
+	else {
+		return b;
+	}
+}
+
 float const *Mat2_Adjoint(float *output, float const *a)
 {
 	float a0 = a[0];
@@ -491,7 +533,7 @@ float const *Mat4_LookAt(float *output, float const *eye, float const *center, f
 	float centerx = center[0];
 	float centery = center[1];
 	float centerz = center[2];
-	if (Math_Abs(eyex - centerx) < Math_GLMAT_EPSILON() && Math_Abs(eyey - centery) < Math_GLMAT_EPSILON() && Math_Abs(eyez - centerz) < Math_GLMAT_EPSILON()) {
+	if (GlMatrixMath_Abs(eyex - centerx) < GlMatrixMath_GLMAT_EPSILON() && GlMatrixMath_Abs(eyey - centery) < GlMatrixMath_GLMAT_EPSILON() && GlMatrixMath_Abs(eyez - centerz) < GlMatrixMath_GLMAT_EPSILON()) {
 		return Mat4_Identity(output);
 	}
 	z0 = eyex - centerx;
@@ -686,7 +728,7 @@ float const *Mat4_Rotate(float *output, float const *a, float rad, float const *
 	float b20;
 	float b21;
 	float b22;
-	if (Math_Abs(len) < Math_GLMAT_EPSILON()) {
+	if (GlMatrixMath_Abs(len) < GlMatrixMath_GLMAT_EPSILON()) {
 		return NULL;
 	}
 	len = 1 / len;
@@ -922,48 +964,6 @@ float const *Mat4_Transpose(float *output, float const *a)
 	return output;
 }
 
-float Math_Abs(float len)
-{
-	if (len < 0) {
-		return -len;
-	}
-	else {
-		return len;
-	}
-}
-
-float Math_GLMAT_EPSILON(void)
-{
-	float one = 1;
-	return one / 1000000;
-}
-
-float Math_PI(void)
-{
-	float a = 3141592;
-	return a / 1000000;
-}
-
-float Math_max(float a, float b)
-{
-	if (a > b) {
-		return a;
-	}
-	else {
-		return b;
-	}
-}
-
-float Math_min(float a, float b)
-{
-	if (a < b) {
-		return a;
-	}
-	else {
-		return b;
-	}
-}
-
 float Platform_Cos(float r)
 {
 	return 0;
@@ -998,7 +998,7 @@ float const *Quat_CalculateW(float *output, float const *a)
 	output[1] = y;
 	output[2] = z;
 	float one = 1;
-	output[3] = -Platform_Sqrt(Math_Abs(one - x * x - y * y - z * z));
+	output[3] = -Platform_Sqrt(GlMatrixMath_Abs(one - x * x - y * y - z * z));
 	return output;
 }
 
@@ -1164,7 +1164,7 @@ float const *Quat_RotationTo(float *output, float const *a, float const *b)
 		if (Vec3_Length(tmpvec3) < epsilon)
 			Vec3_Cross(tmpvec3, yUnitVec3, a);
 		Vec3_Normalize(tmpvec3, tmpvec3);
-		Quat_SetAxisAngle(output, tmpvec3, Math_PI());
+		Quat_SetAxisAngle(output, tmpvec3, GlMatrixMath_PI());
 		return output;
 	}
 	else if (dot > nines) {
@@ -1329,17 +1329,17 @@ float const *Vec3_Lerp(float *output, float const *a, float const *b, float t)
 
 float const *Vec3_Max(float *output, float const *a, float const *b)
 {
-	output[0] = Math_max(a[0], b[0]);
-	output[1] = Math_max(a[1], b[1]);
-	output[2] = Math_max(a[2], b[2]);
+	output[0] = GlMatrixMath_max(a[0], b[0]);
+	output[1] = GlMatrixMath_max(a[1], b[1]);
+	output[2] = GlMatrixMath_max(a[2], b[2]);
 	return output;
 }
 
 float const *Vec3_Min(float *output, float const *a, float const *b)
 {
-	output[0] = Math_min(a[0], b[0]);
-	output[1] = Math_min(a[1], b[1]);
-	output[2] = Math_min(a[2], b[2]);
+	output[0] = GlMatrixMath_min(a[0], b[0]);
+	output[1] = GlMatrixMath_min(a[1], b[1]);
+	output[2] = GlMatrixMath_min(a[2], b[2]);
 	return output;
 }
 
@@ -1384,7 +1384,7 @@ float const *Vec3_Random(float *output, float scale)
 {
 	float one = 1;
 	float two = 2;
-	float r = Platform_Random() * two * Math_PI();
+	float r = Platform_Random() * two * GlMatrixMath_PI();
 	float z = Platform_Random() * two - one;
 	float zScale = Platform_Sqrt(one - z * z) * scale;
 	output[0] = Platform_Cos(r) * zScale;
@@ -1612,19 +1612,19 @@ float const *Vec4_Lerp(float *output, float const *a, float const *b, float t)
 
 float const *Vec4_Max(float *output, float const *a, float const *b)
 {
-	output[0] = Math_max(a[0], b[0]);
-	output[1] = Math_max(a[1], b[1]);
-	output[2] = Math_max(a[2], b[2]);
-	output[3] = Math_max(a[3], b[3]);
+	output[0] = GlMatrixMath_max(a[0], b[0]);
+	output[1] = GlMatrixMath_max(a[1], b[1]);
+	output[2] = GlMatrixMath_max(a[2], b[2]);
+	output[3] = GlMatrixMath_max(a[3], b[3]);
 	return output;
 }
 
 float const *Vec4_Min(float *output, float const *a, float const *b)
 {
-	output[0] = Math_min(a[0], b[0]);
-	output[1] = Math_min(a[1], b[1]);
-	output[2] = Math_min(a[2], b[2]);
-	output[3] = Math_min(a[3], b[3]);
+	output[0] = GlMatrixMath_min(a[0], b[0]);
+	output[1] = GlMatrixMath_min(a[1], b[1]);
+	output[2] = GlMatrixMath_min(a[2], b[2]);
+	output[3] = GlMatrixMath_min(a[3], b[3]);
 	return output;
 }
 

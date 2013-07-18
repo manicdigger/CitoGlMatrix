@@ -207,9 +207,9 @@ package
 		 */
 		public static function max(output : Array, a : Array, b : Array) : Array
 		{
-			output[0] = Math.max(a[0], b[0]);
-			output[1] = Math.max(a[1], b[1]);
-			output[2] = Math.max(a[2], b[2]);
+			output[0] = GlMatrixMath.max(a[0], b[0]);
+			output[1] = GlMatrixMath.max(a[1], b[1]);
+			output[2] = GlMatrixMath.max(a[2], b[2]);
 			return output;
 		}
 
@@ -222,9 +222,9 @@ package
 		 */
 		public static function min(output : Array, a : Array, b : Array) : Array
 		{
-			output[0] = Math.min(a[0], b[0]);
-			output[1] = Math.min(a[1], b[1]);
-			output[2] = Math.min(a[2], b[2]);
+			output[0] = GlMatrixMath.min(a[0], b[0]);
+			output[1] = GlMatrixMath.min(a[1], b[1]);
+			output[2] = GlMatrixMath.min(a[2], b[2]);
 			return output;
 		}
 
@@ -297,7 +297,7 @@ package
 		{
 			var one : float = 1;
 			var two : float = 2;
-			var r : float = Platform.random() * two * Math.pI();
+			var r : float = Platform.random() * two * GlMatrixMath.pI();
 			var z : float = Platform.random() * two - one;
 			var zScale : float = Platform.sqrt(one - z * z) * scale;
 			output[0] = Platform.cos(r) * zScale;

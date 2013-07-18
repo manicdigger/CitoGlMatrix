@@ -414,7 +414,7 @@ package
 			var centerx : float = center[0];
 			var centery : float = center[1];
 			var centerz : float = center[2];
-			if (Math.abs(eyex - centerx) < Math.gLMAT_EPSILON() && Math.abs(eyey - centery) < Math.gLMAT_EPSILON() && Math.abs(eyez - centerz) < Math.gLMAT_EPSILON()) {
+			if (GlMatrixMath.abs(eyex - centerx) < GlMatrixMath.gLMAT_EPSILON() && GlMatrixMath.abs(eyey - centery) < GlMatrixMath.gLMAT_EPSILON() && GlMatrixMath.abs(eyez - centerz) < GlMatrixMath.gLMAT_EPSILON()) {
 				return Mat4.identity(output);
 			}
 			z0 = eyex - centerx;
@@ -647,7 +647,7 @@ package
 			var b20 : float;
 			var b21 : float;
 			var b22 : float;
-			if (Math.abs(len) < Math.gLMAT_EPSILON()) {
+			if (GlMatrixMath.abs(len) < GlMatrixMath.gLMAT_EPSILON()) {
 				return null;
 			}
 			len = 1 / (len);

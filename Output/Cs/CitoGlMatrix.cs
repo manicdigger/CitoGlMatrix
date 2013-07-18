@@ -1,5 +1,51 @@
 // Generated automatically with "cito". Do not edit.
 
+public class GlMatrixMath
+{
+
+	public static float Abs(float len)
+	{
+		if (len < 0) {
+			return -len;
+		}
+		else {
+			return len;
+		}
+	}
+
+	public static float GLMAT_EPSILON()
+	{
+		float one = 1;
+		return one / 1000000;
+	}
+
+	public static float PI()
+	{
+		float a = 3141592;
+		return a / 1000000;
+	}
+
+	public static float max(float a, float b)
+	{
+		if (a > b) {
+			return a;
+		}
+		else {
+			return b;
+		}
+	}
+
+	public static float min(float a, float b)
+	{
+		if (a < b) {
+			return a;
+		}
+		else {
+			return b;
+		}
+	}
+}
+
 /// <summary>2x2 Matrix</summary>
 public class Mat2
 {
@@ -612,7 +658,7 @@ public class Mat4
 		float centerx = center[0];
 		float centery = center[1];
 		float centerz = center[2];
-		if (Math.Abs(eyex - centerx) < Math.GLMAT_EPSILON() && Math.Abs(eyey - centery) < Math.GLMAT_EPSILON() && Math.Abs(eyez - centerz) < Math.GLMAT_EPSILON()) {
+		if (GlMatrixMath.Abs(eyex - centerx) < GlMatrixMath.GLMAT_EPSILON() && GlMatrixMath.Abs(eyey - centery) < GlMatrixMath.GLMAT_EPSILON() && GlMatrixMath.Abs(eyez - centerz) < GlMatrixMath.GLMAT_EPSILON()) {
 			return Mat4.Identity(output);
 		}
 		z0 = eyex - centerx;
@@ -835,7 +881,7 @@ public class Mat4
 		float b20;
 		float b21;
 		float b22;
-		if (Math.Abs(len) < Math.GLMAT_EPSILON()) {
+		if (GlMatrixMath.Abs(len) < GlMatrixMath.GLMAT_EPSILON()) {
 			return null;
 		}
 		len = 1 / len;
@@ -1106,52 +1152,6 @@ public class Mat4
 	}
 }
 
-public class Math
-{
-
-	public static float Abs(float len)
-	{
-		if (len < 0) {
-			return -len;
-		}
-		else {
-			return len;
-		}
-	}
-
-	public static float GLMAT_EPSILON()
-	{
-		float one = 1;
-		return one / 1000000;
-	}
-
-	public static float PI()
-	{
-		float a = 3141592;
-		return a / 1000000;
-	}
-
-	public static float max(float a, float b)
-	{
-		if (a > b) {
-			return a;
-		}
-		else {
-			return b;
-		}
-	}
-
-	public static float min(float a, float b)
-	{
-		if (a < b) {
-			return a;
-		}
-		else {
-			return b;
-		}
-	}
-}
-
 public class Platform
 {
 
@@ -1202,7 +1202,7 @@ public class Quat
 		output[1] = y;
 		output[2] = z;
 		float one = 1;
-		output[3] = -Platform.Sqrt(Math.Abs(one - x * x - y * y - z * z));
+		output[3] = -Platform.Sqrt(GlMatrixMath.Abs(one - x * x - y * y - z * z));
 		return output;
 	}
 
@@ -1389,7 +1389,7 @@ public class Quat
 			if (Vec3.Length(tmpvec3) < epsilon)
 				Vec3.Cross(tmpvec3, yUnitVec3, a);
 			Vec3.Normalize(tmpvec3, tmpvec3);
-			Quat.SetAxisAngle(output, tmpvec3, Math.PI());
+			Quat.SetAxisAngle(output, tmpvec3, GlMatrixMath.PI());
 			return output;
 		}
 		else if (dot > nines) {
@@ -1668,9 +1668,9 @@ public class Vec3
 	/// <param name="b">/@param {vec3} b the second operand</param>
 	public static float[] Max(float[] output, float[] a, float[] b)
 	{
-		output[0] = Math.max(a[0], b[0]);
-		output[1] = Math.max(a[1], b[1]);
-		output[2] = Math.max(a[2], b[2]);
+		output[0] = GlMatrixMath.max(a[0], b[0]);
+		output[1] = GlMatrixMath.max(a[1], b[1]);
+		output[2] = GlMatrixMath.max(a[2], b[2]);
 		return output;
 	}
 
@@ -1681,9 +1681,9 @@ public class Vec3
 	/// <param name="b">/@param {vec3} b the second operand</param>
 	public static float[] Min(float[] output, float[] a, float[] b)
 	{
-		output[0] = Math.min(a[0], b[0]);
-		output[1] = Math.min(a[1], b[1]);
-		output[2] = Math.min(a[2], b[2]);
+		output[0] = GlMatrixMath.min(a[0], b[0]);
+		output[1] = GlMatrixMath.min(a[1], b[1]);
+		output[2] = GlMatrixMath.min(a[2], b[2]);
 		return output;
 	}
 
@@ -1746,7 +1746,7 @@ public class Vec3
 	{
 		float one = 1;
 		float two = 2;
-		float r = Platform.Random() * two * Math.PI();
+		float r = Platform.Random() * two * GlMatrixMath.PI();
 		float z = Platform.Random() * two - one;
 		float zScale = Platform.Sqrt(one - z * z) * scale;
 		output[0] = Platform.Cos(r) * zScale;
@@ -2055,20 +2055,20 @@ public class Vec4
 	/// <summary>**</summary>
 	public static float[] Max(float[] output, float[] a, float[] b)
 	{
-		output[0] = Math.max(a[0], b[0]);
-		output[1] = Math.max(a[1], b[1]);
-		output[2] = Math.max(a[2], b[2]);
-		output[3] = Math.max(a[3], b[3]);
+		output[0] = GlMatrixMath.max(a[0], b[0]);
+		output[1] = GlMatrixMath.max(a[1], b[1]);
+		output[2] = GlMatrixMath.max(a[2], b[2]);
+		output[3] = GlMatrixMath.max(a[3], b[3]);
 		return output;
 	}
 
 	/// <summary>**</summary>
 	public static float[] Min(float[] output, float[] a, float[] b)
 	{
-		output[0] = Math.min(a[0], b[0]);
-		output[1] = Math.min(a[1], b[1]);
-		output[2] = Math.min(a[2], b[2]);
-		output[3] = Math.min(a[3], b[3]);
+		output[0] = GlMatrixMath.min(a[0], b[0]);
+		output[1] = GlMatrixMath.min(a[1], b[1]);
+		output[2] = GlMatrixMath.min(a[2], b[2]);
+		output[3] = GlMatrixMath.min(a[3], b[3]);
 		return output;
 	}
 

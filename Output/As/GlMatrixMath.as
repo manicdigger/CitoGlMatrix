@@ -3,7 +3,7 @@ package
 {
 	import flash.utils.ByteArray;
 
-	public class Math
+	public class GlMatrixMath
 	{
 
 		public static function abs(len : float) : float

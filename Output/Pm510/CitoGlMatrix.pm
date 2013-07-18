@@ -2,6 +2,84 @@
 use integer;
 use strict;
 
+=head1 Class Mat2
+
+=cut
+
+package Mat2;
+
+=head2 C<$mat2 = Mat2-E<gt>new()>
+
+=cut
+
+sub new($) {
+	my $self = bless {}, shift;
+	return $self;
+}
+
+sub f($) {
+	my ($self) = @_;
+}
+
+=head1 Class Mat2d
+
+=cut
+
+package Mat2d;
+
+=head2 C<$mat2d = Mat2d-E<gt>new()>
+
+=cut
+
+sub new($) {
+	my $self = bless {}, shift;
+	return $self;
+}
+
+sub f($) {
+	my ($self) = @_;
+}
+
+=head1 Class Mat3
+
+=cut
+
+package Mat3;
+
+=head2 C<$mat3 = Mat3-E<gt>new()>
+
+=cut
+
+sub new($) {
+	my $self = bless {}, shift;
+	return $self;
+}
+
+sub f($) {
+	my ($self) = @_;
+}
+
+=head1 Class Mat4
+
+4x4 Matrix
+
+=cut
+
+package Mat4;
+
+=head2 C<$mat4 = Mat4-E<gt>new()>
+
+=cut
+
+sub new($) {
+	my $self = bless {}, shift;
+	return $self;
+}
+
+sub f($) {
+	my ($self) = @_;
+}
+
 =head1 Class Math
 
 =cut
@@ -102,6 +180,44 @@ sub sin($) {
 sub sqrt($) {
 	my ($a) = @_;
 	return 0;
+}
+
+=head1 Class Quat
+
+=cut
+
+package Quat;
+
+=head2 C<$quat = Quat-E<gt>new()>
+
+=cut
+
+sub new($) {
+	my $self = bless {}, shift;
+	return $self;
+}
+
+sub f($) {
+	my ($self) = @_;
+}
+
+=head1 Class Vec2
+
+=cut
+
+package Vec2;
+
+=head2 C<$vec2 = Vec2-E<gt>new()>
+
+=cut
+
+sub new($) {
+	my $self = bless {}, shift;
+	return $self;
+}
+
+sub f($) {
+	my ($self) = @_;
 }
 
 =head1 Class Vec3
@@ -1045,6 +1161,25 @@ sub transform_quat($$$) {
 sub str($) {
 	my ($a) = @_;
 	return "";
+}
+
+=head1 Class Vec4
+
+=cut
+
+package Vec4;
+
+=head2 C<$vec4 = Vec4-E<gt>new()>
+
+=cut
+
+sub new($) {
+	my $self = bless {}, shift;
+	return $self;
+}
+
+sub f($) {
+	my ($self) = @_;
 }
 
 1;

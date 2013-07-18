@@ -1,5 +1,33 @@
 // Generated automatically with "cito". Do not edit.
 
+function Mat2()
+{
+}
+
+Mat2.prototype.f = function() {
+}
+
+function Mat2d()
+{
+}
+
+Mat2d.prototype.f = function() {
+}
+
+function Mat3()
+{
+}
+
+Mat3.prototype.f = function() {
+}
+
+function Mat4()
+{
+}
+
+Mat4.prototype.f = function() {
+}
+
 function Math()
 {
 }
@@ -45,6 +73,20 @@ Platform.sin = function(r) {
 
 Platform.sqrt = function(a) {
 	return 0;
+}
+
+function Quat()
+{
+}
+
+Quat.prototype.f = function() {
+}
+
+function Vec2()
+{
+}
+
+Vec2.prototype.f = function() {
 }
 
 function Vec3()
@@ -302,4 +344,11 @@ Vec3.transformQuat = function(output, a, q) {
 
 Vec3.str = function(a) {
 	return "";
+}
+
+function Vec4()
+{
+}
+
+Vec4.prototype.f = function() {
 }

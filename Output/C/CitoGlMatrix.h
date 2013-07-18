@@ -11,7 +11,14 @@ typedef int cibool;
 #ifdef __cplusplus
 extern "C" {
 #endif
+typedef struct Mat2 Mat2;
+typedef struct Mat2d Mat2d;
+typedef struct Mat3 Mat3;
+typedef struct Mat4 Mat4;
+typedef struct Quat Quat;
+typedef struct Vec2 Vec2;
 typedef struct Vec3 Vec3;
+typedef struct Vec4 Vec4;
 
 float Math_PI(void);
 

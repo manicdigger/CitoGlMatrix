@@ -25,5 +25,10 @@ package
 		{
 			return 0;
 		}
+
+		public static function tan(p : float) : float
+		{
+			return 0;
+		}
 	}
 }

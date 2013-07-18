@@ -284,6 +284,122 @@ sub determinant($) {
 	return $b00 * $b11 - $b01 * $b10 + $b02 * $b09 + $b03 * $b08 - $b04 * $b07 + $b05 * $b06;
 }
 
+=head2 C<Mat4::from_quat(\@output, \@q)>
+
+Calculates a 4x4 matrix from the given quaternion
+
+=cut
+
+sub from_quat($$) {
+	my ($output, $q) = @_;
+	my $x = $q->[0];
+	my $y = $q->[1];
+	my $z = $q->[2];
+	my $w = $q->[3];
+	my $x2 = $x + $x;
+	my $y2 = $y + $y;
+	my $z2 = $z + $z;
+	my $xx = $x * $x2;
+	my $xy = $x * $y2;
+	my $xz = $x * $z2;
+	my $yy = $y * $y2;
+	my $yz = $y * $z2;
+	my $zz = $z * $z2;
+	my $wx = $w * $x2;
+	my $wy = $w * $y2;
+	my $wz = $w * $z2;
+	$output->[0] = 1 - ($yy + $zz);
+	$output->[1] = $xy + $wz;
+	$output->[2] = $xz - $wy;
+	$output->[3] = 0;
+	$output->[4] = $xy - $wz;
+	$output->[5] = 1 - ($xx + $zz);
+	$output->[6] = $yz + $wx;
+	$output->[7] = 0;
+	$output->[8] = $xz + $wy;
+	$output->[9] = $yz - $wx;
+	$output->[10] = 1 - ($xx + $yy);
+	$output->[11] = 0;
+	$output->[12] = 0;
+	$output->[13] = 0;
+	$output->[14] = 0;
+	$output->[15] = 1;
+	return $output;
+}
+
+=head2 C<Mat4::from_rotation_translation(\@output, \@q, \@v)>
+
+Creates a matrix from a quaternion rotation and vector translation
+
+=cut
+
+sub from_rotation_translation($$$) {
+	my ($output, $q, $v) = @_;
+	my $x = $q->[0];
+	my $y = $q->[1];
+	my $z = $q->[2];
+	my $w = $q->[3];
+	my $x2 = $x + $x;
+	my $y2 = $y + $y;
+	my $z2 = $z + $z;
+	my $xx = $x * $x2;
+	my $xy = $x * $y2;
+	my $xz = $x * $z2;
+	my $yy = $y * $y2;
+	my $yz = $y * $z2;
+	my $zz = $z * $z2;
+	my $wx = $w * $x2;
+	my $wy = $w * $y2;
+	my $wz = $w * $z2;
+	$output->[0] = 1 - ($yy + $zz);
+	$output->[1] = $xy + $wz;
+	$output->[2] = $xz - $wy;
+	$output->[3] = 0;
+	$output->[4] = $xy - $wz;
+	$output->[5] = 1 - ($xx + $zz);
+	$output->[6] = $yz + $wx;
+	$output->[7] = 0;
+	$output->[8] = $xz + $wy;
+	$output->[9] = $yz - $wx;
+	$output->[10] = 1 - ($xx + $yy);
+	$output->[11] = 0;
+	$output->[12] = $v->[0];
+	$output->[13] = $v->[1];
+	$output->[14] = $v->[2];
+	$output->[15] = 1;
+	return $output;
+}
+
+=head2 C<Mat4::frustum(\@output, $left, $right, $bottom, $top, $near, $far)>
+
+Generates a frustum matrix with the given bounds
+
+=cut
+
+sub frustum($$$$$$$) {
+	my ($output, $left, $right, $bottom, $top, $near, $far) = @_;
+	my $rl = 1 / ($right - $left);
+	my $tb = 1 / ($top - $bottom);
+	my $nf = 1 / ($near - $far);
+	$output->[0] = $near * 2 * $rl;
+	$output->[1] = 0;
+	$output->[2] = 0;
+	$output->[3] = 0;
+	$output->[4] = 0;
+	$output->[5] = $near * 2 * $tb;
+	$output->[6] = 0;
+	$output->[7] = 0;
+	$output->[8] = ($right + $left) * $rl;
+	$output->[9] = ($top + $bottom) * $tb;
+	$output->[10] = ($far + $near) * $nf;
+	$output->[11] = -1;
+	$output->[12] = 0;
+	$output->[13] = 0;
+	$output->[14] = $far * $near * 2 * $nf;
+	$output->[15] = 0;
+	return $output;
+}
+
 =head2 C<Mat4::identity(\@output)>
 
 Set a mat4 to the identity matrix
@@ -383,6 +499,92 @@ sub invert($$) {
 	return $output;
 }
 
+=head2 C<Mat4::look_at(\@output, \@eye, \@center, \@up)>
+
+Generates a look-at matrix with the given eye position, focal point, and up axis
+
+=cut
+
+sub look_at($$$$) {
+	my ($output, $eye, $center, $up) = @_;
+	my $x0;
+	my $x1;
+	my $x2;
+	my $y0;
+	my $y1;
+	my $y2;
+	my $z0;
+	my $z1;
+	my $z2;
+	my $len;
+	my $eyex = $eye->[0];
+	my $eyey = $eye->[1];
+	my $eyez = $eye->[2];
+	my $upx = $up->[0];
+	my $upy = $up->[1];
+	my $upz = $up->[2];
+	my $centerx = $center->[0];
+	my $centery = $center->[1];
+	my $centerz = $center->[2];
+	if (Math::abs($eyex - $centerx) < Math::g_l_m_a_t__e_p_s_i_l_o_n() && Math::abs($eyey - $centery) < Math::g_l_m_a_t__e_p_s_i_l_o_n() && Math::abs($eyez - $centerz) < Math::g_l_m_a_t__e_p_s_i_l_o_n()) {
+		return Mat4::identity($output);
+	}
+	$z0 = $eyex - $centerx;
+	$z1 = $eyey - $centery;
+	$z2 = $eyez - $centerz;
+	$len = 1 / Platform::sqrt($z0 * $z0 + $z1 * $z1 + $z2 * $z2);
+	$z0 *= $len;
+	$z1 *= $len;
+	$z2 *= $len;
+	$x0 = $upy * $z2 - $upz * $z1;
+	$x1 = $upz * $z0 - $upx * $z2;
+	$x2 = $upx * $z1 - $upy * $z0;
+	$len = Platform::sqrt($x0 * $x0 + $x1 * $x1 + $x2 * $x2);
+	if ($len == 0) {
+		$x0 = 0;
+		$x1 = 0;
+		$x2 = 0;
+	}
+	else {
+		$len = 1 / $len;
+		$x0 *= $len;
+		$x1 *= $len;
+		$x2 *= $len;
+	}
+	$y0 = $z1 * $x2 - $z2 * $x1;
+	$y1 = $z2 * $x0 - $z0 * $x2;
+	$y2 = $z0 * $x1 - $z1 * $x0;
+	$len = Platform::sqrt($y0 * $y0 + $y1 * $y1 + $y2 * $y2);
+	if ($len == 0) {
+		$y0 = 0;
+		$y1 = 0;
+		$y2 = 0;
+	}
+	else {
+		$len = 1 / $len;
+		$y0 *= $len;
+		$y1 *= $len;
+		$y2 *= $len;
+	}
+	$output->[0] = $x0;
+	$output->[1] = $y0;
+	$output->[2] = $z0;
+	$output->[3] = 0;
+	$output->[4] = $x1;
+	$output->[5] = $y1;
+	$output->[6] = $z1;
+	$output->[7] = 0;
+	$output->[8] = $x2;
+	$output->[9] = $y2;
+	$output->[10] = $z2;
+	$output->[11] = 0;
+	$output->[12] = -($x0 * $eyex + $x1 * $eyey + $x2 * $eyez);
+	$output->[13] = -($y0 * $eyex + $y1 * $eyey + $y2 * $eyez);
+	$output->[14] = -($z0 * $eyex + $z1 * $eyey + $z2 * $eyez);
+	$output->[15] = 1;
+	return $output;
+}
+
 =head2 C<Mat4::mul(\@output, \@a, \@b)>
 
 Alias for {@link mat4.multiply}
@@ -454,6 +656,66 @@ sub multiply($$$) {
 	$output->[13] = $b0 * $a01 + $b1 * $a11 + $b2 * $a21 + $b3 * $a31;
 	$output->[14] = $b0 * $a02 + $b1 * $a12 + $b2 * $a22 + $b3 * $a32;
 	$output->[15] = $b0 * $a03 + $b1 * $a13 + $b2 * $a23 + $b3 * $a33;
+	return $output;
+}
+
+=head2 C<Mat4::ortho(\@output, $left, $right, $bottom, $top, $near, $far)>
+
+**
+
+=cut
+
+sub ortho($$$$$$$) {
+	my ($output, $left, $right, $bottom, $top, $near, $far) = @_;
+	my $lr = 1 / ($left - $right);
+	my $bt = 1 / ($bottom - $top);
+	my $nf = 1 / ($near - $far);
+	$output->[0] = -2 * $lr;
+	$output->[1] = 0;
+	$output->[2] = 0;
+	$output->[3] = 0;
+	$output->[4] = 0;
+	$output->[5] = -2 * $bt;
+	$output->[6] = 0;
+	$output->[7] = 0;
+	$output->[8] = 0;
+	$output->[9] = 0;
+	$output->[10] = 2 * $nf;
+	$output->[11] = 0;
+	$output->[12] = ($left + $right) * $lr;
+	$output->[13] = ($top + $bottom) * $bt;
+	$output->[14] = ($far + $near) * $nf;
+	$output->[15] = 1;
+	return $output;
+}
+
+=head2 C<Mat4::perspective(\@output, $fovy, $aspect, $near, $far)>
+
+**
+
+=cut
+
+sub perspective($$$$$) {
+	my ($output, $fovy, $aspect, $near, $far) = @_;
+	my $one = 1;
+	my $f = $one / Platform::tan($fovy / 2);
+	my $nf = 1 / ($near - $far);
+	$output->[0] = $f / $aspect;
+	$output->[1] = 0;
+	$output->[2] = 0;
+	$output->[3] = 0;
+	$output->[4] = 0;
+	$output->[5] = $f;
+	$output->[6] = 0;
+	$output->[7] = 0;
+	$output->[8] = 0;
+	$output->[9] = 0;
+	$output->[10] = ($far + $near) * $nf;
+	$output->[11] = -1;
+	$output->[12] = 0;
+	$output->[13] = 0;
+	$output->[14] = 2 * $far * $near * $nf;
+	$output->[15] = 0;
 	return $output;
 }
 
@@ -563,6 +825,121 @@ sub rotate($$$$) {
 	$output->[13] = $a->[13];
 	$output->[14] = $a->[14];
 	$output->[15] = $a->[15];
+	return $output;
+}
+
+=head2 C<Mat4::rotate_x(\@output, \@a, $rad)>
+
+Rotates a matrix by the given angle around the X axis
+
+=cut
+
+sub rotate_x($$$) {
+	my ($output, $a, $rad) = @_;
+	my $s = Platform::sin($rad);
+	my $c = Platform::cos($rad);
+	my $a10 = $a->[4];
+	my $a11 = $a->[5];
+	my $a12 = $a->[6];
+	my $a13 = $a->[7];
+	my $a20 = $a->[8];
+	my $a21 = $a->[9];
+	my $a22 = $a->[10];
+	my $a23 = $a->[11];
+	$output->[0] = $a->[0];
+	$output->[1] = $a->[1];
+	$output->[2] = $a->[2];
+	$output->[3] = $a->[3];
+	$output->[12] = $a->[12];
+	$output->[13] = $a->[13];
+	$output->[14] = $a->[14];
+	$output->[15] = $a->[15];
+	$output->[4] = $a10 * $c + $a20 * $s;
+	$output->[5] = $a11 * $c + $a21 * $s;
+	$output->[6] = $a12 * $c + $a22 * $s;
+	$output->[7] = $a13 * $c + $a23 * $s;
+	$output->[8] = $a20 * $c - $a10 * $s;
+	$output->[9] = $a21 * $c - $a11 * $s;
+	$output->[10] = $a22 * $c - $a12 * $s;
+	$output->[11] = $a23 * $c - $a13 * $s;
+	return $output;
+}
+
+=head2 C<Mat4::rotate_y(\@output, \@a, $rad)>
+
+Rotates a matrix by the given angle around the Y axis
+@param {mat4} out the receiving matrix
+@param {mat4} a the matrix to rotate
+@param {Number} rad the angle to rotate the matrix by
+@returns {mat4} out
+
+=cut
+
+sub rotate_y($$$) {
+	my ($output, $a, $rad) = @_;
+	my $s = Platform::sin($rad);
+	my $c = Platform::cos($rad);
+	my $a00 = $a->[0];
+	my $a01 = $a->[1];
+	my $a02 = $a->[2];
+	my $a03 = $a->[3];
+	my $a20 = $a->[8];
+	my $a21 = $a->[9];
+	my $a22 = $a->[10];
+	my $a23 = $a->[11];
+	$output->[4] = $a->[4];
+	$output->[5] = $a->[5];
+	$output->[6] = $a->[6];
+	$output->[7] = $a->[7];
+	$output->[12] = $a->[12];
+	$output->[13] = $a->[13];
+	$output->[14] = $a->[14];
+	$output->[15] = $a->[15];
+	$output->[0] = $a00 * $c - $a20 * $s;
+	$output->[1] = $a01 * $c - $a21 * $s;
+	$output->[2] = $a02 * $c - $a22 * $s;
+	$output->[3] = $a03 * $c - $a23 * $s;
+	$output->[8] = $a00 * $s + $a20 * $c;
+	$output->[9] = $a01 * $s + $a21 * $c;
+	$output->[10] = $a02 * $s + $a22 * $c;
+	$output->[11] = $a03 * $s + $a23 * $c;
+	return $output;
+}
+
+=head2 C<Mat4::rotate_z(\@output, \@a, $rad)>
+
+Rotates a matrix by the given angle around the Z axis
+
+=cut
+
+sub rotate_z($$$) {
+	my ($output, $a, $rad) = @_;
+	my $s = Platform::sin($rad);
+	my $c = Platform::cos($rad);
+	my $a00 = $a->[0];
+	my $a01 = $a->[1];
+	my $a02 = $a->[2];
+	my $a03 = $a->[3];
+	my $a10 = $a->[4];
+	my $a11 = $a->[5];
+	my $a12 = $a->[6];
+	my $a13 = $a->[7];
+	$output->[8] = $a->[8];
+	$output->[9] = $a->[9];
+	$output->[10] = $a->[10];
+	$output->[11] = $a->[11];
+	$output->[12] = $a->[12];
+	$output->[13] = $a->[13];
+	$output->[14] = $a->[14];
+	$output->[15] = $a->[15];
+	$output->[0] = $a00 * $c + $a10 * $s;
+	$output->[1] = $a01 * $c + $a11 * $s;
+	$output->[2] = $a02 * $c + $a12 * $s;
+	$output->[3] = $a03 * $c + $a13 * $s;
+	$output->[4] = $a10 * $c - $a00 * $s;
+	$output->[5] = $a11 * $c - $a01 * $s;
+	$output->[6] = $a12 * $c - $a02 * $s;
+	$output->[7] = $a13 * $c - $a03 * $s;
 	return $output;
 }
 
@@ -826,6 +1203,15 @@ sub sin($) {
 
 sub sqrt($) {
 	my ($a) = @_;
+	return 0;
+}
+
+=head2 C<Platform::tan($p)>
+
+=cut
+
+sub tan($) {
+	my ($p) = @_;
 	return 0;
 }
 

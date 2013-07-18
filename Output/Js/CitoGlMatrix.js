@@ -155,6 +155,101 @@ Mat4.determinant = function(a) {
 	return b00 * b11 - b01 * b10 + b02 * b09 + b03 * b08 - b04 * b07 + b05 * b06;
 }
 
+Mat4.fromQuat = function(output, q) {
+	var x = q[0];
+	var y = q[1];
+	var z = q[2];
+	var w = q[3];
+	var x2 = x + x;
+	var y2 = y + y;
+	var z2 = z + z;
+	var xx = x * x2;
+	var xy = x * y2;
+	var xz = x * z2;
+	var yy = y * y2;
+	var yz = y * z2;
+	var zz = z * z2;
+	var wx = w * x2;
+	var wy = w * y2;
+	var wz = w * z2;
+	output[0] = 1 - (yy + zz);
+	output[1] = xy + wz;
+	output[2] = xz - wy;
+	output[3] = 0;
+	output[4] = xy - wz;
+	output[5] = 1 - (xx + zz);
+	output[6] = yz + wx;
+	output[7] = 0;
+	output[8] = xz + wy;
+	output[9] = yz - wx;
+	output[10] = 1 - (xx + yy);
+	output[11] = 0;
+	output[12] = 0;
+	output[13] = 0;
+	output[14] = 0;
+	output[15] = 1;
+	return output;
+}
+
+Mat4.fromRotationTranslation = function(output, q, v) {
+	var x = q[0];
+	var y = q[1];
+	var z = q[2];
+	var w = q[3];
+	var x2 = x + x;
+	var y2 = y + y;
+	var z2 = z + z;
+	var xx = x * x2;
+	var xy = x * y2;
+	var xz = x * z2;
+	var yy = y * y2;
+	var yz = y * z2;
+	var zz = z * z2;
+	var wx = w * x2;
+	var wy = w * y2;
+	var wz = w * z2;
+	output[0] = 1 - (yy + zz);
+	output[1] = xy + wz;
+	output[2] = xz - wy;
+	output[3] = 0;
+	output[4] = xy - wz;
+	output[5] = 1 - (xx + zz);
+	output[6] = yz + wx;
+	output[7] = 0;
+	output[8] = xz + wy;
+	output[9] = yz - wx;
+	output[10] = 1 - (xx + yy);
+	output[11] = 0;
+	output[12] = v[0];
+	output[13] = v[1];
+	output[14] = v[2];
+	output[15] = 1;
+	return output;
+}
+
+Mat4.frustum = function(output, left, right, bottom, top, near, far) {
+	var rl = 1 / (right - left);
+	var tb = 1 / (top - bottom);
+	var nf = 1 / (near - far);
+	output[0] = near * 2 * rl;
+	output[1] = 0;
+	output[2] = 0;
+	output[3] = 0;
+	output[4] = 0;
+	output[5] = near * 2 * tb;
+	output[6] = 0;
+	output[7] = 0;
+	output[8] = (right + left) * rl;
+	output[9] = (top + bottom) * tb;
+	output[10] = (far + near) * nf;
+	output[11] = -1;
+	output[12] = 0;
+	output[13] = 0;
+	output[14] = far * near * 2 * nf;
+	output[15] = 0;
+	return output;
+}
+
 Mat4.identity = function(output) {
 	output[0] = 1;
 	output[1] = 0;
@@ -229,6 +324,85 @@ Mat4.invert = function(output, a) {
 	return output;
 }
 
+Mat4.lookAt = function(output, eye, center, up) {
+	var x0;
+	var x1;
+	var x2;
+	var y0;
+	var y1;
+	var y2;
+	var z0;
+	var z1;
+	var z2;
+	var len;
+	var eyex = eye[0];
+	var eyey = eye[1];
+	var eyez = eye[2];
+	var upx = up[0];
+	var upy = up[1];
+	var upz = up[2];
+	var centerx = center[0];
+	var centery = center[1];
+	var centerz = center[2];
+	if (Math.abs(eyex - centerx) < Math.gLMAT_EPSILON() && Math.abs(eyey - centery) < Math.gLMAT_EPSILON() && Math.abs(eyez - centerz) < Math.gLMAT_EPSILON()) {
+		return Mat4.identity(output);
+	}
+	z0 = eyex - centerx;
+	z1 = eyey - centery;
+	z2 = eyez - centerz;
+	len = 1 / (Platform.sqrt(z0 * z0 + z1 * z1 + z2 * z2));
+	z0 *= len;
+	z1 *= len;
+	z2 *= len;
+	x0 = upy * z2 - upz * z1;
+	x1 = upz * z0 - upx * z2;
+	x2 = upx * z1 - upy * z0;
+	len = Platform.sqrt(x0 * x0 + x1 * x1 + x2 * x2);
+	if (len == 0) {
+		x0 = 0;
+		x1 = 0;
+		x2 = 0;
+	}
+	else {
+		len = 1 / (len);
+		x0 *= len;
+		x1 *= len;
+		x2 *= len;
+	}
+	y0 = z1 * x2 - z2 * x1;
+	y1 = z2 * x0 - z0 * x2;
+	y2 = z0 * x1 - z1 * x0;
+	len = Platform.sqrt(y0 * y0 + y1 * y1 + y2 * y2);
+	if (len == 0) {
+		y0 = 0;
+		y1 = 0;
+		y2 = 0;
+	}
+	else {
+		len = 1 / (len);
+		y0 *= len;
+		y1 *= len;
+		y2 *= len;
+	}
+	output[0] = x0;
+	output[1] = y0;
+	output[2] = z0;
+	output[3] = 0;
+	output[4] = x1;
+	output[5] = y1;
+	output[6] = z1;
+	output[7] = 0;
+	output[8] = x2;
+	output[9] = y2;
+	output[10] = z2;
+	output[11] = 0;
+	output[12] = -(x0 * eyex + x1 * eyey + x2 * eyez);
+	output[13] = -(y0 * eyex + y1 * eyey + y2 * eyez);
+	output[14] = -(z0 * eyex + z1 * eyey + z2 * eyez);
+	output[15] = 1;
+	return output;
+}
+
 Mat4.mul = function(output, a, b) {
 	return Mat4.multiply(output, a, b);
 }
@@ -282,6 +456,52 @@ Mat4.multiply = function(output, a, b) {
 	output[13] = b0 * a01 + b1 * a11 + b2 * a21 + b3 * a31;
 	output[14] = b0 * a02 + b1 * a12 + b2 * a22 + b3 * a32;
 	output[15] = b0 * a03 + b1 * a13 + b2 * a23 + b3 * a33;
+	return output;
+}
+
+Mat4.ortho = function(output, left, right, bottom, top, near, far) {
+	var lr = 1 / (left - right);
+	var bt = 1 / (bottom - top);
+	var nf = 1 / (near - far);
+	output[0] = -2 * lr;
+	output[1] = 0;
+	output[2] = 0;
+	output[3] = 0;
+	output[4] = 0;
+	output[5] = -2 * bt;
+	output[6] = 0;
+	output[7] = 0;
+	output[8] = 0;
+	output[9] = 0;
+	output[10] = 2 * nf;
+	output[11] = 0;
+	output[12] = (left + right) * lr;
+	output[13] = (top + bottom) * bt;
+	output[14] = (far + near) * nf;
+	output[15] = 1;
+	return output;
+}
+
+Mat4.perspective = function(output, fovy, aspect, near, far) {
+	var one = 1;
+	var f = one / (Platform.tan(fovy / (2)));
+	var nf = 1 / (near - far);
+	output[0] = f / (aspect);
+	output[1] = 0;
+	output[2] = 0;
+	output[3] = 0;
+	output[4] = 0;
+	output[5] = f;
+	output[6] = 0;
+	output[7] = 0;
+	output[8] = 0;
+	output[9] = 0;
+	output[10] = (far + near) * nf;
+	output[11] = -1;
+	output[12] = 0;
+	output[13] = 0;
+	output[14] = 2 * far * near * nf;
+	output[15] = 0;
 	return output;
 }
 
@@ -361,6 +581,96 @@ Mat4.rotate = function(output, a, rad, axis) {
 	output[13] = a[13];
 	output[14] = a[14];
 	output[15] = a[15];
+	return output;
+}
+
+Mat4.rotateX = function(output, a, rad) {
+	var s = Platform.sin(rad);
+	var c = Platform.cos(rad);
+	var a10 = a[4];
+	var a11 = a[5];
+	var a12 = a[6];
+	var a13 = a[7];
+	var a20 = a[8];
+	var a21 = a[9];
+	var a22 = a[10];
+	var a23 = a[11];
+	output[0] = a[0];
+	output[1] = a[1];
+	output[2] = a[2];
+	output[3] = a[3];
+	output[12] = a[12];
+	output[13] = a[13];
+	output[14] = a[14];
+	output[15] = a[15];
+	output[4] = a10 * c + a20 * s;
+	output[5] = a11 * c + a21 * s;
+	output[6] = a12 * c + a22 * s;
+	output[7] = a13 * c + a23 * s;
+	output[8] = a20 * c - a10 * s;
+	output[9] = a21 * c - a11 * s;
+	output[10] = a22 * c - a12 * s;
+	output[11] = a23 * c - a13 * s;
+	return output;
+}
+
+Mat4.rotateY = function(output, a, rad) {
+	var s = Platform.sin(rad);
+	var c = Platform.cos(rad);
+	var a00 = a[0];
+	var a01 = a[1];
+	var a02 = a[2];
+	var a03 = a[3];
+	var a20 = a[8];
+	var a21 = a[9];
+	var a22 = a[10];
+	var a23 = a[11];
+	output[4] = a[4];
+	output[5] = a[5];
+	output[6] = a[6];
+	output[7] = a[7];
+	output[12] = a[12];
+	output[13] = a[13];
+	output[14] = a[14];
+	output[15] = a[15];
+	output[0] = a00 * c - a20 * s;
+	output[1] = a01 * c - a21 * s;
+	output[2] = a02 * c - a22 * s;
+	output[3] = a03 * c - a23 * s;
+	output[8] = a00 * s + a20 * c;
+	output[9] = a01 * s + a21 * c;
+	output[10] = a02 * s + a22 * c;
+	output[11] = a03 * s + a23 * c;
+	return output;
+}
+
+Mat4.rotateZ = function(output, a, rad) {
+	var s = Platform.sin(rad);
+	var c = Platform.cos(rad);
+	var a00 = a[0];
+	var a01 = a[1];
+	var a02 = a[2];
+	var a03 = a[3];
+	var a10 = a[4];
+	var a11 = a[5];
+	var a12 = a[6];
+	var a13 = a[7];
+	output[8] = a[8];
+	output[9] = a[9];
+	output[10] = a[10];
+	output[11] = a[11];
+	output[12] = a[12];
+	output[13] = a[13];
+	output[14] = a[14];
+	output[15] = a[15];
+	output[0] = a00 * c + a10 * s;
+	output[1] = a01 * c + a11 * s;
+	output[2] = a02 * c + a12 * s;
+	output[3] = a03 * c + a13 * s;
+	output[4] = a10 * c - a00 * s;
+	output[5] = a11 * c - a01 * s;
+	output[6] = a12 * c - a02 * s;
+	output[7] = a13 * c - a03 * s;
 	return output;
 }
 
@@ -515,6 +825,10 @@ Platform.sin = function(r) {
 }
 
 Platform.sqrt = function(a) {
+	return 0;
+}
+
+Platform.tan = function(p) {
 	return 0;
 }
 

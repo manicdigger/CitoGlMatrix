@@ -23,4 +23,9 @@ public class Platform
 	{
 		return 0;
 	}
+
+	public static float tan(float p)
+	{
+		return 0;
+	}
 }

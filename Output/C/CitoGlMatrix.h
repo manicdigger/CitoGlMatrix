@@ -57,6 +57,21 @@ float const *Mat4_Create(void);
 float Mat4_Determinant(float const *a);
 
 /**
+ * Calculates a 4x4 matrix from the given quaternion
+ */
+float const *Mat4_FromQuat(float *output, float const *q);
+
+/**
+ * Creates a matrix from a quaternion rotation and vector translation
+ */
+float const *Mat4_FromRotationTranslation(float *output, float const *q, float const *v);
+
+/**
+ * Generates a frustum matrix with the given bounds
+ */
+float const *Mat4_Frustum(float *output, float left, float right, float bottom, float top, float near, float far);
+
+/**
  * Set a mat4 to the identity matrix
  * Returns {mat4} out
  * @param output {mat4} out the receiving matrix
@@ -67,6 +82,11 @@ float const *Mat4_Identity(float *output);
  * Inverts a mat4
  */
 float const *Mat4_Invert(float *output, float const *a);
+
+/**
+ * Generates a look-at matrix with the given eye position, focal point, and up axis
+ */
+float const *Mat4_LookAt(float *output, float const *eye, float const *center, float const *up);
 
 /**
  * Alias for {@link mat4.multiply}
@@ -83,6 +103,16 @@ float const *Mat4_Mul(float *output, float const *a, float const *b);
 float const *Mat4_Multiply(float *output, float const *a, float const *b);
 
 /**
+ * **
+ */
+float const *Mat4_Ortho(float *output, float left, float right, float bottom, float top, float near, float far);
+
+/**
+ * **
+ */
+float const *Mat4_Perspective(float *output, float fovy, float aspect, float near, float far);
+
+/**
  * Rotates a mat4 by the given angle
  * @returns {mat4} out
  * @param output @param {mat4} out the receiving matrix
@@ -91,6 +121,25 @@ float const *Mat4_Multiply(float *output, float const *a, float const *b);
  * @param axis @param {vec3} axis the axis to rotate around
  */
 float const *Mat4_Rotate(float *output, float const *a, float rad, float const *axis);
+
+/**
+ * Rotates a matrix by the given angle around the X axis
+ */
+float const *Mat4_RotateX(float *output, float const *a, float rad);
+
+/**
+ * Rotates a matrix by the given angle around the Y axis
+ * @param {mat4} out the receiving matrix
+ * @param {mat4} a the matrix to rotate
+ * @param {Number} rad the angle to rotate the matrix by
+ * @returns {mat4} out
+ */
+float const *Mat4_RotateY(float *output, float const *a, float rad);
+
+/**
+ * Rotates a matrix by the given angle around the Z axis
+ */
+float const *Mat4_RotateZ(float *output, float const *a, float rad);
 
 /**
  * Scales the mat4 by the dimensions in the given vec3
@@ -135,6 +184,8 @@ float Platform_Random(void);
 float Platform_Sin(float r);
 
 float Platform_Sqrt(float a);
+
+float Platform_Tan(float p);
 
 /**
  * Adds two vec3's

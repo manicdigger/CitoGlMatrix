@@ -15,6 +15,71 @@ typedef struct Vec3 Vec3;
 typedef struct Vec4 Vec4;
 
 /**
+ * Calculates the adjugate of a mat2
+ */
+float const *Mat2_Adjoint(float *output, float const *a);
+
+/**
+ * Creates a new mat2 initialized with values from an existing matrix
+ * @returns {mat2} a new 2x2 matrix
+ * @param a @param {mat2} a matrix to clone
+ */
+float const *Mat2_Clone(float const *a);
+
+/**
+ * Copy the values from one mat2 to another
+ * @param {mat2} output the receiving matrix
+ * @param {mat2} a the source matrix
+ * @returns {mat2} output
+ */
+float const *Mat2_Copy(float *output, float const *a);
+
+/**
+ * Creates a new identity mat2
+ * @returns {mat2} a new 2x2 matrix
+ */
+float const *Mat2_Create(void);
+
+float Mat2_Determinant(float const *a);
+
+/**
+ * Set a mat2 to the identity matrix
+ * @param {mat2} output the receiving matrix
+ * @returns {mat2} output
+ */
+float const *Mat2_Identity(float *output);
+
+/**
+ * Inverts a mat2
+ */
+float const *Mat2_Invert(float *output, float const *a);
+
+/**
+ * Alias for {@link mat2.multiply}
+ */
+float const *Mat2_Mul(float *output, float const *a, float const *b);
+
+float const *Mat2_Multiply(float *output, float const *a, float const *b);
+
+/**
+ * **
+ */
+float const *Mat2_Rotate(float *output, float const *a, float rad);
+
+/**
+ * **
+ */
+float const *Mat2_Scale(float *output, float const *a, float const *v);
+
+/**
+ * Transpose the values of a mat2
+ * @param {mat2} output the receiving matrix
+ * @param {mat2} a the source matrix
+ * @returns {mat2} output
+ */
+float const *Mat2_Transpose(float *output, float const *a);
+
+/**
  * Calculates the adjugate of a mat4
  * @returns {mat4} out
  * @param output @param {mat4} out the receiving matrix

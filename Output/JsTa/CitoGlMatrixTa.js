@@ -4,6 +4,127 @@ function Mat2()
 {
 }
 
+Mat2.adjoint = function(output, a) {
+	var a0 = a[0];
+	output[0] = a[3];
+	output[1] = -a[1];
+	output[2] = -a[2];
+	output[3] = a0;
+	return output;
+}
+
+Mat2.clone = function(a) {
+	var output = new Array(4);
+	output[0] = a[0];
+	output[1] = a[1];
+	output[2] = a[2];
+	output[3] = a[3];
+	return output;
+}
+
+Mat2.copy = function(output, a) {
+	output[0] = a[0];
+	output[1] = a[1];
+	output[2] = a[2];
+	output[3] = a[3];
+	return output;
+}
+
+Mat2.create = function() {
+	var output = new Array(4);
+	output[0] = 1;
+	output[1] = 0;
+	output[2] = 0;
+	output[3] = 1;
+	return output;
+}
+
+Mat2.determinant = function(a) {
+	return a[0] * a[3] - a[2] * a[1];
+}
+
+Mat2.identity = function(output) {
+	output[0] = 1;
+	output[1] = 0;
+	output[2] = 0;
+	output[3] = 1;
+	return output;
+}
+
+Mat2.invert = function(output, a) {
+	var a0 = a[0];
+	var a1 = a[1];
+	var a2 = a[2];
+	var a3 = a[3];
+	var det = a0 * a3 - a2 * a1;
+	if (det == 0) {
+		return null;
+	}
+	var one = 1;
+	det = one / (det);
+	output[0] = a3 * det;
+	output[1] = -a1 * det;
+	output[2] = -a2 * det;
+	output[3] = a0 * det;
+	return output;
+}
+
+Mat2.mul = function(output, a, b) {
+	return Mat2.multiply(output, a, b);
+}
+
+Mat2.multiply = function(output, a, b) {
+	var a0 = a[0];
+	var a1 = a[1];
+	var a2 = a[2];
+	var a3 = a[3];
+	var b0 = b[0];
+	var b1 = b[1];
+	var b2 = b[2];
+	var b3 = b[3];
+	output[0] = a0 * b0 + a1 * b2;
+	output[1] = a0 * b1 + a1 * b3;
+	output[2] = a2 * b0 + a3 * b2;
+	output[3] = a2 * b1 + a3 * b3;
+	return output;
+}
+
+Mat2.rotate = function(output, a, rad) {
+	var a0 = a[0];
+	var a1 = a[1];
+	var a2 = a[2];
+	var a3 = a[3];
+	var s = Platform.sin(rad);
+	var c = Platform.cos(rad);
+	output[0] = a0 * c + a1 * s;
+	output[1] = a0 * -s + a1 * c;
+	output[2] = a2 * c + a3 * s;
+	output[3] = a2 * -s + a3 * c;
+	return output;
+}
+
+Mat2.scale = function(output, a, v) {
+	var a0 = a[0];
+	var a1 = a[1];
+	var a2 = a[2];
+	var a3 = a[3];
+	var v0 = v[0];
+	var v1 = v[1];
+	output[0] = a0 * v0;
+	output[1] = a1 * v1;
+	output[2] = a2 * v0;
+	output[3] = a3 * v1;
+	return output;
+}
+
+Mat2.transpose = function(output, a) {
+	output[0] = a[0];
+	output[1] = a[2];
+	output[2] = a[1];
+	output[3] = a[3];
+	return output;
+}
+
 Mat2.prototype.f = function() {
 }
 

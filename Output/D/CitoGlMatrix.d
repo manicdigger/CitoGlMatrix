@@ -1,21 +1,165 @@
 // Generated automatically with "cito". Do not edit.
 import std.utf;
 
+/// 2x2 Matrix
 class Mat2
 {
 
+	/// Calculates the adjugate of a mat2
+	static const(float)[] Adjoint(float[] output, const(float)[] a)
+	{
+		float a0 = a[0];
+		output[0] = a[3];
+		output[1] = -a[1];
+		output[2] = -a[2];
+		output[3] = a0;
+		return output;
+	}
+
+	/// Creates a new mat2 initialized with values from an existing matrix
+	/// @returns {mat2} a new 2x2 matrix
+	/// Params:
+	/// a = @param {mat2} a matrix to clone
+	static const(float)[] Clone(const(float)[] a)
+	{
+		float[] output = new float[4];
+		output[0] = a[0];
+		output[1] = a[1];
+		output[2] = a[2];
+		output[3] = a[3];
+		return output;
+	}
+
+	/// Copy the values from one mat2 to another
+	/// @param {mat2} output the receiving matrix
+	/// @param {mat2} a the source matrix
+	/// @returns {mat2} output
+	static const(float)[] Copy(float[] output, const(float)[] a)
+	{
+		output[0] = a[0];
+		output[1] = a[1];
+		output[2] = a[2];
+		output[3] = a[3];
+		return output;
+	}
+
+	/// Creates a new identity mat2
+	/// @returns {mat2} a new 2x2 matrix
+	static const(float)[] Create()
+	{
+		float[] output = new float[4];
+		output[0] = 1;
+		output[1] = 0;
+		output[2] = 0;
+		output[3] = 1;
+		return output;
+	}
+
+	static float Determinant(const(float)[] a)
+	{
+		return a[0] * a[3] - a[2] * a[1];
+	}
+
+	/// Set a mat2 to the identity matrix
+	/// @param {mat2} output the receiving matrix
+	/// @returns {mat2} output
+	static const(float)[] Identity(float[] output)
+	{
+		output[0] = 1;
+		output[1] = 0;
+		output[2] = 0;
+		output[3] = 1;
+		return output;
+	}
+
+	/// Inverts a mat2
+	static const(float)[] Invert(float[] output, const(float)[] a)
+	{
+		float a0 = a[0];
+		float a1 = a[1];
+		float a2 = a[2];
+		float a3 = a[3];
+		float det = a0 * a3 - a2 * a1;
+		if (det == 0) {
+			return null;
+		}
+		float one = 1;
+		det = one / det;
+		output[0] = a3 * det;
+		output[1] = -a1 * det;
+		output[2] = -a2 * det;
+		output[3] = a0 * det;
+		return output;
+	}
+
+	/// Alias for {@link mat2.multiply}
+	static const(float)[] Mul(float[] output, const(float)[] a, const(float)[] b)
+	{
+		return Mat2.Multiply(output, a, b);
+	}
+
+	static const(float)[] Multiply(float[] output, const(float)[] a, const(float)[] b)
+	{
+		float a0 = a[0];
+		float a1 = a[1];
+		float a2 = a[2];
+		float a3 = a[3];
+		float b0 = b[0];
+		float b1 = b[1];
+		float b2 = b[2];
+		float b3 = b[3];
+		output[0] = a0 * b0 + a1 * b2;
+		output[1] = a0 * b1 + a1 * b3;
+		output[2] = a2 * b0 + a3 * b2;
+		output[3] = a2 * b1 + a3 * b3;
+		return output;
+	}
+
 	/// **
+	static const(float)[] Rotate(float[] output, const(float)[] a, float rad)
+	{
+		float a0 = a[0];
+		float a1 = a[1];
+		float a2 = a[2];
+		float a3 = a[3];
+		float s = Platform.Sin(rad);
+		float c = Platform.Cos(rad);
+		output[0] = a0 * c + a1 * s;
+		output[1] = a0 * -s + a1 * c;
+		output[2] = a2 * c + a3 * s;
+		output[3] = a2 * -s + a3 * c;
+		return output;
+	}
+
 	/// **
-	/// **
-	/// **
-	/// **
-	/// **
-	/// **
-	/// **
-	/// **
-	/// **
-	/// **
-	/// **
+	static const(float)[] Scale(float[] output, const(float)[] a, const(float)[] v)
+	{
+		float a0 = a[0];
+		float a1 = a[1];
+		float a2 = a[2];
+		float a3 = a[3];
+		float v0 = v[0];
+		float v1 = v[1];
+		output[0] = a0 * v0;
+		output[1] = a1 * v1;
+		output[2] = a2 * v0;
+		output[3] = a3 * v1;
+		return output;
+	}
+
+	/// Transpose the values of a mat2
+	/// @param {mat2} output the receiving matrix
+	/// @param {mat2} a the source matrix
+	/// @returns {mat2} output
+	static const(float)[] Transpose(float[] output, const(float)[] a)
+	{
+		output[0] = a[0];
+		output[1] = a[2];
+		output[2] = a[1];
+		output[3] = a[3];
+		return output;
+	}
+
 	/// **
 	private final void f()
 	{

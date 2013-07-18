@@ -21,209 +21,192 @@
 //(INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
+/// 2x2 Matrix
 public class Mat2
 {
-    //    /**
-    // * @class 2x2 Matrix
-    // * @name mat2
-    // */
-    //var mat2 = {};
+    /// Creates a new identity mat2
+    /// @returns {mat2} a new 2x2 matrix
+    public static float[] Create()
+    {
+        float[] output = new float[4];
+        output[0] = 1;
+        output[1] = 0;
+        output[2] = 0;
+        output[3] = 1;
+        return output;
+    }
 
-    ///**
-    // * Creates a new identity mat2
-    // *
-    // * @returns {mat2} a new 2x2 matrix
-    // */
-    //mat2.create = function() {
-    //    var out = new GLMAT_ARRAY_TYPE(4);
-    //    out[0] = 1;
-    //    out[1] = 0;
-    //    out[2] = 0;
-    //    out[3] = 1;
-    //    return out;
-    //};
+    /// Creates a new mat2 initialized with values from an existing matrix
+    /// @returns {mat2} a new 2x2 matrix
+    public static float[] Clone(
+        /// @param {mat2} a matrix to clone
+        float[] a)
+    {
+        float[] output = new float[4];
+        output[0] = a[0];
+        output[1] = a[1];
+        output[2] = a[2];
+        output[3] = a[3];
+        return output;
+    }
 
-    ///**
-    // * Creates a new mat2 initialized with values from an existing matrix
-    // *
-    // * @param {mat2} a matrix to clone
-    // * @returns {mat2} a new 2x2 matrix
-    // */
-    //mat2.clone = function(a) {
-    //    var out = new GLMAT_ARRAY_TYPE(4);
-    //    out[0] = a[0];
-    //    out[1] = a[1];
-    //    out[2] = a[2];
-    //    out[3] = a[3];
-    //    return out;
-    //};
+    /// Copy the values from one mat2 to another
+    /// @param {mat2} output the receiving matrix
+    /// @param {mat2} a the source matrix
+    /// @returns {mat2} output
+    public static float[] Copy(float[] output, float[] a)
+    {
+        output[0] = a[0];
+        output[1] = a[1];
+        output[2] = a[2];
+        output[3] = a[3];
+        return output;
+    }
 
-    ///**
-    // * Copy the values from one mat2 to another
-    // *
-    // * @param {mat2} out the receiving matrix
+    /// Set a mat2 to the identity matrix
+    /// @param {mat2} output the receiving matrix
+    /// @returns {mat2} output
+    public static float[] Identity(float[] output)
+    {
+        output[0] = 1;
+        output[1] = 0;
+        output[2] = 0;
+        output[3] = 1;
+        return output;
+    }
+
+    /// Transpose the values of a mat2
+    /// @param {mat2} output the receiving matrix
+    /// @param {mat2} a the source matrix
+    /// @returns {mat2} output
+    public static float[] Transpose(float[] output, float[] a)
+    {
+        // If we are transposing ourselves we can skip a few steps but have to cache some values
+        //if (output === a) {
+        //    var a1 = a[1];
+        //    output[1] = a[2];
+        //    output[2] = a1;
+        //} else {
+        output[0] = a[0];
+        output[1] = a[2];
+        output[2] = a[1];
+        output[3] = a[3];
+        //}
+
+        return output;
+    }
+
+    /// Inverts a mat2
+    // * @param {mat2} output the receiving matrix
     // * @param {mat2} a the source matrix
-    // * @returns {mat2} out
-    // */
-    //mat2.copy = function(out, a) {
-    //    out[0] = a[0];
-    //    out[1] = a[1];
-    //    out[2] = a[2];
-    //    out[3] = a[3];
-    //    return out;
-    //};
+    // * @returns {mat2} output
+    public static float[] Invert(float[] output, float[] a)
+    {
+        float a0 = a[0]; float a1 = a[1]; float a2 = a[2]; float a3 = a[3];
 
-    ///**
-    // * Set a mat2 to the identity matrix
-    // *
-    // * @param {mat2} out the receiving matrix
-    // * @returns {mat2} out
-    // */
-    //mat2.identity = function(out) {
-    //    out[0] = 1;
-    //    out[1] = 0;
-    //    out[2] = 0;
-    //    out[3] = 1;
-    //    return out;
-    //};
+        // Calculate the determinant
+        float det = a0 * a3 - a2 * a1;
 
-    ///**
-    // * Transpose the values of a mat2
-    // *
-    // * @param {mat2} out the receiving matrix
+        if (det == 0)
+        {
+            return null;
+        }
+        float one = 1;
+        det = one / det;
+
+        output[0] = a3 * det;
+        output[1] = -a1 * det;
+        output[2] = -a2 * det;
+        output[3] = a0 * det;
+
+        return output;
+    }
+
+    /// Calculates the adjugate of a mat2
+    // * @param {mat2} output the receiving matrix
     // * @param {mat2} a the source matrix
-    // * @returns {mat2} out
-    // */
-    //mat2.transpose = function(out, a) {
-    //    // If we are transposing ourselves we can skip a few steps but have to cache some values
-    //    if (out === a) {
-    //        var a1 = a[1];
-    //        out[1] = a[2];
-    //        out[2] = a1;
-    //    } else {
-    //        out[0] = a[0];
-    //        out[1] = a[2];
-    //        out[2] = a[1];
-    //        out[3] = a[3];
-    //    }
+    // * @returns {mat2} output
+    public static float[] Adjoint(float[] output, float[] a)
+    {
+        // Caching this value is nessecary if output == a
+        float a0 = a[0];
+        output[0] = a[3];
+        output[1] = -a[1];
+        output[2] = -a[2];
+        output[3] = a0;
 
-    //    return out;
-    //};
+        return output;
+    }
 
-    ///**
-    // * Inverts a mat2
-    // *
-    // * @param {mat2} out the receiving matrix
-    // * @param {mat2} a the source matrix
-    // * @returns {mat2} out
-    // */
-    //mat2.invert = function(out, a) {
-    //    var a0 = a[0], a1 = a[1], a2 = a[2], a3 = a[3],
-
-    //        // Calculate the determinant
-    //        det = a0 * a3 - a2 * a1;
-
-    //    if (!det) {
-    //        return null;
-    //    }
-    //    det = 1.0 / det;
-
-    //    out[0] =  a3 * det;
-    //    out[1] = -a1 * det;
-    //    out[2] = -a2 * det;
-    //    out[3] =  a0 * det;
-
-    //    return out;
-    //};
-
-    ///**
-    // * Calculates the adjugate of a mat2
-    // *
-    // * @param {mat2} out the receiving matrix
-    // * @param {mat2} a the source matrix
-    // * @returns {mat2} out
-    // */
-    //mat2.adjoint = function(out, a) {
-    //    // Caching this value is nessecary if out == a
-    //    var a0 = a[0];
-    //    out[0] =  a[3];
-    //    out[1] = -a[1];
-    //    out[2] = -a[2];
-    //    out[3] =  a0;
-
-    //    return out;
-    //};
-
-    ///**
     // * Calculates the determinant of a mat2
-    // *
     // * @param {mat2} a the source matrix
     // * @returns {Number} determinant of a
-    // */
-    //mat2.determinant = function (a) {
-    //    return a[0] * a[3] - a[2] * a[1];
-    //};
+    public static float Determinant(float[] a)
+    {
+        return a[0] * a[3] - a[2] * a[1];
+    }
 
-    ///**
     // * Multiplies two mat2's
     // *
-    // * @param {mat2} out the receiving matrix
+    // * @param {mat2} output the receiving matrix
     // * @param {mat2} a the first operand
     // * @param {mat2} b the second operand
-    // * @returns {mat2} out
-    // */
-    //mat2.multiply = function (out, a, b) {
-    //    var a0 = a[0], a1 = a[1], a2 = a[2], a3 = a[3];
-    //    var b0 = b[0], b1 = b[1], b2 = b[2], b3 = b[3];
-    //    out[0] = a0 * b0 + a1 * b2;
-    //    out[1] = a0 * b1 + a1 * b3;
-    //    out[2] = a2 * b0 + a3 * b2;
-    //    out[3] = a2 * b1 + a3 * b3;
-    //    return out;
-    //};
+    // * @returns {mat2} output
+    public static float[] Multiply(float[] output, float[] a, float[] b)
+    {
+        float a0 = a[0]; float a1 = a[1]; float a2 = a[2]; float a3 = a[3];
+        float b0 = b[0]; float b1 = b[1]; float b2 = b[2]; float b3 = b[3];
+        output[0] = a0 * b0 + a1 * b2;
+        output[1] = a0 * b1 + a1 * b3;
+        output[2] = a2 * b0 + a3 * b2;
+        output[3] = a2 * b1 + a3 * b3;
+        return output;
+    }
 
-    ///**
-    // * Alias for {@link mat2.multiply}
-    // * @function
-    // */
-    //mat2.mul = mat2.multiply;
+    /// Alias for {@link mat2.multiply}
+    public static float[] Mul(float[] output, float[] a, float[] b)
+    {
+        return Multiply(output, a, b);
+    }
 
     ///**
     // * Rotates a mat2 by the given angle
     // *
-    // * @param {mat2} out the receiving matrix
+    // * @param {mat2} output the receiving matrix
     // * @param {mat2} a the matrix to rotate
     // * @param {Number} rad the angle to rotate the matrix by
-    // * @returns {mat2} out
+    // * @returns {mat2} output
     // */
-    //mat2.rotate = function (out, a, rad) {
-    //    var a0 = a[0], a1 = a[1], a2 = a[2], a3 = a[3],
-    //        s = Math.sin(rad),
-    //        c = Math.cos(rad);
-    //    out[0] = a0 *  c + a1 * s;
-    //    out[1] = a0 * -s + a1 * c;
-    //    out[2] = a2 *  c + a3 * s;
-    //    out[3] = a2 * -s + a3 * c;
-    //    return out;
-    //};
+    public static float[] Rotate(float[] output, float[] a, float rad)
+    {
+        float a0 = a[0]; float a1 = a[1]; float a2 = a[2]; float a3 = a[3];
+        float s = Platform.Sin(rad);
+        float c = Platform.Cos(rad);
+        output[0] = a0 * c + a1 * s;
+        output[1] = a0 * -s + a1 * c;
+        output[2] = a2 * c + a3 * s;
+        output[3] = a2 * -s + a3 * c;
+        return output;
+    }
 
     ///**
     // * Scales the mat2 by the dimensions in the given vec2
     // *
-    // * @param {mat2} out the receiving matrix
+    // * @param {mat2} output the receiving matrix
     // * @param {mat2} a the matrix to rotate
     // * @param {vec2} v the vec2 to scale the matrix by
-    // * @returns {mat2} out
+    // * @returns {mat2} output
     // **/
-    //mat2.scale = function(out, a, v) {
-    //    var a0 = a[0], a1 = a[1], a2 = a[2], a3 = a[3],
-    //        v0 = v[0], v1 = v[1];
-    //    out[0] = a0 * v0;
-    //    out[1] = a1 * v1;
-    //    out[2] = a2 * v0;
-    //    out[3] = a3 * v1;
-    //    return out;
-    //};
+    public static float[] Scale(float[] output, float[] a, float[] v)
+    {
+        float a0 = a[0]; float a1 = a[1]; float a2 = a[2]; float a3 = a[3];
+        float v0 = v[0]; float v1 = v[1];
+        output[0] = a0 * v0;
+        output[1] = a1 * v1;
+        output[2] = a2 * v0;
+        output[3] = a3 * v1;
+        return output;
+    }
 
     ///**
     // * Returns a string representation of a mat2
@@ -272,14 +255,14 @@ public class Mat2d
     // * @returns {mat2d} a new 2x3 matrix
     // */
     //mat2d.create = function() {
-    //    var out = new GLMAT_ARRAY_TYPE(6);
-    //    out[0] = 1;
-    //    out[1] = 0;
-    //    out[2] = 0;
-    //    out[3] = 1;
-    //    out[4] = 0;
-    //    out[5] = 0;
-    //    return out;
+    //    var output = new GLMAT_ARRAY_TYPE(6);
+    //    output[0] = 1;
+    //    output[1] = 0;
+    //    output[2] = 0;
+    //    output[3] = 1;
+    //    output[4] = 0;
+    //    output[5] = 0;
+    //    return output;
     //};
 
     ///**
@@ -289,57 +272,57 @@ public class Mat2d
     // * @returns {mat2d} a new 2x3 matrix
     // */
     //mat2d.clone = function(a) {
-    //    var out = new GLMAT_ARRAY_TYPE(6);
-    //    out[0] = a[0];
-    //    out[1] = a[1];
-    //    out[2] = a[2];
-    //    out[3] = a[3];
-    //    out[4] = a[4];
-    //    out[5] = a[5];
-    //    return out;
+    //    var output = new GLMAT_ARRAY_TYPE(6);
+    //    output[0] = a[0];
+    //    output[1] = a[1];
+    //    output[2] = a[2];
+    //    output[3] = a[3];
+    //    output[4] = a[4];
+    //    output[5] = a[5];
+    //    return output;
     //};
 
     ///**
     // * Copy the values from one mat2d to another
     // *
-    // * @param {mat2d} out the receiving matrix
+    // * @param {mat2d} output the receiving matrix
     // * @param {mat2d} a the source matrix
-    // * @returns {mat2d} out
+    // * @returns {mat2d} output
     // */
-    //mat2d.copy = function(out, a) {
-    //    out[0] = a[0];
-    //    out[1] = a[1];
-    //    out[2] = a[2];
-    //    out[3] = a[3];
-    //    out[4] = a[4];
-    //    out[5] = a[5];
-    //    return out;
+    //mat2d.copy = function(output, a) {
+    //    output[0] = a[0];
+    //    output[1] = a[1];
+    //    output[2] = a[2];
+    //    output[3] = a[3];
+    //    output[4] = a[4];
+    //    output[5] = a[5];
+    //    return output;
     //};
 
     ///**
     // * Set a mat2d to the identity matrix
     // *
-    // * @param {mat2d} out the receiving matrix
-    // * @returns {mat2d} out
+    // * @param {mat2d} output the receiving matrix
+    // * @returns {mat2d} output
     // */
-    //mat2d.identity = function(out) {
-    //    out[0] = 1;
-    //    out[1] = 0;
-    //    out[2] = 0;
-    //    out[3] = 1;
-    //    out[4] = 0;
-    //    out[5] = 0;
-    //    return out;
+    //mat2d.identity = function(output) {
+    //    output[0] = 1;
+    //    output[1] = 0;
+    //    output[2] = 0;
+    //    output[3] = 1;
+    //    output[4] = 0;
+    //    output[5] = 0;
+    //    return output;
     //};
 
     ///**
     // * Inverts a mat2d
     // *
-    // * @param {mat2d} out the receiving matrix
+    // * @param {mat2d} output the receiving matrix
     // * @param {mat2d} a the source matrix
-    // * @returns {mat2d} out
+    // * @returns {mat2d} output
     // */
-    //mat2d.invert = function(out, a) {
+    //mat2d.invert = function(output, a) {
     //    var aa = a[0], ab = a[1], ac = a[2], ad = a[3],
     //        atx = a[4], aty = a[5];
 
@@ -349,13 +332,13 @@ public class Mat2d
     //    }
     //    det = 1.0 / det;
 
-    //    out[0] = ad * det;
-    //    out[1] = -ab * det;
-    //    out[2] = -ac * det;
-    //    out[3] = aa * det;
-    //    out[4] = (ac * aty - ad * atx) * det;
-    //    out[5] = (ab * atx - aa * aty) * det;
-    //    return out;
+    //    output[0] = ad * det;
+    //    output[1] = -ab * det;
+    //    output[2] = -ac * det;
+    //    output[3] = aa * det;
+    //    output[4] = (ac * aty - ad * atx) * det;
+    //    output[5] = (ab * atx - aa * aty) * det;
+    //    return output;
     //};
 
     ///**
@@ -371,24 +354,24 @@ public class Mat2d
     ///**
     // * Multiplies two mat2d's
     // *
-    // * @param {mat2d} out the receiving matrix
+    // * @param {mat2d} output the receiving matrix
     // * @param {mat2d} a the first operand
     // * @param {mat2d} b the second operand
-    // * @returns {mat2d} out
+    // * @returns {mat2d} output
     // */
-    //mat2d.multiply = function (out, a, b) {
+    //mat2d.multiply = function (output, a, b) {
     //    var aa = a[0], ab = a[1], ac = a[2], ad = a[3],
     //        atx = a[4], aty = a[5],
     //        ba = b[0], bb = b[1], bc = b[2], bd = b[3],
     //        btx = b[4], bty = b[5];
 
-    //    out[0] = aa*ba + ab*bc;
-    //    out[1] = aa*bb + ab*bd;
-    //    out[2] = ac*ba + ad*bc;
-    //    out[3] = ac*bb + ad*bd;
-    //    out[4] = ba*atx + bc*aty + btx;
-    //    out[5] = bb*atx + bd*aty + bty;
-    //    return out;
+    //    output[0] = aa*ba + ab*bc;
+    //    output[1] = aa*bb + ab*bd;
+    //    output[2] = ac*ba + ad*bc;
+    //    output[3] = ac*bb + ad*bd;
+    //    output[4] = ba*atx + bc*aty + btx;
+    //    output[5] = bb*atx + bd*aty + bty;
+    //    return output;
     //};
 
     ///**
@@ -401,12 +384,12 @@ public class Mat2d
     ///**
     // * Rotates a mat2d by the given angle
     // *
-    // * @param {mat2d} out the receiving matrix
+    // * @param {mat2d} output the receiving matrix
     // * @param {mat2d} a the matrix to rotate
     // * @param {Number} rad the angle to rotate the matrix by
-    // * @returns {mat2d} out
+    // * @returns {mat2d} output
     // */
-    //mat2d.rotate = function (out, a, rad) {
+    //mat2d.rotate = function (output, a, rad) {
     //    var aa = a[0],
     //        ab = a[1],
     //        ac = a[2],
@@ -416,50 +399,50 @@ public class Mat2d
     //        st = Math.sin(rad),
     //        ct = Math.cos(rad);
 
-    //    out[0] = aa*ct + ab*st;
-    //    out[1] = -aa*st + ab*ct;
-    //    out[2] = ac*ct + ad*st;
-    //    out[3] = -ac*st + ct*ad;
-    //    out[4] = ct*atx + st*aty;
-    //    out[5] = ct*aty - st*atx;
-    //    return out;
+    //    output[0] = aa*ct + ab*st;
+    //    output[1] = -aa*st + ab*ct;
+    //    output[2] = ac*ct + ad*st;
+    //    output[3] = -ac*st + ct*ad;
+    //    output[4] = ct*atx + st*aty;
+    //    output[5] = ct*aty - st*atx;
+    //    return output;
     //};
 
     ///**
     // * Scales the mat2d by the dimensions in the given vec2
     // *
-    // * @param {mat2d} out the receiving matrix
+    // * @param {mat2d} output the receiving matrix
     // * @param {mat2d} a the matrix to translate
     // * @param {vec2} v the vec2 to scale the matrix by
-    // * @returns {mat2d} out
+    // * @returns {mat2d} output
     // **/
-    //mat2d.scale = function(out, a, v) {
+    //mat2d.scale = function(output, a, v) {
     //    var vx = v[0], vy = v[1];
-    //    out[0] = a[0] * vx;
-    //    out[1] = a[1] * vy;
-    //    out[2] = a[2] * vx;
-    //    out[3] = a[3] * vy;
-    //    out[4] = a[4] * vx;
-    //    out[5] = a[5] * vy;
-    //    return out;
+    //    output[0] = a[0] * vx;
+    //    output[1] = a[1] * vy;
+    //    output[2] = a[2] * vx;
+    //    output[3] = a[3] * vy;
+    //    output[4] = a[4] * vx;
+    //    output[5] = a[5] * vy;
+    //    return output;
     //};
 
     ///**
     // * Translates the mat2d by the dimensions in the given vec2
     // *
-    // * @param {mat2d} out the receiving matrix
+    // * @param {mat2d} output the receiving matrix
     // * @param {mat2d} a the matrix to translate
     // * @param {vec2} v the vec2 to translate the matrix by
-    // * @returns {mat2d} out
+    // * @returns {mat2d} output
     // **/
-    //mat2d.translate = function(out, a, v) {
-    //    out[0] = a[0];
-    //    out[1] = a[1];
-    //    out[2] = a[2];
-    //    out[3] = a[3];
-    //    out[4] = a[4] + v[0];
-    //    out[5] = a[5] + v[1];
-    //    return out;
+    //mat2d.translate = function(output, a, v) {
+    //    output[0] = a[0];
+    //    output[1] = a[1];
+    //    output[2] = a[2];
+    //    output[3] = a[3];
+    //    output[4] = a[4] + v[0];
+    //    output[5] = a[5] + v[1];
+    //    return output;
     //};
 
     ///**
@@ -496,37 +479,37 @@ public class Mat3
     // * @returns {mat3} a new 3x3 matrix
     // */
     //mat3.create = function() {
-    //    var out = new GLMAT_ARRAY_TYPE(9);
-    //    out[0] = 1;
-    //    out[1] = 0;
-    //    out[2] = 0;
-    //    out[3] = 0;
-    //    out[4] = 1;
-    //    out[5] = 0;
-    //    out[6] = 0;
-    //    out[7] = 0;
-    //    out[8] = 1;
-    //    return out;
+    //    var output = new GLMAT_ARRAY_TYPE(9);
+    //    output[0] = 1;
+    //    output[1] = 0;
+    //    output[2] = 0;
+    //    output[3] = 0;
+    //    output[4] = 1;
+    //    output[5] = 0;
+    //    output[6] = 0;
+    //    output[7] = 0;
+    //    output[8] = 1;
+    //    return output;
     //};
 
     ///**
     // * Copies the upper-left 3x3 values into the given mat3.
     // *
-    // * @param {mat3} out the receiving 3x3 matrix
+    // * @param {mat3} output the receiving 3x3 matrix
     // * @param {mat4} a   the source 4x4 matrix
-    // * @returns {mat3} out
+    // * @returns {mat3} output
     // */
-    //mat3.fromMat4 = function(out, a) {
-    //    out[0] = a[0];
-    //    out[1] = a[1];
-    //    out[2] = a[2];
-    //    out[3] = a[4];
-    //    out[4] = a[5];
-    //    out[5] = a[6];
-    //    out[6] = a[8];
-    //    out[7] = a[9];
-    //    out[8] = a[10];
-    //    return out;
+    //mat3.fromMat4 = function(output, a) {
+    //    output[0] = a[0];
+    //    output[1] = a[1];
+    //    output[2] = a[2];
+    //    output[3] = a[4];
+    //    output[4] = a[5];
+    //    output[5] = a[6];
+    //    output[6] = a[8];
+    //    output[7] = a[9];
+    //    output[8] = a[10];
+    //    return output;
     //};
 
     ///**
@@ -536,98 +519,98 @@ public class Mat3
     // * @returns {mat3} a new 3x3 matrix
     // */
     //mat3.clone = function(a) {
-    //    var out = new GLMAT_ARRAY_TYPE(9);
-    //    out[0] = a[0];
-    //    out[1] = a[1];
-    //    out[2] = a[2];
-    //    out[3] = a[3];
-    //    out[4] = a[4];
-    //    out[5] = a[5];
-    //    out[6] = a[6];
-    //    out[7] = a[7];
-    //    out[8] = a[8];
-    //    return out;
+    //    var output = new GLMAT_ARRAY_TYPE(9);
+    //    output[0] = a[0];
+    //    output[1] = a[1];
+    //    output[2] = a[2];
+    //    output[3] = a[3];
+    //    output[4] = a[4];
+    //    output[5] = a[5];
+    //    output[6] = a[6];
+    //    output[7] = a[7];
+    //    output[8] = a[8];
+    //    return output;
     //};
 
     ///**
     // * Copy the values from one mat3 to another
     // *
-    // * @param {mat3} out the receiving matrix
+    // * @param {mat3} output the receiving matrix
     // * @param {mat3} a the source matrix
-    // * @returns {mat3} out
+    // * @returns {mat3} output
     // */
-    //mat3.copy = function(out, a) {
-    //    out[0] = a[0];
-    //    out[1] = a[1];
-    //    out[2] = a[2];
-    //    out[3] = a[3];
-    //    out[4] = a[4];
-    //    out[5] = a[5];
-    //    out[6] = a[6];
-    //    out[7] = a[7];
-    //    out[8] = a[8];
-    //    return out;
+    //mat3.copy = function(output, a) {
+    //    output[0] = a[0];
+    //    output[1] = a[1];
+    //    output[2] = a[2];
+    //    output[3] = a[3];
+    //    output[4] = a[4];
+    //    output[5] = a[5];
+    //    output[6] = a[6];
+    //    output[7] = a[7];
+    //    output[8] = a[8];
+    //    return output;
     //};
 
     ///**
     // * Set a mat3 to the identity matrix
     // *
-    // * @param {mat3} out the receiving matrix
-    // * @returns {mat3} out
+    // * @param {mat3} output the receiving matrix
+    // * @returns {mat3} output
     // */
-    //mat3.identity = function(out) {
-    //    out[0] = 1;
-    //    out[1] = 0;
-    //    out[2] = 0;
-    //    out[3] = 0;
-    //    out[4] = 1;
-    //    out[5] = 0;
-    //    out[6] = 0;
-    //    out[7] = 0;
-    //    out[8] = 1;
-    //    return out;
+    //mat3.identity = function(output) {
+    //    output[0] = 1;
+    //    output[1] = 0;
+    //    output[2] = 0;
+    //    output[3] = 0;
+    //    output[4] = 1;
+    //    output[5] = 0;
+    //    output[6] = 0;
+    //    output[7] = 0;
+    //    output[8] = 1;
+    //    return output;
     //};
 
     ///**
     // * Transpose the values of a mat3
     // *
-    // * @param {mat3} out the receiving matrix
+    // * @param {mat3} output the receiving matrix
     // * @param {mat3} a the source matrix
-    // * @returns {mat3} out
+    // * @returns {mat3} output
     // */
-    //mat3.transpose = function(out, a) {
+    //mat3.transpose = function(output, a) {
     //    // If we are transposing ourselves we can skip a few steps but have to cache some values
-    //    if (out === a) {
+    //    if (output === a) {
     //        var a01 = a[1], a02 = a[2], a12 = a[5];
-    //        out[1] = a[3];
-    //        out[2] = a[6];
-    //        out[3] = a01;
-    //        out[5] = a[7];
-    //        out[6] = a02;
-    //        out[7] = a12;
+    //        output[1] = a[3];
+    //        output[2] = a[6];
+    //        output[3] = a01;
+    //        output[5] = a[7];
+    //        output[6] = a02;
+    //        output[7] = a12;
     //    } else {
-    //        out[0] = a[0];
-    //        out[1] = a[3];
-    //        out[2] = a[6];
-    //        out[3] = a[1];
-    //        out[4] = a[4];
-    //        out[5] = a[7];
-    //        out[6] = a[2];
-    //        out[7] = a[5];
-    //        out[8] = a[8];
+    //        output[0] = a[0];
+    //        output[1] = a[3];
+    //        output[2] = a[6];
+    //        output[3] = a[1];
+    //        output[4] = a[4];
+    //        output[5] = a[7];
+    //        output[6] = a[2];
+    //        output[7] = a[5];
+    //        output[8] = a[8];
     //    }
 
-    //    return out;
+    //    return output;
     //};
 
     ///**
     // * Inverts a mat3
     // *
-    // * @param {mat3} out the receiving matrix
+    // * @param {mat3} output the receiving matrix
     // * @param {mat3} a the source matrix
-    // * @returns {mat3} out
+    // * @returns {mat3} output
     // */
-    //mat3.invert = function(out, a) {
+    //mat3.invert = function(output, a) {
     //    var a00 = a[0], a01 = a[1], a02 = a[2],
     //        a10 = a[3], a11 = a[4], a12 = a[5],
     //        a20 = a[6], a21 = a[7], a22 = a[8],
@@ -644,40 +627,40 @@ public class Mat3
     //    }
     //    det = 1.0 / det;
 
-    //    out[0] = b01 * det;
-    //    out[1] = (-a22 * a01 + a02 * a21) * det;
-    //    out[2] = (a12 * a01 - a02 * a11) * det;
-    //    out[3] = b11 * det;
-    //    out[4] = (a22 * a00 - a02 * a20) * det;
-    //    out[5] = (-a12 * a00 + a02 * a10) * det;
-    //    out[6] = b21 * det;
-    //    out[7] = (-a21 * a00 + a01 * a20) * det;
-    //    out[8] = (a11 * a00 - a01 * a10) * det;
-    //    return out;
+    //    output[0] = b01 * det;
+    //    output[1] = (-a22 * a01 + a02 * a21) * det;
+    //    output[2] = (a12 * a01 - a02 * a11) * det;
+    //    output[3] = b11 * det;
+    //    output[4] = (a22 * a00 - a02 * a20) * det;
+    //    output[5] = (-a12 * a00 + a02 * a10) * det;
+    //    output[6] = b21 * det;
+    //    output[7] = (-a21 * a00 + a01 * a20) * det;
+    //    output[8] = (a11 * a00 - a01 * a10) * det;
+    //    return output;
     //};
 
     ///**
     // * Calculates the adjugate of a mat3
     // *
-    // * @param {mat3} out the receiving matrix
+    // * @param {mat3} output the receiving matrix
     // * @param {mat3} a the source matrix
-    // * @returns {mat3} out
+    // * @returns {mat3} output
     // */
-    //mat3.adjoint = function(out, a) {
+    //mat3.adjoint = function(output, a) {
     //    var a00 = a[0], a01 = a[1], a02 = a[2],
     //        a10 = a[3], a11 = a[4], a12 = a[5],
     //        a20 = a[6], a21 = a[7], a22 = a[8];
 
-    //    out[0] = (a11 * a22 - a12 * a21);
-    //    out[1] = (a02 * a21 - a01 * a22);
-    //    out[2] = (a01 * a12 - a02 * a11);
-    //    out[3] = (a12 * a20 - a10 * a22);
-    //    out[4] = (a00 * a22 - a02 * a20);
-    //    out[5] = (a02 * a10 - a00 * a12);
-    //    out[6] = (a10 * a21 - a11 * a20);
-    //    out[7] = (a01 * a20 - a00 * a21);
-    //    out[8] = (a00 * a11 - a01 * a10);
-    //    return out;
+    //    output[0] = (a11 * a22 - a12 * a21);
+    //    output[1] = (a02 * a21 - a01 * a22);
+    //    output[2] = (a01 * a12 - a02 * a11);
+    //    output[3] = (a12 * a20 - a10 * a22);
+    //    output[4] = (a00 * a22 - a02 * a20);
+    //    output[5] = (a02 * a10 - a00 * a12);
+    //    output[6] = (a10 * a21 - a11 * a20);
+    //    output[7] = (a01 * a20 - a00 * a21);
+    //    output[8] = (a00 * a11 - a01 * a10);
+    //    return output;
     //};
 
     ///**
@@ -697,12 +680,12 @@ public class Mat3
     ///**
     // * Multiplies two mat3's
     // *
-    // * @param {mat3} out the receiving matrix
+    // * @param {mat3} output the receiving matrix
     // * @param {mat3} a the first operand
     // * @param {mat3} b the second operand
-    // * @returns {mat3} out
+    // * @returns {mat3} output
     // */
-    //mat3.multiply = function (out, a, b) {
+    //mat3.multiply = function (output, a, b) {
     //    var a00 = a[0], a01 = a[1], a02 = a[2],
     //        a10 = a[3], a11 = a[4], a12 = a[5],
     //        a20 = a[6], a21 = a[7], a22 = a[8],
@@ -711,18 +694,18 @@ public class Mat3
     //        b10 = b[3], b11 = b[4], b12 = b[5],
     //        b20 = b[6], b21 = b[7], b22 = b[8];
 
-    //    out[0] = b00 * a00 + b01 * a10 + b02 * a20;
-    //    out[1] = b00 * a01 + b01 * a11 + b02 * a21;
-    //    out[2] = b00 * a02 + b01 * a12 + b02 * a22;
+    //    output[0] = b00 * a00 + b01 * a10 + b02 * a20;
+    //    output[1] = b00 * a01 + b01 * a11 + b02 * a21;
+    //    output[2] = b00 * a02 + b01 * a12 + b02 * a22;
 
-    //    out[3] = b10 * a00 + b11 * a10 + b12 * a20;
-    //    out[4] = b10 * a01 + b11 * a11 + b12 * a21;
-    //    out[5] = b10 * a02 + b11 * a12 + b12 * a22;
+    //    output[3] = b10 * a00 + b11 * a10 + b12 * a20;
+    //    output[4] = b10 * a01 + b11 * a11 + b12 * a21;
+    //    output[5] = b10 * a02 + b11 * a12 + b12 * a22;
 
-    //    out[6] = b20 * a00 + b21 * a10 + b22 * a20;
-    //    out[7] = b20 * a01 + b21 * a11 + b22 * a21;
-    //    out[8] = b20 * a02 + b21 * a12 + b22 * a22;
-    //    return out;
+    //    output[6] = b20 * a00 + b21 * a10 + b22 * a20;
+    //    output[7] = b20 * a01 + b21 * a11 + b22 * a21;
+    //    output[8] = b20 * a02 + b21 * a12 + b22 * a22;
+    //    return output;
     //};
 
     ///**
@@ -734,40 +717,40 @@ public class Mat3
     ///**
     // * Translate a mat3 by the given vector
     // *
-    // * @param {mat3} out the receiving matrix
+    // * @param {mat3} output the receiving matrix
     // * @param {mat3} a the matrix to translate
     // * @param {vec2} v vector to translate by
-    // * @returns {mat3} out
+    // * @returns {mat3} output
     // */
-    //mat3.translate = function(out, a, v) {
+    //mat3.translate = function(output, a, v) {
     //    var a00 = a[0], a01 = a[1], a02 = a[2],
     //        a10 = a[3], a11 = a[4], a12 = a[5],
     //        a20 = a[6], a21 = a[7], a22 = a[8],
     //        x = v[0], y = v[1];
 
-    //    out[0] = a00;
-    //    out[1] = a01;
-    //    out[2] = a02;
+    //    output[0] = a00;
+    //    output[1] = a01;
+    //    output[2] = a02;
 
-    //    out[3] = a10;
-    //    out[4] = a11;
-    //    out[5] = a12;
+    //    output[3] = a10;
+    //    output[4] = a11;
+    //    output[5] = a12;
 
-    //    out[6] = x * a00 + y * a10 + a20;
-    //    out[7] = x * a01 + y * a11 + a21;
-    //    out[8] = x * a02 + y * a12 + a22;
-    //    return out;
+    //    output[6] = x * a00 + y * a10 + a20;
+    //    output[7] = x * a01 + y * a11 + a21;
+    //    output[8] = x * a02 + y * a12 + a22;
+    //    return output;
     //};
 
     ///**
     // * Rotates a mat3 by the given angle
     // *
-    // * @param {mat3} out the receiving matrix
+    // * @param {mat3} output the receiving matrix
     // * @param {mat3} a the matrix to rotate
     // * @param {Number} rad the angle to rotate the matrix by
-    // * @returns {mat3} out
+    // * @returns {mat3} output
     // */
-    //mat3.rotate = function (out, a, rad) {
+    //mat3.rotate = function (output, a, rad) {
     //    var a00 = a[0], a01 = a[1], a02 = a[2],
     //        a10 = a[3], a11 = a[4], a12 = a[5],
     //        a20 = a[6], a21 = a[7], a22 = a[8],
@@ -775,76 +758,76 @@ public class Mat3
     //        s = Math.sin(rad),
     //        c = Math.cos(rad);
 
-    //    out[0] = c * a00 + s * a10;
-    //    out[1] = c * a01 + s * a11;
-    //    out[2] = c * a02 + s * a12;
+    //    output[0] = c * a00 + s * a10;
+    //    output[1] = c * a01 + s * a11;
+    //    output[2] = c * a02 + s * a12;
 
-    //    out[3] = c * a10 - s * a00;
-    //    out[4] = c * a11 - s * a01;
-    //    out[5] = c * a12 - s * a02;
+    //    output[3] = c * a10 - s * a00;
+    //    output[4] = c * a11 - s * a01;
+    //    output[5] = c * a12 - s * a02;
 
-    //    out[6] = a20;
-    //    out[7] = a21;
-    //    out[8] = a22;
-    //    return out;
+    //    output[6] = a20;
+    //    output[7] = a21;
+    //    output[8] = a22;
+    //    return output;
     //};
 
     ///**
     // * Scales the mat3 by the dimensions in the given vec2
     // *
-    // * @param {mat3} out the receiving matrix
+    // * @param {mat3} output the receiving matrix
     // * @param {mat3} a the matrix to rotate
     // * @param {vec2} v the vec2 to scale the matrix by
-    // * @returns {mat3} out
+    // * @returns {mat3} output
     // **/
-    //mat3.scale = function(out, a, v) {
+    //mat3.scale = function(output, a, v) {
     //    var x = v[0], y = v[1];
 
-    //    out[0] = x * a[0];
-    //    out[1] = x * a[1];
-    //    out[2] = x * a[2];
+    //    output[0] = x * a[0];
+    //    output[1] = x * a[1];
+    //    output[2] = x * a[2];
 
-    //    out[3] = y * a[3];
-    //    out[4] = y * a[4];
-    //    out[5] = y * a[5];
+    //    output[3] = y * a[3];
+    //    output[4] = y * a[4];
+    //    output[5] = y * a[5];
 
-    //    out[6] = a[6];
-    //    out[7] = a[7];
-    //    out[8] = a[8];
-    //    return out;
+    //    output[6] = a[6];
+    //    output[7] = a[7];
+    //    output[8] = a[8];
+    //    return output;
     //};
 
     ///**
     // * Copies the values from a mat2d into a mat3
     // *
-    // * @param {mat3} out the receiving matrix
+    // * @param {mat3} output the receiving matrix
     // * @param {mat2d} a the matrix to copy
-    // * @returns {mat3} out
+    // * @returns {mat3} output
     // **/
-    //mat3.fromMat2d = function(out, a) {
-    //    out[0] = a[0];
-    //    out[1] = a[1];
-    //    out[2] = 0;
+    //mat3.fromMat2d = function(output, a) {
+    //    output[0] = a[0];
+    //    output[1] = a[1];
+    //    output[2] = 0;
 
-    //    out[3] = a[2];
-    //    out[4] = a[3];
-    //    out[5] = 0;
+    //    output[3] = a[2];
+    //    output[4] = a[3];
+    //    output[5] = 0;
 
-    //    out[6] = a[4];
-    //    out[7] = a[5];
-    //    out[8] = 1;
-    //    return out;
+    //    output[6] = a[4];
+    //    output[7] = a[5];
+    //    output[8] = 1;
+    //    return output;
     //};
 
     ///**
     //* Calculates a 3x3 matrix from the given quaternion
     //*
-    //* @param {mat3} out mat3 receiving operation result
+    //* @param {mat3} output mat3 receiving operation result
     //* @param {quat} q Quaternion to create matrix from
     //*
-    //* @returns {mat3} out
+    //* @returns {mat3} output
     //*/
-    //mat3.fromQuat = function (out, q) {
+    //mat3.fromQuat = function (output, q) {
     //    var x = q[0], y = q[1], z = q[2], w = q[3],
     //        x2 = x + x,
     //        y2 = y + y,
@@ -860,30 +843,30 @@ public class Mat3
     //        wy = w * y2,
     //        wz = w * z2;
 
-    //    out[0] = 1 - (yy + zz);
-    //    out[3] = xy + wz;
-    //    out[6] = xz - wy;
+    //    output[0] = 1 - (yy + zz);
+    //    output[3] = xy + wz;
+    //    output[6] = xz - wy;
 
-    //    out[1] = xy - wz;
-    //    out[4] = 1 - (xx + zz);
-    //    out[7] = yz + wx;
+    //    output[1] = xy - wz;
+    //    output[4] = 1 - (xx + zz);
+    //    output[7] = yz + wx;
 
-    //    out[2] = xz + wy;
-    //    out[5] = yz - wx;
-    //    out[8] = 1 - (xx + yy);
+    //    output[2] = xz + wy;
+    //    output[5] = yz - wx;
+    //    output[8] = 1 - (xx + yy);
 
-    //    return out;
+    //    return output;
     //};
 
     ///**
     //* Calculates a 3x3 normal matrix (transpose inverse) from the 4x4 matrix
     //*
-    //* @param {mat3} out mat3 receiving operation result
+    //* @param {mat3} output mat3 receiving operation result
     //* @param {mat4} a Mat4 to derive the normal matrix from
     //*
-    //* @returns {mat3} out
+    //* @returns {mat3} output
     //*/
-    //mat3.normalFromMat4 = function (out, a) {
+    //mat3.normalFromMat4 = function (output, a) {
     //    var a00 = a[0], a01 = a[1], a02 = a[2], a03 = a[3],
     //        a10 = a[4], a11 = a[5], a12 = a[6], a13 = a[7],
     //        a20 = a[8], a21 = a[9], a22 = a[10], a23 = a[11],
@@ -910,19 +893,19 @@ public class Mat3
     //    }
     //    det = 1.0 / det;
 
-    //    out[0] = (a11 * b11 - a12 * b10 + a13 * b09) * det;
-    //    out[1] = (a12 * b08 - a10 * b11 - a13 * b07) * det;
-    //    out[2] = (a10 * b10 - a11 * b08 + a13 * b06) * det;
+    //    output[0] = (a11 * b11 - a12 * b10 + a13 * b09) * det;
+    //    output[1] = (a12 * b08 - a10 * b11 - a13 * b07) * det;
+    //    output[2] = (a10 * b10 - a11 * b08 + a13 * b06) * det;
 
-    //    out[3] = (a02 * b10 - a01 * b11 - a03 * b09) * det;
-    //    out[4] = (a00 * b11 - a02 * b08 + a03 * b07) * det;
-    //    out[5] = (a01 * b08 - a00 * b10 - a03 * b06) * det;
+    //    output[3] = (a02 * b10 - a01 * b11 - a03 * b09) * det;
+    //    output[4] = (a00 * b11 - a02 * b08 + a03 * b07) * det;
+    //    output[5] = (a01 * b08 - a00 * b10 - a03 * b06) * det;
 
-    //    out[6] = (a31 * b05 - a32 * b04 + a33 * b03) * det;
-    //    out[7] = (a32 * b02 - a30 * b05 - a33 * b01) * det;
-    //    out[8] = (a30 * b04 - a31 * b02 + a33 * b00) * det;
+    //    output[6] = (a31 * b05 - a32 * b04 + a33 * b03) * det;
+    //    output[7] = (a32 * b02 - a30 * b05 - a33 * b01) * det;
+    //    output[8] = (a30 * b04 - a31 * b02 + a33 * b00) * det;
 
-    //    return out;
+    //    return output;
     //};
 
     ///**

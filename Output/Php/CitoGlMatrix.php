@@ -1,21 +1,164 @@
 <?php
 // Generated automatically with "cito". Do not edit.
 
+// 2x2 Matrix
 class Mat2
 {
 
+	// Calculates the adjugate of a mat2
+	static function Adjoint(&$output, &$a)
+	{
+		$a0 = $a[0];
+		$output[0] = $a[3];
+		$output[1] = -$a[1];
+		$output[2] = -$a[2];
+		$output[3] = $a0;
+		return $output;
+	}
+
+	// Creates a new mat2 initialized with values from an existing matrix
+	// @returns {mat2} a new 2x2 matrix
+	/// <param name="a">@param {mat2} a matrix to clone</param>
+	static function Clone(&$a)
+	{
+		$output = array();
+		$output[0] = $a[0];
+		$output[1] = $a[1];
+		$output[2] = $a[2];
+		$output[3] = $a[3];
+		return $output;
+	}
+
+	// Copy the values from one mat2 to another
+	// @param {mat2} output the receiving matrix
+	// @param {mat2} a the source matrix
+	// @returns {mat2} output
+	static function Copy(&$output, &$a)
+	{
+		$output[0] = $a[0];
+		$output[1] = $a[1];
+		$output[2] = $a[2];
+		$output[3] = $a[3];
+		return $output;
+	}
+
+	// Creates a new identity mat2
+	// @returns {mat2} a new 2x2 matrix
+	static function Create()
+	{
+		$output = array();
+		$output[0] = 1;
+		$output[1] = 0;
+		$output[2] = 0;
+		$output[3] = 1;
+		return $output;
+	}
+
+	static function Determinant(&$a)
+	{
+		return $a[0] * $a[3] - $a[2] * $a[1];
+	}
+
+	// Set a mat2 to the identity matrix
+	// @param {mat2} output the receiving matrix
+	// @returns {mat2} output
+	static function Identity(&$output)
+	{
+		$output[0] = 1;
+		$output[1] = 0;
+		$output[2] = 0;
+		$output[3] = 1;
+		return $output;
+	}
+
+	// Inverts a mat2
+	static function Invert(&$output, &$a)
+	{
+		$a0 = $a[0];
+		$a1 = $a[1];
+		$a2 = $a[2];
+		$a3 = $a[3];
+		$det = $a0 * $a3 - $a2 * $a1;
+		if ($det == 0) {
+			return null;
+		}
+		$one = 1;
+		$det = $one / $det;
+		$output[0] = $a3 * $det;
+		$output[1] = -$a1 * $det;
+		$output[2] = -$a2 * $det;
+		$output[3] = $a0 * $det;
+		return $output;
+	}
+
+	// Alias for {@link mat2.multiply}
+	static function Mul(&$output, &$a, &$b)
+	{
+		return Mat2::Multiply($output, $a, $b);
+	}
+
+	static function Multiply(&$output, &$a, &$b)
+	{
+		$a0 = $a[0];
+		$a1 = $a[1];
+		$a2 = $a[2];
+		$a3 = $a[3];
+		$b0 = $b[0];
+		$b1 = $b[1];
+		$b2 = $b[2];
+		$b3 = $b[3];
+		$output[0] = $a0 * $b0 + $a1 * $b2;
+		$output[1] = $a0 * $b1 + $a1 * $b3;
+		$output[2] = $a2 * $b0 + $a3 * $b2;
+		$output[3] = $a2 * $b1 + $a3 * $b3;
+		return $output;
+	}
+
 	// **
+	static function Rotate(&$output, &$a, $rad)
+	{
+		$a0 = $a[0];
+		$a1 = $a[1];
+		$a2 = $a[2];
+		$a3 = $a[3];
+		$s = Platform::Sin($rad);
+		$c = Platform::Cos($rad);
+		$output[0] = $a0 * $c + $a1 * $s;
+		$output[1] = $a0 * -$s + $a1 * $c;
+		$output[2] = $a2 * $c + $a3 * $s;
+		$output[3] = $a2 * -$s + $a3 * $c;
+		return $output;
+	}
+
 	// **
-	// **
-	// **
-	// **
-	// **
-	// **
-	// **
-	// **
-	// **
-	// **
-	// **
+	static function Scale(&$output, &$a, &$v)
+	{
+		$a0 = $a[0];
+		$a1 = $a[1];
+		$a2 = $a[2];
+		$a3 = $a[3];
+		$v0 = $v[0];
+		$v1 = $v[1];
+		$output[0] = $a0 * $v0;
+		$output[1] = $a1 * $v1;
+		$output[2] = $a2 * $v0;
+		$output[3] = $a3 * $v1;
+		return $output;
+	}
+
+	// Transpose the values of a mat2
+	// @param {mat2} output the receiving matrix
+	// @param {mat2} a the source matrix
+	// @returns {mat2} output
+	static function Transpose(&$output, &$a)
+	{
+		$output[0] = $a[0];
+		$output[1] = $a[2];
+		$output[2] = $a[1];
+		$output[3] = $a[3];
+		return $output;
+	}
+
 	// **
 	private function f()
 	{

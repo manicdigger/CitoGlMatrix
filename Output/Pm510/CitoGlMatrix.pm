@@ -4,6 +4,8 @@ use strict;
 
 =head1 Class Mat2
 
+2x2 Matrix
+
 =cut
 
 package Mat2;
@@ -15,6 +17,226 @@ package Mat2;
 sub new($) {
 	my $self = bless {}, shift;
 	return $self;
+}
+
+=head2 C<Mat2::adjoint(\@output, \@a)>
+
+Calculates the adjugate of a mat2
+
+=cut
+
+sub adjoint($$) {
+	my ($output, $a) = @_;
+	my $a0 = $a->[0];
+	$output->[0] = $a->[3];
+	$output->[1] = -$a->[1];
+	$output->[2] = -$a->[2];
+	$output->[3] = $a0;
+	return $output;
+}
+
+=head2 C<Mat2::clone(\@a)>
+
+Creates a new mat2 initialized with values from an existing matrix
+@returns {mat2} a new 2x2 matrix
+
+Parameters:
+
+=over
+
+=item \@a
+
+@param {mat2} a matrix to clone
+
+=back
+
+=cut
+
+sub clone($) {
+	my ($a) = @_;
+	my $output = [];
+	$output->[0] = $a->[0];
+	$output->[1] = $a->[1];
+	$output->[2] = $a->[2];
+	$output->[3] = $a->[3];
+	return $output;
+}
+
+=head2 C<Mat2::copy(\@output, \@a)>
+
+Copy the values from one mat2 to another
+@param {mat2} output the receiving matrix
+@param {mat2} a the source matrix
+@returns {mat2} output
+
+=cut
+
+sub copy($$) {
+	my ($output, $a) = @_;
+	$output->[0] = $a->[0];
+	$output->[1] = $a->[1];
+	$output->[2] = $a->[2];
+	$output->[3] = $a->[3];
+	return $output;
+}
+
+=head2 C<Mat2::create()>
+
+Creates a new identity mat2
+@returns {mat2} a new 2x2 matrix
+
+=cut
+
+sub create() {
+	my $output = [];
+	$output->[0] = 1;
+	$output->[1] = 0;
+	$output->[2] = 0;
+	$output->[3] = 1;
+	return $output;
+}
+
+=head2 C<Mat2::determinant(\@a)>
+
+=cut
+
+sub determinant($) {
+	my ($a) = @_;
+	return $a->[0] * $a->[3] - $a->[2] * $a->[1];
+}
+
+=head2 C<Mat2::identity(\@output)>
+
+Set a mat2 to the identity matrix
+@param {mat2} output the receiving matrix
+@returns {mat2} output
+
+=cut
+
+sub identity($) {
+	my ($output) = @_;
+	$output->[0] = 1;
+	$output->[1] = 0;
+	$output->[2] = 0;
+	$output->[3] = 1;
+	return $output;
+}
+
+=head2 C<Mat2::invert(\@output, \@a)>
+
+Inverts a mat2
+
+=cut
+
+sub invert($$) {
+	my ($output, $a) = @_;
+	my $a0 = $a->[0];
+	my $a1 = $a->[1];
+	my $a2 = $a->[2];
+	my $a3 = $a->[3];
+	my $det = $a0 * $a3 - $a2 * $a1;
+	if ($det == 0) {
+		return undef;
+	}
+	my $one = 1;
+	$det = $one / $det;
+	$output->[0] = $a3 * $det;
+	$output->[1] = -$a1 * $det;
+	$output->[2] = -$a2 * $det;
+	$output->[3] = $a0 * $det;
+	return $output;
+}
+
+=head2 C<Mat2::mul(\@output, \@a, \@b)>
+
+Alias for {@link mat2.multiply}
+
+=cut
+
+sub mul($$$) {
+	my ($output, $a, $b) = @_;
+	return Mat2::multiply($output, $a, $b);
+}
+
+=head2 C<Mat2::multiply(\@output, \@a, \@b)>
+
+=cut
+
+sub multiply($$$) {
+	my ($output, $a, $b) = @_;
+	my $a0 = $a->[0];
+	my $a1 = $a->[1];
+	my $a2 = $a->[2];
+	my $a3 = $a->[3];
+	my $b0 = $b->[0];
+	my $b1 = $b->[1];
+	my $b2 = $b->[2];
+	my $b3 = $b->[3];
+	$output->[0] = $a0 * $b0 + $a1 * $b2;
+	$output->[1] = $a0 * $b1 + $a1 * $b3;
+	$output->[2] = $a2 * $b0 + $a3 * $b2;
+	$output->[3] = $a2 * $b1 + $a3 * $b3;
+	return $output;
+}
+
+=head2 C<Mat2::rotate(\@output, \@a, $rad)>
+
+**
+
+=cut
+
+sub rotate($$$) {
+	my ($output, $a, $rad) = @_;
+	my $a0 = $a->[0];
+	my $a1 = $a->[1];
+	my $a2 = $a->[2];
+	my $a3 = $a->[3];
+	my $s = Platform::sin($rad);
+	my $c = Platform::cos($rad);
+	$output->[0] = $a0 * $c + $a1 * $s;
+	$output->[1] = $a0 * -$s + $a1 * $c;
+	$output->[2] = $a2 * $c + $a3 * $s;
+	$output->[3] = $a2 * -$s + $a3 * $c;
+	return $output;
+}
+
+=head2 C<Mat2::scale(\@output, \@a, \@v)>
+
+**
+
+=cut
+
+sub scale($$$) {
+	my ($output, $a, $v) = @_;
+	my $a0 = $a->[0];
+	my $a1 = $a->[1];
+	my $a2 = $a->[2];
+	my $a3 = $a->[3];
+	my $v0 = $v->[0];
+	my $v1 = $v->[1];
+	$output->[0] = $a0 * $v0;
+	$output->[1] = $a1 * $v1;
+	$output->[2] = $a2 * $v0;
+	$output->[3] = $a3 * $v1;
+	return $output;
+}
+
+=head2 C<Mat2::transpose(\@output, \@a)>
+
+Transpose the values of a mat2
+@param {mat2} output the receiving matrix
+@param {mat2} a the source matrix
+@returns {mat2} output
+
+=cut
+
+sub transpose($$) {
+	my ($output, $a) = @_;
+	$output->[0] = $a->[0];
+	$output->[1] = $a->[2];
+	$output->[2] = $a->[1];
+	$output->[3] = $a->[3];
+	return $output;
 }
 
 sub f($) {

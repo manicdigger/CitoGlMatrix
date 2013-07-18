@@ -13,6 +13,140 @@
 
 
 
+float const *Mat2_Adjoint(float *output, float const *a)
+{
+	float a0 = a[0];
+	output[0] = a[3];
+	output[1] = -a[1];
+	output[2] = -a[2];
+	output[3] = a0;
+	return output;
+}
+
+float const *Mat2_Clone(float const *a)
+{
+	float *output = (float *) malloc(4 * sizeof(float ));
+	output[0] = a[0];
+	output[1] = a[1];
+	output[2] = a[2];
+	output[3] = a[3];
+	return output;
+}
+
+float const *Mat2_Copy(float *output, float const *a)
+{
+	output[0] = a[0];
+	output[1] = a[1];
+	output[2] = a[2];
+	output[3] = a[3];
+	return output;
+}
+
+float const *Mat2_Create(void)
+{
+	float *output = (float *) malloc(4 * sizeof(float ));
+	output[0] = 1;
+	output[1] = 0;
+	output[2] = 0;
+	output[3] = 1;
+	return output;
+}
+
+float Mat2_Determinant(float const *a)
+{
+	return a[0] * a[3] - a[2] * a[1];
+}
+
+float const *Mat2_Identity(float *output)
+{
+	output[0] = 1;
+	output[1] = 0;
+	output[2] = 0;
+	output[3] = 1;
+	return output;
+}
+
+float const *Mat2_Invert(float *output, float const *a)
+{
+	float a0 = a[0];
+	float a1 = a[1];
+	float a2 = a[2];
+	float a3 = a[3];
+	float det = a0 * a3 - a2 * a1;
+	float one;
+	if (det == 0) {
+		return NULL;
+	}
+	one = 1;
+	det = one / det;
+	output[0] = a3 * det;
+	output[1] = -a1 * det;
+	output[2] = -a2 * det;
+	output[3] = a0 * det;
+	return output;
+}
+
+float const *Mat2_Mul(float *output, float const *a, float const *b)
+{
+	return Mat2_Multiply(output, a, b);
+}
+
+float const *Mat2_Multiply(float *output, float const *a, float const *b)
+{
+	float a0 = a[0];
+	float a1 = a[1];
+	float a2 = a[2];
+	float a3 = a[3];
+	float b0 = b[0];
+	float b1 = b[1];
+	float b2 = b[2];
+	float b3 = b[3];
+	output[0] = a0 * b0 + a1 * b2;
+	output[1] = a0 * b1 + a1 * b3;
+	output[2] = a2 * b0 + a3 * b2;
+	output[3] = a2 * b1 + a3 * b3;
+	return output;
+}
+
+float const *Mat2_Rotate(float *output, float const *a, float rad)
+{
+	float a0 = a[0];
+	float a1 = a[1];
+	float a2 = a[2];
+	float a3 = a[3];
+	float s = Platform_Sin(rad);
+	float c = Platform_Cos(rad);
+	output[0] = a0 * c + a1 * s;
+	output[1] = a0 * -s + a1 * c;
+	output[2] = a2 * c + a3 * s;
+	output[3] = a2 * -s + a3 * c;
+	return output;
+}
+
+float const *Mat2_Scale(float *output, float const *a, float const *v)
+{
+	float a0 = a[0];
+	float a1 = a[1];
+	float a2 = a[2];
+	float a3 = a[3];
+	float v0 = v[0];
+	float v1 = v[1];
+	output[0] = a0 * v0;
+	output[1] = a1 * v1;
+	output[2] = a2 * v0;
+	output[3] = a3 * v1;
+	return output;
+}
+
+float const *Mat2_Transpose(float *output, float const *a)
+{
+	output[0] = a[0];
+	output[1] = a[2];
+	output[2] = a[1];
+	output[3] = a[3];
+	return output;
+}
+
 float const *Mat4_Adjoint(float *output, float const *a)
 {
 	float a00 = a[0];

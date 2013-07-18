@@ -86,6 +86,11 @@ float const *Mat2_Scale(float *output, float const *a, float const *v);
 float const *Mat2_Transpose(float *output, float const *a);
 
 /**
+ * **
+ */
+float *Mat3_Create(void);
+
+/**
  * Calculates the adjugate of a mat4
  * @returns {mat4} out
  * @param output @param {mat4} out the receiving matrix
@@ -304,6 +309,94 @@ float Platform_Sqrt(float a);
 float Platform_Tan(float p);
 
 /**
+ * **
+ */
+float const *Quat_CalculateW(float *output, float const *a);
+
+/**
+ * **
+ */
+float const *Quat_Conjugate(Quat const *self, float *output, float const *a);
+
+/**
+ * **
+ */
+float const *Quat_Create(void);
+
+/**
+ * **
+ */
+float const *Quat_FromMat3(float *output, float const *m);
+
+/**
+ * **
+ */
+float const *Quat_Identity(float *output);
+
+/**
+ * **
+ * **
+ * **
+ * **
+ */
+float const *Quat_Invert(Quat const *self, float *output, float const *a);
+
+/**
+ * **
+ * **
+ */
+float const *Quat_Multiply(float *output, float const *a, float const *b);
+
+/**
+ * **
+ * **
+ * **
+ * **
+ * **
+ */
+float const *Quat_Normalize(float const *output, float const *a);
+
+/**
+ * **
+ * **
+ * **
+ */
+float const *Quat_RotateX(float *output, float const *a, float rad);
+
+/**
+ * **
+ */
+float const *Quat_RotateY(float *output, float const *a, float rad);
+
+/**
+ * **
+ */
+float const *Quat_RotateZ(float *output, float const *a, float rad);
+
+/**
+ * **
+ */
+float const *Quat_RotationTo(float *output, float const *a, float const *b);
+
+/**
+ * **
+ * **
+ * **
+ * **
+ */
+float const *Quat_Set(float *output, float x, float y, float z, float w);
+
+/**
+ * **
+ */
+float const *Quat_SetAxes(float *output, float const *view, float const *right, float const *up);
+
+/**
+ * **
+ */
+float const *Quat_SetAxisAngle(float *output, float const *axis, float rad);
+
+/**
  * Adds two vec3's
  * @returns {vec3} out
  * @param output /@param {vec3} out the receiving vector
@@ -331,7 +424,7 @@ float const *Vec3_Copy(float *output, float const *a);
  * Creates a new, empty vec3
  * Returns {vec3} a new 3D vector.
  */
-float const *Vec3_Create(void);
+float *Vec3_Create(void);
 
 /**
  * Computes the cross product of two vec3's
@@ -578,6 +671,40 @@ float const *Vec3_TransformQuat(float *output, float const *a, float const *q);
  * / @returns {String} string representation of the vector
  */
 const char *Vec3_str(float const *a);
+
+/**
+ * **
+ * **
+ * **
+ * **
+ * **
+ * **
+ * **
+ * **
+ * **
+ * **
+ * **
+ * **
+ * **
+ * **
+ * **
+ * **
+ * **
+ * **
+ * **
+ * **
+ * **
+ */
+float const *Vec4_Normalize(float const *output, float const *a);
+
+/**
+ * **
+ * **
+ * **
+ * **
+ * **
+ */
+float const *Vec4_Set(float *output, float x, float y, float z, float w);
 
 #ifdef __cplusplus
 }

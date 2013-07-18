@@ -146,6 +146,21 @@ float const *Mat2_Transpose(float *output, float const *a)
 	return output;
 }
 
+float *Mat3_Create(void)
+{
+	float *output = (float *) malloc(9 * sizeof(float ));
+	output[0] = 1;
+	output[1] = 0;
+	output[2] = 0;
+	output[3] = 0;
+	output[4] = 1;
+	output[5] = 0;
+	output[6] = 0;
+	output[7] = 0;
+	output[8] = 1;
+	return output;
+}
+
 float const *Mat4_Adjoint(float *output, float const *a)
 {
 	float a00 = a[0];
@@ -974,6 +989,232 @@ float Platform_Tan(float p)
 	return 0;
 }
 
+float const *Quat_CalculateW(float *output, float const *a)
+{
+	float x = a[0];
+	float y = a[1];
+	float z = a[2];
+	output[0] = x;
+	output[1] = y;
+	output[2] = z;
+	float one = 1;
+	output[3] = -Platform_Sqrt(Math_Abs(one - x * x - y * y - z * z));
+	return output;
+}
+
+float const *Quat_Conjugate(Quat const *self, float *output, float const *a)
+{
+	output[0] = -a[0];
+	output[1] = -a[1];
+	output[2] = -a[2];
+	output[3] = a[3];
+	return output;
+}
+
+float const *Quat_Create(void)
+{
+	float *output = (float *) malloc(4 * sizeof(float ));
+	output[0] = 0;
+	output[1] = 0;
+	output[2] = 0;
+	output[3] = 1;
+	return output;
+}
+
+float const *Quat_FromMat3(float *output, float const *m)
+{
+	float fTrace = m[0] + m[4] + m[8];
+	float fRoot;
+	float zero = 0;
+	float one = 1;
+	float half = one / 2;
+	if (fTrace > zero) {
+		fRoot = Platform_Sqrt(fTrace + one);
+		output[3] = half * fRoot;
+		fRoot = half / fRoot;
+		output[0] = (m[7] - m[5]) * fRoot;
+		output[1] = (m[2] - m[6]) * fRoot;
+		output[2] = (m[3] - m[1]) * fRoot;
+	}
+	else {
+		int i = 0;
+		if (m[4] > m[0])
+			i = 1;
+		if (m[8] > m[i * 3 + i])
+			i = 2;
+		int j = (i + 1) % 3;
+		int k = (i + 2) % 3;
+		fRoot = Platform_Sqrt(m[i * 3 + i] - m[j * 3 + j] - m[k * 3 + k] + one);
+		output[i] = half * fRoot;
+		fRoot = half / fRoot;
+		output[3] = (m[k * 3 + j] - m[j * 3 + k]) * fRoot;
+		output[j] = (m[j * 3 + i] + m[i * 3 + j]) * fRoot;
+		output[k] = (m[k * 3 + i] + m[i * 3 + k]) * fRoot;
+	}
+	return output;
+}
+
+float const *Quat_Identity(float *output)
+{
+	output[0] = 0;
+	output[1] = 0;
+	output[2] = 0;
+	output[3] = 1;
+	return output;
+}
+
+float const *Quat_Invert(Quat const *self, float *output, float const *a)
+{
+	float a0 = a[0];
+	float a1 = a[1];
+	float a2 = a[2];
+	float a3 = a[3];
+	float dot = a0 * a0 + a1 * a1 + a2 * a2 + a3 * a3;
+	float one = 1;
+	float invDot = dot != 0 ? one / dot : 0;
+	output[0] = -a0 * invDot;
+	output[1] = -a1 * invDot;
+	output[2] = -a2 * invDot;
+	output[3] = a3 * invDot;
+	return output;
+}
+
+float const *Quat_Multiply(float *output, float const *a, float const *b)
+{
+	float ax = a[0];
+	float ay = a[1];
+	float az = a[2];
+	float aw = a[3];
+	float bx = b[0];
+	float by = b[1];
+	float bz = b[2];
+	float bw = b[3];
+	output[0] = ax * bw + aw * bx + ay * bz - az * by;
+	output[1] = ay * bw + aw * by + az * bx - ax * bz;
+	output[2] = az * bw + aw * bz + ax * by - ay * bx;
+	output[3] = aw * bw - ax * bx - ay * by - az * bz;
+	return output;
+}
+
+float const *Quat_Normalize(float const *output, float const *a)
+{
+	return Vec4_Normalize(output, a);
+}
+
+float const *Quat_RotateX(float *output, float const *a, float rad)
+{
+	rad /= 2;
+	float ax = a[0];
+	float ay = a[1];
+	float az = a[2];
+	float aw = a[3];
+	float bx = Platform_Sin(rad);
+	float bw = Platform_Cos(rad);
+	output[0] = ax * bw + aw * bx;
+	output[1] = ay * bw + az * bx;
+	output[2] = az * bw - ay * bx;
+	output[3] = aw * bw - ax * bx;
+	return output;
+}
+
+float const *Quat_RotateY(float *output, float const *a, float rad)
+{
+	rad /= 2;
+	float ax = a[0];
+	float ay = a[1];
+	float az = a[2];
+	float aw = a[3];
+	float by = Platform_Sin(rad);
+	float bw = Platform_Cos(rad);
+	output[0] = ax * bw - az * by;
+	output[1] = ay * bw + aw * by;
+	output[2] = az * bw + ax * by;
+	output[3] = aw * bw - ay * by;
+	return output;
+}
+
+float const *Quat_RotateZ(float *output, float const *a, float rad)
+{
+	rad /= 2;
+	float ax = a[0];
+	float ay = a[1];
+	float az = a[2];
+	float aw = a[3];
+	float bz = Platform_Sin(rad);
+	float bw = Platform_Cos(rad);
+	output[0] = ax * bw + ay * bz;
+	output[1] = ay * bw - ax * bz;
+	output[2] = az * bw + aw * bz;
+	output[3] = aw * bw - az * bz;
+	return output;
+}
+
+float const *Quat_RotationTo(float *output, float const *a, float const *b)
+{
+	float *tmpvec3 = Vec3_Create();
+	float const *xUnitVec3 = Vec3_FromValues(1, 0, 0);
+	float const *yUnitVec3 = Vec3_FromValues(0, 1, 0);
+	float dot = Vec3_Dot(a, b);
+	float nines = 999999;
+	nines /= 1000000;
+	float epsilon = 1;
+	epsilon /= 1000000;
+	if (dot < -nines) {
+		Vec3_Cross(tmpvec3, xUnitVec3, a);
+		if (Vec3_Length(tmpvec3) < epsilon)
+			Vec3_Cross(tmpvec3, yUnitVec3, a);
+		Vec3_Normalize(tmpvec3, tmpvec3);
+		Quat_SetAxisAngle(output, tmpvec3, Math_PI());
+		return output;
+	}
+	else if (dot > nines) {
+		output[0] = 0;
+		output[1] = 0;
+		output[2] = 0;
+		output[3] = 1;
+		return output;
+	}
+	else {
+		Vec3_Cross(tmpvec3, a, b);
+		output[0] = tmpvec3[0];
+		output[1] = tmpvec3[1];
+		output[2] = tmpvec3[2];
+		output[3] = 1 + dot;
+		return Quat_Normalize(output, output);
+	}
+}
+
+float const *Quat_Set(float *output, float x, float y, float z, float w)
+{
+	return Vec4_Set(output, x, y, z, w);
+}
+
+float const *Quat_SetAxes(float *output, float const *view, float const *right, float const *up)
+{
+	float *matr = Mat3_Create();
+	matr[0] = right[0];
+	matr[3] = right[1];
+	matr[6] = right[2];
+	matr[1] = up[0];
+	matr[4] = up[1];
+	matr[7] = up[2];
+	matr[2] = view[0];
+	matr[5] = view[1];
+	matr[8] = view[2];
+	return Quat_Normalize(output, Quat_FromMat3(output, matr));
+}
+
+float const *Quat_SetAxisAngle(float *output, float const *axis, float rad)
+{
+	rad = rad / 2;
+	float s = Platform_Sin(rad);
+	output[0] = s * axis[0];
+	output[1] = s * axis[1];
+	output[2] = s * axis[2];
+	output[3] = Platform_Cos(rad);
+	return output;
+}
+
 float const *Vec3_Add(float *output, float const *a, float const *b)
 {
 	output[0] = a[0] + b[0];
@@ -999,7 +1240,7 @@ float const *Vec3_Copy(float *output, float const *a)
 	return output;
 }
 
-float const *Vec3_Create(void)
+float *Vec3_Create(void)
 {
 	float *output = (float *) malloc(3 * sizeof(float ));
 	output[0] = 0;
@@ -1259,4 +1500,18 @@ float const *Vec3_TransformQuat(float *output, float const *a, float const *q)
 const char *Vec3_str(float const *a)
 {
 	return "";
+}
+
+float const *Vec4_Normalize(float const *output, float const *a)
+{
+	return output;
+}
+
+float const *Vec4_Set(float *output, float x, float y, float z, float w)
+{
+	output[0] = x;
+	output[1] = y;
+	output[2] = z;
+	output[3] = w;
+	return output;
 }

@@ -478,19 +478,20 @@ public class Mat3
     // *
     // * @returns {mat3} a new 3x3 matrix
     // */
-    //mat3.create = function() {
-    //    var output = new GLMAT_ARRAY_TYPE(9);
-    //    output[0] = 1;
-    //    output[1] = 0;
-    //    output[2] = 0;
-    //    output[3] = 0;
-    //    output[4] = 1;
-    //    output[5] = 0;
-    //    output[6] = 0;
-    //    output[7] = 0;
-    //    output[8] = 1;
-    //    return output;
-    //};
+    public static float[] Create()
+    {
+        float[] output = new float[9];
+        output[0] = 1;
+        output[1] = 0;
+        output[2] = 0;
+        output[3] = 0;
+        output[4] = 1;
+        output[5] = 0;
+        output[6] = 0;
+        output[7] = 0;
+        output[8] = 1;
+        return output;
+    }
 
     ///**
     // * Copies the upper-left 3x3 values into the given mat3.
@@ -1857,14 +1858,15 @@ public class Quat
     // *
     // * @returns {quat} a new quaternion
     // */
-    //quat.create = function() {
-    //    var out = new GLMAT_ARRAY_TYPE(4);
-    //    out[0] = 0;
-    //    out[1] = 0;
-    //    out[2] = 0;
-    //    out[3] = 1;
-    //    return out;
-    //};
+    public static float[] Create()
+    {
+        float[] output = new float[4];
+        output[0] = 0;
+        output[1] = 0;
+        output[2] = 0;
+        output[3] = 1;
+        return output;
+    }
 
     ///**
     // * Sets a quaternion to represent the shortest rotation from one
@@ -1872,41 +1874,54 @@ public class Quat
     // *
     // * Both vectors are assumed to be unit length.
     // *
-    // * @param {quat} out the receiving quaternion.
+    // * @param {quat} output the receiving quaternion.
     // * @param {vec3} a the initial vector
     // * @param {vec3} b the destination vector
-    // * @returns {quat} out
+    // * @returns {quat} output
     // */
-    //quat.rotationTo = (function() {
-    //    var tmpvec3 = vec3.create();
-    //    var xUnitVec3 = vec3.fromValues(1,0,0);
-    //    var yUnitVec3 = vec3.fromValues(0,1,0);
+    public static float[] RotationTo(float[] output, float[] a, float[] b)
+    {
+        float[] tmpvec3 = Vec3.Create();
+        float[] xUnitVec3 = Vec3.FromValues(1, 0, 0);
+        float[] yUnitVec3 = Vec3.FromValues(0, 1, 0);
 
-    //    return function(out, a, b) {
-    //        var dot = vec3.dot(a, b);
-    //        if (dot < -0.999999) {
-    //            vec3.cross(tmpvec3, xUnitVec3, a);
-    //            if (vec3.length(tmpvec3) < 0.000001)
-    //                vec3.cross(tmpvec3, yUnitVec3, a);
-    //            vec3.normalize(tmpvec3, tmpvec3);
-    //            quat.setAxisAngle(out, tmpvec3, Math.PI);
-    //            return out;
-    //        } else if (dot > 0.999999) {
-    //            out[0] = 0;
-    //            out[1] = 0;
-    //            out[2] = 0;
-    //            out[3] = 1;
-    //            return out;
-    //        } else {
-    //            vec3.cross(tmpvec3, a, b);
-    //            out[0] = tmpvec3[0];
-    //            out[1] = tmpvec3[1];
-    //            out[2] = tmpvec3[2];
-    //            out[3] = 1 + dot;
-    //            return quat.normalize(out, out);
-    //        }
-    //    };
-    //})();
+        //    return function(output, a, b) {
+        float dot = Vec3.Dot(a, b);
+
+        float nines = 999999; // 0.999999
+        nines /= 1000000;
+
+        float epsilon = 1; // 0.000001
+        epsilon /= 1000000;
+
+        if (dot < -nines)
+        {
+            Vec3.Cross(tmpvec3, xUnitVec3, a);
+            if (Vec3.Length(tmpvec3) < epsilon)
+                Vec3.Cross(tmpvec3, yUnitVec3, a);
+            Vec3.Normalize(tmpvec3, tmpvec3);
+            Quat.SetAxisAngle(output, tmpvec3, Math.PI());
+            return output;
+        }
+        else if (dot > nines)
+        {
+            output[0] = 0;
+            output[1] = 0;
+            output[2] = 0;
+            output[3] = 1;
+            return output;
+        }
+        else
+        {
+            Vec3.Cross(tmpvec3, a, b);
+            output[0] = tmpvec3[0];
+            output[1] = tmpvec3[1];
+            output[2] = tmpvec3[2];
+            output[3] = 1 + dot;
+            return Quat.Normalize(output, output);
+        }
+        //    };
+    }
 
     ///**
     // * Sets the specified quaternion with values corresponding to the given
@@ -1916,27 +1931,28 @@ public class Quat
     // * @param {vec3} view  the vector representing the viewing direction
     // * @param {vec3} right the vector representing the local "right" direction
     // * @param {vec3} up    the vector representing the local "up" direction
-    // * @returns {quat} out
+    // * @returns {quat} output
     // */
-    //quat.setAxes = (function() {
-    //    var matr = mat3.create();
+    public static float[] SetAxes(float[] output, float[] view, float[] right, float[] up)
+    {
+        float[] matr = Mat3.Create();
 
-    //    return function(out, view, right, up) {
-    //        matr[0] = right[0];
-    //        matr[3] = right[1];
-    //        matr[6] = right[2];
+        //    return function(output, view, right, up) {
+        matr[0] = right[0];
+        matr[3] = right[1];
+        matr[6] = right[2];
 
-    //        matr[1] = up[0];
-    //        matr[4] = up[1];
-    //        matr[7] = up[2];
+        matr[1] = up[0];
+        matr[4] = up[1];
+        matr[7] = up[2];
 
-    //        matr[2] = view[0];
-    //        matr[5] = view[1];
-    //        matr[8] = view[2];
+        matr[2] = view[0];
+        matr[5] = view[1];
+        matr[8] = view[2];
 
-    //        return quat.normalize(out, quat.fromMat3(out, matr));
-    //    };
-    //})();
+        return Quat.Normalize(output, Quat.FromMat3(output, matr));
+        //    };
+    }
 
     ///**
     // * Creates a new quat initialized with values from an existing quaternion
@@ -1962,9 +1978,9 @@ public class Quat
     ///**
     // * Copy the values from one quat to another
     // *
-    // * @param {quat} out the receiving quaternion
+    // * @param {quat} output the receiving quaternion
     // * @param {quat} a the source quaternion
-    // * @returns {quat} out
+    // * @returns {quat} output
     // * @function
     // */
     //quat.copy = vec4.copy;
@@ -1972,56 +1988,61 @@ public class Quat
     ///**
     // * Set the components of a quat to the given values
     // *
-    // * @param {quat} out the receiving quaternion
+    // * @param {quat} output the receiving quaternion
     // * @param {Number} x X component
     // * @param {Number} y Y component
     // * @param {Number} z Z component
     // * @param {Number} w W component
-    // * @returns {quat} out
+    // * @returns {quat} output
     // * @function
     // */
-    //quat.set = vec4.set;
+    public static float[] Set(float[] output, float x, float y, float z, float w)
+    {
+        return Vec4.Set(output, x, y, z, w);
+    }
 
     ///**
     // * Set a quat to the identity quaternion
     // *
-    // * @param {quat} out the receiving quaternion
-    // * @returns {quat} out
+    // * @param {quat} output the receiving quaternion
+    // * @returns {quat} output
     // */
-    //quat.identity = function(out) {
-    //    out[0] = 0;
-    //    out[1] = 0;
-    //    out[2] = 0;
-    //    out[3] = 1;
-    //    return out;
-    //};
+    public static float[] Identity(float[] output)
+    {
+        output[0] = 0;
+        output[1] = 0;
+        output[2] = 0;
+        output[3] = 1;
+        return output;
+    }
 
     ///**
     // * Sets a quat from the given angle and rotation axis,
     // * then returns it.
     // *
-    // * @param {quat} out the receiving quaternion
+    // * @param {quat} output the receiving quaternion
     // * @param {vec3} axis the axis around which to rotate
     // * @param {Number} rad the angle in radians
-    // * @returns {quat} out
+    // * @returns {quat} output
     // **/
-    //quat.setAxisAngle = function(out, axis, rad) {
-    //    rad = rad * 0.5;
-    //    var s = Math.sin(rad);
-    //    out[0] = s * axis[0];
-    //    out[1] = s * axis[1];
-    //    out[2] = s * axis[2];
-    //    out[3] = Math.cos(rad);
-    //    return out;
-    //};
+    public static float[] SetAxisAngle(float[] output, float[] axis, float rad)
+    {
+        rad = rad / 2;
+        float s = Platform.Sin(rad);
+        output[0] = s * axis[0];
+        output[1] = s * axis[1];
+        output[2] = s * axis[2];
+        output[3] = Platform.Cos(rad);
+        return output;
+    }
 
     ///**
     // * Adds two quat's
     // *
-    // * @param {quat} out the receiving quaternion
+    // * @param {quat} output the receiving quaternion
     // * @param {quat} a the first operand
     // * @param {quat} b the second operand
-    // * @returns {quat} out
+    // * @returns {quat} output
     // * @function
     // */
     //quat.add = vec4.add;
@@ -2029,21 +2050,22 @@ public class Quat
     ///**
     // * Multiplies two quat's
     // *
-    // * @param {quat} out the receiving quaternion
+    // * @param {quat} output the receiving quaternion
     // * @param {quat} a the first operand
     // * @param {quat} b the second operand
-    // * @returns {quat} out
+    // * @returns {quat} output
     // */
-    //quat.multiply = function(out, a, b) {
-    //    var ax = a[0], ay = a[1], az = a[2], aw = a[3],
-    //        bx = b[0], by = b[1], bz = b[2], bw = b[3];
+    public static float[] Multiply(float[] output, float[] a, float[] b)
+    {
+        float ax = a[0]; float ay = a[1]; float az = a[2]; float aw = a[3];
+        float bx = b[0]; float by = b[1]; float bz = b[2]; float bw = b[3];
 
-    //    out[0] = ax * bw + aw * bx + ay * bz - az * by;
-    //    out[1] = ay * bw + aw * by + az * bx - ax * bz;
-    //    out[2] = az * bw + aw * bz + ax * by - ay * bx;
-    //    out[3] = aw * bw - ax * bx - ay * by - az * bz;
-    //    return out;
-    //};
+        output[0] = ax * bw + aw * bx + ay * bz - az * by;
+        output[1] = ay * bw + aw * by + az * bx - ax * bz;
+        output[2] = az * bw + aw * bz + ax * by - ay * bx;
+        output[3] = aw * bw - ax * bx - ay * by - az * bz;
+        return output;
+    }
 
     ///**
     // * Alias for {@link quat.multiply}
@@ -2054,95 +2076,100 @@ public class Quat
     ///**
     // * Scales a quat by a scalar number
     // *
-    // * @param {quat} out the receiving vector
+    // * @param {quat} output the receiving vector
     // * @param {quat} a the vector to scale
     // * @param {Number} b amount to scale the vector by
-    // * @returns {quat} out
+    // * @returns {quat} output
     // * @function
     // */
     //quat.scale = vec4.scale;
 
     ///**
-    // * Rotates a quaternion by the given angle about the X axis
+    // * Rotates a quaternion by the given angle aboutput the X axis
     // *
-    // * @param {quat} out quat receiving operation result
+    // * @param {quat} output quat receiving operation result
     // * @param {quat} a quat to rotate
     // * @param {number} rad angle (in radians) to rotate
-    // * @returns {quat} out
+    // * @returns {quat} output
     // */
-    //quat.rotateX = function (out, a, rad) {
-    //    rad *= 0.5; 
+    public static float[] RotateX(float[] output, float[] a, float rad)
+    {
+        rad /= 2;
 
-    //    var ax = a[0], ay = a[1], az = a[2], aw = a[3],
-    //        bx = Math.sin(rad), bw = Math.cos(rad);
+        float ax = a[0]; float ay = a[1]; float az = a[2]; float aw = a[3];
+        float bx = Platform.Sin(rad); float bw = Platform.Cos(rad);
 
-    //    out[0] = ax * bw + aw * bx;
-    //    out[1] = ay * bw + az * bx;
-    //    out[2] = az * bw - ay * bx;
-    //    out[3] = aw * bw - ax * bx;
-    //    return out;
-    //};
+        output[0] = ax * bw + aw * bx;
+        output[1] = ay * bw + az * bx;
+        output[2] = az * bw - ay * bx;
+        output[3] = aw * bw - ax * bx;
+        return output;
+    }
 
     ///**
-    // * Rotates a quaternion by the given angle about the Y axis
+    // * Rotates a quaternion by the given angle aboutput the Y axis
     // *
-    // * @param {quat} out quat receiving operation result
+    // * @param {quat} output quat receiving operation result
     // * @param {quat} a quat to rotate
     // * @param {number} rad angle (in radians) to rotate
-    // * @returns {quat} out
+    // * @returns {quat} output
     // */
-    //quat.rotateY = function (out, a, rad) {
-    //    rad *= 0.5; 
+    public static float[] RotateY(float[] output, float[] a, float rad)
+    {
+        rad /= 2;
 
-    //    var ax = a[0], ay = a[1], az = a[2], aw = a[3],
-    //        by = Math.sin(rad), bw = Math.cos(rad);
+        float ax = a[0]; float ay = a[1]; float az = a[2]; float aw = a[3];
+        float by = Platform.Sin(rad); float bw = Platform.Cos(rad);
 
-    //    out[0] = ax * bw - az * by;
-    //    out[1] = ay * bw + aw * by;
-    //    out[2] = az * bw + ax * by;
-    //    out[3] = aw * bw - ay * by;
-    //    return out;
-    //};
+        output[0] = ax * bw - az * by;
+        output[1] = ay * bw + aw * by;
+        output[2] = az * bw + ax * by;
+        output[3] = aw * bw - ay * by;
+        return output;
+    }
 
     ///**
-    // * Rotates a quaternion by the given angle about the Z axis
+    // * Rotates a quaternion by the given angle aboutput the Z axis
     // *
-    // * @param {quat} out quat receiving operation result
+    // * @param {quat} output quat receiving operation result
     // * @param {quat} a quat to rotate
     // * @param {number} rad angle (in radians) to rotate
-    // * @returns {quat} out
+    // * @returns {quat} output
     // */
-    //quat.rotateZ = function (out, a, rad) {
-    //    rad *= 0.5; 
+    public static float[] RotateZ(float[] output, float[] a, float rad)
+    {
+        rad /= 2;
 
-    //    var ax = a[0], ay = a[1], az = a[2], aw = a[3],
-    //        bz = Math.sin(rad), bw = Math.cos(rad);
+        float ax = a[0]; float ay = a[1]; float az = a[2]; float aw = a[3];
+        float bz = Platform.Sin(rad); float bw = Platform.Cos(rad);
 
-    //    out[0] = ax * bw + ay * bz;
-    //    out[1] = ay * bw - ax * bz;
-    //    out[2] = az * bw + aw * bz;
-    //    out[3] = aw * bw - az * bz;
-    //    return out;
-    //};
+        output[0] = ax * bw + ay * bz;
+        output[1] = ay * bw - ax * bz;
+        output[2] = az * bw + aw * bz;
+        output[3] = aw * bw - az * bz;
+        return output;
+    }
 
     ///**
     // * Calculates the W component of a quat from the X, Y, and Z components.
     // * Assumes that quaternion is 1 unit in length.
     // * Any existing W component will be ignored.
     // *
-    // * @param {quat} out the receiving quaternion
+    // * @param {quat} output the receiving quaternion
     // * @param {quat} a quat to calculate W component of
-    // * @returns {quat} out
+    // * @returns {quat} output
     // */
-    //quat.calculateW = function (out, a) {
-    //    var x = a[0], y = a[1], z = a[2];
+    public static float[] CalculateW(float[] output, float[] a)
+    {
+        float x = a[0]; float y = a[1]; float z = a[2];
 
-    //    out[0] = x;
-    //    out[1] = y;
-    //    out[2] = z;
-    //    out[3] = -Math.sqrt(Math.abs(1.0 - x * x - y * y - z * z));
-    //    return out;
-    //};
+        output[0] = x;
+        output[1] = y;
+        output[2] = z;
+        float one = 1;
+        output[3] = -Platform.Sqrt(Math.Abs(one - x * x - y * y - z * z));
+        return output;
+    }
 
     ///**
     // * Calculates the dot product of two quat's
@@ -2157,11 +2184,11 @@ public class Quat
     ///**
     // * Performs a linear interpolation between two quat's
     // *
-    // * @param {quat} out the receiving quaternion
+    // * @param {quat} output the receiving quaternion
     // * @param {quat} a the first operand
     // * @param {quat} b the second operand
     // * @param {Number} t interpolation amount between the two inputs
-    // * @returns {quat} out
+    // * @returns {quat} output
     // * @function
     // */
     //quat.lerp = vec4.lerp;
@@ -2169,13 +2196,13 @@ public class Quat
     ///**
     // * Performs a spherical linear interpolation between two quat
     // *
-    // * @param {quat} out the receiving quaternion
+    // * @param {quat} output the receiving quaternion
     // * @param {quat} a the first operand
     // * @param {quat} b the second operand
     // * @param {Number} t interpolation amount between the two inputs
-    // * @returns {quat} out
+    // * @returns {quat} output
     // */
-    //quat.slerp = function (out, a, b, t) {
+    //quat.slerp = function (output, a, b, t) {
     //    // benchmarks:
     //    //    http://jsperf.com/quaternion-slerp-implementations
 
@@ -2208,50 +2235,53 @@ public class Quat
     //        scale1 = t;
     //    }
     //    // calculate final values
-    //    out[0] = scale0 * ax + scale1 * bx;
-    //    out[1] = scale0 * ay + scale1 * by;
-    //    out[2] = scale0 * az + scale1 * bz;
-    //    out[3] = scale0 * aw + scale1 * bw;
+    //    output[0] = scale0 * ax + scale1 * bx;
+    //    output[1] = scale0 * ay + scale1 * by;
+    //    output[2] = scale0 * az + scale1 * bz;
+    //    output[3] = scale0 * aw + scale1 * bw;
 
-    //    return out;
+    //    return output;
     //};
 
     ///**
     // * Calculates the inverse of a quat
     // *
-    // * @param {quat} out the receiving quaternion
+    // * @param {quat} output the receiving quaternion
     // * @param {quat} a quat to calculate inverse of
-    // * @returns {quat} out
+    // * @returns {quat} output
     // */
-    //quat.invert = function(out, a) {
-    //    var a0 = a[0], a1 = a[1], a2 = a[2], a3 = a[3],
-    //        dot = a0*a0 + a1*a1 + a2*a2 + a3*a3,
-    //        invDot = dot ? 1.0/dot : 0;
+    public float[] Invert(float[] output, float[] a)
+    {
+        float a0 = a[0]; float a1 = a[1]; float a2 = a[2]; float a3 = a[3];
+        float dot = a0 * a0 + a1 * a1 + a2 * a2 + a3 * a3;
+        float one = 1;
+        float invDot = (dot != 0) ? one / dot : 0;
 
-    //    // TODO: Would be faster to return [0,0,0,0] immediately if dot == 0
+        // TODO: Would be faster to return [0,0,0,0] immediately if dot == 0
 
-    //    out[0] = -a0*invDot;
-    //    out[1] = -a1*invDot;
-    //    out[2] = -a2*invDot;
-    //    out[3] = a3*invDot;
-    //    return out;
-    //};
+        output[0] = -a0 * invDot;
+        output[1] = -a1 * invDot;
+        output[2] = -a2 * invDot;
+        output[3] = a3 * invDot;
+        return output;
+    }
 
     ///**
     // * Calculates the conjugate of a quat
     // * If the quaternion is normalized, this function is faster than quat.inverse and produces the same result.
     // *
-    // * @param {quat} out the receiving quaternion
+    // * @param {quat} output the receiving quaternion
     // * @param {quat} a quat to calculate conjugate of
-    // * @returns {quat} out
+    // * @returns {quat} output
     // */
-    //quat.conjugate = function (out, a) {
-    //    out[0] = -a[0];
-    //    out[1] = -a[1];
-    //    out[2] = -a[2];
-    //    out[3] = a[3];
-    //    return out;
-    //};
+    public float[] Conjugate(float[] output, float[] a)
+    {
+        output[0] = -a[0];
+        output[1] = -a[1];
+        output[2] = -a[2];
+        output[3] = a[3];
+        return output;
+    }
 
     ///**
     // * Calculates the length of a quat
@@ -2286,12 +2316,15 @@ public class Quat
     ///**
     // * Normalize a quat
     // *
-    // * @param {quat} out the receiving quaternion
+    // * @param {quat} output the receiving quaternion
     // * @param {quat} a quaternion to normalize
-    // * @returns {quat} out
+    // * @returns {quat} output
     // * @function
     // */
-    //quat.normalize = vec4.normalize;
+    public static float[] Normalize(float[] output, float[] a)
+    {
+        return Vec4.Normalize(output, a);
+    }
 
     ///**
     // * Creates a quaternion from the given 3x3 rotation matrix.
@@ -2299,45 +2332,52 @@ public class Quat
     // * NOTE: The resultant quaternion is not normalized, so you should be sure
     // * to renormalize the quaternion yourself where necessary.
     // *
-    // * @param {quat} out the receiving quaternion
+    // * @param {quat} output the receiving quaternion
     // * @param {mat3} m rotation matrix
-    // * @returns {quat} out
+    // * @returns {quat} output
     // * @function
     // */
-    //quat.fromMat3 = function(out, m) {
-    //    // Algorithm in Ken Shoemake's article in 1987 SIGGRAPH course notes
-    //    // article "Quaternion Calculus and Fast Animation".
-    //    var fTrace = m[0] + m[4] + m[8];
-    //    var fRoot;
+    public static float[] FromMat3(float[] output, float[] m)
+    {
+        // Algorithm in Ken Shoemake's article in 1987 SIGGRAPH course notes
+        // article "Quaternion Calculus and Fast Animation".
+        float fTrace = m[0] + m[4] + m[8];
+        float fRoot;
 
-    //    if ( fTrace > 0.0 ) {
-    //        // |w| > 1/2, may as well choose w > 1/2
-    //        fRoot = Math.sqrt(fTrace + 1.0);  // 2w
-    //        out[3] = 0.5 * fRoot;
-    //        fRoot = 0.5/fRoot;  // 1/(4w)
-    //        out[0] = (m[7]-m[5])*fRoot;
-    //        out[1] = (m[2]-m[6])*fRoot;
-    //        out[2] = (m[3]-m[1])*fRoot;
-    //    } else {
-    //        // |w| <= 1/2
-    //        var i = 0;
-    //        if ( m[4] > m[0] )
-    //          i = 1;
-    //        if ( m[8] > m[i*3+i] )
-    //          i = 2;
-    //        var j = (i+1)%3;
-    //        var k = (i+2)%3;
+        float zero = 0;
+        float one = 1;
+        float half = one / 2;
+        if (fTrace > zero)
+        {
+            // |w| > 1/2, may as well choose w > 1/2
+            fRoot = Platform.Sqrt(fTrace + one);  // 2w
+            output[3] = half * fRoot;
+            fRoot = half / fRoot;  // 1/(4w)
+            output[0] = (m[7] - m[5]) * fRoot;
+            output[1] = (m[2] - m[6]) * fRoot;
+            output[2] = (m[3] - m[1]) * fRoot;
+        }
+        else
+        {
+            // |w| <= 1/2
+            int i = 0;
+            if (m[4] > m[0])
+                i = 1;
+            if (m[8] > m[i * 3 + i])
+                i = 2;
+            int j = (i + 1) % 3;
+            int k = (i + 2) % 3;
 
-    //        fRoot = Math.sqrt(m[i*3+i]-m[j*3+j]-m[k*3+k] + 1.0);
-    //        out[i] = 0.5 * fRoot;
-    //        fRoot = 0.5 / fRoot;
-    //        out[3] = (m[k*3+j] - m[j*3+k]) * fRoot;
-    //        out[j] = (m[j*3+i] + m[i*3+j]) * fRoot;
-    //        out[k] = (m[k*3+i] + m[i*3+k]) * fRoot;
-    //    }
+            fRoot = Platform.Sqrt(m[i * 3 + i] - m[j * 3 + j] - m[k * 3 + k] + one);
+            output[i] = half * fRoot;
+            fRoot = half / fRoot;
+            output[3] = (m[k * 3 + j] - m[j * 3 + k]) * fRoot;
+            output[j] = (m[j * 3 + i] + m[i * 3 + j]) * fRoot;
+            output[k] = (m[k * 3 + i] + m[i * 3 + k]) * fRoot;
+        }
 
-    //    return out;
-    //};
+        return output;
+    }
 
     ///**
     // * Returns a string representation of a quatenion
@@ -2371,10 +2411,10 @@ public class Vec2
     // * @returns {vec2} a new 2D vector
     // */
     //vec2.create = function() {
-    //    var out = new GLMAT_ARRAY_TYPE(2);
-    //    out[0] = 0;
-    //    out[1] = 0;
-    //    return out;
+    //    var output = new GLMAT_ARRAY_TYPE(2);
+    //    output[0] = 0;
+    //    output[1] = 0;
+    //    return output;
     //};
 
     ///**
@@ -2384,10 +2424,10 @@ public class Vec2
     // * @returns {vec2} a new 2D vector
     // */
     //vec2.clone = function(a) {
-    //    var out = new GLMAT_ARRAY_TYPE(2);
-    //    out[0] = a[0];
-    //    out[1] = a[1];
-    //    return out;
+    //    var output = new GLMAT_ARRAY_TYPE(2);
+    //    output[0] = a[0];
+    //    output[1] = a[1];
+    //    return output;
     //};
 
     ///**
@@ -2398,65 +2438,65 @@ public class Vec2
     // * @returns {vec2} a new 2D vector
     // */
     //vec2.fromValues = function(x, y) {
-    //    var out = new GLMAT_ARRAY_TYPE(2);
-    //    out[0] = x;
-    //    out[1] = y;
-    //    return out;
+    //    var output = new GLMAT_ARRAY_TYPE(2);
+    //    output[0] = x;
+    //    output[1] = y;
+    //    return output;
     //};
 
     ///**
     // * Copy the values from one vec2 to another
     // *
-    // * @param {vec2} out the receiving vector
+    // * @param {vec2} output the receiving vector
     // * @param {vec2} a the source vector
-    // * @returns {vec2} out
+    // * @returns {vec2} output
     // */
-    //vec2.copy = function(out, a) {
-    //    out[0] = a[0];
-    //    out[1] = a[1];
-    //    return out;
+    //vec2.copy = function(output, a) {
+    //    output[0] = a[0];
+    //    output[1] = a[1];
+    //    return output;
     //};
 
     ///**
     // * Set the components of a vec2 to the given values
     // *
-    // * @param {vec2} out the receiving vector
+    // * @param {vec2} output the receiving vector
     // * @param {Number} x X component
     // * @param {Number} y Y component
-    // * @returns {vec2} out
+    // * @returns {vec2} output
     // */
-    //vec2.set = function(out, x, y) {
-    //    out[0] = x;
-    //    out[1] = y;
-    //    return out;
+    //vec2.set = function(output, x, y) {
+    //    output[0] = x;
+    //    output[1] = y;
+    //    return output;
     //};
 
     ///**
     // * Adds two vec2's
     // *
-    // * @param {vec2} out the receiving vector
+    // * @param {vec2} output the receiving vector
     // * @param {vec2} a the first operand
     // * @param {vec2} b the second operand
-    // * @returns {vec2} out
+    // * @returns {vec2} output
     // */
-    //vec2.add = function(out, a, b) {
-    //    out[0] = a[0] + b[0];
-    //    out[1] = a[1] + b[1];
-    //    return out;
+    //vec2.add = function(output, a, b) {
+    //    output[0] = a[0] + b[0];
+    //    output[1] = a[1] + b[1];
+    //    return output;
     //};
 
     ///**
     // * Subtracts vector b from vector a
     // *
-    // * @param {vec2} out the receiving vector
+    // * @param {vec2} output the receiving vector
     // * @param {vec2} a the first operand
     // * @param {vec2} b the second operand
-    // * @returns {vec2} out
+    // * @returns {vec2} output
     // */
-    //vec2.subtract = function(out, a, b) {
-    //    out[0] = a[0] - b[0];
-    //    out[1] = a[1] - b[1];
-    //    return out;
+    //vec2.subtract = function(output, a, b) {
+    //    output[0] = a[0] - b[0];
+    //    output[1] = a[1] - b[1];
+    //    return output;
     //};
 
     ///**
@@ -2468,15 +2508,15 @@ public class Vec2
     ///**
     // * Multiplies two vec2's
     // *
-    // * @param {vec2} out the receiving vector
+    // * @param {vec2} output the receiving vector
     // * @param {vec2} a the first operand
     // * @param {vec2} b the second operand
-    // * @returns {vec2} out
+    // * @returns {vec2} output
     // */
-    //vec2.multiply = function(out, a, b) {
-    //    out[0] = a[0] * b[0];
-    //    out[1] = a[1] * b[1];
-    //    return out;
+    //vec2.multiply = function(output, a, b) {
+    //    output[0] = a[0] * b[0];
+    //    output[1] = a[1] * b[1];
+    //    return output;
     //};
 
     ///**
@@ -2488,15 +2528,15 @@ public class Vec2
     ///**
     // * Divides two vec2's
     // *
-    // * @param {vec2} out the receiving vector
+    // * @param {vec2} output the receiving vector
     // * @param {vec2} a the first operand
     // * @param {vec2} b the second operand
-    // * @returns {vec2} out
+    // * @returns {vec2} output
     // */
-    //vec2.divide = function(out, a, b) {
-    //    out[0] = a[0] / b[0];
-    //    out[1] = a[1] / b[1];
-    //    return out;
+    //vec2.divide = function(output, a, b) {
+    //    output[0] = a[0] / b[0];
+    //    output[1] = a[1] / b[1];
+    //    return output;
     //};
 
     ///**
@@ -2508,58 +2548,58 @@ public class Vec2
     ///**
     // * Returns the minimum of two vec2's
     // *
-    // * @param {vec2} out the receiving vector
+    // * @param {vec2} output the receiving vector
     // * @param {vec2} a the first operand
     // * @param {vec2} b the second operand
-    // * @returns {vec2} out
+    // * @returns {vec2} output
     // */
-    //vec2.min = function(out, a, b) {
-    //    out[0] = Math.min(a[0], b[0]);
-    //    out[1] = Math.min(a[1], b[1]);
-    //    return out;
+    //vec2.min = function(output, a, b) {
+    //    output[0] = Math.min(a[0], b[0]);
+    //    output[1] = Math.min(a[1], b[1]);
+    //    return output;
     //};
 
     ///**
     // * Returns the maximum of two vec2's
     // *
-    // * @param {vec2} out the receiving vector
+    // * @param {vec2} output the receiving vector
     // * @param {vec2} a the first operand
     // * @param {vec2} b the second operand
-    // * @returns {vec2} out
+    // * @returns {vec2} output
     // */
-    //vec2.max = function(out, a, b) {
-    //    out[0] = Math.max(a[0], b[0]);
-    //    out[1] = Math.max(a[1], b[1]);
-    //    return out;
+    //vec2.max = function(output, a, b) {
+    //    output[0] = Math.max(a[0], b[0]);
+    //    output[1] = Math.max(a[1], b[1]);
+    //    return output;
     //};
 
     ///**
     // * Scales a vec2 by a scalar number
     // *
-    // * @param {vec2} out the receiving vector
+    // * @param {vec2} output the receiving vector
     // * @param {vec2} a the vector to scale
     // * @param {Number} b amount to scale the vector by
-    // * @returns {vec2} out
+    // * @returns {vec2} output
     // */
-    //vec2.scale = function(out, a, b) {
-    //    out[0] = a[0] * b;
-    //    out[1] = a[1] * b;
-    //    return out;
+    //vec2.scale = function(output, a, b) {
+    //    output[0] = a[0] * b;
+    //    output[1] = a[1] * b;
+    //    return output;
     //};
 
     ///**
     // * Adds two vec2's after scaling the second operand by a scalar value
     // *
-    // * @param {vec2} out the receiving vector
+    // * @param {vec2} output the receiving vector
     // * @param {vec2} a the first operand
     // * @param {vec2} b the second operand
     // * @param {Number} scale the amount to scale b by before adding
-    // * @returns {vec2} out
+    // * @returns {vec2} output
     // */
-    //vec2.scaleAndAdd = function(out, a, b, scale) {
-    //    out[0] = a[0] + (b[0] * scale);
-    //    out[1] = a[1] + (b[1] * scale);
-    //    return out;
+    //vec2.scaleAndAdd = function(output, a, b, scale) {
+    //    output[0] = a[0] + (b[0] * scale);
+    //    output[1] = a[1] + (b[1] * scale);
+    //    return output;
     //};
 
     ///**
@@ -2639,34 +2679,34 @@ public class Vec2
     ///**
     // * Negates the components of a vec2
     // *
-    // * @param {vec2} out the receiving vector
+    // * @param {vec2} output the receiving vector
     // * @param {vec2} a vector to negate
-    // * @returns {vec2} out
+    // * @returns {vec2} output
     // */
-    //vec2.negate = function(out, a) {
-    //    out[0] = -a[0];
-    //    out[1] = -a[1];
-    //    return out;
+    //vec2.negate = function(output, a) {
+    //    output[0] = -a[0];
+    //    output[1] = -a[1];
+    //    return output;
     //};
 
     ///**
     // * Normalize a vec2
     // *
-    // * @param {vec2} out the receiving vector
+    // * @param {vec2} output the receiving vector
     // * @param {vec2} a vector to normalize
-    // * @returns {vec2} out
+    // * @returns {vec2} output
     // */
-    //vec2.normalize = function(out, a) {
+    //vec2.normalize = function(output, a) {
     //    var x = a[0],
     //        y = a[1];
     //    var len = x*x + y*y;
     //    if (len > 0) {
     //        //TODO: evaluate use of glm_invsqrt here?
     //        len = 1 / Math.sqrt(len);
-    //        out[0] = a[0] * len;
-    //        out[1] = a[1] * len;
+    //        output[0] = a[0] * len;
+    //        output[1] = a[1] * len;
     //    }
-    //    return out;
+    //    return output;
     //};
 
     ///**
@@ -2684,97 +2724,97 @@ public class Vec2
     // * Computes the cross product of two vec2's
     // * Note that the cross product must by definition produce a 3D vector
     // *
-    // * @param {vec3} out the receiving vector
+    // * @param {vec3} output the receiving vector
     // * @param {vec2} a the first operand
     // * @param {vec2} b the second operand
-    // * @returns {vec3} out
+    // * @returns {vec3} output
     // */
-    //vec2.cross = function(out, a, b) {
+    //vec2.cross = function(output, a, b) {
     //    var z = a[0] * b[1] - a[1] * b[0];
-    //    out[0] = out[1] = 0;
-    //    out[2] = z;
-    //    return out;
+    //    output[0] = output[1] = 0;
+    //    output[2] = z;
+    //    return output;
     //};
 
     ///**
     // * Performs a linear interpolation between two vec2's
     // *
-    // * @param {vec2} out the receiving vector
+    // * @param {vec2} output the receiving vector
     // * @param {vec2} a the first operand
     // * @param {vec2} b the second operand
     // * @param {Number} t interpolation amount between the two inputs
-    // * @returns {vec2} out
+    // * @returns {vec2} output
     // */
-    //vec2.lerp = function (out, a, b, t) {
+    //vec2.lerp = function (output, a, b, t) {
     //    var ax = a[0],
     //        ay = a[1];
-    //    out[0] = ax + t * (b[0] - ax);
-    //    out[1] = ay + t * (b[1] - ay);
-    //    return out;
+    //    output[0] = ax + t * (b[0] - ax);
+    //    output[1] = ay + t * (b[1] - ay);
+    //    return output;
     //};
 
     ///**
     // * Generates a random vector with the given scale
     // *
-    // * @param {vec2} out the receiving vector
+    // * @param {vec2} output the receiving vector
     // * @param {Number} [scale] Length of the resulting vector. If ommitted, a unit vector will be returned
-    // * @returns {vec2} out
+    // * @returns {vec2} output
     // */
-    //vec2.random = function (out, scale) {
+    //vec2.random = function (output, scale) {
     //    scale = scale || 1.0;
     //    var r = GLMAT_RANDOM() * 2.0 * Math.PI;
-    //    out[0] = Math.cos(r) * scale;
-    //    out[1] = Math.sin(r) * scale;
-    //    return out;
+    //    output[0] = Math.cos(r) * scale;
+    //    output[1] = Math.sin(r) * scale;
+    //    return output;
     //};
 
     ///**
     // * Transforms the vec2 with a mat2
     // *
-    // * @param {vec2} out the receiving vector
+    // * @param {vec2} output the receiving vector
     // * @param {vec2} a the vector to transform
     // * @param {mat2} m matrix to transform with
-    // * @returns {vec2} out
+    // * @returns {vec2} output
     // */
-    //vec2.transformMat2 = function(out, a, m) {
+    //vec2.transformMat2 = function(output, a, m) {
     //    var x = a[0],
     //        y = a[1];
-    //    out[0] = m[0] * x + m[2] * y;
-    //    out[1] = m[1] * x + m[3] * y;
-    //    return out;
+    //    output[0] = m[0] * x + m[2] * y;
+    //    output[1] = m[1] * x + m[3] * y;
+    //    return output;
     //};
 
     ///**
     // * Transforms the vec2 with a mat2d
     // *
-    // * @param {vec2} out the receiving vector
+    // * @param {vec2} output the receiving vector
     // * @param {vec2} a the vector to transform
     // * @param {mat2d} m matrix to transform with
-    // * @returns {vec2} out
+    // * @returns {vec2} output
     // */
-    //vec2.transformMat2d = function(out, a, m) {
+    //vec2.transformMat2d = function(output, a, m) {
     //    var x = a[0],
     //        y = a[1];
-    //    out[0] = m[0] * x + m[2] * y + m[4];
-    //    out[1] = m[1] * x + m[3] * y + m[5];
-    //    return out;
+    //    output[0] = m[0] * x + m[2] * y + m[4];
+    //    output[1] = m[1] * x + m[3] * y + m[5];
+    //    return output;
     //};
 
     ///**
     // * Transforms the vec2 with a mat3
     // * 3rd vector component is implicitly '1'
     // *
-    // * @param {vec2} out the receiving vector
+    // * @param {vec2} output the receiving vector
     // * @param {vec2} a the vector to transform
     // * @param {mat3} m matrix to transform with
-    // * @returns {vec2} out
+    // * @returns {vec2} output
     // */
-    //vec2.transformMat3 = function(out, a, m) {
+    //vec2.transformMat3 = function(output, a, m) {
     //    var x = a[0],
     //        y = a[1];
-    //    out[0] = m[0] * x + m[3] * y + m[6];
-    //    out[1] = m[1] * x + m[4] * y + m[7];
-    //    return out;
+    //    output[0] = m[0] * x + m[3] * y + m[6];
+    //    output[1] = m[1] * x + m[4] * y + m[7];
+    //    return output;
     //};
 
     ///**
@@ -2782,17 +2822,17 @@ public class Vec2
     // * 3rd vector component is implicitly '0'
     // * 4th vector component is implicitly '1'
     // *
-    // * @param {vec2} out the receiving vector
+    // * @param {vec2} output the receiving vector
     // * @param {vec2} a the vector to transform
     // * @param {mat4} m matrix to transform with
-    // * @returns {vec2} out
+    // * @returns {vec2} output
     // */
-    //vec2.transformMat4 = function(out, a, m) {
+    //vec2.transformMat4 = function(output, a, m) {
     //    var x = a[0], 
     //        y = a[1];
-    //    out[0] = m[0] * x + m[4] * y + m[12];
-    //    out[1] = m[1] * x + m[5] * y + m[13];
-    //    return out;
+    //    output[0] = m[0] * x + m[4] * y + m[12];
+    //    output[1] = m[1] * x + m[5] * y + m[13];
+    //    return output;
     //};
 
     ///**
@@ -3415,12 +3455,12 @@ public class Vec4
     // * @returns {vec4} a new 4D vector
     // */
     //vec4.create = function() {
-    //    var out = new GLMAT_ARRAY_TYPE(4);
-    //    out[0] = 0;
-    //    out[1] = 0;
-    //    out[2] = 0;
-    //    out[3] = 0;
-    //    return out;
+    //    var output = new GLMAT_ARRAY_TYPE(4);
+    //    output[0] = 0;
+    //    output[1] = 0;
+    //    output[2] = 0;
+    //    output[3] = 0;
+    //    return output;
     //};
 
     ///**
@@ -3430,12 +3470,12 @@ public class Vec4
     // * @returns {vec4} a new 4D vector
     // */
     //vec4.clone = function(a) {
-    //    var out = new GLMAT_ARRAY_TYPE(4);
-    //    out[0] = a[0];
-    //    out[1] = a[1];
-    //    out[2] = a[2];
-    //    out[3] = a[3];
-    //    return out;
+    //    var output = new GLMAT_ARRAY_TYPE(4);
+    //    output[0] = a[0];
+    //    output[1] = a[1];
+    //    output[2] = a[2];
+    //    output[3] = a[3];
+    //    return output;
     //};
 
     ///**
@@ -3448,77 +3488,78 @@ public class Vec4
     // * @returns {vec4} a new 4D vector
     // */
     //vec4.fromValues = function(x, y, z, w) {
-    //    var out = new GLMAT_ARRAY_TYPE(4);
-    //    out[0] = x;
-    //    out[1] = y;
-    //    out[2] = z;
-    //    out[3] = w;
-    //    return out;
+    //    var output = new GLMAT_ARRAY_TYPE(4);
+    //    output[0] = x;
+    //    output[1] = y;
+    //    output[2] = z;
+    //    output[3] = w;
+    //    return output;
     //};
 
     ///**
     // * Copy the values from one vec4 to another
     // *
-    // * @param {vec4} out the receiving vector
+    // * @param {vec4} output the receiving vector
     // * @param {vec4} a the source vector
-    // * @returns {vec4} out
+    // * @returns {vec4} output
     // */
-    //vec4.copy = function(out, a) {
-    //    out[0] = a[0];
-    //    out[1] = a[1];
-    //    out[2] = a[2];
-    //    out[3] = a[3];
-    //    return out;
+    //vec4.copy = function(output, a) {
+    //    output[0] = a[0];
+    //    output[1] = a[1];
+    //    output[2] = a[2];
+    //    output[3] = a[3];
+    //    return output;
     //};
 
     ///**
     // * Set the components of a vec4 to the given values
     // *
-    // * @param {vec4} out the receiving vector
+    // * @param {vec4} output the receiving vector
     // * @param {Number} x X component
     // * @param {Number} y Y component
     // * @param {Number} z Z component
     // * @param {Number} w W component
-    // * @returns {vec4} out
+    // * @returns {vec4} output
     // */
-    //vec4.set = function(out, x, y, z, w) {
-    //    out[0] = x;
-    //    out[1] = y;
-    //    out[2] = z;
-    //    out[3] = w;
-    //    return out;
-    //};
+    public static float[] Set(float[] output, float x, float y, float z, float w)
+    {
+        output[0] = x;
+        output[1] = y;
+        output[2] = z;
+        output[3] = w;
+        return output;
+    }
 
     ///**
     // * Adds two vec4's
     // *
-    // * @param {vec4} out the receiving vector
+    // * @param {vec4} output the receiving vector
     // * @param {vec4} a the first operand
     // * @param {vec4} b the second operand
-    // * @returns {vec4} out
+    // * @returns {vec4} output
     // */
-    //vec4.add = function(out, a, b) {
-    //    out[0] = a[0] + b[0];
-    //    out[1] = a[1] + b[1];
-    //    out[2] = a[2] + b[2];
-    //    out[3] = a[3] + b[3];
-    //    return out;
+    //vec4.add = function(output, a, b) {
+    //    output[0] = a[0] + b[0];
+    //    output[1] = a[1] + b[1];
+    //    output[2] = a[2] + b[2];
+    //    output[3] = a[3] + b[3];
+    //    return output;
     //};
 
     ///**
     // * Subtracts vector b from vector a
     // *
-    // * @param {vec4} out the receiving vector
+    // * @param {vec4} output the receiving vector
     // * @param {vec4} a the first operand
     // * @param {vec4} b the second operand
-    // * @returns {vec4} out
+    // * @returns {vec4} output
     // */
-    //vec4.subtract = function(out, a, b) {
-    //    out[0] = a[0] - b[0];
-    //    out[1] = a[1] - b[1];
-    //    out[2] = a[2] - b[2];
-    //    out[3] = a[3] - b[3];
-    //    return out;
+    //vec4.subtract = function(output, a, b) {
+    //    output[0] = a[0] - b[0];
+    //    output[1] = a[1] - b[1];
+    //    output[2] = a[2] - b[2];
+    //    output[3] = a[3] - b[3];
+    //    return output;
     //};
 
     ///**
@@ -3530,17 +3571,17 @@ public class Vec4
     ///**
     // * Multiplies two vec4's
     // *
-    // * @param {vec4} out the receiving vector
+    // * @param {vec4} output the receiving vector
     // * @param {vec4} a the first operand
     // * @param {vec4} b the second operand
-    // * @returns {vec4} out
+    // * @returns {vec4} output
     // */
-    //vec4.multiply = function(out, a, b) {
-    //    out[0] = a[0] * b[0];
-    //    out[1] = a[1] * b[1];
-    //    out[2] = a[2] * b[2];
-    //    out[3] = a[3] * b[3];
-    //    return out;
+    //vec4.multiply = function(output, a, b) {
+    //    output[0] = a[0] * b[0];
+    //    output[1] = a[1] * b[1];
+    //    output[2] = a[2] * b[2];
+    //    output[3] = a[3] * b[3];
+    //    return output;
     //};
 
     ///**
@@ -3552,17 +3593,17 @@ public class Vec4
     ///**
     // * Divides two vec4's
     // *
-    // * @param {vec4} out the receiving vector
+    // * @param {vec4} output the receiving vector
     // * @param {vec4} a the first operand
     // * @param {vec4} b the second operand
-    // * @returns {vec4} out
+    // * @returns {vec4} output
     // */
-    //vec4.divide = function(out, a, b) {
-    //    out[0] = a[0] / b[0];
-    //    out[1] = a[1] / b[1];
-    //    out[2] = a[2] / b[2];
-    //    out[3] = a[3] / b[3];
-    //    return out;
+    //vec4.divide = function(output, a, b) {
+    //    output[0] = a[0] / b[0];
+    //    output[1] = a[1] / b[1];
+    //    output[2] = a[2] / b[2];
+    //    output[3] = a[3] / b[3];
+    //    return output;
     //};
 
     ///**
@@ -3574,66 +3615,66 @@ public class Vec4
     ///**
     // * Returns the minimum of two vec4's
     // *
-    // * @param {vec4} out the receiving vector
+    // * @param {vec4} output the receiving vector
     // * @param {vec4} a the first operand
     // * @param {vec4} b the second operand
-    // * @returns {vec4} out
+    // * @returns {vec4} output
     // */
-    //vec4.min = function(out, a, b) {
-    //    out[0] = Math.min(a[0], b[0]);
-    //    out[1] = Math.min(a[1], b[1]);
-    //    out[2] = Math.min(a[2], b[2]);
-    //    out[3] = Math.min(a[3], b[3]);
-    //    return out;
+    //vec4.min = function(output, a, b) {
+    //    output[0] = Math.min(a[0], b[0]);
+    //    output[1] = Math.min(a[1], b[1]);
+    //    output[2] = Math.min(a[2], b[2]);
+    //    output[3] = Math.min(a[3], b[3]);
+    //    return output;
     //};
 
     ///**
     // * Returns the maximum of two vec4's
     // *
-    // * @param {vec4} out the receiving vector
+    // * @param {vec4} output the receiving vector
     // * @param {vec4} a the first operand
     // * @param {vec4} b the second operand
-    // * @returns {vec4} out
+    // * @returns {vec4} output
     // */
-    //vec4.max = function(out, a, b) {
-    //    out[0] = Math.max(a[0], b[0]);
-    //    out[1] = Math.max(a[1], b[1]);
-    //    out[2] = Math.max(a[2], b[2]);
-    //    out[3] = Math.max(a[3], b[3]);
-    //    return out;
+    //vec4.max = function(output, a, b) {
+    //    output[0] = Math.max(a[0], b[0]);
+    //    output[1] = Math.max(a[1], b[1]);
+    //    output[2] = Math.max(a[2], b[2]);
+    //    output[3] = Math.max(a[3], b[3]);
+    //    return output;
     //};
 
     ///**
     // * Scales a vec4 by a scalar number
     // *
-    // * @param {vec4} out the receiving vector
+    // * @param {vec4} output the receiving vector
     // * @param {vec4} a the vector to scale
     // * @param {Number} b amount to scale the vector by
-    // * @returns {vec4} out
+    // * @returns {vec4} output
     // */
-    //vec4.scale = function(out, a, b) {
-    //    out[0] = a[0] * b;
-    //    out[1] = a[1] * b;
-    //    out[2] = a[2] * b;
-    //    out[3] = a[3] * b;
-    //    return out;
+    //vec4.scale = function(output, a, b) {
+    //    output[0] = a[0] * b;
+    //    output[1] = a[1] * b;
+    //    output[2] = a[2] * b;
+    //    output[3] = a[3] * b;
+    //    return output;
     //};
 
     ///**
     // * Adds two vec4's after scaling the second operand by a scalar value
     // *
-    // * @param {vec4} out the receiving vector
+    // * @param {vec4} output the receiving vector
     // * @param {vec4} a the first operand
     // * @param {vec4} b the second operand
     // * @param {Number} scale the amount to scale b by before adding
-    // * @returns {vec4} out
+    // * @returns {vec4} output
     // */
-    //vec4.scaleAndAdd = function(out, a, b, scale) {
-    //    out[0] = a[0] + (b[0] * scale);
-    //    out[1] = a[1] + (b[1] * scale);
-    //    out[2] = a[2] + (b[2] * scale);
-    //    out[3] = a[3] + (b[3] * scale);
-    //    return out;
+    //vec4.scaleAndAdd = function(output, a, b, scale) {
+    //    output[0] = a[0] + (b[0] * scale);
+    //    output[1] = a[1] + (b[1] * scale);
+    //    output[2] = a[2] + (b[2] * scale);
+    //    output[3] = a[3] + (b[3] * scale);
+    //    return output;
     //};
 
     ///**
@@ -3721,40 +3762,41 @@ public class Vec4
     ///**
     // * Negates the components of a vec4
     // *
-    // * @param {vec4} out the receiving vector
+    // * @param {vec4} output the receiving vector
     // * @param {vec4} a vector to negate
-    // * @returns {vec4} out
+    // * @returns {vec4} output
     // */
-    //vec4.negate = function(out, a) {
-    //    out[0] = -a[0];
-    //    out[1] = -a[1];
-    //    out[2] = -a[2];
-    //    out[3] = -a[3];
-    //    return out;
+    //vec4.negate = function(output, a) {
+    //    output[0] = -a[0];
+    //    output[1] = -a[1];
+    //    output[2] = -a[2];
+    //    output[3] = -a[3];
+    //    return output;
     //};
 
     ///**
     // * Normalize a vec4
     // *
-    // * @param {vec4} out the receiving vector
+    // * @param {vec4} output the receiving vector
     // * @param {vec4} a vector to normalize
-    // * @returns {vec4} out
+    // * @returns {vec4} output
     // */
-    //vec4.normalize = function(out, a) {
-    //    var x = a[0],
-    //        y = a[1],
-    //        z = a[2],
-    //        w = a[3];
-    //    var len = x*x + y*y + z*z + w*w;
-    //    if (len > 0) {
-    //        len = 1 / Math.sqrt(len);
-    //        out[0] = a[0] * len;
-    //        out[1] = a[1] * len;
-    //        out[2] = a[2] * len;
-    //        out[3] = a[3] * len;
-    //    }
-    //    return out;
-    //};
+    public static float[] Normalize(float[] output, float[] a)
+    {
+        //    var x = a[0],
+        //        y = a[1],
+        //        z = a[2],
+        //        w = a[3];
+        //    var len = x*x + y*y + z*z + w*w;
+        //    if (len > 0) {
+        //        len = 1 / Math.sqrt(len);
+        //        out[0] = a[0] * len;
+        //        out[1] = a[1] * len;
+        //        out[2] = a[2] * len;
+        //        out[3] = a[3] * len;
+        //    }
+        return output;
+    }
 
     ///**
     // * Calculates the dot product of two vec4's
@@ -3770,70 +3812,70 @@ public class Vec4
     ///**
     // * Performs a linear interpolation between two vec4's
     // *
-    // * @param {vec4} out the receiving vector
+    // * @param {vec4} output the receiving vector
     // * @param {vec4} a the first operand
     // * @param {vec4} b the second operand
     // * @param {Number} t interpolation amount between the two inputs
-    // * @returns {vec4} out
+    // * @returns {vec4} output
     // */
-    //vec4.lerp = function (out, a, b, t) {
+    //vec4.lerp = function (output, a, b, t) {
     //    var ax = a[0],
     //        ay = a[1],
     //        az = a[2],
     //        aw = a[3];
-    //    out[0] = ax + t * (b[0] - ax);
-    //    out[1] = ay + t * (b[1] - ay);
-    //    out[2] = az + t * (b[2] - az);
-    //    out[3] = aw + t * (b[3] - aw);
-    //    return out;
+    //    output[0] = ax + t * (b[0] - ax);
+    //    output[1] = ay + t * (b[1] - ay);
+    //    output[2] = az + t * (b[2] - az);
+    //    output[3] = aw + t * (b[3] - aw);
+    //    return output;
     //};
 
     ///**
     // * Generates a random vector with the given scale
     // *
-    // * @param {vec4} out the receiving vector
+    // * @param {vec4} output the receiving vector
     // * @param {Number} [scale] Length of the resulting vector. If ommitted, a unit vector will be returned
-    // * @returns {vec4} out
+    // * @returns {vec4} output
     // */
-    //vec4.random = function (out, scale) {
+    //vec4.random = function (output, scale) {
     //    scale = scale || 1.0;
 
     //    //TODO: This is a pretty awful way of doing this. Find something better.
-    //    out[0] = GLMAT_RANDOM();
-    //    out[1] = GLMAT_RANDOM();
-    //    out[2] = GLMAT_RANDOM();
-    //    out[3] = GLMAT_RANDOM();
-    //    vec4.normalize(out, out);
-    //    vec4.scale(out, out, scale);
-    //    return out;
+    //    output[0] = GLMAT_RANDOM();
+    //    output[1] = GLMAT_RANDOM();
+    //    output[2] = GLMAT_RANDOM();
+    //    output[3] = GLMAT_RANDOM();
+    //    vec4.normalize(output, output);
+    //    vec4.scale(output, output, scale);
+    //    return output;
     //};
 
     ///**
     // * Transforms the vec4 with a mat4.
     // *
-    // * @param {vec4} out the receiving vector
+    // * @param {vec4} output the receiving vector
     // * @param {vec4} a the vector to transform
     // * @param {mat4} m matrix to transform with
-    // * @returns {vec4} out
+    // * @returns {vec4} output
     // */
-    //vec4.transformMat4 = function(out, a, m) {
+    //vec4.transformMat4 = function(output, a, m) {
     //    var x = a[0], y = a[1], z = a[2], w = a[3];
-    //    out[0] = m[0] * x + m[4] * y + m[8] * z + m[12] * w;
-    //    out[1] = m[1] * x + m[5] * y + m[9] * z + m[13] * w;
-    //    out[2] = m[2] * x + m[6] * y + m[10] * z + m[14] * w;
-    //    out[3] = m[3] * x + m[7] * y + m[11] * z + m[15] * w;
-    //    return out;
+    //    output[0] = m[0] * x + m[4] * y + m[8] * z + m[12] * w;
+    //    output[1] = m[1] * x + m[5] * y + m[9] * z + m[13] * w;
+    //    output[2] = m[2] * x + m[6] * y + m[10] * z + m[14] * w;
+    //    output[3] = m[3] * x + m[7] * y + m[11] * z + m[15] * w;
+    //    return output;
     //};
 
     ///**
     // * Transforms the vec4 with a quat
     // *
-    // * @param {vec4} out the receiving vector
+    // * @param {vec4} output the receiving vector
     // * @param {vec4} a the vector to transform
     // * @param {quat} q quaternion to transform with
-    // * @returns {vec4} out
+    // * @returns {vec4} output
     // */
-    //vec4.transformQuat = function(out, a, q) {
+    //vec4.transformQuat = function(output, a, q) {
     //    var x = a[0], y = a[1], z = a[2],
     //        qx = q[0], qy = q[1], qz = q[2], qw = q[3],
 
@@ -3844,10 +3886,10 @@ public class Vec4
     //        iw = -qx * x - qy * y - qz * z;
 
     //    // calculate result * inverse quat
-    //    out[0] = ix * qw + iw * -qx + iy * -qz - iz * -qy;
-    //    out[1] = iy * qw + iw * -qy + iz * -qx - ix * -qz;
-    //    out[2] = iz * qw + iw * -qz + ix * -qy - iy * -qx;
-    //    return out;
+    //    output[0] = ix * qw + iw * -qx + iy * -qz - iz * -qy;
+    //    output[1] = iy * qw + iw * -qy + iz * -qx - ix * -qz;
+    //    output[2] = iz * qw + iw * -qz + ix * -qy - iy * -qx;
+    //    return output;
     //};
 
     ///**

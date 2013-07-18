@@ -189,6 +189,21 @@ class Mat3
 {
 
 	// **
+	static function Create()
+	{
+		$output = array();
+		$output[0] = 1;
+		$output[1] = 0;
+		$output[2] = 0;
+		$output[3] = 0;
+		$output[4] = 1;
+		$output[5] = 0;
+		$output[6] = 0;
+		$output[7] = 0;
+		$output[8] = 1;
+		return $output;
+	}
+
 	// **
 	// **
 	// **
@@ -1171,33 +1186,259 @@ class Quat
 {
 
 	// **
+	static function CalculateW(&$output, &$a)
+	{
+		$x = $a[0];
+		$y = $a[1];
+		$z = $a[2];
+		$output[0] = $x;
+		$output[1] = $y;
+		$output[2] = $z;
+		$one = 1;
+		$output[3] = -Platform::Sqrt(Math::Abs($one - $x * $x - $y * $y - $z * $z));
+		return $output;
+	}
+
+	// **
+	function Conjugate(&$output, &$a)
+	{
+		$output[0] = -$a[0];
+		$output[1] = -$a[1];
+		$output[2] = -$a[2];
+		$output[3] = $a[3];
+		return $output;
+	}
+
+	// **
+	static function Create()
+	{
+		$output = array();
+		$output[0] = 0;
+		$output[1] = 0;
+		$output[2] = 0;
+		$output[3] = 1;
+		return $output;
+	}
+
+	// **
+	static function FromMat3(&$output, &$m)
+	{
+		$fTrace = $m[0] + $m[4] + $m[8];
+		$fRoot;
+		$zero = 0;
+		$one = 1;
+		$half = $one / 2;
+		if ($fTrace > $zero) {
+			$fRoot = Platform::Sqrt($fTrace + $one);
+			$output[3] = $half * $fRoot;
+			$fRoot = $half / $fRoot;
+			$output[0] = ($m[7] - $m[5]) * $fRoot;
+			$output[1] = ($m[2] - $m[6]) * $fRoot;
+			$output[2] = ($m[3] - $m[1]) * $fRoot;
+		}
+		else {
+			$i = 0;
+			if ($m[4] > $m[0])
+				$i = 1;
+			if ($m[8] > $m[$i * 3 + $i])
+				$i = 2;
+			$j = ($i + 1) % 3;
+			$k = ($i + 2) % 3;
+			$fRoot = Platform::Sqrt($m[$i * 3 + $i] - $m[$j * 3 + $j] - $m[$k * 3 + $k] + $one);
+			$output[$i] = $half * $fRoot;
+			$fRoot = $half / $fRoot;
+			$output[3] = ($m[$k * 3 + $j] - $m[$j * 3 + $k]) * $fRoot;
+			$output[$j] = ($m[$j * 3 + $i] + $m[$i * 3 + $j]) * $fRoot;
+			$output[$k] = ($m[$k * 3 + $i] + $m[$i * 3 + $k]) * $fRoot;
+		}
+		return $output;
+	}
+
+	// **
+	static function Identity(&$output)
+	{
+		$output[0] = 0;
+		$output[1] = 0;
+		$output[2] = 0;
+		$output[3] = 1;
+		return $output;
+	}
+
+	// **
+	// **
+	// **
+	// **
+	function Invert(&$output, &$a)
+	{
+		$a0 = $a[0];
+		$a1 = $a[1];
+		$a2 = $a[2];
+		$a3 = $a[3];
+		$dot = $a0 * $a0 + $a1 * $a1 + $a2 * $a2 + $a3 * $a3;
+		$one = 1;
+		$invDot = $dot != 0 ? $one / $dot : 0;
+		$output[0] = -$a0 * $invDot;
+		$output[1] = -$a1 * $invDot;
+		$output[2] = -$a2 * $invDot;
+		$output[3] = $a3 * $invDot;
+		return $output;
+	}
+
+	// **
+	// **
+	static function Multiply(&$output, &$a, &$b)
+	{
+		$ax = $a[0];
+		$ay = $a[1];
+		$az = $a[2];
+		$aw = $a[3];
+		$bx = $b[0];
+		$by = $b[1];
+		$bz = $b[2];
+		$bw = $b[3];
+		$output[0] = $ax * $bw + $aw * $bx + $ay * $bz - $az * $by;
+		$output[1] = $ay * $bw + $aw * $by + $az * $bx - $ax * $bz;
+		$output[2] = $az * $bw + $aw * $bz + $ax * $by - $ay * $bx;
+		$output[3] = $aw * $bw - $ax * $bx - $ay * $by - $az * $bz;
+		return $output;
+	}
+
 	// **
 	// **
 	// **
 	// **
 	// **
+	static function Normalize(&$output, &$a)
+	{
+		return Vec4::Normalize($output, $a);
+	}
+
+	// **
+	// **
+	// **
+	static function RotateX(&$output, &$a, $rad)
+	{
+		$rad /= 2;
+		$ax = $a[0];
+		$ay = $a[1];
+		$az = $a[2];
+		$aw = $a[3];
+		$bx = Platform::Sin($rad);
+		$bw = Platform::Cos($rad);
+		$output[0] = $ax * $bw + $aw * $bx;
+		$output[1] = $ay * $bw + $az * $bx;
+		$output[2] = $az * $bw - $ay * $bx;
+		$output[3] = $aw * $bw - $ax * $bx;
+		return $output;
+	}
+
+	// **
+	static function RotateY(&$output, &$a, $rad)
+	{
+		$rad /= 2;
+		$ax = $a[0];
+		$ay = $a[1];
+		$az = $a[2];
+		$aw = $a[3];
+		$by = Platform::Sin($rad);
+		$bw = Platform::Cos($rad);
+		$output[0] = $ax * $bw - $az * $by;
+		$output[1] = $ay * $bw + $aw * $by;
+		$output[2] = $az * $bw + $ax * $by;
+		$output[3] = $aw * $bw - $ay * $by;
+		return $output;
+	}
+
+	// **
+	static function RotateZ(&$output, &$a, $rad)
+	{
+		$rad /= 2;
+		$ax = $a[0];
+		$ay = $a[1];
+		$az = $a[2];
+		$aw = $a[3];
+		$bz = Platform::Sin($rad);
+		$bw = Platform::Cos($rad);
+		$output[0] = $ax * $bw + $ay * $bz;
+		$output[1] = $ay * $bw - $ax * $bz;
+		$output[2] = $az * $bw + $aw * $bz;
+		$output[3] = $aw * $bw - $az * $bz;
+		return $output;
+	}
+
+	// **
+	static function RotationTo(&$output, &$a, &$b)
+	{
+		$tmpvec3 = Vec3::Create();
+		$xUnitVec3 = Vec3::FromValues(1, 0, 0);
+		$yUnitVec3 = Vec3::FromValues(0, 1, 0);
+		$dot = Vec3::Dot($a, $b);
+		$nines = 999999;
+		$nines /= 1000000;
+		$epsilon = 1;
+		$epsilon /= 1000000;
+		if ($dot < -$nines) {
+			Vec3::Cross($tmpvec3, $xUnitVec3, $a);
+			if (Vec3::Length($tmpvec3) < $epsilon)
+				Vec3::Cross($tmpvec3, $yUnitVec3, $a);
+			Vec3::Normalize($tmpvec3, $tmpvec3);
+			Quat::SetAxisAngle($output, $tmpvec3, Math::PI());
+			return $output;
+		}
+		else if ($dot > $nines) {
+			$output[0] = 0;
+			$output[1] = 0;
+			$output[2] = 0;
+			$output[3] = 1;
+			return $output;
+		}
+		else {
+			Vec3::Cross($tmpvec3, $a, $b);
+			$output[0] = $tmpvec3[0];
+			$output[1] = $tmpvec3[1];
+			$output[2] = $tmpvec3[2];
+			$output[3] = 1 + $dot;
+			return Quat::Normalize($output, $output);
+		}
+	}
+
 	// **
 	// **
 	// **
 	// **
+	static function Set(&$output, $x, $y, $z, $w)
+	{
+		return Vec4::Set($output, $x, $y, $z, $w);
+	}
+
 	// **
+	static function SetAxes(&$output, &$view, &$right, &$up)
+	{
+		$matr = Mat3::Create();
+		$matr[0] = $right[0];
+		$matr[3] = $right[1];
+		$matr[6] = $right[2];
+		$matr[1] = $up[0];
+		$matr[4] = $up[1];
+		$matr[7] = $up[2];
+		$matr[2] = $view[0];
+		$matr[5] = $view[1];
+		$matr[8] = $view[2];
+		return Quat::Normalize($output, Quat::FromMat3($output, $matr));
+	}
+
 	// **
-	// **
-	// **
-	// **
-	// **
-	// **
-	// **
-	// **
-	// **
-	// **
-	// **
-	// **
-	// **
-	// **
-	// **
-	// **
-	// **
+	static function SetAxisAngle(&$output, &$axis, $rad)
+	{
+		$rad = $rad / 2;
+		$s = Platform::Sin($rad);
+		$output[0] = $s * $axis[0];
+		$output[1] = $s * $axis[1];
+		$output[2] = $s * $axis[2];
+		$output[3] = Platform::Cos($rad);
+		return $output;
+	}
+
 	// **
 	private function f()
 	{
@@ -1689,11 +1930,25 @@ class Vec4
 	// **
 	// **
 	// **
+	static function Normalize(&$output, &$a)
+	{
+		return $output;
+	}
+
 	// **
 	// **
 	// **
 	// **
 	// **
+	static function Set(&$output, $x, $y, $z, $w)
+	{
+		$output[0] = $x;
+		$output[1] = $y;
+		$output[2] = $z;
+		$output[3] = $w;
+		return $output;
+	}
+
 	// **
 	// **
 	// **

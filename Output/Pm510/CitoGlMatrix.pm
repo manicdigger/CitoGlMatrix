@@ -277,6 +277,26 @@ sub new($) {
 	return $self;
 }
 
+=head2 C<Mat3::create()>
+
+**
+
+=cut
+
+sub create() {
+	my $output = [];
+	$output->[0] = 1;
+	$output->[1] = 0;
+	$output->[2] = 0;
+	$output->[3] = 0;
+	$output->[4] = 1;
+	$output->[5] = 0;
+	$output->[6] = 0;
+	$output->[7] = 0;
+	$output->[8] = 1;
+	return $output;
+}
+
 sub f($) {
 	my ($self) = @_;
 }
@@ -1734,6 +1754,337 @@ sub new($) {
 	return $self;
 }
 
+=head2 C<Quat::calculate_w(\@output, \@a)>
+
+**
+
+=cut
+
+sub calculate_w($$) {
+	my ($output, $a) = @_;
+	my $x = $a->[0];
+	my $y = $a->[1];
+	my $z = $a->[2];
+	$output->[0] = $x;
+	$output->[1] = $y;
+	$output->[2] = $z;
+	my $one = 1;
+	$output->[3] = -Platform::sqrt(Math::abs($one - $x * $x - $y * $y - $z * $z));
+	return $output;
+}
+
+=head2 C<$quat-E<gt>conjugate(\@output, \@a)>
+
+**
+
+=cut
+
+sub conjugate($$$) {
+	my ($self, $output, $a) = @_;
+	$output->[0] = -$a->[0];
+	$output->[1] = -$a->[1];
+	$output->[2] = -$a->[2];
+	$output->[3] = $a->[3];
+	return $output;
+}
+
+=head2 C<Quat::create()>
+
+**
+
+=cut
+
+sub create() {
+	my $output = [];
+	$output->[0] = 0;
+	$output->[1] = 0;
+	$output->[2] = 0;
+	$output->[3] = 1;
+	return $output;
+}
+
+=head2 C<Quat::from_mat3(\@output, \@m)>
+
+**
+
+=cut
+
+sub from_mat3($$) {
+	my ($output, $m) = @_;
+	my $fTrace = $m->[0] + $m->[4] + $m->[8];
+	my $fRoot;
+	my $zero = 0;
+	my $one = 1;
+	my $half = $one / 2;
+	if ($fTrace > $zero) {
+		$fRoot = Platform::sqrt($fTrace + $one);
+		$output->[3] = $half * $fRoot;
+		$fRoot = $half / $fRoot;
+		$output->[0] = ($m->[7] - $m->[5]) * $fRoot;
+		$output->[1] = ($m->[2] - $m->[6]) * $fRoot;
+		$output->[2] = ($m->[3] - $m->[1]) * $fRoot;
+	}
+	else {
+		my $i = 0;
+		if ($m->[4] > $m->[0]) {
+			$i = 1;
+		}
+		if ($m->[8] > $m->[$i * 3 + $i]) {
+			$i = 2;
+		}
+		my $j = ($i + 1) % 3;
+		my $k = ($i + 2) % 3;
+		$fRoot = Platform::sqrt($m->[$i * 3 + $i] - $m->[$j * 3 + $j] - $m->[$k * 3 + $k] + $one);
+		$output->[$i] = $half * $fRoot;
+		$fRoot = $half / $fRoot;
+		$output->[3] = ($m->[$k * 3 + $j] - $m->[$j * 3 + $k]) * $fRoot;
+		$output->[$j] = ($m->[$j * 3 + $i] + $m->[$i * 3 + $j]) * $fRoot;
+		$output->[$k] = ($m->[$k * 3 + $i] + $m->[$i * 3 + $k]) * $fRoot;
+	}
+	return $output;
+}
+
+=head2 C<Quat::identity(\@output)>
+
+**
+
+=cut
+
+sub identity($) {
+	my ($output) = @_;
+	$output->[0] = 0;
+	$output->[1] = 0;
+	$output->[2] = 0;
+	$output->[3] = 1;
+	return $output;
+}
+
+=head2 C<$quat-E<gt>invert(\@output, \@a)>
+
+**
+**
+**
+**
+
+=cut
+
+sub invert($$$) {
+	my ($self, $output, $a) = @_;
+	my $a0 = $a->[0];
+	my $a1 = $a->[1];
+	my $a2 = $a->[2];
+	my $a3 = $a->[3];
+	my $dot = $a0 * $a0 + $a1 * $a1 + $a2 * $a2 + $a3 * $a3;
+	my $one = 1;
+	my $invDot = $dot != 0 ? $one / $dot : 0;
+	$output->[0] = -$a0 * $invDot;
+	$output->[1] = -$a1 * $invDot;
+	$output->[2] = -$a2 * $invDot;
+	$output->[3] = $a3 * $invDot;
+	return $output;
+}
+
+=head2 C<Quat::multiply(\@output, \@a, \@b)>
+
+**
+**
+
+=cut
+
+sub multiply($$$) {
+	my ($output, $a, $b) = @_;
+	my $ax = $a->[0];
+	my $ay = $a->[1];
+	my $az = $a->[2];
+	my $aw = $a->[3];
+	my $bx = $b->[0];
+	my $by = $b->[1];
+	my $bz = $b->[2];
+	my $bw = $b->[3];
+	$output->[0] = $ax * $bw + $aw * $bx + $ay * $bz - $az * $by;
+	$output->[1] = $ay * $bw + $aw * $by + $az * $bx - $ax * $bz;
+	$output->[2] = $az * $bw + $aw * $bz + $ax * $by - $ay * $bx;
+	$output->[3] = $aw * $bw - $ax * $bx - $ay * $by - $az * $bz;
+	return $output;
+}
+
+=head2 C<Quat::normalize(\@output, \@a)>
+
+**
+**
+**
+**
+**
+
+=cut
+
+sub normalize($$) {
+	my ($output, $a) = @_;
+	return Vec4::normalize($output, $a);
+}
+
+=head2 C<Quat::rotate_x(\@output, \@a, $rad)>
+
+**
+**
+**
+
+=cut
+
+sub rotate_x($$$) {
+	my ($output, $a, $rad) = @_;
+	$rad /= 2;
+	my $ax = $a->[0];
+	my $ay = $a->[1];
+	my $az = $a->[2];
+	my $aw = $a->[3];
+	my $bx = Platform::sin($rad);
+	my $bw = Platform::cos($rad);
+	$output->[0] = $ax * $bw + $aw * $bx;
+	$output->[1] = $ay * $bw + $az * $bx;
+	$output->[2] = $az * $bw - $ay * $bx;
+	$output->[3] = $aw * $bw - $ax * $bx;
+	return $output;
+}
+
+=head2 C<Quat::rotate_y(\@output, \@a, $rad)>
+
+**
+
+=cut
+
+sub rotate_y($$$) {
+	my ($output, $a, $rad) = @_;
+	$rad /= 2;
+	my $ax = $a->[0];
+	my $ay = $a->[1];
+	my $az = $a->[2];
+	my $aw = $a->[3];
+	my $by = Platform::sin($rad);
+	my $bw = Platform::cos($rad);
+	$output->[0] = $ax * $bw - $az * $by;
+	$output->[1] = $ay * $bw + $aw * $by;
+	$output->[2] = $az * $bw + $ax * $by;
+	$output->[3] = $aw * $bw - $ay * $by;
+	return $output;
+}
+
+=head2 C<Quat::rotate_z(\@output, \@a, $rad)>
+
+**
+
+=cut
+
+sub rotate_z($$$) {
+	my ($output, $a, $rad) = @_;
+	$rad /= 2;
+	my $ax = $a->[0];
+	my $ay = $a->[1];
+	my $az = $a->[2];
+	my $aw = $a->[3];
+	my $bz = Platform::sin($rad);
+	my $bw = Platform::cos($rad);
+	$output->[0] = $ax * $bw + $ay * $bz;
+	$output->[1] = $ay * $bw - $ax * $bz;
+	$output->[2] = $az * $bw + $aw * $bz;
+	$output->[3] = $aw * $bw - $az * $bz;
+	return $output;
+}
+
+=head2 C<Quat::rotation_to(\@output, \@a, \@b)>
+
+**
+
+=cut
+
+sub rotation_to($$$) {
+	my ($output, $a, $b) = @_;
+	my $tmpvec3 = Vec3::create();
+	my $xUnitVec3 = Vec3::from_values(1, 0, 0);
+	my $yUnitVec3 = Vec3::from_values(0, 1, 0);
+	my $dot = Vec3::dot($a, $b);
+	my $nines = 999999;
+	$nines /= 1000000;
+	my $epsilon = 1;
+	$epsilon /= 1000000;
+	if ($dot < -$nines) {
+		Vec3::cross($tmpvec3, $xUnitVec3, $a);
+		if (Vec3::length($tmpvec3) < $epsilon) {
+			Vec3::cross($tmpvec3, $yUnitVec3, $a);
+		}
+		Vec3::normalize($tmpvec3, $tmpvec3);
+		Quat::set_axis_angle($output, $tmpvec3, Math::p_i());
+		return $output;
+	}
+	elsif ($dot > $nines) {
+		$output->[0] = 0;
+		$output->[1] = 0;
+		$output->[2] = 0;
+		$output->[3] = 1;
+		return $output;
+	}
+	else {
+		Vec3::cross($tmpvec3, $a, $b);
+		$output->[0] = $tmpvec3->[0];
+		$output->[1] = $tmpvec3->[1];
+		$output->[2] = $tmpvec3->[2];
+		$output->[3] = 1 + $dot;
+		return Quat::normalize($output, $output);
+	}
+}
+
+=head2 C<Quat::set(\@output, $x, $y, $z, $w)>
+
+**
+**
+**
+**
+
+=cut
+
+sub set($$$$$) {
+	my ($output, $x, $y, $z, $w) = @_;
+	return Vec4::set($output, $x, $y, $z, $w);
+}
+
+=head2 C<Quat::set_axes(\@output, \@view, \@right, \@up)>
+
+**
+
+=cut
+
+sub set_axes($$$$) {
+	my ($output, $view, $right, $up) = @_;
+	my $matr = Mat3::create();
+	$matr->[0] = $right->[0];
+	$matr->[3] = $right->[1];
+	$matr->[6] = $right->[2];
+	$matr->[1] = $up->[0];
+	$matr->[4] = $up->[1];
+	$matr->[7] = $up->[2];
+	$matr->[2] = $view->[0];
+	$matr->[5] = $view->[1];
+	$matr->[8] = $view->[2];
+	return Quat::normalize($output, Quat::from_mat3($output, $matr));
+}
+
+=head2 C<Quat::set_axis_angle(\@output, \@axis, $rad)>
+
+**
+
+=cut
+
+sub set_axis_angle($$$) {
+	my ($output, $axis, $rad) = @_;
+	$rad = $rad / 2;
+	my $s = Platform::sin($rad);
+	$output->[0] = $s * $axis->[0];
+	$output->[1] = $s * $axis->[1];
+	$output->[2] = $s * $axis->[2];
+	$output->[3] = Platform::cos($rad);
+	return $output;
+}
+
 sub f($) {
 	my ($self) = @_;
 }
@@ -2713,6 +3064,56 @@ package Vec4;
 sub new($) {
 	my $self = bless {}, shift;
 	return $self;
+}
+
+=head2 C<Vec4::normalize(\@output, \@a)>
+
+**
+**
+**
+**
+**
+**
+**
+**
+**
+**
+**
+**
+**
+**
+**
+**
+**
+**
+**
+**
+**
+
+=cut
+
+sub normalize($$) {
+	my ($output, $a) = @_;
+	return $output;
+}
+
+=head2 C<Vec4::set(\@output, $x, $y, $z, $w)>
+
+**
+**
+**
+**
+**
+
+=cut
+
+sub set($$$$$) {
+	my ($output, $x, $y, $z, $w) = @_;
+	$output->[0] = $x;
+	$output->[1] = $y;
+	$output->[2] = $z;
+	$output->[3] = $w;
+	return $output;
 }
 
 sub f($) {

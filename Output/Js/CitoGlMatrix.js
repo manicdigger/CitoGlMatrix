@@ -1417,7 +1417,7 @@ Vec3.transformMat3 = function(output, a, m) {
 	return output;
 }
 
-Vec3.prototype.transformMat4 = function(output, a, m) {
+Vec3.transformMat4 = function(output, a, m) {
 	var x = a[0];
 	var y = a[1];
 	var z = a[2];

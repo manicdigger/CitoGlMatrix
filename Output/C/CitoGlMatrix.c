@@ -1492,7 +1492,7 @@ float const *Vec3_TransformMat3(float *output, float const *a, float const *m)
 	return output;
 }
 
-float const *Vec3_TransformMat4(Vec3 const *self, float *output, float const *a, float const *m)
+float const *Vec3_TransformMat4(float *output, float const *a, float const *m)
 {
 	float x = a[0];
 	float y = a[1];

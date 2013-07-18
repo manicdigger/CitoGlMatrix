@@ -3317,7 +3317,7 @@ public class Vec3
     ////Transforms the vec3 with a mat4.
     ////4th vector component is implicitly '1'
     ////@returns {vec3} out
-    public float[] TransformMat4(
+    public static float[] TransformMat4(
         ////@param {vec3} out the receiving vector
         float[] output,
         ////@param {vec3} a the vector to transform

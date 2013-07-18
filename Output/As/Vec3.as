@@ -447,7 +447,7 @@ package
 		 * @param a /@param {vec3} a the vector to transform
 		 * @param m /@param {mat4} m matrix to transform with
 		 */
-		public final function transformMat4(output : Array, a : Array, m : Array) : Array
+		public static function transformMat4(output : Array, a : Array, m : Array) : Array
 		{
 			var x : float = a[0];
 			var y : float = a[1];

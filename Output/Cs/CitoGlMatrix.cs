@@ -1874,7 +1874,7 @@ public class Vec3
 	/// <param name="output">/@param {vec3} out the receiving vector</param>
 	/// <param name="a">/@param {vec3} a the vector to transform</param>
 	/// <param name="m">/@param {mat4} m matrix to transform with</param>
-	public float[] TransformMat4(float[] output, float[] a, float[] m)
+	public static float[] TransformMat4(float[] output, float[] a, float[] m)
 	{
 		float x = a[0];
 		float y = a[1];

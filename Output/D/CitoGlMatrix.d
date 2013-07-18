@@ -1914,7 +1914,7 @@ class Vec3
 	/// output = /@param {vec3} out the receiving vector
 	/// a = /@param {vec3} a the vector to transform
 	/// m = /@param {mat4} m matrix to transform with
-	final const(float)[] TransformMat4(float[] output, const(float)[] a, const(float)[] m)
+	static const(float)[] TransformMat4(float[] output, const(float)[] a, const(float)[] m)
 	{
 		float x = a[0];
 		float y = a[1];

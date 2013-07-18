@@ -1864,7 +1864,7 @@ class Vec3
 	/// <param name="output">/@param {vec3} out the receiving vector</param>
 	/// <param name="a">/@param {vec3} a the vector to transform</param>
 	/// <param name="m">/@param {mat4} m matrix to transform with</param>
-	function TransformMat4(&$output, &$a, &$m)
+	static function TransformMat4(&$output, &$a, &$m)
 	{
 		$x = $a[0];
 		$y = $a[1];

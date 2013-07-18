@@ -2961,7 +2961,7 @@ sub transform_mat3($$$) {
 	return $output;
 }
 
-=head2 C<$vec3-E<gt>transform_mat4(\@output, \@a, \@m)>
+=head2 C<Vec3::transform_mat4(\@output, \@a, \@m)>
 
 /Transforms the vec3 with a mat4.
 
@@ -2985,8 +2985,8 @@ Parameters:
 
 =cut
 
-sub transform_mat4($$$$) {
-	my ($self, $output, $a, $m) = @_;
+sub transform_mat4($$$) {
+	my ($output, $a, $m) = @_;
 	my $x = $a->[0];
 	my $y = $a->[1];
 	my $z = $a->[2];

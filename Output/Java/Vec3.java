@@ -445,7 +445,7 @@ public class Vec3
 	 * @param a /@param {vec3} a the vector to transform
 	 * @param m /@param {mat4} m matrix to transform with
 	 */
-	public final float[] transformMat4(float[] output, float[] a, float[] m)
+	public static float[] transformMat4(float[] output, float[] a, float[] m)
 	{
 		float x = a[0];
 		float y = a[1];

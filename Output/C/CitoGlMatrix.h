@@ -17,7 +17,6 @@ typedef struct Mat3 Mat3;
 typedef struct Mat4 Mat4;
 typedef struct Quat Quat;
 typedef struct Vec2 Vec2;
-typedef struct Vec3 Vec3;
 typedef struct Vec4 Vec4;
 
 /**
@@ -644,7 +643,7 @@ float const *Vec3_TransformMat3(float *output, float const *a, float const *m);
  * @param a /@param {vec3} a the vector to transform
  * @param m /@param {mat4} m matrix to transform with
  */
-float const *Vec3_TransformMat4(Vec3 const *self, float *output, float const *a, float const *m);
+float const *Vec3_TransformMat4(float *output, float const *a, float const *m);
 
 /**
  * Transforms the vec3 with a quat

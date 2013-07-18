@@ -63,12 +63,58 @@ float const *Mat4_Identity(float *output);
 float const *Mat4_Invert(float *output, float const *a);
 
 /**
+ * Alias for {@link mat4.multiply}
+ */
+float const *Mat4_Mul(float *output, float const *a, float const *b);
+
+/**
+ * Multiplies two mat4's
+ * @param {mat4} out the receiving matrix
+ * @param {mat4} a the first operand
+ * @param {mat4} b the second operand
+ * @returns {mat4} out
+ */
+float const *Mat4_Multiply(float *output, float const *a, float const *b);
+
+/**
+ * Rotates a mat4 by the given angle
+ * @returns {mat4} out
+ * @param output @param {mat4} out the receiving matrix
+ * @param a @param {mat4} a the matrix to rotate
+ * @param rad @param {Number} rad the angle to rotate the matrix by
+ * @param axis @param {vec3} axis the axis to rotate around
+ */
+float const *Mat4_Rotate(float *output, float const *a, float rad, float const *axis);
+
+/**
+ * Scales the mat4 by the dimensions in the given vec3
+ * @param {mat4} out the receiving matrix
+ * @param {mat4} a the matrix to scale
+ * @param {vec3} v the vec3 to scale the matrix by
+ * @returns {mat4} out
+ */
+float const *Mat4_Scale(float *output, float const *a, float const *v);
+
+/**
+ * Translate a mat4 by the given vector
+ * @param {mat4} out the receiving matrix
+ * @param {mat4} a the matrix to translate
+ * @param {vec3} v vector to translate by
+ * @returns {mat4} out
+ */
+float const *Mat4_Translate(float *output, float const *a, float const *v);
+
+/**
  * Transpose the values of a mat4
  * @returns {mat4} out
  * @param output @param {mat4} out the receiving matrix
  * @param a @param {mat4} a the source matrix
  */
 float const *Mat4_Transpose(float *output, float const *a);
+
+float Math_Abs(float len);
+
+float Math_GLMAT_EPSILON(void);
 
 float Math_PI(void);
 

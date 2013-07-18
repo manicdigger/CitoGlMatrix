@@ -4,6 +4,22 @@ package CitoGlMatrix.lib;
 public class Math
 {
 
+	public static float abs(float len)
+	{
+		if (len < 0) {
+			return -len;
+		}
+		else {
+			return len;
+		}
+	}
+
+	public static float gLMAT_EPSILON()
+	{
+		float one = 1;
+		return one / 1000000;
+	}
+
 	public static float pI()
 	{
 		float a = 3141592;

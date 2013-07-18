@@ -303,6 +303,238 @@ class Mat4
 		return $output;
 	}
 
+	// Alias for {@link mat4.multiply}
+	static function Mul(&$output, &$a, &$b)
+	{
+		return Mat4::Multiply($output, $a, $b);
+	}
+
+	// Multiplies two mat4's
+	// @param {mat4} out the receiving matrix
+	// @param {mat4} a the first operand
+	// @param {mat4} b the second operand
+	// @returns {mat4} out
+	static function Multiply(&$output, &$a, &$b)
+	{
+		$a00 = $a[0];
+		$a01 = $a[1];
+		$a02 = $a[2];
+		$a03 = $a[3];
+		$a10 = $a[4];
+		$a11 = $a[5];
+		$a12 = $a[6];
+		$a13 = $a[7];
+		$a20 = $a[8];
+		$a21 = $a[9];
+		$a22 = $a[10];
+		$a23 = $a[11];
+		$a30 = $a[12];
+		$a31 = $a[13];
+		$a32 = $a[14];
+		$a33 = $a[15];
+		$b0 = $b[0];
+		$b1 = $b[1];
+		$b2 = $b[2];
+		$b3 = $b[3];
+		$output[0] = $b0 * $a00 + $b1 * $a10 + $b2 * $a20 + $b3 * $a30;
+		$output[1] = $b0 * $a01 + $b1 * $a11 + $b2 * $a21 + $b3 * $a31;
+		$output[2] = $b0 * $a02 + $b1 * $a12 + $b2 * $a22 + $b3 * $a32;
+		$output[3] = $b0 * $a03 + $b1 * $a13 + $b2 * $a23 + $b3 * $a33;
+		$b0 = $b[4];
+		$b1 = $b[5];
+		$b2 = $b[6];
+		$b3 = $b[7];
+		$output[4] = $b0 * $a00 + $b1 * $a10 + $b2 * $a20 + $b3 * $a30;
+		$output[5] = $b0 * $a01 + $b1 * $a11 + $b2 * $a21 + $b3 * $a31;
+		$output[6] = $b0 * $a02 + $b1 * $a12 + $b2 * $a22 + $b3 * $a32;
+		$output[7] = $b0 * $a03 + $b1 * $a13 + $b2 * $a23 + $b3 * $a33;
+		$b0 = $b[8];
+		$b1 = $b[9];
+		$b2 = $b[10];
+		$b3 = $b[11];
+		$output[8] = $b0 * $a00 + $b1 * $a10 + $b2 * $a20 + $b3 * $a30;
+		$output[9] = $b0 * $a01 + $b1 * $a11 + $b2 * $a21 + $b3 * $a31;
+		$output[10] = $b0 * $a02 + $b1 * $a12 + $b2 * $a22 + $b3 * $a32;
+		$output[11] = $b0 * $a03 + $b1 * $a13 + $b2 * $a23 + $b3 * $a33;
+		$b0 = $b[12];
+		$b1 = $b[13];
+		$b2 = $b[14];
+		$b3 = $b[15];
+		$output[12] = $b0 * $a00 + $b1 * $a10 + $b2 * $a20 + $b3 * $a30;
+		$output[13] = $b0 * $a01 + $b1 * $a11 + $b2 * $a21 + $b3 * $a31;
+		$output[14] = $b0 * $a02 + $b1 * $a12 + $b2 * $a22 + $b3 * $a32;
+		$output[15] = $b0 * $a03 + $b1 * $a13 + $b2 * $a23 + $b3 * $a33;
+		return $output;
+	}
+
+	// Rotates a mat4 by the given angle
+	// @returns {mat4} out
+	/// <param name="output">@param {mat4} out the receiving matrix</param>
+	/// <param name="a">@param {mat4} a the matrix to rotate</param>
+	/// <param name="rad">@param {Number} rad the angle to rotate the matrix by</param>
+	/// <param name="axis">@param {vec3} axis the axis to rotate around</param>
+	static function Rotate(&$output, &$a, $rad, &$axis)
+	{
+		$x = $axis[0];
+		$y = $axis[1];
+		$z = $axis[2];
+		$len = Platform::Sqrt($x * $x + $y * $y + $z * $z);
+		$s;
+		$c;
+		$t;
+		$a00;
+		$a01;
+		$a02;
+		$a03;
+		$a10;
+		$a11;
+		$a12;
+		$a13;
+		$a20;
+		$a21;
+		$a22;
+		$a23;
+		$b00;
+		$b01;
+		$b02;
+		$b10;
+		$b11;
+		$b12;
+		$b20;
+		$b21;
+		$b22;
+		if (Math::Abs($len) < Math::GLMAT_EPSILON()) {
+			return null;
+		}
+		$len = 1 / $len;
+		$x *= $len;
+		$y *= $len;
+		$z *= $len;
+		$s = Platform::Sin($rad);
+		$c = Platform::Cos($rad);
+		$t = 1 - $c;
+		$a00 = $a[0];
+		$a01 = $a[1];
+		$a02 = $a[2];
+		$a03 = $a[3];
+		$a10 = $a[4];
+		$a11 = $a[5];
+		$a12 = $a[6];
+		$a13 = $a[7];
+		$a20 = $a[8];
+		$a21 = $a[9];
+		$a22 = $a[10];
+		$a23 = $a[11];
+		$b00 = $x * $x * $t + $c;
+		$b01 = $y * $x * $t + $z * $s;
+		$b02 = $z * $x * $t - $y * $s;
+		$b10 = $x * $y * $t - $z * $s;
+		$b11 = $y * $y * $t + $c;
+		$b12 = $z * $y * $t + $x * $s;
+		$b20 = $x * $z * $t + $y * $s;
+		$b21 = $y * $z * $t - $x * $s;
+		$b22 = $z * $z * $t + $c;
+		$output[0] = $a00 * $b00 + $a10 * $b01 + $a20 * $b02;
+		$output[1] = $a01 * $b00 + $a11 * $b01 + $a21 * $b02;
+		$output[2] = $a02 * $b00 + $a12 * $b01 + $a22 * $b02;
+		$output[3] = $a03 * $b00 + $a13 * $b01 + $a23 * $b02;
+		$output[4] = $a00 * $b10 + $a10 * $b11 + $a20 * $b12;
+		$output[5] = $a01 * $b10 + $a11 * $b11 + $a21 * $b12;
+		$output[6] = $a02 * $b10 + $a12 * $b11 + $a22 * $b12;
+		$output[7] = $a03 * $b10 + $a13 * $b11 + $a23 * $b12;
+		$output[8] = $a00 * $b20 + $a10 * $b21 + $a20 * $b22;
+		$output[9] = $a01 * $b20 + $a11 * $b21 + $a21 * $b22;
+		$output[10] = $a02 * $b20 + $a12 * $b21 + $a22 * $b22;
+		$output[11] = $a03 * $b20 + $a13 * $b21 + $a23 * $b22;
+		$output[12] = $a[12];
+		$output[13] = $a[13];
+		$output[14] = $a[14];
+		$output[15] = $a[15];
+		return $output;
+	}
+
+	// Scales the mat4 by the dimensions in the given vec3
+	// @param {mat4} out the receiving matrix
+	// @param {mat4} a the matrix to scale
+	// @param {vec3} v the vec3 to scale the matrix by
+	// @returns {mat4} out
+	static function Scale(&$output, &$a, &$v)
+	{
+		$x = $v[0];
+		$y = $v[1];
+		$z = $v[2];
+		$output[0] = $a[0] * $x;
+		$output[1] = $a[1] * $x;
+		$output[2] = $a[2] * $x;
+		$output[3] = $a[3] * $x;
+		$output[4] = $a[4] * $y;
+		$output[5] = $a[5] * $y;
+		$output[6] = $a[6] * $y;
+		$output[7] = $a[7] * $y;
+		$output[8] = $a[8] * $z;
+		$output[9] = $a[9] * $z;
+		$output[10] = $a[10] * $z;
+		$output[11] = $a[11] * $z;
+		$output[12] = $a[12];
+		$output[13] = $a[13];
+		$output[14] = $a[14];
+		$output[15] = $a[15];
+		return $output;
+	}
+
+	// Translate a mat4 by the given vector
+	// @param {mat4} out the receiving matrix
+	// @param {mat4} a the matrix to translate
+	// @param {vec3} v vector to translate by
+	// @returns {mat4} out
+	static function Translate(&$output, &$a, &$v)
+	{
+		$x = $v[0];
+		$y = $v[1];
+		$z = $v[2];
+		$a00;
+		$a01;
+		$a02;
+		$a03;
+		$a10;
+		$a11;
+		$a12;
+		$a13;
+		$a20;
+		$a21;
+		$a22;
+		$a23;
+		$a00 = $a[0];
+		$a01 = $a[1];
+		$a02 = $a[2];
+		$a03 = $a[3];
+		$a10 = $a[4];
+		$a11 = $a[5];
+		$a12 = $a[6];
+		$a13 = $a[7];
+		$a20 = $a[8];
+		$a21 = $a[9];
+		$a22 = $a[10];
+		$a23 = $a[11];
+		$output[0] = $a00;
+		$output[1] = $a01;
+		$output[2] = $a02;
+		$output[3] = $a03;
+		$output[4] = $a10;
+		$output[5] = $a11;
+		$output[6] = $a12;
+		$output[7] = $a13;
+		$output[8] = $a20;
+		$output[9] = $a21;
+		$output[10] = $a22;
+		$output[11] = $a23;
+		$output[12] = $a00 * $x + $a10 * $y + $a20 * $z + $a[12];
+		$output[13] = $a01 * $x + $a11 * $y + $a21 * $z + $a[13];
+		$output[14] = $a02 * $x + $a12 * $y + $a22 * $z + $a[14];
+		$output[15] = $a03 * $x + $a13 * $y + $a23 * $z + $a[15];
+		return $output;
+	}
+
 	// Transpose the values of a mat4
 	// @returns {mat4} out
 	/// <param name="output">@param {mat4} out the receiving matrix</param>
@@ -338,11 +570,6 @@ class Mat4
 	// **
 	// **
 	// **
-	// **
-	// **
-	// **
-	// **
-	// **
 	private function f()
 	{
 	}
@@ -350,6 +577,22 @@ class Mat4
 
 class Math
 {
+
+	static function Abs($len)
+	{
+		if ($len < 0) {
+			return -$len;
+		}
+		else {
+			return $len;
+		}
+	}
+
+	static function GLMAT_EPSILON()
+	{
+		$one = 1;
+		return $one / 1000000;
+	}
 
 	static function PI()
 	{

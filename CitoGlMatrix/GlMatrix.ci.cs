@@ -1214,182 +1214,179 @@ public class Mat4
         return b00 * b11 - b01 * b10 + b02 * b09 + b03 * b08 - b04 * b07 + b05 * b06;
     }
 
-    ///**
-    // * Multiplies two mat4's
-    // *
-    // * @param {mat4} out the receiving matrix
-    // * @param {mat4} a the first operand
-    // * @param {mat4} b the second operand
-    // * @returns {mat4} out
-    // */
-    //mat4.multiply = function (out, a, b) {
-    //    var a00 = a[0], a01 = a[1], a02 = a[2], a03 = a[3],
-    //        a10 = a[4], a11 = a[5], a12 = a[6], a13 = a[7],
-    //        a20 = a[8], a21 = a[9], a22 = a[10], a23 = a[11],
-    //        a30 = a[12], a31 = a[13], a32 = a[14], a33 = a[15];
+    /// Multiplies two mat4's
+    /// @param {mat4} out the receiving matrix
+    /// @param {mat4} a the first operand
+    /// @param {mat4} b the second operand
+    /// @returns {mat4} out
+    public static float[] Multiply(float[] output, float[] a, float[] b)
+    {
+        float a00 = a[0]; float a01 = a[1]; float a02 = a[2]; float a03 = a[3];
+        float a10 = a[4]; float a11 = a[5]; float a12 = a[6]; float a13 = a[7];
+        float a20 = a[8]; float a21 = a[9]; float a22 = a[10]; float a23 = a[11];
+        float a30 = a[12]; float a31 = a[13]; float a32 = a[14]; float a33 = a[15];
 
-    //    // Cache only the current line of the second matrix
-    //    var b0  = b[0], b1 = b[1], b2 = b[2], b3 = b[3];  
-    //    out[0] = b0*a00 + b1*a10 + b2*a20 + b3*a30;
-    //    out[1] = b0*a01 + b1*a11 + b2*a21 + b3*a31;
-    //    out[2] = b0*a02 + b1*a12 + b2*a22 + b3*a32;
-    //    out[3] = b0*a03 + b1*a13 + b2*a23 + b3*a33;
+        // Cache only the current line of the second matrix
+        float b0 = b[0]; float b1 = b[1]; float b2 = b[2]; float b3 = b[3];
+        output[0] = b0 * a00 + b1 * a10 + b2 * a20 + b3 * a30;
+        output[1] = b0 * a01 + b1 * a11 + b2 * a21 + b3 * a31;
+        output[2] = b0 * a02 + b1 * a12 + b2 * a22 + b3 * a32;
+        output[3] = b0 * a03 + b1 * a13 + b2 * a23 + b3 * a33;
 
-    //    b0 = b[4]; b1 = b[5]; b2 = b[6]; b3 = b[7];
-    //    out[4] = b0*a00 + b1*a10 + b2*a20 + b3*a30;
-    //    out[5] = b0*a01 + b1*a11 + b2*a21 + b3*a31;
-    //    out[6] = b0*a02 + b1*a12 + b2*a22 + b3*a32;
-    //    out[7] = b0*a03 + b1*a13 + b2*a23 + b3*a33;
+        b0 = b[4]; b1 = b[5]; b2 = b[6]; b3 = b[7];
+        output[4] = b0 * a00 + b1 * a10 + b2 * a20 + b3 * a30;
+        output[5] = b0 * a01 + b1 * a11 + b2 * a21 + b3 * a31;
+        output[6] = b0 * a02 + b1 * a12 + b2 * a22 + b3 * a32;
+        output[7] = b0 * a03 + b1 * a13 + b2 * a23 + b3 * a33;
 
-    //    b0 = b[8]; b1 = b[9]; b2 = b[10]; b3 = b[11];
-    //    out[8] = b0*a00 + b1*a10 + b2*a20 + b3*a30;
-    //    out[9] = b0*a01 + b1*a11 + b2*a21 + b3*a31;
-    //    out[10] = b0*a02 + b1*a12 + b2*a22 + b3*a32;
-    //    out[11] = b0*a03 + b1*a13 + b2*a23 + b3*a33;
+        b0 = b[8]; b1 = b[9]; b2 = b[10]; b3 = b[11];
+        output[8] = b0 * a00 + b1 * a10 + b2 * a20 + b3 * a30;
+        output[9] = b0 * a01 + b1 * a11 + b2 * a21 + b3 * a31;
+        output[10] = b0 * a02 + b1 * a12 + b2 * a22 + b3 * a32;
+        output[11] = b0 * a03 + b1 * a13 + b2 * a23 + b3 * a33;
 
-    //    b0 = b[12]; b1 = b[13]; b2 = b[14]; b3 = b[15];
-    //    out[12] = b0*a00 + b1*a10 + b2*a20 + b3*a30;
-    //    out[13] = b0*a01 + b1*a11 + b2*a21 + b3*a31;
-    //    out[14] = b0*a02 + b1*a12 + b2*a22 + b3*a32;
-    //    out[15] = b0*a03 + b1*a13 + b2*a23 + b3*a33;
-    //    return out;
-    //};
+        b0 = b[12]; b1 = b[13]; b2 = b[14]; b3 = b[15];
+        output[12] = b0 * a00 + b1 * a10 + b2 * a20 + b3 * a30;
+        output[13] = b0 * a01 + b1 * a11 + b2 * a21 + b3 * a31;
+        output[14] = b0 * a02 + b1 * a12 + b2 * a22 + b3 * a32;
+        output[15] = b0 * a03 + b1 * a13 + b2 * a23 + b3 * a33;
+        return output;
+    }
 
-    ///**
-    // * Alias for {@link mat4.multiply}
-    // * @function
-    // */
-    //mat4.mul = mat4.multiply;
+    /// Alias for {@link mat4.multiply}
+    public static float[] Mul(float[] output, float[] a, float[] b)
+    {
+        return Multiply(output, a, b);
+    }
 
-    ///**
-    // * Translate a mat4 by the given vector
-    // *
-    // * @param {mat4} out the receiving matrix
-    // * @param {mat4} a the matrix to translate
-    // * @param {vec3} v vector to translate by
-    // * @returns {mat4} out
-    // */
+    /// Translate a mat4 by the given vector
+    /// @param {mat4} out the receiving matrix
+    /// @param {mat4} a the matrix to translate
+    /// @param {vec3} v vector to translate by
+    /// @returns {mat4} out
     //mat4.translate = function (out, a, v) {
-    //    var x = v[0], y = v[1], z = v[2],
-    //        a00, a01, a02, a03,
-    //        a10, a11, a12, a13,
-    //        a20, a21, a22, a23;
+    public static float[] Translate(float[] output, float[] a, float[] v)
+    {
+        float x = v[0]; float y = v[1]; float z = v[2];
+        float a00; float a01; float a02; float a03;
+        float a10; float a11; float a12; float a13;
+        float a20; float a21; float a22; float a23;
 
-    //    if (a === out) {
-    //        out[12] = a[0] * x + a[4] * y + a[8] * z + a[12];
-    //        out[13] = a[1] * x + a[5] * y + a[9] * z + a[13];
-    //        out[14] = a[2] * x + a[6] * y + a[10] * z + a[14];
-    //        out[15] = a[3] * x + a[7] * y + a[11] * z + a[15];
-    //    } else {
-    //        a00 = a[0]; a01 = a[1]; a02 = a[2]; a03 = a[3];
-    //        a10 = a[4]; a11 = a[5]; a12 = a[6]; a13 = a[7];
-    //        a20 = a[8]; a21 = a[9]; a22 = a[10]; a23 = a[11];
+        //if (a === output) {
+        //    output[12] = a[0] * x + a[4] * y + a[8] * z + a[12];
+        //    output[13] = a[1] * x + a[5] * y + a[9] * z + a[13];
+        //    output[14] = a[2] * x + a[6] * y + a[10] * z + a[14];
+        //    output[15] = a[3] * x + a[7] * y + a[11] * z + a[15];
+        //} else {
+        a00 = a[0]; a01 = a[1]; a02 = a[2]; a03 = a[3];
+        a10 = a[4]; a11 = a[5]; a12 = a[6]; a13 = a[7];
+        a20 = a[8]; a21 = a[9]; a22 = a[10]; a23 = a[11];
 
-    //        out[0] = a00; out[1] = a01; out[2] = a02; out[3] = a03;
-    //        out[4] = a10; out[5] = a11; out[6] = a12; out[7] = a13;
-    //        out[8] = a20; out[9] = a21; out[10] = a22; out[11] = a23;
+        output[0] = a00; output[1] = a01; output[2] = a02; output[3] = a03;
+        output[4] = a10; output[5] = a11; output[6] = a12; output[7] = a13;
+        output[8] = a20; output[9] = a21; output[10] = a22; output[11] = a23;
 
-    //        out[12] = a00 * x + a10 * y + a20 * z + a[12];
-    //        out[13] = a01 * x + a11 * y + a21 * z + a[13];
-    //        out[14] = a02 * x + a12 * y + a22 * z + a[14];
-    //        out[15] = a03 * x + a13 * y + a23 * z + a[15];
-    //    }
+        output[12] = a00 * x + a10 * y + a20 * z + a[12];
+        output[13] = a01 * x + a11 * y + a21 * z + a[13];
+        output[14] = a02 * x + a12 * y + a22 * z + a[14];
+        output[15] = a03 * x + a13 * y + a23 * z + a[15];
+        //}
 
-    //    return out;
-    //};
+        return output;
+    }
 
-    ///**
-    // * Scales the mat4 by the dimensions in the given vec3
-    // *
-    // * @param {mat4} out the receiving matrix
-    // * @param {mat4} a the matrix to scale
-    // * @param {vec3} v the vec3 to scale the matrix by
-    // * @returns {mat4} out
-    // **/
-    //mat4.scale = function(out, a, v) {
-    //    var x = v[0], y = v[1], z = v[2];
+    /// Scales the mat4 by the dimensions in the given vec3
+    /// @param {mat4} out the receiving matrix
+    /// @param {mat4} a the matrix to scale
+    /// @param {vec3} v the vec3 to scale the matrix by
+    /// @returns {mat4} out
+    public static float[] Scale(float[] output, float[] a, float[] v)
+    {
+        float x = v[0]; float y = v[1]; float z = v[2];
 
-    //    out[0] = a[0] * x;
-    //    out[1] = a[1] * x;
-    //    out[2] = a[2] * x;
-    //    out[3] = a[3] * x;
-    //    out[4] = a[4] * y;
-    //    out[5] = a[5] * y;
-    //    out[6] = a[6] * y;
-    //    out[7] = a[7] * y;
-    //    out[8] = a[8] * z;
-    //    out[9] = a[9] * z;
-    //    out[10] = a[10] * z;
-    //    out[11] = a[11] * z;
-    //    out[12] = a[12];
-    //    out[13] = a[13];
-    //    out[14] = a[14];
-    //    out[15] = a[15];
-    //    return out;
-    //};
+        output[0] = a[0] * x;
+        output[1] = a[1] * x;
+        output[2] = a[2] * x;
+        output[3] = a[3] * x;
+        output[4] = a[4] * y;
+        output[5] = a[5] * y;
+        output[6] = a[6] * y;
+        output[7] = a[7] * y;
+        output[8] = a[8] * z;
+        output[9] = a[9] * z;
+        output[10] = a[10] * z;
+        output[11] = a[11] * z;
+        output[12] = a[12];
+        output[13] = a[13];
+        output[14] = a[14];
+        output[15] = a[15];
+        return output;
+    }
 
-    ///**
-    // * Rotates a mat4 by the given angle
-    // *
-    // * @param {mat4} out the receiving matrix
-    // * @param {mat4} a the matrix to rotate
-    // * @param {Number} rad the angle to rotate the matrix by
-    // * @param {vec3} axis the axis to rotate around
-    // * @returns {mat4} out
-    // */
-    //mat4.rotate = function (out, a, rad, axis) {
-    //    var x = axis[0], y = axis[1], z = axis[2],
-    //        len = Math.sqrt(x * x + y * y + z * z),
-    //        s, c, t,
-    //        a00, a01, a02, a03,
-    //        a10, a11, a12, a13,
-    //        a20, a21, a22, a23,
-    //        b00, b01, b02,
-    //        b10, b11, b12,
-    //        b20, b21, b22;
+    /// Rotates a mat4 by the given angle
+    /// @returns {mat4} out
+    public static float[] Rotate(
+        /// @param {mat4} out the receiving matrix
+        float[] output,
+        /// @param {mat4} a the matrix to rotate
+        float[] a,
+        /// @param {Number} rad the angle to rotate the matrix by
+        float rad,
+        /// @param {vec3} axis the axis to rotate around
+        float[] axis)
+    {
+        float x = axis[0];float y = axis[1];float z = axis[2];
+            float len = Platform.Sqrt(x * x + y * y + z * z);
+            float s; float c; float t;
+            float a00; float a01; float a02; float a03;
+            float a10; float a11; float a12; float a13;
+            float a20; float a21; float a22; float a23;
+            float b00; float b01; float b02;
+            float b10; float b11; float b12;
+            float b20; float b21; float b22;
 
-    //    if (Math.abs(len) < GLMAT_EPSILON) { return null; }
+        if (Math.Abs(len) < Math.GLMAT_EPSILON()) { return null; }
 
-    //    len = 1 / len;
-    //    x *= len;
-    //    y *= len;
-    //    z *= len;
+        len = 1 / len;
+        x *= len;
+        y *= len;
+        z *= len;
 
-    //    s = Math.sin(rad);
-    //    c = Math.cos(rad);
-    //    t = 1 - c;
+        s = Platform.Sin(rad);
+        c = Platform.Cos(rad);
+        t = 1 - c;
 
-    //    a00 = a[0]; a01 = a[1]; a02 = a[2]; a03 = a[3];
-    //    a10 = a[4]; a11 = a[5]; a12 = a[6]; a13 = a[7];
-    //    a20 = a[8]; a21 = a[9]; a22 = a[10]; a23 = a[11];
+        a00 = a[0]; a01 = a[1]; a02 = a[2]; a03 = a[3];
+        a10 = a[4]; a11 = a[5]; a12 = a[6]; a13 = a[7];
+        a20 = a[8]; a21 = a[9]; a22 = a[10]; a23 = a[11];
 
-    //    // Construct the elements of the rotation matrix
-    //    b00 = x * x * t + c; b01 = y * x * t + z * s; b02 = z * x * t - y * s;
-    //    b10 = x * y * t - z * s; b11 = y * y * t + c; b12 = z * y * t + x * s;
-    //    b20 = x * z * t + y * s; b21 = y * z * t - x * s; b22 = z * z * t + c;
+        // Construct the elements of the rotation matrix
+        b00 = x * x * t + c; b01 = y * x * t + z * s; b02 = z * x * t - y * s;
+        b10 = x * y * t - z * s; b11 = y * y * t + c; b12 = z * y * t + x * s;
+        b20 = x * z * t + y * s; b21 = y * z * t - x * s; b22 = z * z * t + c;
 
-    //    // Perform rotation-specific matrix multiplication
-    //    out[0] = a00 * b00 + a10 * b01 + a20 * b02;
-    //    out[1] = a01 * b00 + a11 * b01 + a21 * b02;
-    //    out[2] = a02 * b00 + a12 * b01 + a22 * b02;
-    //    out[3] = a03 * b00 + a13 * b01 + a23 * b02;
-    //    out[4] = a00 * b10 + a10 * b11 + a20 * b12;
-    //    out[5] = a01 * b10 + a11 * b11 + a21 * b12;
-    //    out[6] = a02 * b10 + a12 * b11 + a22 * b12;
-    //    out[7] = a03 * b10 + a13 * b11 + a23 * b12;
-    //    out[8] = a00 * b20 + a10 * b21 + a20 * b22;
-    //    out[9] = a01 * b20 + a11 * b21 + a21 * b22;
-    //    out[10] = a02 * b20 + a12 * b21 + a22 * b22;
-    //    out[11] = a03 * b20 + a13 * b21 + a23 * b22;
+        // Perform rotation-specific matrix multiplication
+        output[0] = a00 * b00 + a10 * b01 + a20 * b02;
+        output[1] = a01 * b00 + a11 * b01 + a21 * b02;
+        output[2] = a02 * b00 + a12 * b01 + a22 * b02;
+        output[3] = a03 * b00 + a13 * b01 + a23 * b02;
+        output[4] = a00 * b10 + a10 * b11 + a20 * b12;
+        output[5] = a01 * b10 + a11 * b11 + a21 * b12;
+        output[6] = a02 * b10 + a12 * b11 + a22 * b12;
+        output[7] = a03 * b10 + a13 * b11 + a23 * b12;
+        output[8] = a00 * b20 + a10 * b21 + a20 * b22;
+        output[9] = a01 * b20 + a11 * b21 + a21 * b22;
+        output[10] = a02 * b20 + a12 * b21 + a22 * b22;
+        output[11] = a03 * b20 + a13 * b21 + a23 * b22;
 
-    //    if (a !== out) { // If the source and destination differ, copy the unchanged last row
-    //        out[12] = a[12];
-    //        out[13] = a[13];
-    //        out[14] = a[14];
-    //        out[15] = a[15];
-    //    }
-    //    return out;
-    //};
+        //if (a !== output) { // If the source and destination differ, copy the unchanged last row
+            output[12] = a[12];
+            output[13] = a[13];
+            output[14] = a[14];
+            output[15] = a[15];
+        //}
+        return output;
+    }
 
     ///**
     // * Rotates a matrix by the given angle around the X axis
@@ -3972,5 +3969,23 @@ public class Math
     {
         float a = 3141592;
         return a / 1000000;
+    }
+
+    public static float Abs(float len)
+    {
+        if (len < 0)
+        {
+            return -len;
+        }
+        else
+        {
+            return len;
+        }
+    }
+
+    public static float GLMAT_EPSILON()
+    {
+        float one = 1;
+        return one / 1000000;
     }
 }

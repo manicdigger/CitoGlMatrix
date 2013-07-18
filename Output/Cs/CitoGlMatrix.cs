@@ -1931,37 +1931,225 @@ public class Vec3
 public class Vec4
 {
 
-	/// <summary>**
-	/// **
-	/// **
-	/// **
-	/// **
-	/// **
-	/// **
-	/// **
-	/// **
-	/// **
-	/// **
-	/// **
-	/// **
-	/// **
-	/// **
-	/// **
-	/// **
-	/// **
-	/// **
-	/// **
-	/// **</summary>
-	public static float[] Normalize(float[] output, float[] a)
+	/// <summary>**</summary>
+	public static float[] Add(float[] output, float[] a, float[] b)
 	{
+		output[0] = a[0] + b[0];
+		output[1] = a[1] + b[1];
+		output[2] = a[2] + b[2];
+		output[3] = a[3] + b[3];
 		return output;
 	}
 
-	/// <summary>**
-	/// **
-	/// **
-	/// **
-	/// **</summary>
+	/// <summary>**</summary>
+	public static float[] Clone(float[] a)
+	{
+		float[] output = new float[4];
+		output[0] = a[0];
+		output[1] = a[1];
+		output[2] = a[2];
+		output[3] = a[3];
+		return output;
+	}
+
+	/// <summary>**</summary>
+	public static float[] Copy(float[] output, float[] a)
+	{
+		output[0] = a[0];
+		output[1] = a[1];
+		output[2] = a[2];
+		output[3] = a[3];
+		return output;
+	}
+
+	/// <summary>**</summary>
+	public static float[] Create()
+	{
+		float[] output = new float[4];
+		output[0] = 0;
+		output[1] = 0;
+		output[2] = 0;
+		output[3] = 0;
+		return output;
+	}
+
+	/// <summary>**</summary>
+	public static float Dist(float[] a, float[] b)
+	{
+		return Vec4.Distance(a, b);
+	}
+
+	/// <summary>**</summary>
+	public static float Distance(float[] a, float[] b)
+	{
+		float x = b[0] - a[0];
+		float y = b[1] - a[1];
+		float z = b[2] - a[2];
+		float w = b[3] - a[3];
+		return Platform.Sqrt(x * x + y * y + z * z + w * w);
+	}
+
+	/// <summary>**</summary>
+	public static float[] Div(float[] output, float[] a, float[] b)
+	{
+		return Vec4.Divide(output, a, b);
+	}
+
+	/// <summary>**</summary>
+	public static float[] Divide(float[] output, float[] a, float[] b)
+	{
+		output[0] = a[0] / b[0];
+		output[1] = a[1] / b[1];
+		output[2] = a[2] / b[2];
+		output[3] = a[3] / b[3];
+		return output;
+	}
+
+	/// <summary>**</summary>
+	public static float Dot(float[] a, float[] b)
+	{
+		return a[0] * b[0] + a[1] * b[1] + a[2] * b[2] + a[3] * b[3];
+	}
+
+	/// <summary>**</summary>
+	public static float[] FromValues(float x, float y, float z, float w)
+	{
+		float[] output = new float[4];
+		output[0] = x;
+		output[1] = y;
+		output[2] = z;
+		output[3] = w;
+		return output;
+	}
+
+	/// <summary>**</summary>
+	public static float Len(float[] a)
+	{
+		return Vec4.Length(a);
+	}
+
+	/// <summary>**</summary>
+	public static float Length(float[] a)
+	{
+		float x = a[0];
+		float y = a[1];
+		float z = a[2];
+		float w = a[3];
+		return Platform.Sqrt(x * x + y * y + z * z + w * w);
+	}
+
+	/// <summary>**</summary>
+	public static float[] Lerp(float[] output, float[] a, float[] b, float t)
+	{
+		float ax = a[0];
+		float ay = a[1];
+		float az = a[2];
+		float aw = a[3];
+		output[0] = ax + t * (b[0] - ax);
+		output[1] = ay + t * (b[1] - ay);
+		output[2] = az + t * (b[2] - az);
+		output[3] = aw + t * (b[3] - aw);
+		return output;
+	}
+
+	/// <summary>**</summary>
+	public static float[] Max(float[] output, float[] a, float[] b)
+	{
+		output[0] = Math.max(a[0], b[0]);
+		output[1] = Math.max(a[1], b[1]);
+		output[2] = Math.max(a[2], b[2]);
+		output[3] = Math.max(a[3], b[3]);
+		return output;
+	}
+
+	/// <summary>**</summary>
+	public static float[] Min(float[] output, float[] a, float[] b)
+	{
+		output[0] = Math.min(a[0], b[0]);
+		output[1] = Math.min(a[1], b[1]);
+		output[2] = Math.min(a[2], b[2]);
+		output[3] = Math.min(a[3], b[3]);
+		return output;
+	}
+
+	/// <summary>**</summary>
+	public static float[] Mul(float[] output, float[] a, float[] b)
+	{
+		return Vec4.Multiply(output, a, b);
+	}
+
+	/// <summary>**</summary>
+	public static float[] Multiply(float[] output, float[] a, float[] b)
+	{
+		output[0] = a[0] * b[0];
+		output[1] = a[1] * b[1];
+		output[2] = a[2] * b[2];
+		output[3] = a[3] * b[3];
+		return output;
+	}
+
+	/// <summary>**</summary>
+	public static float[] Negate(float[] output, float[] a)
+	{
+		output[0] = -a[0];
+		output[1] = -a[1];
+		output[2] = -a[2];
+		output[3] = -a[3];
+		return output;
+	}
+
+	/// <summary>**</summary>
+	public static float[] Normalize(float[] output, float[] a)
+	{
+		float x = a[0];
+		float y = a[1];
+		float z = a[2];
+		float w = a[3];
+		float len = x * x + y * y + z * z + w * w;
+		if (len > 0) {
+			float one = 1;
+			len = one / Platform.Sqrt(len);
+			output[0] = a[0] * len;
+			output[1] = a[1] * len;
+			output[2] = a[2] * len;
+			output[3] = a[3] * len;
+		}
+		return output;
+	}
+
+	/// <summary>**</summary>
+	public static float[] Random(float[] output, float scale)
+	{
+		output[0] = Platform.Random();
+		output[1] = Platform.Random();
+		output[2] = Platform.Random();
+		output[3] = Platform.Random();
+		Vec4.Normalize(output, output);
+		Vec4.Scale(output, output, scale);
+		return output;
+	}
+
+	/// <summary>**</summary>
+	public static float[] Scale(float[] output, float[] a, float b)
+	{
+		output[0] = a[0] * b;
+		output[1] = a[1] * b;
+		output[2] = a[2] * b;
+		output[3] = a[3] * b;
+		return output;
+	}
+
+	/// <summary>**</summary>
+	public static float[] ScaleAndAdd(float[] output, float[] a, float[] b, float scale)
+	{
+		output[0] = a[0] + b[0] * scale;
+		output[1] = a[1] + b[1] * scale;
+		output[2] = a[2] + b[2] * scale;
+		output[3] = a[3] + b[3] * scale;
+		return output;
+	}
+
+	/// <summary>**</summary>
 	public static float[] Set(float[] output, float x, float y, float z, float w)
 	{
 		output[0] = x;
@@ -1971,14 +2159,91 @@ public class Vec4
 		return output;
 	}
 
+	/// <summary>**</summary>
+	public static float SqrDist(float[] a, float[] b)
+	{
+		return Vec4.SquaredDistance(a, b);
+	}
+
+	/// <summary>**</summary>
+	public static float SqrLen(float[] a)
+	{
+		return Vec4.SquaredLength(a);
+	}
+
+	/// <summary>**</summary>
+	public static float SquaredDistance(float[] a, float[] b)
+	{
+		float x = b[0] - a[0];
+		float y = b[1] - a[1];
+		float z = b[2] - a[2];
+		float w = b[3] - a[3];
+		return x * x + y * y + z * z + w * w;
+	}
+
+	/// <summary>**</summary>
+	public static float SquaredLength(float[] a)
+	{
+		float x = a[0];
+		float y = a[1];
+		float z = a[2];
+		float w = a[3];
+		return x * x + y * y + z * z + w * w;
+	}
+
+	/// <summary>**</summary>
+	public static float[] Sub(float[] output, float[] a, float[] b)
+	{
+		return Vec4.Subtract(output, a, b);
+	}
+
+	/// <summary>**</summary>
+	public static float[] Subtract(float[] output, float[] a, float[] b)
+	{
+		output[0] = a[0] - b[0];
+		output[1] = a[1] - b[1];
+		output[2] = a[2] - b[2];
+		output[3] = a[3] - b[3];
+		return output;
+	}
+
+	/// <summary>**</summary>
+	public static float[] TransformMat4(float[] output, float[] a, float[] m)
+	{
+		float x = a[0];
+		float y = a[1];
+		float z = a[2];
+		float w = a[3];
+		output[0] = m[0] * x + m[4] * y + m[8] * z + m[12] * w;
+		output[1] = m[1] * x + m[5] * y + m[9] * z + m[13] * w;
+		output[2] = m[2] * x + m[6] * y + m[10] * z + m[14] * w;
+		output[3] = m[3] * x + m[7] * y + m[11] * z + m[15] * w;
+		return output;
+	}
+
 	/// <summary>**
-	/// **
-	/// **
-	/// **
-	/// **
-	/// **
 	/// **</summary>
 	void f()
 	{
+	}
+
+	/// <summary>**</summary>
+	public static float[] transformQuat(float[] output, float[] a, float[] q)
+	{
+		float x = a[0];
+		float y = a[1];
+		float z = a[2];
+		float qx = q[0];
+		float qy = q[1];
+		float qz = q[2];
+		float qw = q[3];
+		float ix = qw * x + qy * z - qz * y;
+		float iy = qw * y + qz * x - qx * z;
+		float iz = qw * z + qx * y - qy * x;
+		float iw = -qx * x - qy * y - qz * z;
+		output[0] = ix * qw + iw * -qx + iy * -qz - iz * -qy;
+		output[1] = iy * qw + iw * -qy + iz * -qx - ix * -qz;
+		output[2] = iz * qw + iw * -qz + ix * -qy - iy * -qx;
+		return output;
 	}
 }

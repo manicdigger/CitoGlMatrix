@@ -1096,7 +1096,7 @@ float const *Quat_Multiply(float *output, float const *a, float const *b)
 	return output;
 }
 
-float const *Quat_Normalize(float const *output, float const *a)
+float const *Quat_Normalize(float *output, float const *a)
 {
 	return Vec4_Normalize(output, a);
 }
@@ -1502,8 +1502,199 @@ const char *Vec3_str(float const *a)
 	return "";
 }
 
-float const *Vec4_Normalize(float const *output, float const *a)
+float const *Vec4_Add(float *output, float const *a, float const *b)
 {
+	output[0] = a[0] + b[0];
+	output[1] = a[1] + b[1];
+	output[2] = a[2] + b[2];
+	output[3] = a[3] + b[3];
+	return output;
+}
+
+float const *Vec4_Clone(float const *a)
+{
+	float *output = (float *) malloc(4 * sizeof(float ));
+	output[0] = a[0];
+	output[1] = a[1];
+	output[2] = a[2];
+	output[3] = a[3];
+	return output;
+}
+
+float const *Vec4_Copy(float *output, float const *a)
+{
+	output[0] = a[0];
+	output[1] = a[1];
+	output[2] = a[2];
+	output[3] = a[3];
+	return output;
+}
+
+float const *Vec4_Create(void)
+{
+	float *output = (float *) malloc(4 * sizeof(float ));
+	output[0] = 0;
+	output[1] = 0;
+	output[2] = 0;
+	output[3] = 0;
+	return output;
+}
+
+float Vec4_Dist(float const *a, float const *b)
+{
+	return Vec4_Distance(a, b);
+}
+
+float Vec4_Distance(float const *a, float const *b)
+{
+	float x = b[0] - a[0];
+	float y = b[1] - a[1];
+	float z = b[2] - a[2];
+	float w = b[3] - a[3];
+	return Platform_Sqrt(x * x + y * y + z * z + w * w);
+}
+
+float const *Vec4_Div(float *output, float const *a, float const *b)
+{
+	return Vec4_Divide(output, a, b);
+}
+
+float const *Vec4_Divide(float *output, float const *a, float const *b)
+{
+	output[0] = a[0] / b[0];
+	output[1] = a[1] / b[1];
+	output[2] = a[2] / b[2];
+	output[3] = a[3] / b[3];
+	return output;
+}
+
+float Vec4_Dot(float const *a, float const *b)
+{
+	return a[0] * b[0] + a[1] * b[1] + a[2] * b[2] + a[3] * b[3];
+}
+
+float const *Vec4_FromValues(float x, float y, float z, float w)
+{
+	float *output = (float *) malloc(4 * sizeof(float ));
+	output[0] = x;
+	output[1] = y;
+	output[2] = z;
+	output[3] = w;
+	return output;
+}
+
+float Vec4_Len(float const *a)
+{
+	return Vec4_Length(a);
+}
+
+float Vec4_Length(float const *a)
+{
+	float x = a[0];
+	float y = a[1];
+	float z = a[2];
+	float w = a[3];
+	return Platform_Sqrt(x * x + y * y + z * z + w * w);
+}
+
+float const *Vec4_Lerp(float *output, float const *a, float const *b, float t)
+{
+	float ax = a[0];
+	float ay = a[1];
+	float az = a[2];
+	float aw = a[3];
+	output[0] = ax + t * (b[0] - ax);
+	output[1] = ay + t * (b[1] - ay);
+	output[2] = az + t * (b[2] - az);
+	output[3] = aw + t * (b[3] - aw);
+	return output;
+}
+
+float const *Vec4_Max(float *output, float const *a, float const *b)
+{
+	output[0] = Math_max(a[0], b[0]);
+	output[1] = Math_max(a[1], b[1]);
+	output[2] = Math_max(a[2], b[2]);
+	output[3] = Math_max(a[3], b[3]);
+	return output;
+}
+
+float const *Vec4_Min(float *output, float const *a, float const *b)
+{
+	output[0] = Math_min(a[0], b[0]);
+	output[1] = Math_min(a[1], b[1]);
+	output[2] = Math_min(a[2], b[2]);
+	output[3] = Math_min(a[3], b[3]);
+	return output;
+}
+
+float const *Vec4_Mul(float *output, float const *a, float const *b)
+{
+	return Vec4_Multiply(output, a, b);
+}
+
+float const *Vec4_Multiply(float *output, float const *a, float const *b)
+{
+	output[0] = a[0] * b[0];
+	output[1] = a[1] * b[1];
+	output[2] = a[2] * b[2];
+	output[3] = a[3] * b[3];
+	return output;
+}
+
+float const *Vec4_Negate(float *output, float const *a)
+{
+	output[0] = -a[0];
+	output[1] = -a[1];
+	output[2] = -a[2];
+	output[3] = -a[3];
+	return output;
+}
+
+float const *Vec4_Normalize(float *output, float const *a)
+{
+	float x = a[0];
+	float y = a[1];
+	float z = a[2];
+	float w = a[3];
+	float len = x * x + y * y + z * z + w * w;
+	if (len > 0) {
+		float one = 1;
+		len = one / Platform_Sqrt(len);
+		output[0] = a[0] * len;
+		output[1] = a[1] * len;
+		output[2] = a[2] * len;
+		output[3] = a[3] * len;
+	}
+	return output;
+}
+
+float const *Vec4_Random(float *output, float scale)
+{
+	output[0] = Platform_Random();
+	output[1] = Platform_Random();
+	output[2] = Platform_Random();
+	output[3] = Platform_Random();
+	Vec4_Normalize(output, output);
+	Vec4_Scale(output, output, scale);
+	return output;
+}
+
+float const *Vec4_Scale(float *output, float const *a, float b)
+{
+	output[0] = a[0] * b;
+	output[1] = a[1] * b;
+	output[2] = a[2] * b;
+	output[3] = a[3] * b;
+	return output;
+}
+
+float const *Vec4_ScaleAndAdd(float *output, float const *a, float const *b, float scale)
+{
+	output[0] = a[0] + b[0] * scale;
+	output[1] = a[1] + b[1] * scale;
+	output[2] = a[2] + b[2] * scale;
+	output[3] = a[3] + b[3] * scale;
 	return output;
 }
 
@@ -1513,5 +1704,79 @@ float const *Vec4_Set(float *output, float x, float y, float z, float w)
 	output[1] = y;
 	output[2] = z;
 	output[3] = w;
+	return output;
+}
+
+float Vec4_SqrDist(float const *a, float const *b)
+{
+	return Vec4_SquaredDistance(a, b);
+}
+
+float Vec4_SqrLen(float const *a)
+{
+	return Vec4_SquaredLength(a);
+}
+
+float Vec4_SquaredDistance(float const *a, float const *b)
+{
+	float x = b[0] - a[0];
+	float y = b[1] - a[1];
+	float z = b[2] - a[2];
+	float w = b[3] - a[3];
+	return x * x + y * y + z * z + w * w;
+}
+
+float Vec4_SquaredLength(float const *a)
+{
+	float x = a[0];
+	float y = a[1];
+	float z = a[2];
+	float w = a[3];
+	return x * x + y * y + z * z + w * w;
+}
+
+float const *Vec4_Sub(float *output, float const *a, float const *b)
+{
+	return Vec4_Subtract(output, a, b);
+}
+
+float const *Vec4_Subtract(float *output, float const *a, float const *b)
+{
+	output[0] = a[0] - b[0];
+	output[1] = a[1] - b[1];
+	output[2] = a[2] - b[2];
+	output[3] = a[3] - b[3];
+	return output;
+}
+
+float const *Vec4_TransformMat4(float *output, float const *a, float const *m)
+{
+	float x = a[0];
+	float y = a[1];
+	float z = a[2];
+	float w = a[3];
+	output[0] = m[0] * x + m[4] * y + m[8] * z + m[12] * w;
+	output[1] = m[1] * x + m[5] * y + m[9] * z + m[13] * w;
+	output[2] = m[2] * x + m[6] * y + m[10] * z + m[14] * w;
+	output[3] = m[3] * x + m[7] * y + m[11] * z + m[15] * w;
+	return output;
+}
+
+float const *Vec4_transformQuat(float *output, float const *a, float const *q)
+{
+	float x = a[0];
+	float y = a[1];
+	float z = a[2];
+	float qx = q[0];
+	float qy = q[1];
+	float qz = q[2];
+	float qw = q[3];
+	float ix = qw * x + qy * z - qz * y;
+	float iy = qw * y + qz * x - qx * z;
+	float iz = qw * z + qx * y - qy * x;
+	float iw = -qx * x - qy * y - qz * z;
+	output[0] = ix * qw + iw * -qx + iy * -qz - iz * -qy;
+	output[1] = iy * qw + iw * -qy + iz * -qx - ix * -qz;
+	output[2] = iz * qw + iw * -qz + ix * -qy - iy * -qx;
 	return output;
 }

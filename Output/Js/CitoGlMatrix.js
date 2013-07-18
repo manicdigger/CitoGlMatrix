@@ -1453,7 +1453,177 @@ function Vec4()
 {
 }
 
+Vec4.add = function(output, a, b) {
+	output[0] = a[0] + b[0];
+	output[1] = a[1] + b[1];
+	output[2] = a[2] + b[2];
+	output[3] = a[3] + b[3];
+	return output;
+}
+
+Vec4.clone = function(a) {
+	var output = new Array(4);
+	output[0] = a[0];
+	output[1] = a[1];
+	output[2] = a[2];
+	output[3] = a[3];
+	return output;
+}
+
+Vec4.copy = function(output, a) {
+	output[0] = a[0];
+	output[1] = a[1];
+	output[2] = a[2];
+	output[3] = a[3];
+	return output;
+}
+
+Vec4.create = function() {
+	var output = new Array(4);
+	output[0] = 0;
+	output[1] = 0;
+	output[2] = 0;
+	output[3] = 0;
+	return output;
+}
+
+Vec4.dist = function(a, b) {
+	return Vec4.distance(a, b);
+}
+
+Vec4.distance = function(a, b) {
+	var x = b[0] - a[0];
+	var y = b[1] - a[1];
+	var z = b[2] - a[2];
+	var w = b[3] - a[3];
+	return Platform.sqrt(x * x + y * y + z * z + w * w);
+}
+
+Vec4.div = function(output, a, b) {
+	return Vec4.divide(output, a, b);
+}
+
+Vec4.divide = function(output, a, b) {
+	output[0] = a[0] / (b[0]);
+	output[1] = a[1] / (b[1]);
+	output[2] = a[2] / (b[2]);
+	output[3] = a[3] / (b[3]);
+	return output;
+}
+
+Vec4.dot = function(a, b) {
+	return a[0] * b[0] + a[1] * b[1] + a[2] * b[2] + a[3] * b[3];
+}
+
+Vec4.fromValues = function(x, y, z, w) {
+	var output = new Array(4);
+	output[0] = x;
+	output[1] = y;
+	output[2] = z;
+	output[3] = w;
+	return output;
+}
+
+Vec4.len = function(a) {
+	return Vec4.length(a);
+}
+
+Vec4.length = function(a) {
+	var x = a[0];
+	var y = a[1];
+	var z = a[2];
+	var w = a[3];
+	return Platform.sqrt(x * x + y * y + z * z + w * w);
+}
+
+Vec4.lerp = function(output, a, b, t) {
+	var ax = a[0];
+	var ay = a[1];
+	var az = a[2];
+	var aw = a[3];
+	output[0] = ax + t * (b[0] - ax);
+	output[1] = ay + t * (b[1] - ay);
+	output[2] = az + t * (b[2] - az);
+	output[3] = aw + t * (b[3] - aw);
+	return output;
+}
+
+Vec4.max = function(output, a, b) {
+	output[0] = Math.max(a[0], b[0]);
+	output[1] = Math.max(a[1], b[1]);
+	output[2] = Math.max(a[2], b[2]);
+	output[3] = Math.max(a[3], b[3]);
+	return output;
+}
+
+Vec4.min = function(output, a, b) {
+	output[0] = Math.min(a[0], b[0]);
+	output[1] = Math.min(a[1], b[1]);
+	output[2] = Math.min(a[2], b[2]);
+	output[3] = Math.min(a[3], b[3]);
+	return output;
+}
+
+Vec4.mul = function(output, a, b) {
+	return Vec4.multiply(output, a, b);
+}
+
+Vec4.multiply = function(output, a, b) {
+	output[0] = a[0] * b[0];
+	output[1] = a[1] * b[1];
+	output[2] = a[2] * b[2];
+	output[3] = a[3] * b[3];
+	return output;
+}
+
+Vec4.negate = function(output, a) {
+	output[0] = -a[0];
+	output[1] = -a[1];
+	output[2] = -a[2];
+	output[3] = -a[3];
+	return output;
+}
+
 Vec4.normalize = function(output, a) {
+	var x = a[0];
+	var y = a[1];
+	var z = a[2];
+	var w = a[3];
+	var len = x * x + y * y + z * z + w * w;
+	if (len > 0) {
+		var one = 1;
+		len = one / (Platform.sqrt(len));
+		output[0] = a[0] * len;
+		output[1] = a[1] * len;
+		output[2] = a[2] * len;
+		output[3] = a[3] * len;
+	}
+	return output;
+}
+
+Vec4.random = function(output, scale) {
+	output[0] = Platform.random();
+	output[1] = Platform.random();
+	output[2] = Platform.random();
+	output[3] = Platform.random();
+	Vec4.normalize(output, output);
+	Vec4.scale(output, output, scale);
+	return output;
+}
+
+Vec4.scale = function(output, a, b) {
+	output[0] = a[0] * b;
+	output[1] = a[1] * b;
+	output[2] = a[2] * b;
+	output[3] = a[3] * b;
+	return output;
+}
+
+Vec4.scaleAndAdd = function(output, a, b, scale) {
+	output[0] = a[0] + b[0] * scale;
+	output[1] = a[1] + b[1] * scale;
+	output[2] = a[2] + b[2] * scale;
+	output[3] = a[3] + b[3] * scale;
 	return output;
 }
 
@@ -1465,5 +1635,71 @@ Vec4.set = function(output, x, y, z, w) {
 	return output;
 }
 
+Vec4.sqrDist = function(a, b) {
+	return Vec4.squaredDistance(a, b);
+}
+
+Vec4.sqrLen = function(a) {
+	return Vec4.squaredLength(a);
+}
+
+Vec4.squaredDistance = function(a, b) {
+	var x = b[0] - a[0];
+	var y = b[1] - a[1];
+	var z = b[2] - a[2];
+	var w = b[3] - a[3];
+	return x * x + y * y + z * z + w * w;
+}
+
+Vec4.squaredLength = function(a) {
+	var x = a[0];
+	var y = a[1];
+	var z = a[2];
+	var w = a[3];
+	return x * x + y * y + z * z + w * w;
+}
+
+Vec4.sub = function(output, a, b) {
+	return Vec4.subtract(output, a, b);
+}
+
+Vec4.subtract = function(output, a, b) {
+	output[0] = a[0] - b[0];
+	output[1] = a[1] - b[1];
+	output[2] = a[2] - b[2];
+	output[3] = a[3] - b[3];
+	return output;
+}
+
+Vec4.transformMat4 = function(output, a, m) {
+	var x = a[0];
+	var y = a[1];
+	var z = a[2];
+	var w = a[3];
+	output[0] = m[0] * x + m[4] * y + m[8] * z + m[12] * w;
+	output[1] = m[1] * x + m[5] * y + m[9] * z + m[13] * w;
+	output[2] = m[2] * x + m[6] * y + m[10] * z + m[14] * w;
+	output[3] = m[3] * x + m[7] * y + m[11] * z + m[15] * w;
+	return output;
+}
+
 Vec4.prototype.f = function() {
+}
+
+Vec4.transformQuat = function(output, a, q) {
+	var x = a[0];
+	var y = a[1];
+	var z = a[2];
+	var qx = q[0];
+	var qy = q[1];
+	var qz = q[2];
+	var qw = q[3];
+	var ix = qw * x + qy * z - qz * y;
+	var iy = qw * y + qz * x - qx * z;
+	var iz = qw * z + qx * y - qy * x;
+	var iw = -qx * x - qy * y - qz * z;
+	output[0] = ix * qw + iw * -qx + iy * -qz - iz * -qy;
+	output[1] = iy * qw + iw * -qy + iz * -qx - ix * -qz;
+	output[2] = iz * qw + iw * -qz + ix * -qy - iy * -qx;
+	return output;
 }

@@ -3454,14 +3454,15 @@ public class Vec4
     // *
     // * @returns {vec4} a new 4D vector
     // */
-    //vec4.create = function() {
-    //    var output = new GLMAT_ARRAY_TYPE(4);
-    //    output[0] = 0;
-    //    output[1] = 0;
-    //    output[2] = 0;
-    //    output[3] = 0;
-    //    return output;
-    //};
+    public static float[] Create()
+    {
+        float[] output = new float[4];
+        output[0] = 0;
+        output[1] = 0;
+        output[2] = 0;
+        output[3] = 0;
+        return output;
+    }
 
     ///**
     // * Creates a new vec4 initialized with values from an existing vector
@@ -3469,14 +3470,15 @@ public class Vec4
     // * @param {vec4} a vector to clone
     // * @returns {vec4} a new 4D vector
     // */
-    //vec4.clone = function(a) {
-    //    var output = new GLMAT_ARRAY_TYPE(4);
-    //    output[0] = a[0];
-    //    output[1] = a[1];
-    //    output[2] = a[2];
-    //    output[3] = a[3];
-    //    return output;
-    //};
+    public static float[] Clone(float[] a)
+    {
+        float[] output = new float[4];
+        output[0] = a[0];
+        output[1] = a[1];
+        output[2] = a[2];
+        output[3] = a[3];
+        return output;
+    }
 
     ///**
     // * Creates a new vec4 initialized with the given values
@@ -3487,14 +3489,15 @@ public class Vec4
     // * @param {Number} w W component
     // * @returns {vec4} a new 4D vector
     // */
-    //vec4.fromValues = function(x, y, z, w) {
-    //    var output = new GLMAT_ARRAY_TYPE(4);
-    //    output[0] = x;
-    //    output[1] = y;
-    //    output[2] = z;
-    //    output[3] = w;
-    //    return output;
-    //};
+    public static float[] FromValues(float x, float y, float z, float w)
+    {
+        float[] output = new float[4];
+        output[0] = x;
+        output[1] = y;
+        output[2] = z;
+        output[3] = w;
+        return output;
+    }
 
     ///**
     // * Copy the values from one vec4 to another
@@ -3503,13 +3506,14 @@ public class Vec4
     // * @param {vec4} a the source vector
     // * @returns {vec4} output
     // */
-    //vec4.copy = function(output, a) {
-    //    output[0] = a[0];
-    //    output[1] = a[1];
-    //    output[2] = a[2];
-    //    output[3] = a[3];
-    //    return output;
-    //};
+    public static float[] Copy(float[] output, float[] a)
+    {
+        output[0] = a[0];
+        output[1] = a[1];
+        output[2] = a[2];
+        output[3] = a[3];
+        return output;
+    }
 
     ///**
     // * Set the components of a vec4 to the given values
@@ -3538,13 +3542,14 @@ public class Vec4
     // * @param {vec4} b the second operand
     // * @returns {vec4} output
     // */
-    //vec4.add = function(output, a, b) {
-    //    output[0] = a[0] + b[0];
-    //    output[1] = a[1] + b[1];
-    //    output[2] = a[2] + b[2];
-    //    output[3] = a[3] + b[3];
-    //    return output;
-    //};
+    public static float[] Add(float[] output, float[] a, float[] b)
+    {
+        output[0] = a[0] + b[0];
+        output[1] = a[1] + b[1];
+        output[2] = a[2] + b[2];
+        output[3] = a[3] + b[3];
+        return output;
+    }
 
     ///**
     // * Subtracts vector b from vector a
@@ -3554,19 +3559,23 @@ public class Vec4
     // * @param {vec4} b the second operand
     // * @returns {vec4} output
     // */
-    //vec4.subtract = function(output, a, b) {
-    //    output[0] = a[0] - b[0];
-    //    output[1] = a[1] - b[1];
-    //    output[2] = a[2] - b[2];
-    //    output[3] = a[3] - b[3];
-    //    return output;
-    //};
+    public static float[] Subtract(float[] output, float[] a, float[] b)
+    {
+        output[0] = a[0] - b[0];
+        output[1] = a[1] - b[1];
+        output[2] = a[2] - b[2];
+        output[3] = a[3] - b[3];
+        return output;
+    }
 
     ///**
     // * Alias for {@link vec4.subtract}
     // * @function
     // */
-    //vec4.sub = vec4.subtract;
+    public static float[] Sub(float[] output, float[] a, float[] b)
+    {
+        return Subtract(output, a, b);
+    }
 
     ///**
     // * Multiplies two vec4's
@@ -3576,19 +3585,24 @@ public class Vec4
     // * @param {vec4} b the second operand
     // * @returns {vec4} output
     // */
-    //vec4.multiply = function(output, a, b) {
-    //    output[0] = a[0] * b[0];
-    //    output[1] = a[1] * b[1];
-    //    output[2] = a[2] * b[2];
-    //    output[3] = a[3] * b[3];
-    //    return output;
-    //};
+    public static float[] Multiply(float[] output, float[] a, float[] b)
+    {
+        output[0] = a[0] * b[0];
+        output[1] = a[1] * b[1];
+        output[2] = a[2] * b[2];
+        output[3] = a[3] * b[3];
+        return output;
+    }
 
     ///**
     // * Alias for {@link vec4.multiply}
     // * @function
     // */
     //vec4.mul = vec4.multiply;
+    public static float[] Mul(float[] output, float[] a, float[] b)
+    {
+        return Multiply(output, a, b);
+    }
 
     ///**
     // * Divides two vec4's
@@ -3598,19 +3612,24 @@ public class Vec4
     // * @param {vec4} b the second operand
     // * @returns {vec4} output
     // */
-    //vec4.divide = function(output, a, b) {
-    //    output[0] = a[0] / b[0];
-    //    output[1] = a[1] / b[1];
-    //    output[2] = a[2] / b[2];
-    //    output[3] = a[3] / b[3];
-    //    return output;
-    //};
+    public static float[] Divide(float[] output, float[] a, float[] b)
+    {
+        output[0] = a[0] / b[0];
+        output[1] = a[1] / b[1];
+        output[2] = a[2] / b[2];
+        output[3] = a[3] / b[3];
+        return output;
+    }
 
     ///**
     // * Alias for {@link vec4.divide}
     // * @function
     // */
     //vec4.div = vec4.divide;
+    public static float[] Div(float[] output, float[] a, float[] b)
+    {
+        return Divide(output, a, b);
+    }
 
     ///**
     // * Returns the minimum of two vec4's
@@ -3620,13 +3639,14 @@ public class Vec4
     // * @param {vec4} b the second operand
     // * @returns {vec4} output
     // */
-    //vec4.min = function(output, a, b) {
-    //    output[0] = Math.min(a[0], b[0]);
-    //    output[1] = Math.min(a[1], b[1]);
-    //    output[2] = Math.min(a[2], b[2]);
-    //    output[3] = Math.min(a[3], b[3]);
-    //    return output;
-    //};
+    public static float[] Min(float[] output, float[] a, float[] b)
+    {
+        output[0] = Math.min(a[0], b[0]);
+        output[1] = Math.min(a[1], b[1]);
+        output[2] = Math.min(a[2], b[2]);
+        output[3] = Math.min(a[3], b[3]);
+        return output;
+    }
 
     ///**
     // * Returns the maximum of two vec4's
@@ -3636,13 +3656,14 @@ public class Vec4
     // * @param {vec4} b the second operand
     // * @returns {vec4} output
     // */
-    //vec4.max = function(output, a, b) {
-    //    output[0] = Math.max(a[0], b[0]);
-    //    output[1] = Math.max(a[1], b[1]);
-    //    output[2] = Math.max(a[2], b[2]);
-    //    output[3] = Math.max(a[3], b[3]);
-    //    return output;
-    //};
+    public static float[] Max(float[] output, float[] a, float[] b)
+    {
+        output[0] = Math.max(a[0], b[0]);
+        output[1] = Math.max(a[1], b[1]);
+        output[2] = Math.max(a[2], b[2]);
+        output[3] = Math.max(a[3], b[3]);
+        return output;
+    }
 
     ///**
     // * Scales a vec4 by a scalar number
@@ -3652,13 +3673,14 @@ public class Vec4
     // * @param {Number} b amount to scale the vector by
     // * @returns {vec4} output
     // */
-    //vec4.scale = function(output, a, b) {
-    //    output[0] = a[0] * b;
-    //    output[1] = a[1] * b;
-    //    output[2] = a[2] * b;
-    //    output[3] = a[3] * b;
-    //    return output;
-    //};
+    public static float[] Scale(float[] output, float[] a, float b)
+    {
+        output[0] = a[0] * b;
+        output[1] = a[1] * b;
+        output[2] = a[2] * b;
+        output[3] = a[3] * b;
+        return output;
+    }
 
     ///**
     // * Adds two vec4's after scaling the second operand by a scalar value
@@ -3669,13 +3691,14 @@ public class Vec4
     // * @param {Number} scale the amount to scale b by before adding
     // * @returns {vec4} output
     // */
-    //vec4.scaleAndAdd = function(output, a, b, scale) {
-    //    output[0] = a[0] + (b[0] * scale);
-    //    output[1] = a[1] + (b[1] * scale);
-    //    output[2] = a[2] + (b[2] * scale);
-    //    output[3] = a[3] + (b[3] * scale);
-    //    return output;
-    //};
+    public static float[] ScaleAndAdd(float[] output, float[] a, float[] b, float scale)
+    {
+        output[0] = a[0] + (b[0] * scale);
+        output[1] = a[1] + (b[1] * scale);
+        output[2] = a[2] + (b[2] * scale);
+        output[3] = a[3] + (b[3] * scale);
+        return output;
+    }
 
     ///**
     // * Calculates the euclidian distance between two vec4's
@@ -3684,19 +3707,24 @@ public class Vec4
     // * @param {vec4} b the second operand
     // * @returns {Number} distance between a and b
     // */
-    //vec4.distance = function(a, b) {
-    //    var x = b[0] - a[0],
-    //        y = b[1] - a[1],
-    //        z = b[2] - a[2],
-    //        w = b[3] - a[3];
-    //    return Math.sqrt(x*x + y*y + z*z + w*w);
-    //};
+    public static float Distance(float[] a, float[] b)
+    {
+        float x = b[0] - a[0];
+        float y = b[1] - a[1];
+        float z = b[2] - a[2];
+        float w = b[3] - a[3];
+        return Platform.Sqrt(x * x + y * y + z * z + w * w);
+    }
 
     ///**
     // * Alias for {@link vec4.distance}
     // * @function
     // */
     //vec4.dist = vec4.distance;
+    public static float Dist(float[] a, float[] b)
+    {
+        return Distance(a, b);
+    }
 
     ///**
     // * Calculates the squared euclidian distance between two vec4's
@@ -3705,39 +3733,46 @@ public class Vec4
     // * @param {vec4} b the second operand
     // * @returns {Number} squared distance between a and b
     // */
-    //vec4.squaredDistance = function(a, b) {
-    //    var x = b[0] - a[0],
-    //        y = b[1] - a[1],
-    //        z = b[2] - a[2],
-    //        w = b[3] - a[3];
-    //    return x*x + y*y + z*z + w*w;
-    //};
+    public static float SquaredDistance(float[] a, float[] b)
+    {
+        float x = b[0] - a[0];
+        float y = b[1] - a[1];
+        float z = b[2] - a[2];
+        float w = b[3] - a[3];
+        return x * x + y * y + z * z + w * w;
+    }
 
     ///**
     // * Alias for {@link vec4.squaredDistance}
     // * @function
     // */
-    //vec4.sqrDist = vec4.squaredDistance;
-
+    public static float SqrDist(float[] a, float[] b)
+    {
+        return SquaredDistance(a, b);
+    }
     ///**
     // * Calculates the length of a vec4
     // *
     // * @param {vec4} a vector to calculate length of
     // * @returns {Number} length of a
     // */
-    //vec4.length = function (a) {
-    //    var x = a[0],
-    //        y = a[1],
-    //        z = a[2],
-    //        w = a[3];
-    //    return Math.sqrt(x*x + y*y + z*z + w*w);
-    //};
+    public static float Length(float[] a)
+    {
+        float x = a[0];
+        float y = a[1];
+        float z = a[2];
+        float w = a[3];
+        return Platform.Sqrt(x * x + y * y + z * z + w * w);
+    }
 
     ///**
     // * Alias for {@link vec4.length}
     // * @function
     // */
-    //vec4.len = vec4.length;
+    public static float Len(float[] a)
+    {
+        return Length(a);
+    }
 
     ///**
     // * Calculates the squared length of a vec4
@@ -3745,19 +3780,24 @@ public class Vec4
     // * @param {vec4} a vector to calculate squared length of
     // * @returns {Number} squared length of a
     // */
-    //vec4.squaredLength = function (a) {
-    //    var x = a[0],
-    //        y = a[1],
-    //        z = a[2],
-    //        w = a[3];
-    //    return x*x + y*y + z*z + w*w;
-    //};
+    public static float SquaredLength(float[] a)
+    {
+        float x = a[0];
+        float y = a[1];
+        float z = a[2];
+        float w = a[3];
+        return x * x + y * y + z * z + w * w;
+    }
 
     ///**
     // * Alias for {@link vec4.squaredLength}
     // * @function
     // */
     //vec4.sqrLen = vec4.squaredLength;
+    public static float SqrLen(float[] a)
+    {
+        return SquaredLength(a);
+    }
 
     ///**
     // * Negates the components of a vec4
@@ -3766,13 +3806,14 @@ public class Vec4
     // * @param {vec4} a vector to negate
     // * @returns {vec4} output
     // */
-    //vec4.negate = function(output, a) {
-    //    output[0] = -a[0];
-    //    output[1] = -a[1];
-    //    output[2] = -a[2];
-    //    output[3] = -a[3];
-    //    return output;
-    //};
+    public static float[] Negate(float[] output, float[] a)
+    {
+        output[0] = -a[0];
+        output[1] = -a[1];
+        output[2] = -a[2];
+        output[3] = -a[3];
+        return output;
+    }
 
     ///**
     // * Normalize a vec4
@@ -3783,18 +3824,20 @@ public class Vec4
     // */
     public static float[] Normalize(float[] output, float[] a)
     {
-        //    var x = a[0],
-        //        y = a[1],
-        //        z = a[2],
-        //        w = a[3];
-        //    var len = x*x + y*y + z*z + w*w;
-        //    if (len > 0) {
-        //        len = 1 / Math.sqrt(len);
-        //        out[0] = a[0] * len;
-        //        out[1] = a[1] * len;
-        //        out[2] = a[2] * len;
-        //        out[3] = a[3] * len;
-        //    }
+        float x = a[0];
+        float y = a[1];
+        float z = a[2];
+        float w = a[3];
+        float len = x * x + y * y + z * z + w * w;
+        if (len > 0)
+        {
+            float one = 1;
+            len = one / Platform.Sqrt(len);
+            output[0] = a[0] * len;
+            output[1] = a[1] * len;
+            output[2] = a[2] * len;
+            output[3] = a[3] * len;
+        }
         return output;
     }
 
@@ -3805,9 +3848,10 @@ public class Vec4
     // * @param {vec4} b the second operand
     // * @returns {Number} dot product of a and b
     // */
-    //vec4.dot = function (a, b) {
-    //    return a[0] * b[0] + a[1] * b[1] + a[2] * b[2] + a[3] * b[3];
-    //};
+    public static float Dot(float[] a, float[] b)
+    {
+        return a[0] * b[0] + a[1] * b[1] + a[2] * b[2] + a[3] * b[3];
+    }
 
     ///**
     // * Performs a linear interpolation between two vec4's
@@ -3818,17 +3862,18 @@ public class Vec4
     // * @param {Number} t interpolation amount between the two inputs
     // * @returns {vec4} output
     // */
-    //vec4.lerp = function (output, a, b, t) {
-    //    var ax = a[0],
-    //        ay = a[1],
-    //        az = a[2],
-    //        aw = a[3];
-    //    output[0] = ax + t * (b[0] - ax);
-    //    output[1] = ay + t * (b[1] - ay);
-    //    output[2] = az + t * (b[2] - az);
-    //    output[3] = aw + t * (b[3] - aw);
-    //    return output;
-    //};
+    public static float[] Lerp(float[] output, float[] a, float[] b, float t)
+    {
+        float ax = a[0];
+        float ay = a[1];
+        float az = a[2];
+        float aw = a[3];
+        output[0] = ax + t * (b[0] - ax);
+        output[1] = ay + t * (b[1] - ay);
+        output[2] = az + t * (b[2] - az);
+        output[3] = aw + t * (b[3] - aw);
+        return output;
+    }
 
     ///**
     // * Generates a random vector with the given scale
@@ -3837,18 +3882,19 @@ public class Vec4
     // * @param {Number} [scale] Length of the resulting vector. If ommitted, a unit vector will be returned
     // * @returns {vec4} output
     // */
-    //vec4.random = function (output, scale) {
-    //    scale = scale || 1.0;
+    public static float[] Random(float[] output, float scale)
+    {
+        //scale = scale || 1.0;
 
-    //    //TODO: This is a pretty awful way of doing this. Find something better.
-    //    output[0] = GLMAT_RANDOM();
-    //    output[1] = GLMAT_RANDOM();
-    //    output[2] = GLMAT_RANDOM();
-    //    output[3] = GLMAT_RANDOM();
-    //    vec4.normalize(output, output);
-    //    vec4.scale(output, output, scale);
-    //    return output;
-    //};
+        //TODO: This is a pretty awful way of doing this. Find something better.
+        output[0] = Platform.Random();
+        output[1] = Platform.Random();
+        output[2] = Platform.Random();
+        output[3] = Platform.Random();
+        Vec4.Normalize(output, output);
+        Vec4.Scale(output, output, scale);
+        return output;
+    }
 
     ///**
     // * Transforms the vec4 with a mat4.
@@ -3858,14 +3904,15 @@ public class Vec4
     // * @param {mat4} m matrix to transform with
     // * @returns {vec4} output
     // */
-    //vec4.transformMat4 = function(output, a, m) {
-    //    var x = a[0], y = a[1], z = a[2], w = a[3];
-    //    output[0] = m[0] * x + m[4] * y + m[8] * z + m[12] * w;
-    //    output[1] = m[1] * x + m[5] * y + m[9] * z + m[13] * w;
-    //    output[2] = m[2] * x + m[6] * y + m[10] * z + m[14] * w;
-    //    output[3] = m[3] * x + m[7] * y + m[11] * z + m[15] * w;
-    //    return output;
-    //};
+    public static float[] TransformMat4(float[] output, float[] a, float[] m)
+    {
+        float x = a[0]; float y = a[1]; float z = a[2]; float w = a[3];
+        output[0] = m[0] * x + m[4] * y + m[8] * z + m[12] * w;
+        output[1] = m[1] * x + m[5] * y + m[9] * z + m[13] * w;
+        output[2] = m[2] * x + m[6] * y + m[10] * z + m[14] * w;
+        output[3] = m[3] * x + m[7] * y + m[11] * z + m[15] * w;
+        return output;
+    }
 
     ///**
     // * Transforms the vec4 with a quat
@@ -3875,22 +3922,23 @@ public class Vec4
     // * @param {quat} q quaternion to transform with
     // * @returns {vec4} output
     // */
-    //vec4.transformQuat = function(output, a, q) {
-    //    var x = a[0], y = a[1], z = a[2],
-    //        qx = q[0], qy = q[1], qz = q[2], qw = q[3],
+    public static float[] transformQuat(float[] output, float[] a, float[] q)
+    {
+        float x = a[0]; float y = a[1]; float z = a[2];
+        float qx = q[0]; float qy = q[1]; float qz = q[2]; float qw = q[3];
 
-    //        // calculate quat * vec
-    //        ix = qw * x + qy * z - qz * y,
-    //        iy = qw * y + qz * x - qx * z,
-    //        iz = qw * z + qx * y - qy * x,
-    //        iw = -qx * x - qy * y - qz * z;
+        // calculate quat * vec
+        float ix = qw * x + qy * z - qz * y;
+        float iy = qw * y + qz * x - qx * z;
+        float iz = qw * z + qx * y - qy * x;
+        float iw = -qx * x - qy * y - qz * z;
 
-    //    // calculate result * inverse quat
-    //    output[0] = ix * qw + iw * -qx + iy * -qz - iz * -qy;
-    //    output[1] = iy * qw + iw * -qy + iz * -qx - ix * -qz;
-    //    output[2] = iz * qw + iw * -qz + ix * -qy - iy * -qx;
-    //    return output;
-    //};
+        // calculate result * inverse quat
+        output[0] = ix * qw + iw * -qx + iy * -qz - iz * -qy;
+        output[1] = iy * qw + iw * -qy + iz * -qx - ix * -qz;
+        output[2] = iz * qw + iw * -qz + ix * -qy - iy * -qx;
+        return output;
+    }
 
     ///**
     // * Perform some operation over an array of vec4s.

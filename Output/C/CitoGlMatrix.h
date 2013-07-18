@@ -354,7 +354,7 @@ float const *Quat_Multiply(float *output, float const *a, float const *b);
  * **
  * **
  */
-float const *Quat_Normalize(float const *output, float const *a);
+float const *Quat_Normalize(float *output, float const *a);
 
 /**
  * **
@@ -674,37 +674,158 @@ const char *Vec3_str(float const *a);
 
 /**
  * **
- * **
- * **
- * **
- * **
- * **
- * **
- * **
- * **
- * **
- * **
- * **
- * **
- * **
- * **
- * **
- * **
- * **
- * **
- * **
- * **
  */
-float const *Vec4_Normalize(float const *output, float const *a);
+float const *Vec4_Add(float *output, float const *a, float const *b);
 
 /**
  * **
+ */
+float const *Vec4_Clone(float const *a);
+
+/**
  * **
+ */
+float const *Vec4_Copy(float *output, float const *a);
+
+/**
  * **
+ */
+float const *Vec4_Create(void);
+
+/**
  * **
+ */
+float Vec4_Dist(float const *a, float const *b);
+
+/**
+ * **
+ */
+float Vec4_Distance(float const *a, float const *b);
+
+/**
+ * **
+ */
+float const *Vec4_Div(float *output, float const *a, float const *b);
+
+/**
+ * **
+ */
+float const *Vec4_Divide(float *output, float const *a, float const *b);
+
+/**
+ * **
+ */
+float Vec4_Dot(float const *a, float const *b);
+
+/**
+ * **
+ */
+float const *Vec4_FromValues(float x, float y, float z, float w);
+
+/**
+ * **
+ */
+float Vec4_Len(float const *a);
+
+/**
+ * **
+ */
+float Vec4_Length(float const *a);
+
+/**
+ * **
+ */
+float const *Vec4_Lerp(float *output, float const *a, float const *b, float t);
+
+/**
+ * **
+ */
+float const *Vec4_Max(float *output, float const *a, float const *b);
+
+/**
+ * **
+ */
+float const *Vec4_Min(float *output, float const *a, float const *b);
+
+/**
+ * **
+ */
+float const *Vec4_Mul(float *output, float const *a, float const *b);
+
+/**
+ * **
+ */
+float const *Vec4_Multiply(float *output, float const *a, float const *b);
+
+/**
+ * **
+ */
+float const *Vec4_Negate(float *output, float const *a);
+
+/**
+ * **
+ */
+float const *Vec4_Normalize(float *output, float const *a);
+
+/**
+ * **
+ */
+float const *Vec4_Random(float *output, float scale);
+
+/**
+ * **
+ */
+float const *Vec4_Scale(float *output, float const *a, float b);
+
+/**
+ * **
+ */
+float const *Vec4_ScaleAndAdd(float *output, float const *a, float const *b, float scale);
+
+/**
  * **
  */
 float const *Vec4_Set(float *output, float x, float y, float z, float w);
+
+/**
+ * **
+ */
+float Vec4_SqrDist(float const *a, float const *b);
+
+/**
+ * **
+ */
+float Vec4_SqrLen(float const *a);
+
+/**
+ * **
+ */
+float Vec4_SquaredDistance(float const *a, float const *b);
+
+/**
+ * **
+ */
+float Vec4_SquaredLength(float const *a);
+
+/**
+ * **
+ */
+float const *Vec4_Sub(float *output, float const *a, float const *b);
+
+/**
+ * **
+ */
+float const *Vec4_Subtract(float *output, float const *a, float const *b);
+
+/**
+ * **
+ */
+float const *Vec4_TransformMat4(float *output, float const *a, float const *m);
+
+/**
+ * **
+ */
+float const *Vec4_transformQuat(float *output, float const *a, float const *q);
 
 #ifdef __cplusplus
 }

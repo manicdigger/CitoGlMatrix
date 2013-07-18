@@ -3066,43 +3066,335 @@ sub new($) {
 	return $self;
 }
 
-=head2 C<Vec4::normalize(\@output, \@a)>
+=head2 C<Vec4::add(\@output, \@a, \@b)>
 
 **
+
+=cut
+
+sub add($$$) {
+	my ($output, $a, $b) = @_;
+	$output->[0] = $a->[0] + $b->[0];
+	$output->[1] = $a->[1] + $b->[1];
+	$output->[2] = $a->[2] + $b->[2];
+	$output->[3] = $a->[3] + $b->[3];
+	return $output;
+}
+
+=head2 C<Vec4::clone(\@a)>
+
 **
+
+=cut
+
+sub clone($) {
+	my ($a) = @_;
+	my $output = [];
+	$output->[0] = $a->[0];
+	$output->[1] = $a->[1];
+	$output->[2] = $a->[2];
+	$output->[3] = $a->[3];
+	return $output;
+}
+
+=head2 C<Vec4::copy(\@output, \@a)>
+
 **
+
+=cut
+
+sub copy($$) {
+	my ($output, $a) = @_;
+	$output->[0] = $a->[0];
+	$output->[1] = $a->[1];
+	$output->[2] = $a->[2];
+	$output->[3] = $a->[3];
+	return $output;
+}
+
+=head2 C<Vec4::create()>
+
 **
+
+=cut
+
+sub create() {
+	my $output = [];
+	$output->[0] = 0;
+	$output->[1] = 0;
+	$output->[2] = 0;
+	$output->[3] = 0;
+	return $output;
+}
+
+=head2 C<Vec4::dist(\@a, \@b)>
+
 **
+
+=cut
+
+sub dist($$) {
+	my ($a, $b) = @_;
+	return Vec4::distance($a, $b);
+}
+
+=head2 C<Vec4::distance(\@a, \@b)>
+
 **
+
+=cut
+
+sub distance($$) {
+	my ($a, $b) = @_;
+	my $x = $b->[0] - $a->[0];
+	my $y = $b->[1] - $a->[1];
+	my $z = $b->[2] - $a->[2];
+	my $w = $b->[3] - $a->[3];
+	return Platform::sqrt($x * $x + $y * $y + $z * $z + $w * $w);
+}
+
+=head2 C<Vec4::div(\@output, \@a, \@b)>
+
 **
+
+=cut
+
+sub div($$$) {
+	my ($output, $a, $b) = @_;
+	return Vec4::divide($output, $a, $b);
+}
+
+=head2 C<Vec4::divide(\@output, \@a, \@b)>
+
 **
+
+=cut
+
+sub divide($$$) {
+	my ($output, $a, $b) = @_;
+	$output->[0] = $a->[0] / $b->[0];
+	$output->[1] = $a->[1] / $b->[1];
+	$output->[2] = $a->[2] / $b->[2];
+	$output->[3] = $a->[3] / $b->[3];
+	return $output;
+}
+
+=head2 C<Vec4::dot(\@a, \@b)>
+
 **
+
+=cut
+
+sub dot($$) {
+	my ($a, $b) = @_;
+	return $a->[0] * $b->[0] + $a->[1] * $b->[1] + $a->[2] * $b->[2] + $a->[3] * $b->[3];
+}
+
+=head2 C<Vec4::from_values($x, $y, $z, $w)>
+
 **
+
+=cut
+
+sub from_values($$$$) {
+	my ($x, $y, $z, $w) = @_;
+	my $output = [];
+	$output->[0] = $x;
+	$output->[1] = $y;
+	$output->[2] = $z;
+	$output->[3] = $w;
+	return $output;
+}
+
+=head2 C<Vec4::len(\@a)>
+
 **
+
+=cut
+
+sub len($) {
+	my ($a) = @_;
+	return Vec4::length($a);
+}
+
+=head2 C<Vec4::length(\@a)>
+
 **
+
+=cut
+
+sub length($) {
+	my ($a) = @_;
+	my $x = $a->[0];
+	my $y = $a->[1];
+	my $z = $a->[2];
+	my $w = $a->[3];
+	return Platform::sqrt($x * $x + $y * $y + $z * $z + $w * $w);
+}
+
+=head2 C<Vec4::lerp(\@output, \@a, \@b, $t)>
+
 **
+
+=cut
+
+sub lerp($$$$) {
+	my ($output, $a, $b, $t) = @_;
+	my $ax = $a->[0];
+	my $ay = $a->[1];
+	my $az = $a->[2];
+	my $aw = $a->[3];
+	$output->[0] = $ax + $t * ($b->[0] - $ax);
+	$output->[1] = $ay + $t * ($b->[1] - $ay);
+	$output->[2] = $az + $t * ($b->[2] - $az);
+	$output->[3] = $aw + $t * ($b->[3] - $aw);
+	return $output;
+}
+
+=head2 C<Vec4::max(\@output, \@a, \@b)>
+
 **
+
+=cut
+
+sub max($$$) {
+	my ($output, $a, $b) = @_;
+	$output->[0] = Math::max($a->[0], $b->[0]);
+	$output->[1] = Math::max($a->[1], $b->[1]);
+	$output->[2] = Math::max($a->[2], $b->[2]);
+	$output->[3] = Math::max($a->[3], $b->[3]);
+	return $output;
+}
+
+=head2 C<Vec4::min(\@output, \@a, \@b)>
+
 **
+
+=cut
+
+sub min($$$) {
+	my ($output, $a, $b) = @_;
+	$output->[0] = Math::min($a->[0], $b->[0]);
+	$output->[1] = Math::min($a->[1], $b->[1]);
+	$output->[2] = Math::min($a->[2], $b->[2]);
+	$output->[3] = Math::min($a->[3], $b->[3]);
+	return $output;
+}
+
+=head2 C<Vec4::mul(\@output, \@a, \@b)>
+
 **
+
+=cut
+
+sub mul($$$) {
+	my ($output, $a, $b) = @_;
+	return Vec4::multiply($output, $a, $b);
+}
+
+=head2 C<Vec4::multiply(\@output, \@a, \@b)>
+
 **
+
+=cut
+
+sub multiply($$$) {
+	my ($output, $a, $b) = @_;
+	$output->[0] = $a->[0] * $b->[0];
+	$output->[1] = $a->[1] * $b->[1];
+	$output->[2] = $a->[2] * $b->[2];
+	$output->[3] = $a->[3] * $b->[3];
+	return $output;
+}
+
+=head2 C<Vec4::negate(\@output, \@a)>
+
 **
-**
-**
+
+=cut
+
+sub negate($$) {
+	my ($output, $a) = @_;
+	$output->[0] = -$a->[0];
+	$output->[1] = -$a->[1];
+	$output->[2] = -$a->[2];
+	$output->[3] = -$a->[3];
+	return $output;
+}
+
+=head2 C<Vec4::normalize(\@output, \@a)>
+
 **
 
 =cut
 
 sub normalize($$) {
 	my ($output, $a) = @_;
+	my $x = $a->[0];
+	my $y = $a->[1];
+	my $z = $a->[2];
+	my $w = $a->[3];
+	my $len = $x * $x + $y * $y + $z * $z + $w * $w;
+	if ($len > 0) {
+		my $one = 1;
+		$len = $one / Platform::sqrt($len);
+		$output->[0] = $a->[0] * $len;
+		$output->[1] = $a->[1] * $len;
+		$output->[2] = $a->[2] * $len;
+		$output->[3] = $a->[3] * $len;
+	}
+	return $output;
+}
+
+=head2 C<Vec4::random(\@output, $scale)>
+
+**
+
+=cut
+
+sub random($$) {
+	my ($output, $scale) = @_;
+	$output->[0] = Platform::random();
+	$output->[1] = Platform::random();
+	$output->[2] = Platform::random();
+	$output->[3] = Platform::random();
+	Vec4::normalize($output, $output);
+	Vec4::scale($output, $output, $scale);
+	return $output;
+}
+
+=head2 C<Vec4::scale(\@output, \@a, $b)>
+
+**
+
+=cut
+
+sub scale($$$) {
+	my ($output, $a, $b) = @_;
+	$output->[0] = $a->[0] * $b;
+	$output->[1] = $a->[1] * $b;
+	$output->[2] = $a->[2] * $b;
+	$output->[3] = $a->[3] * $b;
+	return $output;
+}
+
+=head2 C<Vec4::scale_and_add(\@output, \@a, \@b, $scale)>
+
+**
+
+=cut
+
+sub scale_and_add($$$$) {
+	my ($output, $a, $b, $scale) = @_;
+	$output->[0] = $a->[0] + $b->[0] * $scale;
+	$output->[1] = $a->[1] + $b->[1] * $scale;
+	$output->[2] = $a->[2] + $b->[2] * $scale;
+	$output->[3] = $a->[3] + $b->[3] * $scale;
 	return $output;
 }
 
 =head2 C<Vec4::set(\@output, $x, $y, $z, $w)>
 
-**
-**
-**
-**
 **
 
 =cut
@@ -3116,8 +3408,130 @@ sub set($$$$$) {
 	return $output;
 }
 
+=head2 C<Vec4::sqr_dist(\@a, \@b)>
+
+**
+
+=cut
+
+sub sqr_dist($$) {
+	my ($a, $b) = @_;
+	return Vec4::squared_distance($a, $b);
+}
+
+=head2 C<Vec4::sqr_len(\@a)>
+
+**
+
+=cut
+
+sub sqr_len($) {
+	my ($a) = @_;
+	return Vec4::squared_length($a);
+}
+
+=head2 C<Vec4::squared_distance(\@a, \@b)>
+
+**
+
+=cut
+
+sub squared_distance($$) {
+	my ($a, $b) = @_;
+	my $x = $b->[0] - $a->[0];
+	my $y = $b->[1] - $a->[1];
+	my $z = $b->[2] - $a->[2];
+	my $w = $b->[3] - $a->[3];
+	return $x * $x + $y * $y + $z * $z + $w * $w;
+}
+
+=head2 C<Vec4::squared_length(\@a)>
+
+**
+
+=cut
+
+sub squared_length($) {
+	my ($a) = @_;
+	my $x = $a->[0];
+	my $y = $a->[1];
+	my $z = $a->[2];
+	my $w = $a->[3];
+	return $x * $x + $y * $y + $z * $z + $w * $w;
+}
+
+=head2 C<Vec4::sub(\@output, \@a, \@b)>
+
+**
+
+=cut
+
+sub sub($$$) {
+	my ($output, $a, $b) = @_;
+	return Vec4::subtract($output, $a, $b);
+}
+
+=head2 C<Vec4::subtract(\@output, \@a, \@b)>
+
+**
+
+=cut
+
+sub subtract($$$) {
+	my ($output, $a, $b) = @_;
+	$output->[0] = $a->[0] - $b->[0];
+	$output->[1] = $a->[1] - $b->[1];
+	$output->[2] = $a->[2] - $b->[2];
+	$output->[3] = $a->[3] - $b->[3];
+	return $output;
+}
+
+=head2 C<Vec4::transform_mat4(\@output, \@a, \@m)>
+
+**
+
+=cut
+
+sub transform_mat4($$$) {
+	my ($output, $a, $m) = @_;
+	my $x = $a->[0];
+	my $y = $a->[1];
+	my $z = $a->[2];
+	my $w = $a->[3];
+	$output->[0] = $m->[0] * $x + $m->[4] * $y + $m->[8] * $z + $m->[12] * $w;
+	$output->[1] = $m->[1] * $x + $m->[5] * $y + $m->[9] * $z + $m->[13] * $w;
+	$output->[2] = $m->[2] * $x + $m->[6] * $y + $m->[10] * $z + $m->[14] * $w;
+	$output->[3] = $m->[3] * $x + $m->[7] * $y + $m->[11] * $z + $m->[15] * $w;
+	return $output;
+}
+
 sub f($) {
 	my ($self) = @_;
+}
+
+=head2 C<Vec4::transform_quat(\@output, \@a, \@q)>
+
+**
+
+=cut
+
+sub transform_quat($$$) {
+	my ($output, $a, $q) = @_;
+	my $x = $a->[0];
+	my $y = $a->[1];
+	my $z = $a->[2];
+	my $qx = $q->[0];
+	my $qy = $q->[1];
+	my $qz = $q->[2];
+	my $qw = $q->[3];
+	my $ix = $qw * $x + $qy * $z - $qz * $y;
+	my $iy = $qw * $y + $qz * $x - $qx * $z;
+	my $iz = $qw * $z + $qx * $y - $qy * $x;
+	my $iw = -$qx * $x - $qy * $y - $qz * $z;
+	$output->[0] = $ix * $qw + $iw * -$qx + $iy * -$qz - $iz * -$qy;
+	$output->[1] = $iy * $qw + $iw * -$qy + $iz * -$qx - $ix * -$qz;
+	$output->[2] = $iz * $qw + $iw * -$qz + $ix * -$qy - $iy * -$qx;
+	return $output;
 }
 
 1;

@@ -3,7 +3,7 @@ CitoGlMatrix
 
 Port of [glMatrix library](http://glmatrix.net/) to [Cito programming language](http://cito.sourceforge.net/).
 
-CitoGlMatrix can be automatically translated to the following languages:
+CitoGlMatrix is automatically translated to the following languages:
 * C89
 * C99
 * Java

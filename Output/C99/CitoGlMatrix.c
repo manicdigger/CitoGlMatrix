@@ -1802,6 +1802,249 @@ float Quat_SquaredLength(float const *a)
 	return Vec4_SquaredLength(a);
 }
 
+float const *Vec2_Add(float *output, float const *a, float const *b)
+{
+	output[0] = a[0] + b[0];
+	output[1] = a[1] + b[1];
+	return output;
+}
+
+float const *Vec2_Clone(float const *a)
+{
+	float *output = (float *) malloc(2 * sizeof(float ));
+	output[0] = a[0];
+	output[1] = a[1];
+	return output;
+}
+
+float const *Vec2_Copy(float *output, float const *a)
+{
+	output[0] = a[0];
+	output[1] = a[1];
+	return output;
+}
+
+float const *Vec2_Create(void)
+{
+	float *output = (float *) malloc(2 * sizeof(float ));
+	output[0] = 0;
+	output[1] = 0;
+	return output;
+}
+
+float const *Vec2_Cross(float *output, float const *a, float const *b)
+{
+	float z = a[0] * b[1] - a[1] * b[0];
+	output[0] = output[1] = 0;
+	output[2] = z;
+	return output;
+}
+
+float Vec2_Dist(float const *a, float const *b)
+{
+	return Vec2_Distance(a, b);
+}
+
+float Vec2_Distance(float const *a, float const *b)
+{
+	float x = b[0] - a[0];
+	float y = b[1] - a[1];
+	return Platform_Sqrt(x * x + y * y);
+}
+
+float const *Vec2_Div(float *output, float const *a, float const *b)
+{
+	return Vec2_Divide(output, a, b);
+}
+
+float const *Vec2_Divide(float *output, float const *a, float const *b)
+{
+	output[0] = a[0] / b[0];
+	output[1] = a[1] / b[1];
+	return output;
+}
+
+float Vec2_Dot(float const *a, float const *b)
+{
+	return a[0] * b[0] + a[1] * b[1];
+}
+
+float const *Vec2_FromValues(float x, float y)
+{
+	float *output = (float *) malloc(2 * sizeof(float ));
+	output[0] = x;
+	output[1] = y;
+	return output;
+}
+
+float Vec2_Len(float const *a)
+{
+	return Vec2_Length(a);
+}
+
+float Vec2_Length(float const *a)
+{
+	float x = a[0];
+	float y = a[1];
+	return Platform_Sqrt(x * x + y * y);
+}
+
+float const *Vec2_Lerp(float *output, float const *a, float const *b, float t)
+{
+	float ax = a[0];
+	float ay = a[1];
+	output[0] = ax + t * (b[0] - ax);
+	output[1] = ay + t * (b[1] - ay);
+	return output;
+}
+
+float const *Vec2_Max(float *output, float const *a, float const *b)
+{
+	output[0] = GlMatrixMath_max(a[0], b[0]);
+	output[1] = GlMatrixMath_max(a[1], b[1]);
+	return output;
+}
+
+float const *Vec2_Min(float *output, float const *a, float const *b)
+{
+	output[0] = GlMatrixMath_min(a[0], b[0]);
+	output[1] = GlMatrixMath_min(a[1], b[1]);
+	return output;
+}
+
+float const *Vec2_Mul(float *output, float const *a, float const *b)
+{
+	return Vec2_Multiply(output, a, b);
+}
+
+float const *Vec2_Multiply(float *output, float const *a, float const *b)
+{
+	output[0] = a[0] * b[0];
+	output[1] = a[1] * b[1];
+	return output;
+}
+
+float const *Vec2_Negate(float *output, float const *a)
+{
+	output[0] = -a[0];
+	output[1] = -a[1];
+	return output;
+}
+
+float const *Vec2_Normalize(float *output, float const *a)
+{
+	float x = a[0];
+	float y = a[1];
+	float len = x * x + y * y;
+	if (len > 0) {
+		len = 1 / Platform_Sqrt(len);
+		output[0] = a[0] * len;
+		output[1] = a[1] * len;
+	}
+	return output;
+}
+
+float const *Vec2_Random(float *output, float scale)
+{
+	float r = Platform_Random() * 2 * GlMatrixMath_PI();
+	output[0] = Platform_Cos(r) * scale;
+	output[1] = Platform_Sin(r) * scale;
+	return output;
+}
+
+float const *Vec2_Scale(float *output, float const *a, float b)
+{
+	output[0] = a[0] * b;
+	output[1] = a[1] * b;
+	return output;
+}
+
+float const *Vec2_ScaleAndAdd(float *output, float const *a, float const *b, float scale)
+{
+	output[0] = a[0] + b[0] * scale;
+	output[1] = a[1] + b[1] * scale;
+	return output;
+}
+
+float const *Vec2_Set(float *output, float x, float y)
+{
+	output[0] = x;
+	output[1] = y;
+	return output;
+}
+
+float Vec2_SqrDist(float const *a, float const *b)
+{
+	return Vec2_SquaredDistance(a, b);
+}
+
+float Vec2_SqrLen(float const *a)
+{
+	return Vec2_SquaredLength(a);
+}
+
+float Vec2_SquaredDistance(float const *a, float const *b)
+{
+	float x = b[0] - a[0];
+	float y = b[1] - a[1];
+	return x * x + y * y;
+}
+
+float Vec2_SquaredLength(float const *a)
+{
+	float x = a[0];
+	float y = a[1];
+	return x * x + y * y;
+}
+
+float const *Vec2_Sub(float *output, float const *a, float const *b)
+{
+	return Vec2_Subtract(output, a, b);
+}
+
+float const *Vec2_Subtract(float *output, float const *a, float const *b)
+{
+	output[0] = a[0] - b[0];
+	output[1] = a[1] - b[1];
+	return output;
+}
+
+float const *Vec2_TransformMat2(float *output, float const *a, float const *m)
+{
+	float x = a[0];
+	float y = a[1];
+	output[0] = m[0] * x + m[2] * y;
+	output[1] = m[1] * x + m[3] * y;
+	return output;
+}
+
+float const *Vec2_TransformMat2d(float *output, float const *a, float const *m)
+{
+	float x = a[0];
+	float y = a[1];
+	output[0] = m[0] * x + m[2] * y + m[4];
+	output[1] = m[1] * x + m[3] * y + m[5];
+	return output;
+}
+
+float const *Vec2_TransformMat3(float *output, float const *a, float const *m)
+{
+	float x = a[0];
+	float y = a[1];
+	output[0] = m[0] * x + m[3] * y + m[6];
+	output[1] = m[1] * x + m[4] * y + m[7];
+	return output;
+}
+
+float const *Vec2_TransformMat4(float *output, float const *a, float const *m)
+{
+	float x = a[0];
+	float y = a[1];
+	output[0] = m[0] * x + m[4] * y + m[12];
+	output[1] = m[1] * x + m[5] * y + m[13];
+	return output;
+}
+
 float const *Vec3_Add(float *output, float const *a, float const *b)
 {
 	output[0] = a[0] + b[0];

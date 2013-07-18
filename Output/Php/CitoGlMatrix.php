@@ -2036,39 +2036,282 @@ class Vec2
 {
 
 	// **
+	static function Add(&$output, &$a, &$b)
+	{
+		$output[0] = $a[0] + $b[0];
+		$output[1] = $a[1] + $b[1];
+		return $output;
+	}
+
 	// **
+	static function Clone(&$a)
+	{
+		$output = array();
+		$output[0] = $a[0];
+		$output[1] = $a[1];
+		return $output;
+	}
+
 	// **
+	static function Copy(&$output, &$a)
+	{
+		$output[0] = $a[0];
+		$output[1] = $a[1];
+		return $output;
+	}
+
 	// **
+	static function Create()
+	{
+		$output = array();
+		$output[0] = 0;
+		$output[1] = 0;
+		return $output;
+	}
+
 	// **
+	static function Cross(&$output, &$a, &$b)
+	{
+		$z = $a[0] * $b[1] - $a[1] * $b[0];
+		$output[0] = $output[1] = 0;
+		$output[2] = $z;
+		return $output;
+	}
+
 	// **
+	static function Dist(&$a, &$b)
+	{
+		return Vec2::Distance($a, $b);
+	}
+
 	// **
+	static function Distance(&$a, &$b)
+	{
+		$x = $b[0] - $a[0];
+		$y = $b[1] - $a[1];
+		return Platform::Sqrt($x * $x + $y * $y);
+	}
+
 	// **
+	static function Div(&$output, &$a, &$b)
+	{
+		return Vec2::Divide($output, $a, $b);
+	}
+
 	// **
+	static function Divide(&$output, &$a, &$b)
+	{
+		$output[0] = $a[0] / $b[0];
+		$output[1] = $a[1] / $b[1];
+		return $output;
+	}
+
 	// **
+	static function Dot(&$a, &$b)
+	{
+		return $a[0] * $b[0] + $a[1] * $b[1];
+	}
+
 	// **
+	static function FromValues($x, $y)
+	{
+		$output = array();
+		$output[0] = $x;
+		$output[1] = $y;
+		return $output;
+	}
+
 	// **
+	static function Len(&$a)
+	{
+		return Vec2::Length($a);
+	}
+
 	// **
+	static function Length(&$a)
+	{
+		$x = $a[0];
+		$y = $a[1];
+		return Platform::Sqrt($x * $x + $y * $y);
+	}
+
 	// **
+	static function Lerp(&$output, &$a, &$b, $t)
+	{
+		$ax = $a[0];
+		$ay = $a[1];
+		$output[0] = $ax + $t * ($b[0] - $ax);
+		$output[1] = $ay + $t * ($b[1] - $ay);
+		return $output;
+	}
+
 	// **
+	static function Max(&$output, &$a, &$b)
+	{
+		$output[0] = GlMatrixMath::max($a[0], $b[0]);
+		$output[1] = GlMatrixMath::max($a[1], $b[1]);
+		return $output;
+	}
+
 	// **
+	static function Min(&$output, &$a, &$b)
+	{
+		$output[0] = GlMatrixMath::min($a[0], $b[0]);
+		$output[1] = GlMatrixMath::min($a[1], $b[1]);
+		return $output;
+	}
+
 	// **
+	static function Mul(&$output, &$a, &$b)
+	{
+		return Vec2::Multiply($output, $a, $b);
+	}
+
 	// **
+	static function Multiply(&$output, &$a, &$b)
+	{
+		$output[0] = $a[0] * $b[0];
+		$output[1] = $a[1] * $b[1];
+		return $output;
+	}
+
 	// **
+	static function Negate(&$output, &$a)
+	{
+		$output[0] = -$a[0];
+		$output[1] = -$a[1];
+		return $output;
+	}
+
 	// **
+	static function Normalize(&$output, &$a)
+	{
+		$x = $a[0];
+		$y = $a[1];
+		$len = $x * $x + $y * $y;
+		if ($len > 0) {
+			$len = 1 / Platform::Sqrt($len);
+			$output[0] = $a[0] * $len;
+			$output[1] = $a[1] * $len;
+		}
+		return $output;
+	}
+
 	// **
+	static function Random(&$output, $scale)
+	{
+		$r = Platform::Random() * 2 * GlMatrixMath::PI();
+		$output[0] = Platform::Cos($r) * $scale;
+		$output[1] = Platform::Sin($r) * $scale;
+		return $output;
+	}
+
 	// **
+	static function Scale(&$output, &$a, $b)
+	{
+		$output[0] = $a[0] * $b;
+		$output[1] = $a[1] * $b;
+		return $output;
+	}
+
 	// **
+	static function ScaleAndAdd(&$output, &$a, &$b, $scale)
+	{
+		$output[0] = $a[0] + $b[0] * $scale;
+		$output[1] = $a[1] + $b[1] * $scale;
+		return $output;
+	}
+
 	// **
+	static function Set(&$output, $x, $y)
+	{
+		$output[0] = $x;
+		$output[1] = $y;
+		return $output;
+	}
+
 	// **
+	static function SqrDist(&$a, &$b)
+	{
+		return Vec2::SquaredDistance($a, $b);
+	}
+
 	// **
+	static function SqrLen(&$a)
+	{
+		return Vec2::SquaredLength($a);
+	}
+
 	// **
+	static function SquaredDistance(&$a, &$b)
+	{
+		$x = $b[0] - $a[0];
+		$y = $b[1] - $a[1];
+		return $x * $x + $y * $y;
+	}
+
 	// **
+	static function SquaredLength(&$a)
+	{
+		$x = $a[0];
+		$y = $a[1];
+		return $x * $x + $y * $y;
+	}
+
 	// **
+	static function Sub(&$output, &$a, &$b)
+	{
+		return Vec2::Subtract($output, $a, $b);
+	}
+
 	// **
+	static function Subtract(&$output, &$a, &$b)
+	{
+		$output[0] = $a[0] - $b[0];
+		$output[1] = $a[1] - $b[1];
+		return $output;
+	}
+
 	// **
+	static function TransformMat2(&$output, &$a, &$m)
+	{
+		$x = $a[0];
+		$y = $a[1];
+		$output[0] = $m[0] * $x + $m[2] * $y;
+		$output[1] = $m[1] * $x + $m[3] * $y;
+		return $output;
+	}
+
 	// **
+	static function TransformMat2d(&$output, &$a, &$m)
+	{
+		$x = $a[0];
+		$y = $a[1];
+		$output[0] = $m[0] * $x + $m[2] * $y + $m[4];
+		$output[1] = $m[1] * $x + $m[3] * $y + $m[5];
+		return $output;
+	}
+
 	// **
+	static function TransformMat3(&$output, &$a, &$m)
+	{
+		$x = $a[0];
+		$y = $a[1];
+		$output[0] = $m[0] * $x + $m[3] * $y + $m[6];
+		$output[1] = $m[1] * $x + $m[4] * $y + $m[7];
+		return $output;
+	}
+
 	// **
+	static function TransformMat4(&$output, &$a, &$m)
+	{
+		$x = $a[0];
+		$y = $a[1];
+		$output[0] = $m[0] * $x + $m[4] * $y + $m[12];
+		$output[1] = $m[1] * $x + $m[5] * $y + $m[13];
+		return $output;
+	}
+
 	// **
 	// **
 	private function f()

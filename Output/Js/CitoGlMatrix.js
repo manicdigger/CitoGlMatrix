@@ -1735,6 +1735,215 @@ function Vec2()
 {
 }
 
+Vec2.add = function(output, a, b) {
+	output[0] = a[0] + b[0];
+	output[1] = a[1] + b[1];
+	return output;
+}
+
+Vec2.clone = function(a) {
+	var output = new Array(2);
+	output[0] = a[0];
+	output[1] = a[1];
+	return output;
+}
+
+Vec2.copy = function(output, a) {
+	output[0] = a[0];
+	output[1] = a[1];
+	return output;
+}
+
+Vec2.create = function() {
+	var output = new Array(2);
+	output[0] = 0;
+	output[1] = 0;
+	return output;
+}
+
+Vec2.cross = function(output, a, b) {
+	var z = a[0] * b[1] - a[1] * b[0];
+	output[0] = output[1] = 0;
+	output[2] = z;
+	return output;
+}
+
+Vec2.dist = function(a, b) {
+	return Vec2.distance(a, b);
+}
+
+Vec2.distance = function(a, b) {
+	var x = b[0] - a[0];
+	var y = b[1] - a[1];
+	return Platform.sqrt(x * x + y * y);
+}
+
+Vec2.div = function(output, a, b) {
+	return Vec2.divide(output, a, b);
+}
+
+Vec2.divide = function(output, a, b) {
+	output[0] = a[0] / (b[0]);
+	output[1] = a[1] / (b[1]);
+	return output;
+}
+
+Vec2.dot = function(a, b) {
+	return a[0] * b[0] + a[1] * b[1];
+}
+
+Vec2.fromValues = function(x, y) {
+	var output = new Array(2);
+	output[0] = x;
+	output[1] = y;
+	return output;
+}
+
+Vec2.len = function(a) {
+	return Vec2.length(a);
+}
+
+Vec2.length = function(a) {
+	var x = a[0];
+	var y = a[1];
+	return Platform.sqrt(x * x + y * y);
+}
+
+Vec2.lerp = function(output, a, b, t) {
+	var ax = a[0];
+	var ay = a[1];
+	output[0] = ax + t * (b[0] - ax);
+	output[1] = ay + t * (b[1] - ay);
+	return output;
+}
+
+Vec2.max = function(output, a, b) {
+	output[0] = GlMatrixMath.max(a[0], b[0]);
+	output[1] = GlMatrixMath.max(a[1], b[1]);
+	return output;
+}
+
+Vec2.min = function(output, a, b) {
+	output[0] = GlMatrixMath.min(a[0], b[0]);
+	output[1] = GlMatrixMath.min(a[1], b[1]);
+	return output;
+}
+
+Vec2.mul = function(output, a, b) {
+	return Vec2.multiply(output, a, b);
+}
+
+Vec2.multiply = function(output, a, b) {
+	output[0] = a[0] * b[0];
+	output[1] = a[1] * b[1];
+	return output;
+}
+
+Vec2.negate = function(output, a) {
+	output[0] = -a[0];
+	output[1] = -a[1];
+	return output;
+}
+
+Vec2.normalize = function(output, a) {
+	var x = a[0];
+	var y = a[1];
+	var len = x * x + y * y;
+	if (len > 0) {
+		len = 1 / (Platform.sqrt(len));
+		output[0] = a[0] * len;
+		output[1] = a[1] * len;
+	}
+	return output;
+}
+
+Vec2.random = function(output, scale) {
+	var r = Platform.random() * 2 * GlMatrixMath.pI();
+	output[0] = Platform.cos(r) * scale;
+	output[1] = Platform.sin(r) * scale;
+	return output;
+}
+
+Vec2.scale = function(output, a, b) {
+	output[0] = a[0] * b;
+	output[1] = a[1] * b;
+	return output;
+}
+
+Vec2.scaleAndAdd = function(output, a, b, scale) {
+	output[0] = a[0] + b[0] * scale;
+	output[1] = a[1] + b[1] * scale;
+	return output;
+}
+
+Vec2.set = function(output, x, y) {
+	output[0] = x;
+	output[1] = y;
+	return output;
+}
+
+Vec2.sqrDist = function(a, b) {
+	return Vec2.squaredDistance(a, b);
+}
+
+Vec2.sqrLen = function(a) {
+	return Vec2.squaredLength(a);
+}
+
+Vec2.squaredDistance = function(a, b) {
+	var x = b[0] - a[0];
+	var y = b[1] - a[1];
+	return x * x + y * y;
+}
+
+Vec2.squaredLength = function(a) {
+	var x = a[0];
+	var y = a[1];
+	return x * x + y * y;
+}
+
+Vec2.sub = function(output, a, b) {
+	return Vec2.subtract(output, a, b);
+}
+
+Vec2.subtract = function(output, a, b) {
+	output[0] = a[0] - b[0];
+	output[1] = a[1] - b[1];
+	return output;
+}
+
+Vec2.transformMat2 = function(output, a, m) {
+	var x = a[0];
+	var y = a[1];
+	output[0] = m[0] * x + m[2] * y;
+	output[1] = m[1] * x + m[3] * y;
+	return output;
+}
+
+Vec2.transformMat2d = function(output, a, m) {
+	var x = a[0];
+	var y = a[1];
+	output[0] = m[0] * x + m[2] * y + m[4];
+	output[1] = m[1] * x + m[3] * y + m[5];
+	return output;
+}
+
+Vec2.transformMat3 = function(output, a, m) {
+	var x = a[0];
+	var y = a[1];
+	output[0] = m[0] * x + m[3] * y + m[6];
+	output[1] = m[1] * x + m[4] * y + m[7];
+	return output;
+}
+
+Vec2.transformMat4 = function(output, a, m) {
+	var x = a[0];
+	var y = a[1];
+	output[0] = m[0] * x + m[4] * y + m[12];
+	output[1] = m[1] * x + m[5] * y + m[13];
+	return output;
+}
+
 Vec2.prototype.f = function() {
 }
 

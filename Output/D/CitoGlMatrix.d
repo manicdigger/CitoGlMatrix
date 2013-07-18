@@ -2057,39 +2057,282 @@ class Vec2
 {
 
 	/// **
+	static const(float)[] Add(float[] output, const(float)[] a, const(float)[] b)
+	{
+		output[0] = a[0] + b[0];
+		output[1] = a[1] + b[1];
+		return output;
+	}
+
 	/// **
+	static const(float)[] Clone(const(float)[] a)
+	{
+		float[] output = new float[2];
+		output[0] = a[0];
+		output[1] = a[1];
+		return output;
+	}
+
 	/// **
+	static const(float)[] Copy(float[] output, const(float)[] a)
+	{
+		output[0] = a[0];
+		output[1] = a[1];
+		return output;
+	}
+
 	/// **
+	static const(float)[] Create()
+	{
+		float[] output = new float[2];
+		output[0] = 0;
+		output[1] = 0;
+		return output;
+	}
+
 	/// **
+	static const(float)[] Cross(float[] output, const(float)[] a, const(float)[] b)
+	{
+		float z = a[0] * b[1] - a[1] * b[0];
+		output[0] = output[1] = 0;
+		output[2] = z;
+		return output;
+	}
+
 	/// **
+	static float Dist(const(float)[] a, const(float)[] b)
+	{
+		return Vec2.Distance(a, b);
+	}
+
 	/// **
+	static float Distance(const(float)[] a, const(float)[] b)
+	{
+		float x = b[0] - a[0];
+		float y = b[1] - a[1];
+		return Platform.Sqrt(x * x + y * y);
+	}
+
 	/// **
+	static const(float)[] Div(float[] output, const(float)[] a, const(float)[] b)
+	{
+		return Vec2.Divide(output, a, b);
+	}
+
 	/// **
+	static const(float)[] Divide(float[] output, const(float)[] a, const(float)[] b)
+	{
+		output[0] = a[0] / b[0];
+		output[1] = a[1] / b[1];
+		return output;
+	}
+
 	/// **
+	static float Dot(const(float)[] a, const(float)[] b)
+	{
+		return a[0] * b[0] + a[1] * b[1];
+	}
+
 	/// **
+	static const(float)[] FromValues(float x, float y)
+	{
+		float[] output = new float[2];
+		output[0] = x;
+		output[1] = y;
+		return output;
+	}
+
 	/// **
+	static float Len(const(float)[] a)
+	{
+		return Vec2.Length(a);
+	}
+
 	/// **
+	static float Length(const(float)[] a)
+	{
+		float x = a[0];
+		float y = a[1];
+		return Platform.Sqrt(x * x + y * y);
+	}
+
 	/// **
+	static const(float)[] Lerp(float[] output, const(float)[] a, const(float)[] b, float t)
+	{
+		float ax = a[0];
+		float ay = a[1];
+		output[0] = ax + t * (b[0] - ax);
+		output[1] = ay + t * (b[1] - ay);
+		return output;
+	}
+
 	/// **
+	static const(float)[] Max(float[] output, const(float)[] a, const(float)[] b)
+	{
+		output[0] = GlMatrixMath.max(a[0], b[0]);
+		output[1] = GlMatrixMath.max(a[1], b[1]);
+		return output;
+	}
+
 	/// **
+	static const(float)[] Min(float[] output, const(float)[] a, const(float)[] b)
+	{
+		output[0] = GlMatrixMath.min(a[0], b[0]);
+		output[1] = GlMatrixMath.min(a[1], b[1]);
+		return output;
+	}
+
 	/// **
+	static const(float)[] Mul(float[] output, const(float)[] a, const(float)[] b)
+	{
+		return Vec2.Multiply(output, a, b);
+	}
+
 	/// **
+	static const(float)[] Multiply(float[] output, const(float)[] a, const(float)[] b)
+	{
+		output[0] = a[0] * b[0];
+		output[1] = a[1] * b[1];
+		return output;
+	}
+
 	/// **
+	static const(float)[] Negate(float[] output, const(float)[] a)
+	{
+		output[0] = -a[0];
+		output[1] = -a[1];
+		return output;
+	}
+
 	/// **
+	static const(float)[] Normalize(float[] output, const(float)[] a)
+	{
+		float x = a[0];
+		float y = a[1];
+		float len = x * x + y * y;
+		if (len > 0) {
+			len = 1 / Platform.Sqrt(len);
+			output[0] = a[0] * len;
+			output[1] = a[1] * len;
+		}
+		return output;
+	}
+
 	/// **
+	static const(float)[] Random(float[] output, float scale)
+	{
+		float r = Platform.Random() * 2 * GlMatrixMath.PI();
+		output[0] = Platform.Cos(r) * scale;
+		output[1] = Platform.Sin(r) * scale;
+		return output;
+	}
+
 	/// **
+	static const(float)[] Scale(float[] output, const(float)[] a, float b)
+	{
+		output[0] = a[0] * b;
+		output[1] = a[1] * b;
+		return output;
+	}
+
 	/// **
+	static const(float)[] ScaleAndAdd(float[] output, const(float)[] a, const(float)[] b, float scale)
+	{
+		output[0] = a[0] + b[0] * scale;
+		output[1] = a[1] + b[1] * scale;
+		return output;
+	}
+
 	/// **
+	static const(float)[] Set(float[] output, float x, float y)
+	{
+		output[0] = x;
+		output[1] = y;
+		return output;
+	}
+
 	/// **
+	static float SqrDist(const(float)[] a, const(float)[] b)
+	{
+		return Vec2.SquaredDistance(a, b);
+	}
+
 	/// **
+	static float SqrLen(const(float)[] a)
+	{
+		return Vec2.SquaredLength(a);
+	}
+
 	/// **
+	static float SquaredDistance(const(float)[] a, const(float)[] b)
+	{
+		float x = b[0] - a[0];
+		float y = b[1] - a[1];
+		return x * x + y * y;
+	}
+
 	/// **
+	static float SquaredLength(const(float)[] a)
+	{
+		float x = a[0];
+		float y = a[1];
+		return x * x + y * y;
+	}
+
 	/// **
+	static const(float)[] Sub(float[] output, const(float)[] a, const(float)[] b)
+	{
+		return Vec2.Subtract(output, a, b);
+	}
+
 	/// **
+	static const(float)[] Subtract(float[] output, const(float)[] a, const(float)[] b)
+	{
+		output[0] = a[0] - b[0];
+		output[1] = a[1] - b[1];
+		return output;
+	}
+
 	/// **
+	static const(float)[] TransformMat2(float[] output, const(float)[] a, const(float)[] m)
+	{
+		float x = a[0];
+		float y = a[1];
+		output[0] = m[0] * x + m[2] * y;
+		output[1] = m[1] * x + m[3] * y;
+		return output;
+	}
+
 	/// **
+	static const(float)[] TransformMat2d(float[] output, const(float)[] a, const(float)[] m)
+	{
+		float x = a[0];
+		float y = a[1];
+		output[0] = m[0] * x + m[2] * y + m[4];
+		output[1] = m[1] * x + m[3] * y + m[5];
+		return output;
+	}
+
 	/// **
+	static const(float)[] TransformMat3(float[] output, const(float)[] a, const(float)[] m)
+	{
+		float x = a[0];
+		float y = a[1];
+		output[0] = m[0] * x + m[3] * y + m[6];
+		output[1] = m[1] * x + m[4] * y + m[7];
+		return output;
+	}
+
 	/// **
+	static const(float)[] TransformMat4(float[] output, const(float)[] a, const(float)[] m)
+	{
+		float x = a[0];
+		float y = a[1];
+		output[0] = m[0] * x + m[4] * y + m[12];
+		output[1] = m[1] * x + m[5] * y + m[13];
+		return output;
+	}
+
 	/// **
 	/// **
 	private final void f()

@@ -2493,12 +2493,13 @@ public class Vec2
     // *
     // * @returns {vec2} a new 2D vector
     // */
-    //vec2.create = function() {
-    //    var output = new GLMAT_ARRAY_TYPE(2);
-    //    output[0] = 0;
-    //    output[1] = 0;
-    //    return output;
-    //};
+    public static float[] Create()
+    {
+        float[] output = new float[2];
+        output[0] = 0;
+        output[1] = 0;
+        return output;
+    }
 
     ///**
     // * Creates a new vec2 initialized with values from an existing vector
@@ -2506,12 +2507,13 @@ public class Vec2
     // * @param {vec2} a vector to clone
     // * @returns {vec2} a new 2D vector
     // */
-    //vec2.clone = function(a) {
-    //    var output = new GLMAT_ARRAY_TYPE(2);
-    //    output[0] = a[0];
-    //    output[1] = a[1];
-    //    return output;
-    //};
+    public static float[] Clone(float[] a)
+    {
+        float[] output = new float[2];
+        output[0] = a[0];
+        output[1] = a[1];
+        return output;
+    }
 
     ///**
     // * Creates a new vec2 initialized with the given values
@@ -2520,12 +2522,13 @@ public class Vec2
     // * @param {Number} y Y component
     // * @returns {vec2} a new 2D vector
     // */
-    //vec2.fromValues = function(x, y) {
-    //    var output = new GLMAT_ARRAY_TYPE(2);
-    //    output[0] = x;
-    //    output[1] = y;
-    //    return output;
-    //};
+    public static float[] FromValues(float x, float y)
+    {
+        float[] output = new float[2];
+        output[0] = x;
+        output[1] = y;
+        return output;
+    }
 
     ///**
     // * Copy the values from one vec2 to another
@@ -2534,11 +2537,12 @@ public class Vec2
     // * @param {vec2} a the source vector
     // * @returns {vec2} output
     // */
-    //vec2.copy = function(output, a) {
-    //    output[0] = a[0];
-    //    output[1] = a[1];
-    //    return output;
-    //};
+    public static float[] Copy(float[] output, float[] a)
+    {
+        output[0] = a[0];
+        output[1] = a[1];
+        return output;
+    }
 
     ///**
     // * Set the components of a vec2 to the given values
@@ -2548,11 +2552,12 @@ public class Vec2
     // * @param {Number} y Y component
     // * @returns {vec2} output
     // */
-    //vec2.set = function(output, x, y) {
-    //    output[0] = x;
-    //    output[1] = y;
-    //    return output;
-    //};
+    public static float[] Set(float[] output, float x, float y)
+    {
+        output[0] = x;
+        output[1] = y;
+        return output;
+    }
 
     ///**
     // * Adds two vec2's
@@ -2562,11 +2567,12 @@ public class Vec2
     // * @param {vec2} b the second operand
     // * @returns {vec2} output
     // */
-    //vec2.add = function(output, a, b) {
-    //    output[0] = a[0] + b[0];
-    //    output[1] = a[1] + b[1];
-    //    return output;
-    //};
+    public static float[] Add(float[] output, float[] a, float[] b)
+    {
+        output[0] = a[0] + b[0];
+        output[1] = a[1] + b[1];
+        return output;
+    }
 
     ///**
     // * Subtracts vector b from vector a
@@ -2576,17 +2582,21 @@ public class Vec2
     // * @param {vec2} b the second operand
     // * @returns {vec2} output
     // */
-    //vec2.subtract = function(output, a, b) {
-    //    output[0] = a[0] - b[0];
-    //    output[1] = a[1] - b[1];
-    //    return output;
-    //};
+    public static float[] Subtract(float[] output, float[] a, float[] b)
+    {
+        output[0] = a[0] - b[0];
+        output[1] = a[1] - b[1];
+        return output;
+    }
 
     ///**
     // * Alias for {@link vec2.subtract}
     // * @function
     // */
-    //vec2.sub = vec2.subtract;
+    public static float[] Sub(float[] output, float[] a, float[] b)
+    {
+        return Subtract(output, a, b);
+    }
 
     ///**
     // * Multiplies two vec2's
@@ -2596,17 +2606,21 @@ public class Vec2
     // * @param {vec2} b the second operand
     // * @returns {vec2} output
     // */
-    //vec2.multiply = function(output, a, b) {
-    //    output[0] = a[0] * b[0];
-    //    output[1] = a[1] * b[1];
-    //    return output;
-    //};
+    public static float[] Multiply(float[] output, float[] a, float[] b)
+    {
+        output[0] = a[0] * b[0];
+        output[1] = a[1] * b[1];
+        return output;
+    }
 
     ///**
     // * Alias for {@link vec2.multiply}
     // * @function
     // */
-    //vec2.mul = vec2.multiply;
+    public static float[] Mul(float[] output, float[] a, float[] b)
+    {
+        return Multiply(output, a, b);
+    }
 
     ///**
     // * Divides two vec2's
@@ -2616,17 +2630,21 @@ public class Vec2
     // * @param {vec2} b the second operand
     // * @returns {vec2} output
     // */
-    //vec2.divide = function(output, a, b) {
-    //    output[0] = a[0] / b[0];
-    //    output[1] = a[1] / b[1];
-    //    return output;
-    //};
+    public static float[] Divide(float[] output, float[] a, float[] b)
+    {
+        output[0] = a[0] / b[0];
+        output[1] = a[1] / b[1];
+        return output;
+    }
 
     ///**
     // * Alias for {@link vec2.divide}
     // * @function
     // */
-    //vec2.div = vec2.divide;
+    public static float[] Div(float[] output, float[] a, float[] b)
+    {
+        return Divide(output, a, b);
+    }
 
     ///**
     // * Returns the minimum of two vec2's
@@ -2636,11 +2654,12 @@ public class Vec2
     // * @param {vec2} b the second operand
     // * @returns {vec2} output
     // */
-    //vec2.min = function(output, a, b) {
-    //    output[0] = Math.min(a[0], b[0]);
-    //    output[1] = Math.min(a[1], b[1]);
-    //    return output;
-    //};
+    public static float[] Min(float[] output, float[] a, float[] b)
+    {
+        output[0] = GlMatrixMath.min(a[0], b[0]);
+        output[1] = GlMatrixMath.min(a[1], b[1]);
+        return output;
+    }
 
     ///**
     // * Returns the maximum of two vec2's
@@ -2650,11 +2669,12 @@ public class Vec2
     // * @param {vec2} b the second operand
     // * @returns {vec2} output
     // */
-    //vec2.max = function(output, a, b) {
-    //    output[0] = Math.max(a[0], b[0]);
-    //    output[1] = Math.max(a[1], b[1]);
-    //    return output;
-    //};
+    public static float[] Max(float[] output, float[] a, float[] b)
+    {
+        output[0] = GlMatrixMath.max(a[0], b[0]);
+        output[1] = GlMatrixMath.max(a[1], b[1]);
+        return output;
+    }
 
     ///**
     // * Scales a vec2 by a scalar number
@@ -2664,11 +2684,12 @@ public class Vec2
     // * @param {Number} b amount to scale the vector by
     // * @returns {vec2} output
     // */
-    //vec2.scale = function(output, a, b) {
-    //    output[0] = a[0] * b;
-    //    output[1] = a[1] * b;
-    //    return output;
-    //};
+    public static float[] Scale(float[] output, float[] a, float b)
+    {
+        output[0] = a[0] * b;
+        output[1] = a[1] * b;
+        return output;
+    }
 
     ///**
     // * Adds two vec2's after scaling the second operand by a scalar value
@@ -2679,11 +2700,12 @@ public class Vec2
     // * @param {Number} scale the amount to scale b by before adding
     // * @returns {vec2} output
     // */
-    //vec2.scaleAndAdd = function(output, a, b, scale) {
-    //    output[0] = a[0] + (b[0] * scale);
-    //    output[1] = a[1] + (b[1] * scale);
-    //    return output;
-    //};
+    public static float[] ScaleAndAdd(float[] output, float[] a, float[] b, float scale)
+    {
+        output[0] = a[0] + (b[0] * scale);
+        output[1] = a[1] + (b[1] * scale);
+        return output;
+    }
 
     ///**
     // * Calculates the euclidian distance between two vec2's
@@ -2692,17 +2714,21 @@ public class Vec2
     // * @param {vec2} b the second operand
     // * @returns {Number} distance between a and b
     // */
-    //vec2.distance = function(a, b) {
-    //    var x = b[0] - a[0],
-    //        y = b[1] - a[1];
-    //    return Math.sqrt(x*x + y*y);
-    //};
+    public static float Distance(float[] a, float[] b)
+    {
+        float x = b[0] - a[0];
+        float y = b[1] - a[1];
+        return Platform.Sqrt(x * x + y * y);
+    }
 
     ///**
     // * Alias for {@link vec2.distance}
     // * @function
     // */
-    //vec2.dist = vec2.distance;
+    public static float Dist(float[] a, float[] b)
+    {
+        return Distance(a, b);
+    }
 
     ///**
     // * Calculates the squared euclidian distance between two vec2's
@@ -2711,17 +2737,22 @@ public class Vec2
     // * @param {vec2} b the second operand
     // * @returns {Number} squared distance between a and b
     // */
-    //vec2.squaredDistance = function(a, b) {
-    //    var x = b[0] - a[0],
-    //        y = b[1] - a[1];
-    //    return x*x + y*y;
-    //};
+    public static float SquaredDistance(float[] a, float[] b)
+    {
+        float x = b[0] - a[0];
+        float y = b[1] - a[1];
+        return x * x + y * y;
+    }
 
     ///**
     // * Alias for {@link vec2.squaredDistance}
     // * @function
     // */
     //vec2.sqrDist = vec2.squaredDistance;
+    public static float SqrDist(float[] a, float[] b)
+    {
+        return SquaredDistance(a, b);
+    }
 
     ///**
     // * Calculates the length of a vec2
@@ -2729,17 +2760,21 @@ public class Vec2
     // * @param {vec2} a vector to calculate length of
     // * @returns {Number} length of a
     // */
-    //vec2.length = function (a) {
-    //    var x = a[0],
-    //        y = a[1];
-    //    return Math.sqrt(x*x + y*y);
-    //};
+    public static float Length(float[] a)
+    {
+        float x = a[0];
+        float y = a[1];
+        return Platform.Sqrt(x * x + y * y);
+    }
 
     ///**
     // * Alias for {@link vec2.length}
     // * @function
     // */
-    //vec2.len = vec2.length;
+    public static float Len(float[] a)
+    {
+        return Length(a);
+    }
 
     ///**
     // * Calculates the squared length of a vec2
@@ -2747,17 +2782,21 @@ public class Vec2
     // * @param {vec2} a vector to calculate squared length of
     // * @returns {Number} squared length of a
     // */
-    //vec2.squaredLength = function (a) {
-    //    var x = a[0],
-    //        y = a[1];
-    //    return x*x + y*y;
-    //};
+    public static float SquaredLength(float[] a)
+    {
+        float x = a[0];
+        float y = a[1];
+        return x * x + y * y;
+    }
 
     ///**
     // * Alias for {@link vec2.squaredLength}
     // * @function
     // */
-    //vec2.sqrLen = vec2.squaredLength;
+    public static float SqrLen(float[] a)
+    {
+        return SquaredLength(a);
+    }
 
     ///**
     // * Negates the components of a vec2
@@ -2766,11 +2805,12 @@ public class Vec2
     // * @param {vec2} a vector to negate
     // * @returns {vec2} output
     // */
-    //vec2.negate = function(output, a) {
-    //    output[0] = -a[0];
-    //    output[1] = -a[1];
-    //    return output;
-    //};
+    public static float[] Negate(float[] output, float[] a)
+    {
+        output[0] = -a[0];
+        output[1] = -a[1];
+        return output;
+    }
 
     ///**
     // * Normalize a vec2
@@ -2779,18 +2819,20 @@ public class Vec2
     // * @param {vec2} a vector to normalize
     // * @returns {vec2} output
     // */
-    //vec2.normalize = function(output, a) {
-    //    var x = a[0],
-    //        y = a[1];
-    //    var len = x*x + y*y;
-    //    if (len > 0) {
-    //        //TODO: evaluate use of glm_invsqrt here?
-    //        len = 1 / Math.sqrt(len);
-    //        output[0] = a[0] * len;
-    //        output[1] = a[1] * len;
-    //    }
-    //    return output;
-    //};
+    public static float[] Normalize(float[] output, float[] a)
+    {
+        float x = a[0];
+        float y = a[1];
+        float len = x * x + y * y;
+        if (len > 0)
+        {
+            //TODO: evaluate use of glm_invsqrt here?
+            len = 1 / Platform.Sqrt(len);
+            output[0] = a[0] * len;
+            output[1] = a[1] * len;
+        }
+        return output;
+    }
 
     ///**
     // * Calculates the dot product of two vec2's
@@ -2799,9 +2841,10 @@ public class Vec2
     // * @param {vec2} b the second operand
     // * @returns {Number} dot product of a and b
     // */
-    //vec2.dot = function (a, b) {
-    //    return a[0] * b[0] + a[1] * b[1];
-    //};
+    public static float Dot(float[] a, float[] b)
+    {
+        return a[0] * b[0] + a[1] * b[1];
+    }
 
     ///**
     // * Computes the cross product of two vec2's
@@ -2812,12 +2855,13 @@ public class Vec2
     // * @param {vec2} b the second operand
     // * @returns {vec3} output
     // */
-    //vec2.cross = function(output, a, b) {
-    //    var z = a[0] * b[1] - a[1] * b[0];
-    //    output[0] = output[1] = 0;
-    //    output[2] = z;
-    //    return output;
-    //};
+    public static float[] Cross(float[] output, float[] a, float[] b)
+    {
+        float z = a[0] * b[1] - a[1] * b[0];
+        output[0] = output[1] = 0;
+        output[2] = z;
+        return output;
+    }
 
     ///**
     // * Performs a linear interpolation between two vec2's
@@ -2828,13 +2872,14 @@ public class Vec2
     // * @param {Number} t interpolation amount between the two inputs
     // * @returns {vec2} output
     // */
-    //vec2.lerp = function (output, a, b, t) {
-    //    var ax = a[0],
-    //        ay = a[1];
-    //    output[0] = ax + t * (b[0] - ax);
-    //    output[1] = ay + t * (b[1] - ay);
-    //    return output;
-    //};
+    public static float[] Lerp(float[] output, float[] a, float[] b, float t)
+    {
+        float ax = a[0];
+        float ay = a[1];
+        output[0] = ax + t * (b[0] - ax);
+        output[1] = ay + t * (b[1] - ay);
+        return output;
+    }
 
     ///**
     // * Generates a random vector with the given scale
@@ -2843,13 +2888,14 @@ public class Vec2
     // * @param {Number} [scale] Length of the resulting vector. If ommitted, a unit vector will be returned
     // * @returns {vec2} output
     // */
-    //vec2.random = function (output, scale) {
-    //    scale = scale || 1.0;
-    //    var r = GLMAT_RANDOM() * 2.0 * Math.PI;
-    //    output[0] = Math.cos(r) * scale;
-    //    output[1] = Math.sin(r) * scale;
-    //    return output;
-    //};
+    public static float[] Random(float[] output, float scale)
+    {
+        //scale = scale || 1.0;
+        float r = Platform.Random() * 2 * GlMatrixMath.PI();
+        output[0] = Platform.Cos(r) * scale;
+        output[1] = Platform.Sin(r) * scale;
+        return output;
+    }
 
     ///**
     // * Transforms the vec2 with a mat2
@@ -2859,13 +2905,14 @@ public class Vec2
     // * @param {mat2} m matrix to transform with
     // * @returns {vec2} output
     // */
-    //vec2.transformMat2 = function(output, a, m) {
-    //    var x = a[0],
-    //        y = a[1];
-    //    output[0] = m[0] * x + m[2] * y;
-    //    output[1] = m[1] * x + m[3] * y;
-    //    return output;
-    //};
+    public static float[] TransformMat2(float[] output, float[] a, float[] m)
+    {
+        float x = a[0];
+        float y = a[1];
+        output[0] = m[0] * x + m[2] * y;
+        output[1] = m[1] * x + m[3] * y;
+        return output;
+    }
 
     ///**
     // * Transforms the vec2 with a mat2d
@@ -2875,13 +2922,14 @@ public class Vec2
     // * @param {mat2d} m matrix to transform with
     // * @returns {vec2} output
     // */
-    //vec2.transformMat2d = function(output, a, m) {
-    //    var x = a[0],
-    //        y = a[1];
-    //    output[0] = m[0] * x + m[2] * y + m[4];
-    //    output[1] = m[1] * x + m[3] * y + m[5];
-    //    return output;
-    //};
+    public static float[] TransformMat2d(float[] output, float[] a, float[] m)
+    {
+        float x = a[0];
+        float y = a[1];
+        output[0] = m[0] * x + m[2] * y + m[4];
+        output[1] = m[1] * x + m[3] * y + m[5];
+        return output;
+    }
 
     ///**
     // * Transforms the vec2 with a mat3
@@ -2892,13 +2940,14 @@ public class Vec2
     // * @param {mat3} m matrix to transform with
     // * @returns {vec2} output
     // */
-    //vec2.transformMat3 = function(output, a, m) {
-    //    var x = a[0],
-    //        y = a[1];
-    //    output[0] = m[0] * x + m[3] * y + m[6];
-    //    output[1] = m[1] * x + m[4] * y + m[7];
-    //    return output;
-    //};
+    public static float[] TransformMat3(float[] output, float[] a, float[] m)
+    {
+        float x = a[0];
+        float y = a[1];
+        output[0] = m[0] * x + m[3] * y + m[6];
+        output[1] = m[1] * x + m[4] * y + m[7];
+        return output;
+    }
 
     ///**
     // * Transforms the vec2 with a mat4
@@ -2910,13 +2959,14 @@ public class Vec2
     // * @param {mat4} m matrix to transform with
     // * @returns {vec2} output
     // */
-    //vec2.transformMat4 = function(output, a, m) {
-    //    var x = a[0], 
-    //        y = a[1];
-    //    output[0] = m[0] * x + m[4] * y + m[12];
-    //    output[1] = m[1] * x + m[5] * y + m[13];
-    //    return output;
-    //};
+    public static float[] TransformMat4(float[] output, float[] a, float[] m)
+    {
+        float x = a[0];
+        float y = a[1];
+        output[0] = m[0] * x + m[4] * y + m[12];
+        output[1] = m[1] * x + m[5] * y + m[13];
+        return output;
+    }
 
     ///**
     // * Perform some operation over an array of vec2s.

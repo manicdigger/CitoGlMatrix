@@ -2921,6 +2921,452 @@ sub new($) {
 	return $self;
 }
 
+=head2 C<Vec2::add(\@output, \@a, \@b)>
+
+**
+
+=cut
+
+sub add($$$) {
+	my ($output, $a, $b) = @_;
+	$output->[0] = $a->[0] + $b->[0];
+	$output->[1] = $a->[1] + $b->[1];
+	return $output;
+}
+
+=head2 C<Vec2::clone(\@a)>
+
+**
+
+=cut
+
+sub clone($) {
+	my ($a) = @_;
+	my $output = [];
+	$output->[0] = $a->[0];
+	$output->[1] = $a->[1];
+	return $output;
+}
+
+=head2 C<Vec2::copy(\@output, \@a)>
+
+**
+
+=cut
+
+sub copy($$) {
+	my ($output, $a) = @_;
+	$output->[0] = $a->[0];
+	$output->[1] = $a->[1];
+	return $output;
+}
+
+=head2 C<Vec2::create()>
+
+**
+
+=cut
+
+sub create() {
+	my $output = [];
+	$output->[0] = 0;
+	$output->[1] = 0;
+	return $output;
+}
+
+=head2 C<Vec2::cross(\@output, \@a, \@b)>
+
+**
+
+=cut
+
+sub cross($$$) {
+	my ($output, $a, $b) = @_;
+	my $z = $a->[0] * $b->[1] - $a->[1] * $b->[0];
+	$output->[0] = $output->[1] = 0;
+	$output->[2] = $z;
+	return $output;
+}
+
+=head2 C<Vec2::dist(\@a, \@b)>
+
+**
+
+=cut
+
+sub dist($$) {
+	my ($a, $b) = @_;
+	return Vec2::distance($a, $b);
+}
+
+=head2 C<Vec2::distance(\@a, \@b)>
+
+**
+
+=cut
+
+sub distance($$) {
+	my ($a, $b) = @_;
+	my $x = $b->[0] - $a->[0];
+	my $y = $b->[1] - $a->[1];
+	return Platform::sqrt($x * $x + $y * $y);
+}
+
+=head2 C<Vec2::div(\@output, \@a, \@b)>
+
+**
+
+=cut
+
+sub div($$$) {
+	my ($output, $a, $b) = @_;
+	return Vec2::divide($output, $a, $b);
+}
+
+=head2 C<Vec2::divide(\@output, \@a, \@b)>
+
+**
+
+=cut
+
+sub divide($$$) {
+	my ($output, $a, $b) = @_;
+	$output->[0] = $a->[0] / $b->[0];
+	$output->[1] = $a->[1] / $b->[1];
+	return $output;
+}
+
+=head2 C<Vec2::dot(\@a, \@b)>
+
+**
+
+=cut
+
+sub dot($$) {
+	my ($a, $b) = @_;
+	return $a->[0] * $b->[0] + $a->[1] * $b->[1];
+}
+
+=head2 C<Vec2::from_values($x, $y)>
+
+**
+
+=cut
+
+sub from_values($$) {
+	my ($x, $y) = @_;
+	my $output = [];
+	$output->[0] = $x;
+	$output->[1] = $y;
+	return $output;
+}
+
+=head2 C<Vec2::len(\@a)>
+
+**
+
+=cut
+
+sub len($) {
+	my ($a) = @_;
+	return Vec2::length($a);
+}
+
+=head2 C<Vec2::length(\@a)>
+
+**
+
+=cut
+
+sub length($) {
+	my ($a) = @_;
+	my $x = $a->[0];
+	my $y = $a->[1];
+	return Platform::sqrt($x * $x + $y * $y);
+}
+
+=head2 C<Vec2::lerp(\@output, \@a, \@b, $t)>
+
+**
+
+=cut
+
+sub lerp($$$$) {
+	my ($output, $a, $b, $t) = @_;
+	my $ax = $a->[0];
+	my $ay = $a->[1];
+	$output->[0] = $ax + $t * ($b->[0] - $ax);
+	$output->[1] = $ay + $t * ($b->[1] - $ay);
+	return $output;
+}
+
+=head2 C<Vec2::max(\@output, \@a, \@b)>
+
+**
+
+=cut
+
+sub max($$$) {
+	my ($output, $a, $b) = @_;
+	$output->[0] = GlMatrixMath::max($a->[0], $b->[0]);
+	$output->[1] = GlMatrixMath::max($a->[1], $b->[1]);
+	return $output;
+}
+
+=head2 C<Vec2::min(\@output, \@a, \@b)>
+
+**
+
+=cut
+
+sub min($$$) {
+	my ($output, $a, $b) = @_;
+	$output->[0] = GlMatrixMath::min($a->[0], $b->[0]);
+	$output->[1] = GlMatrixMath::min($a->[1], $b->[1]);
+	return $output;
+}
+
+=head2 C<Vec2::mul(\@output, \@a, \@b)>
+
+**
+
+=cut
+
+sub mul($$$) {
+	my ($output, $a, $b) = @_;
+	return Vec2::multiply($output, $a, $b);
+}
+
+=head2 C<Vec2::multiply(\@output, \@a, \@b)>
+
+**
+
+=cut
+
+sub multiply($$$) {
+	my ($output, $a, $b) = @_;
+	$output->[0] = $a->[0] * $b->[0];
+	$output->[1] = $a->[1] * $b->[1];
+	return $output;
+}
+
+=head2 C<Vec2::negate(\@output, \@a)>
+
+**
+
+=cut
+
+sub negate($$) {
+	my ($output, $a) = @_;
+	$output->[0] = -$a->[0];
+	$output->[1] = -$a->[1];
+	return $output;
+}
+
+=head2 C<Vec2::normalize(\@output, \@a)>
+
+**
+
+=cut
+
+sub normalize($$) {
+	my ($output, $a) = @_;
+	my $x = $a->[0];
+	my $y = $a->[1];
+	my $len = $x * $x + $y * $y;
+	if ($len > 0) {
+		$len = 1 / Platform::sqrt($len);
+		$output->[0] = $a->[0] * $len;
+		$output->[1] = $a->[1] * $len;
+	}
+	return $output;
+}
+
+=head2 C<Vec2::random(\@output, $scale)>
+
+**
+
+=cut
+
+sub random($$) {
+	my ($output, $scale) = @_;
+	my $r = Platform::random() * 2 * GlMatrixMath::p_i();
+	$output->[0] = Platform::cos($r) * $scale;
+	$output->[1] = Platform::sin($r) * $scale;
+	return $output;
+}
+
+=head2 C<Vec2::scale(\@output, \@a, $b)>
+
+**
+
+=cut
+
+sub scale($$$) {
+	my ($output, $a, $b) = @_;
+	$output->[0] = $a->[0] * $b;
+	$output->[1] = $a->[1] * $b;
+	return $output;
+}
+
+=head2 C<Vec2::scale_and_add(\@output, \@a, \@b, $scale)>
+
+**
+
+=cut
+
+sub scale_and_add($$$$) {
+	my ($output, $a, $b, $scale) = @_;
+	$output->[0] = $a->[0] + $b->[0] * $scale;
+	$output->[1] = $a->[1] + $b->[1] * $scale;
+	return $output;
+}
+
+=head2 C<Vec2::set(\@output, $x, $y)>
+
+**
+
+=cut
+
+sub set($$$) {
+	my ($output, $x, $y) = @_;
+	$output->[0] = $x;
+	$output->[1] = $y;
+	return $output;
+}
+
+=head2 C<Vec2::sqr_dist(\@a, \@b)>
+
+**
+
+=cut
+
+sub sqr_dist($$) {
+	my ($a, $b) = @_;
+	return Vec2::squared_distance($a, $b);
+}
+
+=head2 C<Vec2::sqr_len(\@a)>
+
+**
+
+=cut
+
+sub sqr_len($) {
+	my ($a) = @_;
+	return Vec2::squared_length($a);
+}
+
+=head2 C<Vec2::squared_distance(\@a, \@b)>
+
+**
+
+=cut
+
+sub squared_distance($$) {
+	my ($a, $b) = @_;
+	my $x = $b->[0] - $a->[0];
+	my $y = $b->[1] - $a->[1];
+	return $x * $x + $y * $y;
+}
+
+=head2 C<Vec2::squared_length(\@a)>
+
+**
+
+=cut
+
+sub squared_length($) {
+	my ($a) = @_;
+	my $x = $a->[0];
+	my $y = $a->[1];
+	return $x * $x + $y * $y;
+}
+
+=head2 C<Vec2::sub(\@output, \@a, \@b)>
+
+**
+
+=cut
+
+sub sub($$$) {
+	my ($output, $a, $b) = @_;
+	return Vec2::subtract($output, $a, $b);
+}
+
+=head2 C<Vec2::subtract(\@output, \@a, \@b)>
+
+**
+
+=cut
+
+sub subtract($$$) {
+	my ($output, $a, $b) = @_;
+	$output->[0] = $a->[0] - $b->[0];
+	$output->[1] = $a->[1] - $b->[1];
+	return $output;
+}
+
+=head2 C<Vec2::transform_mat2(\@output, \@a, \@m)>
+
+**
+
+=cut
+
+sub transform_mat2($$$) {
+	my ($output, $a, $m) = @_;
+	my $x = $a->[0];
+	my $y = $a->[1];
+	$output->[0] = $m->[0] * $x + $m->[2] * $y;
+	$output->[1] = $m->[1] * $x + $m->[3] * $y;
+	return $output;
+}
+
+=head2 C<Vec2::transform_mat2d(\@output, \@a, \@m)>
+
+**
+
+=cut
+
+sub transform_mat2d($$$) {
+	my ($output, $a, $m) = @_;
+	my $x = $a->[0];
+	my $y = $a->[1];
+	$output->[0] = $m->[0] * $x + $m->[2] * $y + $m->[4];
+	$output->[1] = $m->[1] * $x + $m->[3] * $y + $m->[5];
+	return $output;
+}
+
+=head2 C<Vec2::transform_mat3(\@output, \@a, \@m)>
+
+**
+
+=cut
+
+sub transform_mat3($$$) {
+	my ($output, $a, $m) = @_;
+	my $x = $a->[0];
+	my $y = $a->[1];
+	$output->[0] = $m->[0] * $x + $m->[3] * $y + $m->[6];
+	$output->[1] = $m->[1] * $x + $m->[4] * $y + $m->[7];
+	return $output;
+}
+
+=head2 C<Vec2::transform_mat4(\@output, \@a, \@m)>
+
+**
+
+=cut
+
+sub transform_mat4($$$) {
+	my ($output, $a, $m) = @_;
+	my $x = $a->[0];
+	my $y = $a->[1];
+	$output->[0] = $m->[0] * $x + $m->[4] * $y + $m->[12];
+	$output->[1] = $m->[1] * $x + $m->[5] * $y + $m->[13];
+	return $output;
+}
+
 sub f($) {
 	my ($self) = @_;
 }

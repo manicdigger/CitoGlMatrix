@@ -585,6 +585,176 @@ float Quat_SqrLen(float const *a);
 float Quat_SquaredLength(float const *a);
 
 /**
+ * **
+ */
+float const *Vec2_Add(float *output, float const *a, float const *b);
+
+/**
+ * **
+ */
+float const *Vec2_Clone(float const *a);
+
+/**
+ * **
+ */
+float const *Vec2_Copy(float *output, float const *a);
+
+/**
+ * **
+ */
+float const *Vec2_Create(void);
+
+/**
+ * **
+ */
+float const *Vec2_Cross(float *output, float const *a, float const *b);
+
+/**
+ * **
+ */
+float Vec2_Dist(float const *a, float const *b);
+
+/**
+ * **
+ */
+float Vec2_Distance(float const *a, float const *b);
+
+/**
+ * **
+ */
+float const *Vec2_Div(float *output, float const *a, float const *b);
+
+/**
+ * **
+ */
+float const *Vec2_Divide(float *output, float const *a, float const *b);
+
+/**
+ * **
+ */
+float Vec2_Dot(float const *a, float const *b);
+
+/**
+ * **
+ */
+float const *Vec2_FromValues(float x, float y);
+
+/**
+ * **
+ */
+float Vec2_Len(float const *a);
+
+/**
+ * **
+ */
+float Vec2_Length(float const *a);
+
+/**
+ * **
+ */
+float const *Vec2_Lerp(float *output, float const *a, float const *b, float t);
+
+/**
+ * **
+ */
+float const *Vec2_Max(float *output, float const *a, float const *b);
+
+/**
+ * **
+ */
+float const *Vec2_Min(float *output, float const *a, float const *b);
+
+/**
+ * **
+ */
+float const *Vec2_Mul(float *output, float const *a, float const *b);
+
+/**
+ * **
+ */
+float const *Vec2_Multiply(float *output, float const *a, float const *b);
+
+/**
+ * **
+ */
+float const *Vec2_Negate(float *output, float const *a);
+
+/**
+ * **
+ */
+float const *Vec2_Normalize(float *output, float const *a);
+
+/**
+ * **
+ */
+float const *Vec2_Random(float *output, float scale);
+
+/**
+ * **
+ */
+float const *Vec2_Scale(float *output, float const *a, float b);
+
+/**
+ * **
+ */
+float const *Vec2_ScaleAndAdd(float *output, float const *a, float const *b, float scale);
+
+/**
+ * **
+ */
+float const *Vec2_Set(float *output, float x, float y);
+
+/**
+ * **
+ */
+float Vec2_SqrDist(float const *a, float const *b);
+
+/**
+ * **
+ */
+float Vec2_SqrLen(float const *a);
+
+/**
+ * **
+ */
+float Vec2_SquaredDistance(float const *a, float const *b);
+
+/**
+ * **
+ */
+float Vec2_SquaredLength(float const *a);
+
+/**
+ * **
+ */
+float const *Vec2_Sub(float *output, float const *a, float const *b);
+
+/**
+ * **
+ */
+float const *Vec2_Subtract(float *output, float const *a, float const *b);
+
+/**
+ * **
+ */
+float const *Vec2_TransformMat2(float *output, float const *a, float const *m);
+
+/**
+ * **
+ */
+float const *Vec2_TransformMat2d(float *output, float const *a, float const *m);
+
+/**
+ * **
+ */
+float const *Vec2_TransformMat3(float *output, float const *a, float const *m);
+
+/**
+ * **
+ */
+float const *Vec2_TransformMat4(float *output, float const *a, float const *m);
+
+/**
  * Adds two vec3's
  * @returns {vec3} out
  * @param output /@param {vec3} out the receiving vector

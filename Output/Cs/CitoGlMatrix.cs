@@ -2042,41 +2042,284 @@ public class Quat
 public class Vec2
 {
 
+	/// <summary>**</summary>
+	public static float[] Add(float[] output, float[] a, float[] b)
+	{
+		output[0] = a[0] + b[0];
+		output[1] = a[1] + b[1];
+		return output;
+	}
+
+	/// <summary>**</summary>
+	public static float[] Clone(float[] a)
+	{
+		float[] output = new float[2];
+		output[0] = a[0];
+		output[1] = a[1];
+		return output;
+	}
+
+	/// <summary>**</summary>
+	public static float[] Copy(float[] output, float[] a)
+	{
+		output[0] = a[0];
+		output[1] = a[1];
+		return output;
+	}
+
+	/// <summary>**</summary>
+	public static float[] Create()
+	{
+		float[] output = new float[2];
+		output[0] = 0;
+		output[1] = 0;
+		return output;
+	}
+
+	/// <summary>**</summary>
+	public static float[] Cross(float[] output, float[] a, float[] b)
+	{
+		float z = a[0] * b[1] - a[1] * b[0];
+		output[0] = output[1] = 0;
+		output[2] = z;
+		return output;
+	}
+
+	/// <summary>**</summary>
+	public static float Dist(float[] a, float[] b)
+	{
+		return Vec2.Distance(a, b);
+	}
+
+	/// <summary>**</summary>
+	public static float Distance(float[] a, float[] b)
+	{
+		float x = b[0] - a[0];
+		float y = b[1] - a[1];
+		return Platform.Sqrt(x * x + y * y);
+	}
+
+	/// <summary>**</summary>
+	public static float[] Div(float[] output, float[] a, float[] b)
+	{
+		return Vec2.Divide(output, a, b);
+	}
+
+	/// <summary>**</summary>
+	public static float[] Divide(float[] output, float[] a, float[] b)
+	{
+		output[0] = a[0] / b[0];
+		output[1] = a[1] / b[1];
+		return output;
+	}
+
+	/// <summary>**</summary>
+	public static float Dot(float[] a, float[] b)
+	{
+		return a[0] * b[0] + a[1] * b[1];
+	}
+
+	/// <summary>**</summary>
+	public static float[] FromValues(float x, float y)
+	{
+		float[] output = new float[2];
+		output[0] = x;
+		output[1] = y;
+		return output;
+	}
+
+	/// <summary>**</summary>
+	public static float Len(float[] a)
+	{
+		return Vec2.Length(a);
+	}
+
+	/// <summary>**</summary>
+	public static float Length(float[] a)
+	{
+		float x = a[0];
+		float y = a[1];
+		return Platform.Sqrt(x * x + y * y);
+	}
+
+	/// <summary>**</summary>
+	public static float[] Lerp(float[] output, float[] a, float[] b, float t)
+	{
+		float ax = a[0];
+		float ay = a[1];
+		output[0] = ax + t * (b[0] - ax);
+		output[1] = ay + t * (b[1] - ay);
+		return output;
+	}
+
+	/// <summary>**</summary>
+	public static float[] Max(float[] output, float[] a, float[] b)
+	{
+		output[0] = GlMatrixMath.max(a[0], b[0]);
+		output[1] = GlMatrixMath.max(a[1], b[1]);
+		return output;
+	}
+
+	/// <summary>**</summary>
+	public static float[] Min(float[] output, float[] a, float[] b)
+	{
+		output[0] = GlMatrixMath.min(a[0], b[0]);
+		output[1] = GlMatrixMath.min(a[1], b[1]);
+		return output;
+	}
+
+	/// <summary>**</summary>
+	public static float[] Mul(float[] output, float[] a, float[] b)
+	{
+		return Vec2.Multiply(output, a, b);
+	}
+
+	/// <summary>**</summary>
+	public static float[] Multiply(float[] output, float[] a, float[] b)
+	{
+		output[0] = a[0] * b[0];
+		output[1] = a[1] * b[1];
+		return output;
+	}
+
+	/// <summary>**</summary>
+	public static float[] Negate(float[] output, float[] a)
+	{
+		output[0] = -a[0];
+		output[1] = -a[1];
+		return output;
+	}
+
+	/// <summary>**</summary>
+	public static float[] Normalize(float[] output, float[] a)
+	{
+		float x = a[0];
+		float y = a[1];
+		float len = x * x + y * y;
+		if (len > 0) {
+			len = 1 / Platform.Sqrt(len);
+			output[0] = a[0] * len;
+			output[1] = a[1] * len;
+		}
+		return output;
+	}
+
+	/// <summary>**</summary>
+	public static float[] Random(float[] output, float scale)
+	{
+		float r = Platform.Random() * 2 * GlMatrixMath.PI();
+		output[0] = Platform.Cos(r) * scale;
+		output[1] = Platform.Sin(r) * scale;
+		return output;
+	}
+
+	/// <summary>**</summary>
+	public static float[] Scale(float[] output, float[] a, float b)
+	{
+		output[0] = a[0] * b;
+		output[1] = a[1] * b;
+		return output;
+	}
+
+	/// <summary>**</summary>
+	public static float[] ScaleAndAdd(float[] output, float[] a, float[] b, float scale)
+	{
+		output[0] = a[0] + b[0] * scale;
+		output[1] = a[1] + b[1] * scale;
+		return output;
+	}
+
+	/// <summary>**</summary>
+	public static float[] Set(float[] output, float x, float y)
+	{
+		output[0] = x;
+		output[1] = y;
+		return output;
+	}
+
+	/// <summary>**</summary>
+	public static float SqrDist(float[] a, float[] b)
+	{
+		return Vec2.SquaredDistance(a, b);
+	}
+
+	/// <summary>**</summary>
+	public static float SqrLen(float[] a)
+	{
+		return Vec2.SquaredLength(a);
+	}
+
+	/// <summary>**</summary>
+	public static float SquaredDistance(float[] a, float[] b)
+	{
+		float x = b[0] - a[0];
+		float y = b[1] - a[1];
+		return x * x + y * y;
+	}
+
+	/// <summary>**</summary>
+	public static float SquaredLength(float[] a)
+	{
+		float x = a[0];
+		float y = a[1];
+		return x * x + y * y;
+	}
+
+	/// <summary>**</summary>
+	public static float[] Sub(float[] output, float[] a, float[] b)
+	{
+		return Vec2.Subtract(output, a, b);
+	}
+
+	/// <summary>**</summary>
+	public static float[] Subtract(float[] output, float[] a, float[] b)
+	{
+		output[0] = a[0] - b[0];
+		output[1] = a[1] - b[1];
+		return output;
+	}
+
+	/// <summary>**</summary>
+	public static float[] TransformMat2(float[] output, float[] a, float[] m)
+	{
+		float x = a[0];
+		float y = a[1];
+		output[0] = m[0] * x + m[2] * y;
+		output[1] = m[1] * x + m[3] * y;
+		return output;
+	}
+
+	/// <summary>**</summary>
+	public static float[] TransformMat2d(float[] output, float[] a, float[] m)
+	{
+		float x = a[0];
+		float y = a[1];
+		output[0] = m[0] * x + m[2] * y + m[4];
+		output[1] = m[1] * x + m[3] * y + m[5];
+		return output;
+	}
+
+	/// <summary>**</summary>
+	public static float[] TransformMat3(float[] output, float[] a, float[] m)
+	{
+		float x = a[0];
+		float y = a[1];
+		output[0] = m[0] * x + m[3] * y + m[6];
+		output[1] = m[1] * x + m[4] * y + m[7];
+		return output;
+	}
+
+	/// <summary>**</summary>
+	public static float[] TransformMat4(float[] output, float[] a, float[] m)
+	{
+		float x = a[0];
+		float y = a[1];
+		output[0] = m[0] * x + m[4] * y + m[12];
+		output[1] = m[1] * x + m[5] * y + m[13];
+		return output;
+	}
+
 	/// <summary>**
-	/// **
-	/// **
-	/// **
-	/// **
-	/// **
-	/// **
-	/// **
-	/// **
-	/// **
-	/// **
-	/// **
-	/// **
-	/// **
-	/// **
-	/// **
-	/// **
-	/// **
-	/// **
-	/// **
-	/// **
-	/// **
-	/// **
-	/// **
-	/// **
-	/// **
-	/// **
-	/// **
-	/// **
-	/// **
-	/// **
-	/// **
-	/// **
-	/// **
-	/// **
 	/// **</summary>
 	void f()
 	{

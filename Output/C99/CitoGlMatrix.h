@@ -14,6 +14,47 @@ typedef struct Vec2 Vec2;
 typedef struct Vec3 Vec3;
 typedef struct Vec4 Vec4;
 
+/**
+ * Creates a new mat4 initialized with values from an existing matrix
+ * Returns {mat4} a new 4x4 matrix
+ * @param a {mat4} a matrix to clone
+ */
+float const *Mat4_Clone(float const *a);
+
+/**
+ * Copy the values from one mat4 to another
+ * Returns {mat4} out
+ * @param output {mat4} out the receiving matrix
+ * @param a {mat4} a the source matrix
+ */
+float const *Mat4_Copy(float *output, float const *a);
+
+/**
+ * Creates a new identity mat4
+ * Returns {mat4} a new 4x4 matrix
+ */
+float const *Mat4_Create(void);
+
+/**
+ * Set a mat4 to the identity matrix
+ * Returns {mat4} out
+ * @param output {mat4} out the receiving matrix
+ */
+float const *Mat4_Identity(float *output);
+
+/**
+ * Inverts a mat4
+ */
+float const *Mat4_Invert(float *output, float const *a);
+
+/**
+ * Transpose the values of a mat4
+ * @returns {mat4} out
+ * @param output @param {mat4} out the receiving matrix
+ * @param a @param {mat4} a the source matrix
+ */
+float const *Mat4_Transpose(float *output, float const *a);
+
 float Math_PI(void);
 
 float Math_max(float a, float b);

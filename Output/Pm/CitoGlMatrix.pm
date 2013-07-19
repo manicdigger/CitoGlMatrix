@@ -2345,12 +2345,12 @@ sub acos($) {
 	return 0;
 }
 
-=head2 C<Platform::cos($r)>
+=head2 C<Platform::cos($a)>
 
 =cut
 
 sub cos($) {
-	my ($r) = @_;
+	my ($a) = @_;
 	return 0;
 }
 
@@ -2362,12 +2362,12 @@ sub random() {
 	return 0;
 }
 
-=head2 C<Platform::sin($r)>
+=head2 C<Platform::sin($a)>
 
 =cut
 
 sub sin($) {
-	my ($r) = @_;
+	my ($a) = @_;
 	return 0;
 }
 
@@ -2380,12 +2380,12 @@ sub sqrt($) {
 	return 0;
 }
 
-=head2 C<Platform::tan($p)>
+=head2 C<Platform::tan($a)>
 
 =cut
 
 sub tan($) {
-	my ($p) = @_;
+	my ($a) = @_;
 	return 0;
 }
 

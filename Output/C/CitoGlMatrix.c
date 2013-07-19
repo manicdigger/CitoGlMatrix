@@ -1451,12 +1451,16 @@ float const *Mat4_Transpose(float *output, float const *a)
 
 float Platform_Acos(float a)
 {
-	return 0;
+	
+            return acos(a);
+        return 0;
 }
 
-float Platform_Cos(float r)
+float Platform_Cos(float a)
 {
-	return 0;
+	
+            return cos(a);
+        return 0;
 }
 
 float Platform_Random(void)
@@ -1464,19 +1468,25 @@ float Platform_Random(void)
 	return 0;
 }
 
-float Platform_Sin(float r)
+float Platform_Sin(float a)
 {
-	return 0;
+	
+            return sin(a);
+        return 0;
 }
 
 float Platform_Sqrt(float a)
 {
-	return 0;
+	
+            return sqrt(a);
+        return 0;
 }
 
-float Platform_Tan(float p)
+float Platform_Tan(float a)
 {
-	return 0;
+	
+            return tan(a);
+        return 0;
 }
 
 float const *Quat_Add(float *output, float const *a, float const *b)

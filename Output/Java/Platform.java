@@ -9,7 +9,7 @@ public class Platform
 		return 0;
 	}
 
-	public static float cos(float r)
+	public static float cos(float a)
 	{
 		return 0;
 	}
@@ -19,7 +19,7 @@ public class Platform
 		return 0;
 	}
 
-	public static float sin(float r)
+	public static float sin(float a)
 	{
 		return 0;
 	}
@@ -29,7 +29,7 @@ public class Platform
 		return 0;
 	}
 
-	public static float tan(float p)
+	public static float tan(float a)
 	{
 		return 0;
 	}

@@ -1641,7 +1641,7 @@ class Platform
 		return 0;
 	}
 
-	static function Cos($r)
+	static function Cos($a)
 	{
 		return 0;
 	}
@@ -1651,7 +1651,7 @@ class Platform
 		return 0;
 	}
 
-	static function Sin($r)
+	static function Sin($a)
 	{
 		return 0;
 	}
@@ -1661,7 +1661,7 @@ class Platform
 		return 0;
 	}
 
-	static function Tan($p)
+	static function Tan($a)
 	{
 		return 0;
 	}

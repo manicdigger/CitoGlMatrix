@@ -4143,17 +4143,22 @@ public class Platform
             return (float)System.Math.Sqrt(a);
         }
         return 0;
-#else
-        return 0;
-#endif
-    }
-
-    public static float Cos(float r)
-    {
-#if CS
+#elif JS
         native
         {
-            return (float)System.Math.Cos(r);
+            return Math.sqrt(a);
+        }
+        return 0;
+#elif C
+        native
+        {
+            return sqrt(a);
+        }
+        return 0;
+#elif C99
+        native
+        {
+            return sqrt(a);
         }
         return 0;
 #else
@@ -4161,29 +4166,97 @@ public class Platform
 #endif
     }
 
-    public static float Sin(float r)
+    public static float Cos(float a)
     {
 #if CS
         native
         {
-            return (float)System.Math.Sin(r);
+            return (float)System.Math.Cos(a);
+        }
+        return 0;
+#elif JS
+        native
+        {
+            return Math.cos(a);
+        }
+        return 0;
+#elif C
+        native
+        {
+            return cos(a);
+        }
+        return 0;
+#elif C99
+        native
+        {
+            return cos(a);
         }
         return 0;
 #else
         return 0;
 #endif
     }
+
+    public static float Sin(float a)
+    {
+#if CS
+        native
+        {
+            return (float)System.Math.Sin(a);
+        }
+        return 0;
+#elif JS
+        native
+        {
+            return Math.sin(a);
+        }
+        return 0;
+#elif C
+        native
+        {
+            return sin(a);
+        }
+        return 0;
+#elif C99
+        native
+        {
+            return sin(a);
+        }
+        return 0;
+#else
+        return 0;
+#endif
+    }
+
     public static float Random()
     {
         return 0;
     }
 
-    public static float Tan(float p)
+    public static float Tan(float a)
     {
 #if CS
         native
         {
-            return (float)System.Math.Tan(p);
+            return (float)System.Math.Tan(a);
+        }
+        return 0;
+#elif JS
+        native
+        {
+            return Math.tan(a);
+        }
+        return 0;
+#elif C
+        native
+        {
+            return tan(a);
+        }
+        return 0;
+#elif C99
+        native
+        {
+            return tan(a);
         }
         return 0;
 #else
@@ -4193,7 +4266,33 @@ public class Platform
 
     public static float Acos(float a)
     {
+#if CS
+        native
+        {
+            return (float)System.Math.Acos(a);
+        }
         return 0;
+#elif JS
+        native
+        {
+            return Math.acos(a);
+        }
+        return 0;
+#elif C
+        native
+        {
+            return acos(a);
+        }
+        return 0;
+#elif C99
+        native
+        {
+            return acos(a);
+        }
+        return 0;
+#else
+        return 0;
+#endif
     }
 }
 
@@ -4253,37 +4352,42 @@ public class TestVec3
 {
     public void Test()
     {
-        errors = new string[1024];
+        errors = new string[1024]; 
         errorsCount = 0;
+        ResetTests();
+        TransformMat4(); ResetTests();
+        Create(); ResetTests();
+        Clone(); ResetTests();
+        FromValues(); ResetTests();
+        Copy(); ResetTests();
+        Set(); ResetTests();
+        Add(); ResetTests();
+        Subtract(); ResetTests();
+        Multiply(); ResetTests();
+        Divide(); ResetTests();
+        Min(); ResetTests();
+        Max(); ResetTests();
+        Scale(); ResetTests();
+        ScaleAndAdd(); ResetTests();
+        Distance(); ResetTests();
+        SquaredDistance(); ResetTests();
+        Length(); ResetTests();
+        SquaredLength(); ResetTests();
+        Negate(); ResetTests();
+        Normalize(); ResetTests();
+        Dot(); ResetTests();
+        Cross(); ResetTests();
+        Lerp(); ResetTests();
+        Random(); ResetTests();
+        ForEach(); ResetTests();
+        Str(); ResetTests();
+    }
+
+    void ResetTests()
+    {
         vecA = Arr3(1, 2, 3);
         vecB = Arr3(4, 5, 6);
         output = Arr3(0, 0, 0);
-        TransformMat4();
-        Create();
-        Clone();
-        FromValues();
-        Copy();
-        Set();
-        Add();
-        Subtract();
-        Multiply();
-        Divide();
-        Min();
-        Max();
-        Scale();
-        ScaleAndAdd();
-        Distance();
-        SquaredDistance();
-        Length();
-        SquaredLength();
-        Negate();
-        Normalize();
-        Dot();
-        Cross();
-        Lerp();
-        Random();
-        ForEach();
-        Str();
     }
 
     float[] vecA;
@@ -4488,10 +4592,46 @@ public class TestVec3
 
     void Negate()
     {
+        NegateWithASeparateOutputVector();
+        NegateWhenVecAIsTheOutputVector();
+    }
+
+    void NegateWithASeparateOutputVector()
+    {
+        float[] result = Vec3.Negate(output, vecA);
+        AssertArrayEqual(output, Arr3(-1, -2, -3), 3, "NegateWithASeparateOutputVector should place values into out");
+        AssertArrayEqual(result, output, 3, "NegateWithASeparateOutputVector should should return out");
+        AssertArrayEqual(vecA, Arr3(1, 2, 3), 3, "NegateWithASeparateOutputVector should not modify vecA");
+    }
+
+    void NegateWhenVecAIsTheOutputVector()
+    {
+        float[] result = Vec3.Negate(vecA, vecA);
+        AssertArrayEqual(vecA, Arr3(-1, -2, -3), 3, "NegateWhenVecAIsTheOutputVector should place values into vecA");
+        AssertArrayEqual(result, vecA, 3, "NegateWhenVecAIsTheOutputVector should return vecA");
     }
 
     void Normalize()
     {
+        NormalizeWithASeparateOutputVector();
+        NormalizeWhenVecAIsTheOutputVector();
+    }
+
+    void NormalizeWithASeparateOutputVector()
+    {
+        vecA = Arr3(5, 0, 0);
+        float[] result = Vec3.Normalize(output, vecA);
+        AssertArrayEqual(output, Arr3(1, 0, 0), 3, "NormalizeWithASeparateOutputVector should place values into out");
+        AssertArrayEqual(result, output, 3, "NormalizeWithASeparateOutputVector should return out");
+        AssertArrayEqual(vecA, Arr3(5, 0, 0), 3, "NormalizeWithASeparateOutputVector should not modify vecA");
+    }
+
+    void NormalizeWhenVecAIsTheOutputVector()
+    {
+        float[] vecA1 = Arr3(5, 0, 0);
+        float[] result = Vec3.Normalize(vecA, vecA);
+        AssertArrayEqual(vecA, Arr3(1, 0, 0), 3, "NormalizeWhenVecAIsTheOutputVector should place values into vecA");
+        AssertArrayEqual(result, vecA, 3, "NormalizeWhenVecAIsTheOutputVector should return vecA");
     }
 
     void Dot()

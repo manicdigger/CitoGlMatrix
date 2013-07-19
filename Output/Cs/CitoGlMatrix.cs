@@ -1637,13 +1637,15 @@ public class Platform
 
 	public static float Acos(float a)
 	{
-		return 0;
+		
+            return (float)System.Math.Acos(a);
+        return 0;
 	}
 
-	public static float Cos(float r)
+	public static float Cos(float a)
 	{
 		
-            return (float)System.Math.Cos(r);
+            return (float)System.Math.Cos(a);
         return 0;
 	}
 
@@ -1652,10 +1654,10 @@ public class Platform
 		return 0;
 	}
 
-	public static float Sin(float r)
+	public static float Sin(float a)
 	{
 		
-            return (float)System.Math.Sin(r);
+            return (float)System.Math.Sin(a);
         return 0;
 	}
 
@@ -1666,10 +1668,10 @@ public class Platform
         return 0;
 	}
 
-	public static float Tan(float p)
+	public static float Tan(float a)
 	{
 		
-            return (float)System.Math.Tan(p);
+            return (float)System.Math.Tan(a);
         return 0;
 	}
 }

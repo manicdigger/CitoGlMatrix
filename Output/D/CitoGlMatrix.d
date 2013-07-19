@@ -1662,7 +1662,7 @@ class Platform
 		return 0;
 	}
 
-	static float Cos(float r)
+	static float Cos(float a)
 	{
 		return 0;
 	}
@@ -1672,7 +1672,7 @@ class Platform
 		return 0;
 	}
 
-	static float Sin(float r)
+	static float Sin(float a)
 	{
 		return 0;
 	}
@@ -1682,7 +1682,7 @@ class Platform
 		return 0;
 	}
 
-	static float Tan(float p)
+	static float Tan(float a)
 	{
 		return 0;
 	}

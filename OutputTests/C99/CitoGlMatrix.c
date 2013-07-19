@@ -14,7 +14,7 @@ struct TestVec3 {
 	int errorsCount;
 	const char **errors;
 	float *output;
-	float const *vecA;
+	float *vecA;
 	float const *vecB;
 };
 static void TestVec3_Add(TestVec3 *self);
@@ -41,9 +41,14 @@ static void TestVec3_Lerp(TestVec3 const *self);
 static void TestVec3_Max(TestVec3 const *self);
 static void TestVec3_Min(TestVec3 const *self);
 static void TestVec3_Multiply(TestVec3 const *self);
-static void TestVec3_Negate(TestVec3 const *self);
-static void TestVec3_Normalize(TestVec3 const *self);
+static void TestVec3_Negate(TestVec3 *self);
+static void TestVec3_NegateWhenVecAIsTheOutputVector(TestVec3 *self);
+static void TestVec3_NegateWithASeparateOutputVector(TestVec3 *self);
+static void TestVec3_Normalize(TestVec3 *self);
+static void TestVec3_NormalizeWhenVecAIsTheOutputVector(TestVec3 *self);
+static void TestVec3_NormalizeWithASeparateOutputVector(TestVec3 *self);
 static void TestVec3_Random(TestVec3 const *self);
+static void TestVec3_ResetTests(TestVec3 *self);
 static void TestVec3_Scale(TestVec3 const *self);
 static void TestVec3_ScaleAndAdd(TestVec3 const *self);
 static void TestVec3_Set(TestVec3 *self);
@@ -1500,12 +1505,16 @@ float const *Mat4_Transpose(float *output, float const *a)
 
 float Platform_Acos(float a)
 {
-	return 0;
+	
+            return acos(a);
+        return 0;
 }
 
-float Platform_Cos(float r)
+float Platform_Cos(float a)
 {
-	return 0;
+	
+            return cos(a);
+        return 0;
 }
 
 float Platform_Random(void)
@@ -1513,19 +1522,25 @@ float Platform_Random(void)
 	return 0;
 }
 
-float Platform_Sin(float r)
+float Platform_Sin(float a)
 {
-	return 0;
+	
+            return sin(a);
+        return 0;
 }
 
 float Platform_Sqrt(float a)
 {
-	return 0;
+	
+            return sqrt(a);
+        return 0;
 }
 
-float Platform_Tan(float p)
+float Platform_Tan(float a)
 {
-	return 0;
+	
+            return tan(a);
+        return 0;
 }
 
 float const *Quat_Add(float *output, float const *a, float const *b)
@@ -2037,16 +2052,59 @@ static void TestVec3_Multiply(TestVec3 const *self)
 {
 }
 
-static void TestVec3_Negate(TestVec3 const *self)
+static void TestVec3_Negate(TestVec3 *self)
 {
+	TestVec3_NegateWithASeparateOutputVector(self);
+	TestVec3_NegateWhenVecAIsTheOutputVector(self);
 }
 
-static void TestVec3_Normalize(TestVec3 const *self)
+static void TestVec3_NegateWhenVecAIsTheOutputVector(TestVec3 *self)
 {
+	float const *result = Vec3_Negate(self->vecA, self->vecA);
+	TestVec3_AssertArrayEqual(self, self->vecA, TestVec3_Arr3(self, -1, -2, -3), 3, "NegateWhenVecAIsTheOutputVector should place values into vecA");
+	TestVec3_AssertArrayEqual(self, result, self->vecA, 3, "NegateWhenVecAIsTheOutputVector should return vecA");
+}
+
+static void TestVec3_NegateWithASeparateOutputVector(TestVec3 *self)
+{
+	float const *result = Vec3_Negate(self->output, self->vecA);
+	TestVec3_AssertArrayEqual(self, self->output, TestVec3_Arr3(self, -1, -2, -3), 3, "NegateWithASeparateOutputVector should place values into out");
+	TestVec3_AssertArrayEqual(self, result, self->output, 3, "NegateWithASeparateOutputVector should should return out");
+	TestVec3_AssertArrayEqual(self, self->vecA, TestVec3_Arr3(self, 1, 2, 3), 3, "NegateWithASeparateOutputVector should not modify vecA");
+}
+
+static void TestVec3_Normalize(TestVec3 *self)
+{
+	TestVec3_NormalizeWithASeparateOutputVector(self);
+	TestVec3_NormalizeWhenVecAIsTheOutputVector(self);
+}
+
+static void TestVec3_NormalizeWhenVecAIsTheOutputVector(TestVec3 *self)
+{
+	float const *vecA1 = TestVec3_Arr3(self, 5, 0, 0);
+	float const *result = Vec3_Normalize(self->vecA, self->vecA);
+	TestVec3_AssertArrayEqual(self, self->vecA, TestVec3_Arr3(self, 1, 0, 0), 3, "NormalizeWhenVecAIsTheOutputVector should place values into vecA");
+	TestVec3_AssertArrayEqual(self, result, self->vecA, 3, "NormalizeWhenVecAIsTheOutputVector should return vecA");
+}
+
+static void TestVec3_NormalizeWithASeparateOutputVector(TestVec3 *self)
+{
+	self->vecA = TestVec3_Arr3(self, 5, 0, 0);
+	float const *result = Vec3_Normalize(self->output, self->vecA);
+	TestVec3_AssertArrayEqual(self, self->output, TestVec3_Arr3(self, 1, 0, 0), 3, "NormalizeWithASeparateOutputVector should place values into out");
+	TestVec3_AssertArrayEqual(self, result, self->output, 3, "NormalizeWithASeparateOutputVector should return out");
+	TestVec3_AssertArrayEqual(self, self->vecA, TestVec3_Arr3(self, 5, 0, 0), 3, "NormalizeWithASeparateOutputVector should not modify vecA");
 }
 
 static void TestVec3_Random(TestVec3 const *self)
 {
+}
+
+static void TestVec3_ResetTests(TestVec3 *self)
+{
+	self->vecA = TestVec3_Arr3(self, 1, 2, 3);
+	self->vecB = TestVec3_Arr3(self, 4, 5, 6);
+	self->output = TestVec3_Arr3(self, 0, 0, 0);
 }
 
 static void TestVec3_Scale(TestVec3 const *self)
@@ -2108,35 +2166,59 @@ void TestVec3_Test(TestVec3 *self)
 {
 	self->errors = (const char **) malloc(1024 * sizeof(const char *));
 	self->errorsCount = 0;
-	self->vecA = TestVec3_Arr3(self, 1, 2, 3);
-	self->vecB = TestVec3_Arr3(self, 4, 5, 6);
-	self->output = TestVec3_Arr3(self, 0, 0, 0);
+	TestVec3_ResetTests(self);
 	TestVec3_TransformMat4(self);
+	TestVec3_ResetTests(self);
 	TestVec3_Create(self);
+	TestVec3_ResetTests(self);
 	TestVec3_Clone(self);
+	TestVec3_ResetTests(self);
 	TestVec3_FromValues(self);
+	TestVec3_ResetTests(self);
 	TestVec3_Copy(self);
+	TestVec3_ResetTests(self);
 	TestVec3_Set(self);
+	TestVec3_ResetTests(self);
 	TestVec3_Add(self);
+	TestVec3_ResetTests(self);
 	TestVec3_Subtract(self);
+	TestVec3_ResetTests(self);
 	TestVec3_Multiply(self);
+	TestVec3_ResetTests(self);
 	TestVec3_Divide(self);
+	TestVec3_ResetTests(self);
 	TestVec3_Min(self);
+	TestVec3_ResetTests(self);
 	TestVec3_Max(self);
+	TestVec3_ResetTests(self);
 	TestVec3_Scale(self);
+	TestVec3_ResetTests(self);
 	TestVec3_ScaleAndAdd(self);
+	TestVec3_ResetTests(self);
 	TestVec3_Distance(self);
+	TestVec3_ResetTests(self);
 	TestVec3_SquaredDistance(self);
+	TestVec3_ResetTests(self);
 	TestVec3_Length(self);
+	TestVec3_ResetTests(self);
 	TestVec3_SquaredLength(self);
+	TestVec3_ResetTests(self);
 	TestVec3_Negate(self);
+	TestVec3_ResetTests(self);
 	TestVec3_Normalize(self);
+	TestVec3_ResetTests(self);
 	TestVec3_Dot(self);
+	TestVec3_ResetTests(self);
 	TestVec3_Cross(self);
+	TestVec3_ResetTests(self);
 	TestVec3_Lerp(self);
+	TestVec3_ResetTests(self);
 	TestVec3_Random(self);
+	TestVec3_ResetTests(self);
 	TestVec3_ForEach(self);
+	TestVec3_ResetTests(self);
 	TestVec3_Str(self);
+	TestVec3_ResetTests(self);
 }
 
 static void TestVec3_TransformMat3With90DegAboutX(TestVec3 *self)

@@ -434,15 +434,15 @@ float const *Mat4_Transpose(float *output, float const *a);
 
 float Platform_Acos(float a);
 
-float Platform_Cos(float r);
+float Platform_Cos(float a);
 
 float Platform_Random(void);
 
-float Platform_Sin(float r);
+float Platform_Sin(float a);
 
 float Platform_Sqrt(float a);
 
-float Platform_Tan(float p);
+float Platform_Tan(float a);
 
 /**
  * **

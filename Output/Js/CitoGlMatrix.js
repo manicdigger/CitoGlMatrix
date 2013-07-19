@@ -1401,27 +1401,37 @@ function Platform()
 }
 
 Platform.acos = function(a) {
-	return 0;
+	
+            return Math.acos(a);
+        return 0;
 }
 
-Platform.cos = function(r) {
-	return 0;
+Platform.cos = function(a) {
+	
+            return Math.cos(a);
+        return 0;
 }
 
 Platform.random = function() {
 	return 0;
 }
 
-Platform.sin = function(r) {
-	return 0;
+Platform.sin = function(a) {
+	
+            return Math.sin(a);
+        return 0;
 }
 
 Platform.sqrt = function(a) {
-	return 0;
+	
+            return Math.sqrt(a);
+        return 0;
 }
 
-Platform.tan = function(p) {
-	return 0;
+Platform.tan = function(a) {
+	
+            return Math.tan(a);
+        return 0;
 }
 
 function Quat()

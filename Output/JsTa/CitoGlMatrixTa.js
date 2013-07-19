@@ -1404,7 +1404,7 @@ Platform.acos = function(a) {
 	return 0;
 }
 
-Platform.cos = function(r) {
+Platform.cos = function(a) {
 	return 0;
 }
 
@@ -1412,7 +1412,7 @@ Platform.random = function() {
 	return 0;
 }
 
-Platform.sin = function(r) {
+Platform.sin = function(a) {
 	return 0;
 }
 
@@ -1420,7 +1420,7 @@ Platform.sqrt = function(a) {
 	return 0;
 }
 
-Platform.tan = function(p) {
+Platform.tan = function(a) {
 	return 0;
 }
 

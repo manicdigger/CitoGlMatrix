@@ -1659,36 +1659,55 @@ class Platform
 
 	static float Acos(float a)
 	{
-		return 0;
+		float ret = 0;
+		
+            ret = std.math.acos(a);
+        return ret;
 	}
 
 	static float Cos(float a)
 	{
-		return 0;
+		float ret = 0;
+		
+            ret = std.math.cos(a);
+        return ret;
 	}
 
 	static float Sin(float a)
 	{
-		return 0;
+		float ret = 0;
+		
+            ret = std.math.sin(a);
+        return ret;
 	}
 
 	static float Sqrt(float a)
 	{
-		return 0;
+		float ret = 0;
+		
+            ret = std.math.sqrt(a);
+        return ret;
 	}
 
 	static float Tan(float a)
 	{
-		return 0;
+		float ret = 0;
+		
+            ret = std.math.tan(a);
+        return ret;
 	}
 
 	static void WriteInt(int a)
 	{
-	}
+		
+            std.stdio.write(a);
+        }
 
 	static void WriteString(string a)
 	{
-	}
+		
+            std.stdio.write(a);
+        }
 }
 
 class Quat

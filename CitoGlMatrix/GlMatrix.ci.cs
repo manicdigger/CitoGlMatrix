@@ -4174,6 +4174,13 @@ public class Platform
             ret = (float)Math.sqrt(a);
         }
         return ret;
+#elif D
+        float ret = 0;
+        native
+        {
+            ret = std.math.sqrt(a);
+        }
+        return ret;
 #else
 #if CITO
         return 0;
@@ -4222,6 +4229,13 @@ public class Platform
             ret = (float)Math.cos(a);
         }
         return ret;
+#elif D
+        float ret = 0;
+        native
+        {
+            ret = std.math.cos(a);
+        }
+        return ret;
 #else
 #if CITO
         return 0;
@@ -4268,6 +4282,13 @@ public class Platform
         native
         {
             ret = (float)Math.sin(a);
+        }
+        return ret;
+#elif D
+        float ret = 0;
+        native
+        {
+            ret = std.math.sin(a);
         }
         return ret;
 #else
@@ -4323,6 +4344,13 @@ public class Platform
             ret = (float)Math.tan(a);
         }
         return ret;
+#elif D
+        float ret = 0;
+        native
+        {
+            ret = std.math.tan(a);
+        }
+        return ret;
 #else
 #if CITO
         return 0;
@@ -4371,6 +4399,13 @@ public class Platform
             ret = (float)Math.acos(a);
         }
         return ret;
+#elif D
+        float ret = 0;
+        native
+        {
+            ret = std.math.acos(a);
+        }
+        return ret;
 #else
 #if CITO
         return 0;
@@ -4412,6 +4447,11 @@ public class Platform
         {
             System.out.println(a);
         }
+#elif D
+        native
+        {
+            std.stdio.write(a);
+        }
 #else
 #if CITO
 #else
@@ -4451,6 +4491,11 @@ public class Platform
         native
         {
             System.out.println(a);
+        }
+#elif D
+        native
+        {
+            std.stdio.write(a);
         }
 #else
 #if CITO

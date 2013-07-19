@@ -11,7 +11,7 @@ CitoGlMatrix is automatically translated to the following languages:
 * JavaScript (partially tested)
 * JavaScript with Typed Arrays (partially tested)
 * ActionScript 3
-* D
+* D (partially tested)
 * Perl 5 Module
 * Perl 5.10+ Module
 * PHP (partially tested)

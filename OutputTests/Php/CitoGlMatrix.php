@@ -1750,12 +1750,16 @@ class Platform
 
 	static function Acos($a)
 	{
-		return 0;
+		
+            return acos("$a");
+        return 0;
 	}
 
 	static function Cos($a)
 	{
-		return 0;
+		
+            return cos("$a");
+        return 0;
 	}
 
 	static function Random()
@@ -1765,26 +1769,36 @@ class Platform
 
 	static function Sin($a)
 	{
-		return 0;
+		
+            return sin("$a");
+        return 0;
 	}
 
 	static function Sqrt($a)
 	{
-		return 0;
+		
+            return sqrt("$a");
+        return 0;
 	}
 
 	static function Tan($a)
 	{
-		return 0;
+		
+            return tan("$a");
+        return 0;
 	}
 
 	static function WriteInt($a)
 	{
-	}
+		
+            echo("$a");
+        }
 
 	static function WriteString($a)
 	{
-	}
+		
+            echo("$a");
+        }
 }
 
 class Quat

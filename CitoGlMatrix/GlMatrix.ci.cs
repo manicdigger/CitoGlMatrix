@@ -4161,6 +4161,12 @@ public class Platform
             return sqrt(a);
         }
         return 0;
+#elif PHP
+        native
+        {
+            return sqrt("$a");
+        }
+        return 0;
 #else
 #if CITO
         return 0;
@@ -4196,6 +4202,12 @@ public class Platform
             return cos(a);
         }
         return 0;
+#elif PHP
+        native
+        {
+            return cos("$a");
+        }
+        return 0;
 #else
 #if CITO
         return 0;
@@ -4229,6 +4241,12 @@ public class Platform
         native
         {
             return sin(a);
+        }
+        return 0;
+#elif PHP
+        native
+        {
+            return sin("$a");
         }
         return 0;
 #else
@@ -4271,6 +4289,12 @@ public class Platform
             return tan(a);
         }
         return 0;
+#elif PHP
+        native
+        {
+            return tan("$a");
+        }
+        return 0;
 #else
 #if CITO
         return 0;
@@ -4306,6 +4330,12 @@ public class Platform
             return acos(a);
         }
         return 0;
+#elif PHP
+        native
+        {
+            return acos("$a");
+        }
+        return 0;
 #else
 #if CITO
         return 0;
@@ -4337,6 +4367,11 @@ public class Platform
         {
             printf("%s", a);
         }
+#elif PHP
+        native
+        {
+            echo("$a");
+        }
 #else
 #if CITO
 #else
@@ -4366,6 +4401,11 @@ public class Platform
         native
         {
             printf("%i", a);
+        }
+#elif PHP
+        native
+        {
+            echo("$a");
         }
 #else
 #if CITO

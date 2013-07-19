@@ -3087,12 +3087,16 @@ sub adjoint_with_a_separate_output_matrix($) {
 
 sub arr16($$$$$$$$$$$$$$$$$) {
 	my ($self, $p, $p_2, $p_3, $p_4, $p_5, $p_6, $p_7, $p_8, $p_9, $p_10, $p_11, $p_12, $p_13, $p_14, $p_15, $p_16) = @_;
-	return $self->{citoassert}->arr16($p, $p_2, $p_3, $p_4, $p_5, $p_6, $p_7, $p_8, $p_9, $p_10, $p_11, $p_12, $p_13, $p_14, $p_15, $p_16);
+	my $arr = $self->{citoassert}->arr16($p, $p_2, $p_3, $p_4, $p_5, $p_6, $p_7, $p_8, $p_9, $p_10, $p_11, $p_12, $p_13, $p_14, $p_15, $p_16);
+	$arr->[0] = $arr->[0];
+	return $arr;
 }
 
 sub arr3($$$$) {
 	my ($self, $p, $p_2, $p_3) = @_;
-	return $self->{citoassert}->arr3($p, $p_2, $p_3);
+	my $arr = $self->{citoassert}->arr3($p, $p_2, $p_3);
+	$arr->[0] = $arr->[0];
+	return $arr;
 }
 
 sub arr9($$$$$$$$$$) {

@@ -1877,11 +1877,15 @@ TestMat4.prototype.adjointWithASeparateOutputMatrix = function() {
 }
 
 TestMat4.prototype.arr16 = function(p, p_2, p_3, p_4, p_5, p_6, p_7, p_8, p_9, p_10, p_11, p_12, p_13, p_14, p_15, p_16) {
-	return this.citoassert.arr16(p, p_2, p_3, p_4, p_5, p_6, p_7, p_8, p_9, p_10, p_11, p_12, p_13, p_14, p_15, p_16);
+	var arr = this.citoassert.arr16(p, p_2, p_3, p_4, p_5, p_6, p_7, p_8, p_9, p_10, p_11, p_12, p_13, p_14, p_15, p_16);
+	arr[0] = arr[0];
+	return arr;
 }
 
 TestMat4.prototype.arr3 = function(p, p_2, p_3) {
-	return this.citoassert.arr3(p, p_2, p_3);
+	var arr = this.citoassert.arr3(p, p_2, p_3);
+	arr[0] = arr[0];
+	return arr;
 }
 
 TestMat4.prototype.arr9 = function(p, p_2, p_3, p_4, p_5, p_6, p_7, p_8, p_9) {

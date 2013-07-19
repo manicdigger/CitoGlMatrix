@@ -20,12 +20,16 @@ public class TestMat4
 
 	private float[] arr16(int p, int p_2, int p_3, int p_4, int p_5, int p_6, int p_7, int p_8, int p_9, int p_10, int p_11, int p_12, int p_13, int p_14, int p_15, int p_16)
 	{
-		return this.citoassert.arr16(p, p_2, p_3, p_4, p_5, p_6, p_7, p_8, p_9, p_10, p_11, p_12, p_13, p_14, p_15, p_16);
+		float[] arr = this.citoassert.arr16(p, p_2, p_3, p_4, p_5, p_6, p_7, p_8, p_9, p_10, p_11, p_12, p_13, p_14, p_15, p_16);
+		arr[0] = arr[0];
+		return arr;
 	}
 
 	private float[] arr3(float p, float p_2, float p_3)
 	{
-		return this.citoassert.arr3(p, p_2, p_3);
+		float[] arr = this.citoassert.arr3(p, p_2, p_3);
+		arr[0] = arr[0];
+		return arr;
 	}
 
 	private final float[] arr9(int p, int p_2, int p_3, int p_4, int p_5, int p_6, int p_7, int p_8, int p_9)

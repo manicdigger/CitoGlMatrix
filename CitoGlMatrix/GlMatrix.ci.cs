@@ -4162,7 +4162,11 @@ public class Platform
         }
         return 0;
 #else
+#if CITO
         return 0;
+#else
+        return (float)System.Math.Sqrt(a);
+#endif
 #endif
     }
 
@@ -4193,7 +4197,11 @@ public class Platform
         }
         return 0;
 #else
+#if CITO
         return 0;
+#else
+        return (float)System.Math.Cos(a);
+#endif
 #endif
     }
 
@@ -4224,7 +4232,11 @@ public class Platform
         }
         return 0;
 #else
+#if CITO
         return 0;
+#else
+        return (float)System.Math.Sin(a);
+#endif
 #endif
     }
 
@@ -4260,7 +4272,11 @@ public class Platform
         }
         return 0;
 #else
+#if CITO
         return 0;
+#else
+        return (float)System.Math.Tan(a);
+#endif
 #endif
     }
 
@@ -4291,7 +4307,11 @@ public class Platform
         }
         return 0;
 #else
+#if CITO
         return 0;
+#else
+        return (float)System.Math.Acos(a);
+#endif
 #endif
     }
 }

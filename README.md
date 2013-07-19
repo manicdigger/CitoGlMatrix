@@ -1,7 +1,7 @@
 CitoGlMatrix
 ============
 
-Port of [glMatrix library](http://glmatrix.net/) to [Cito programming language](http://cito.sourceforge.net/).
+Port of [glMatrix library](https://github.com/toji/gl-matrix) to [Cito programming language](http://cito.sourceforge.net/).
 
 CitoGlMatrix is automatically translated to the following languages:
 * C89 (partially tested)
@@ -27,3 +27,8 @@ See http://glmatrix.net/ for documentation.
 
 ### Compilation
 Cito currently doesn't support floating point variables, so a modified version is required: (https://github.com/uilbcvnj/CitoMod).
+
+### TODO
+* Port missing unit tests
+* Benchmark
+* Double precision

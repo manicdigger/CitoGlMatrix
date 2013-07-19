@@ -76,7 +76,7 @@ package
 		 * @param {mat2} output the receiving matrix
 		 * @returns {mat2} output
 		 */
-		public static function identity(output : Array) : Array
+		public static function identity_(output : Array) : Array
 		{
 			output[0] = 1;
 			output[1] = 0;

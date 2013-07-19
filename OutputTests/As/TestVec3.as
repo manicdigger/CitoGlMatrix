@@ -143,9 +143,9 @@ package
 			this.assertArrayEqual(result, this.arr3(1, 2, 3), 3, "FromValues should return a 3 element array initialized to the values passed");
 		}
 
-		private function length() : void
+		private function length_() : void
 		{
-			var result : float = Vec3.length(this.vecA);
+			var result : float = Vec3.length_(this.vecA);
 			var r : float = 3741657;
 			r /= 1000000;
 			this.assertCloseTo(result, r, "Length should return the length");
@@ -394,7 +394,7 @@ package
 			this.resetTests();
 			this.squaredDistance();
 			this.resetTests();
-			this.length();
+			this.length_();
 			this.resetTests();
 			this.squaredLength();
 			this.resetTests();

@@ -84,7 +84,7 @@ Mat2.determinant = function(a) {
 	return a[0] * a[3] - a[2] * a[1];
 }
 
-Mat2.identity = function(output) {
+Mat2.identity_ = function(output) {
 	output[0] = 1;
 	output[1] = 0;
 	output[2] = 0;
@@ -209,7 +209,7 @@ Mat2d.determinant = function(a) {
 	return a[0] * a[3] - a[1] * a[2];
 }
 
-Mat2d.identity = function(output) {
+Mat2d.identity_ = function(output) {
 	output[0] = 1;
 	output[1] = 0;
 	output[2] = 0;
@@ -445,7 +445,7 @@ Mat3.fromQuat = function(output, q) {
 	return output;
 }
 
-Mat3.identity = function(output) {
+Mat3.identity_ = function(output) {
 	output[0] = 1;
 	output[1] = 0;
 	output[2] = 0;
@@ -879,7 +879,7 @@ Mat4.frustum = function(output, left, right, bottom, top, near, far) {
 	return output;
 }
 
-Mat4.identity = function(output) {
+Mat4.identity_ = function(output) {
 	output[0] = 1;
 	output[1] = 0;
 	output[2] = 0;
@@ -974,7 +974,7 @@ Mat4.lookAt = function(output, eye, center, up) {
 	var centery = center[1];
 	var centerz = center[2];
 	if (GlMatrixMath.abs(eyex - centerx) < GlMatrixMath.gLMAT_EPSILON() && GlMatrixMath.abs(eyey - centery) < GlMatrixMath.gLMAT_EPSILON() && GlMatrixMath.abs(eyez - centerz) < GlMatrixMath.gLMAT_EPSILON()) {
-		return Mat4.identity(output);
+		return Mat4.identity_(output);
 	}
 	z0 = eyex - centerx;
 	z1 = eyey - centery;
@@ -1511,7 +1511,7 @@ Quat.fromValues = function(x, y, z, w) {
 	return Vec4.fromValues(x, y, z, w);
 }
 
-Quat.identity = function(output) {
+Quat.identity_ = function(output) {
 	output[0] = 0;
 	output[1] = 0;
 	output[2] = 0;
@@ -1535,11 +1535,11 @@ Quat.prototype.invert = function(output, a) {
 }
 
 Quat.len = function(a) {
-	return Quat.length(a);
+	return Quat.length_(a);
 }
 
-Quat.length = function(a) {
-	return Vec4.length(a);
+Quat.length_ = function(a) {
+	return Vec4.length_(a);
 }
 
 Quat.lerp = function(output, a, b, t) {
@@ -1626,7 +1626,7 @@ Quat.rotationTo = function(output, a, b) {
 	epsilon /= 1000000;
 	if (dot < -nines) {
 		Vec3.cross(tmpvec3, xUnitVec3, a);
-		if (Vec3.length(tmpvec3) < epsilon)
+		if (Vec3.length_(tmpvec3) < epsilon)
 			Vec3.cross(tmpvec3, yUnitVec3, a);
 		Vec3.normalize(tmpvec3, tmpvec3);
 		Quat.setAxisAngle(output, tmpvec3, GlMatrixMath.pI());
@@ -1802,10 +1802,10 @@ Vec2.fromValues = function(x, y) {
 }
 
 Vec2.len = function(a) {
-	return Vec2.length(a);
+	return Vec2.length_(a);
 }
 
-Vec2.length = function(a) {
+Vec2.length_ = function(a) {
 	var x = a[0];
 	var y = a[1];
 	return Platform.sqrt(x * x + y * y);
@@ -2024,10 +2024,10 @@ Vec3.fromValues = function(x, y, z) {
 }
 
 Vec3.len = function(a) {
-	return Vec3.length(a);
+	return Vec3.length_(a);
 }
 
-Vec3.length = function(a) {
+Vec3.length_ = function(a) {
 	var x = a[0];
 	var y = a[1];
 	var z = a[2];
@@ -2263,10 +2263,10 @@ Vec4.fromValues = function(x, y, z, w) {
 }
 
 Vec4.len = function(a) {
-	return Vec4.length(a);
+	return Vec4.length_(a);
 }
 
-Vec4.length = function(a) {
+Vec4.length_ = function(a) {
 	var x = a[0];
 	var y = a[1];
 	var z = a[2];

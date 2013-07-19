@@ -109,7 +109,7 @@ class Mat2
 	/// Set a mat2 to the identity matrix
 	/// @param {mat2} output the receiving matrix
 	/// @returns {mat2} output
-	static const(float)[] Identity(float[] output)
+	static const(float)[] Identity_(float[] output)
 	{
 		output[0] = 1;
 		output[1] = 0;
@@ -260,7 +260,7 @@ class Mat2d
 	}
 
 	/// **
-	static const(float)[] Identity(float[] output)
+	static const(float)[] Identity_(float[] output)
 	{
 		output[0] = 1;
 		output[1] = 0;
@@ -528,7 +528,7 @@ class Mat3
 	}
 
 	/// **
-	static const(float)[] Identity(float[] output)
+	static const(float)[] Identity_(float[] output)
 	{
 		output[0] = 1;
 		output[1] = 0;
@@ -1041,7 +1041,7 @@ class Mat4
 	/// Returns {mat4} out
 	/// Params:
 	/// output = {mat4} out the receiving matrix
-	static const(float)[] Identity(float[] output)
+	static const(float)[] Identity_(float[] output)
 	{
 		output[0] = 1;
 		output[1] = 0;
@@ -1151,7 +1151,7 @@ class Mat4
 		float centery = center[1];
 		float centerz = center[2];
 		if (GlMatrixMath.Abs(eyex - centerx) < GlMatrixMath.GLMAT_EPSILON() && GlMatrixMath.Abs(eyey - centery) < GlMatrixMath.GLMAT_EPSILON() && GlMatrixMath.Abs(eyez - centerz) < GlMatrixMath.GLMAT_EPSILON()) {
-			return Mat4.Identity(output);
+			return Mat4.Identity_(output);
 		}
 		z0 = eyex - centerx;
 		z1 = eyey - centery;
@@ -1794,7 +1794,7 @@ class Quat
 	}
 
 	/// **
-	static const(float)[] Identity(float[] output)
+	static const(float)[] Identity_(float[] output)
 	{
 		output[0] = 0;
 		output[1] = 0;
@@ -1823,13 +1823,13 @@ class Quat
 	/// **
 	static float Len(const(float)[] a)
 	{
-		return Quat.Length(a);
+		return Quat.Length_(a);
 	}
 
 	/// **
-	static float Length(const(float)[] a)
+	static float Length_(const(float)[] a)
 	{
-		return Vec4.Length(a);
+		return Vec4.Length_(a);
 	}
 
 	/// **
@@ -1932,7 +1932,7 @@ class Quat
 		epsilon /= 1000000;
 		if (dot < -nines) {
 			Vec3.Cross(tmpvec3, xUnitVec3, a);
-			if (Vec3.Length(tmpvec3) < epsilon)
+			if (Vec3.Length_(tmpvec3) < epsilon)
 				Vec3.Cross(tmpvec3, yUnitVec3, a);
 			Vec3.Normalize(tmpvec3, tmpvec3);
 			Quat.SetAxisAngle(output, tmpvec3, GlMatrixMath.PI());
@@ -2148,11 +2148,11 @@ class Vec2
 	/// **
 	static float Len(const(float)[] a)
 	{
-		return Vec2.Length(a);
+		return Vec2.Length_(a);
 	}
 
 	/// **
-	static float Length(const(float)[] a)
+	static float Length_(const(float)[] a)
 	{
 		float x = a[0];
 		float y = a[1];
@@ -2476,14 +2476,14 @@ class Vec3
 	/// Alias for {@link vec3.length}
 	static float Len(const(float)[] a)
 	{
-		return Vec3.Length(a);
+		return Vec3.Length_(a);
 	}
 
 	/// Calculates the length of a vec3
 	/// @returns {Number} length of a
 	/// Params:
 	/// a = /@param {vec3} a vector to calculate length of
-	static float Length(const(float)[] a)
+	static float Length_(const(float)[] a)
 	{
 		float x = a[0];
 		float y = a[1];
@@ -2873,11 +2873,11 @@ class Vec4
 	/// **
 	static float Len(const(float)[] a)
 	{
-		return Vec4.Length(a);
+		return Vec4.Length_(a);
 	}
 
 	/// **
-	static float Length(const(float)[] a)
+	static float Length_(const(float)[] a)
 	{
 		float x = a[0];
 		float y = a[1];

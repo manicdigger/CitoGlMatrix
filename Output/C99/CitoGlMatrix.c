@@ -99,7 +99,7 @@ float Mat2_Determinant(float const *a)
 	return a[0] * a[3] - a[2] * a[1];
 }
 
-float const *Mat2_Identity(float *output)
+float const *Mat2_Identity_(float *output)
 {
 	output[0] = 1;
 	output[1] = 0;
@@ -228,7 +228,7 @@ float Mat2d_Determinant(float const *a)
 	return a[0] * a[3] - a[1] * a[2];
 }
 
-float const *Mat2d_Identity(float *output)
+float const *Mat2d_Identity_(float *output)
 {
 	output[0] = 1;
 	output[1] = 0;
@@ -472,7 +472,7 @@ float const *Mat3_FromQuat(float *output, float const *q)
 	return output;
 }
 
-float const *Mat3_Identity(float *output)
+float const *Mat3_Identity_(float *output)
 {
 	output[0] = 1;
 	output[1] = 0;
@@ -916,7 +916,7 @@ float const *Mat4_Frustum(float *output, float left, float right, float bottom, 
 	return output;
 }
 
-float const *Mat4_Identity(float *output)
+float const *Mat4_Identity_(float *output)
 {
 	output[0] = 1;
 	output[1] = 0;
@@ -1014,7 +1014,7 @@ float const *Mat4_LookAt(float *output, float const *eye, float const *center, f
 	float centery = center[1];
 	float centerz = center[2];
 	if (GlMatrixMath_Abs(eyex - centerx) < GlMatrixMath_GLMAT_EPSILON() && GlMatrixMath_Abs(eyey - centery) < GlMatrixMath_GLMAT_EPSILON() && GlMatrixMath_Abs(eyez - centerz) < GlMatrixMath_GLMAT_EPSILON()) {
-		return Mat4_Identity(output);
+		return Mat4_Identity_(output);
 	}
 	z0 = eyex - centerx;
 	z1 = eyey - centery;
@@ -1581,7 +1581,7 @@ float const *Quat_FromValues(float x, float y, float z, float w)
 	return Vec4_FromValues(x, y, z, w);
 }
 
-float const *Quat_Identity(float *output)
+float const *Quat_Identity_(float *output)
 {
 	output[0] = 0;
 	output[1] = 0;
@@ -1608,12 +1608,12 @@ float const *Quat_Invert(Quat const *self, float *output, float const *a)
 
 float Quat_Len(float const *a)
 {
-	return Quat_Length(a);
+	return Quat_Length_(a);
 }
 
-float Quat_Length(float const *a)
+float Quat_Length_(float const *a)
 {
-	return Vec4_Length(a);
+	return Vec4_Length_(a);
 }
 
 float const *Quat_Lerp(float *output, float const *a, float const *b, float t)
@@ -1708,7 +1708,7 @@ float const *Quat_RotationTo(float *output, float const *a, float const *b)
 	epsilon /= 1000000;
 	if (dot < -nines) {
 		Vec3_Cross(tmpvec3, xUnitVec3, a);
-		if (Vec3_Length(tmpvec3) < epsilon)
+		if (Vec3_Length_(tmpvec3) < epsilon)
 			Vec3_Cross(tmpvec3, yUnitVec3, a);
 		Vec3_Normalize(tmpvec3, tmpvec3);
 		Quat_SetAxisAngle(output, tmpvec3, GlMatrixMath_PI());
@@ -1896,10 +1896,10 @@ float const *Vec2_FromValues(float x, float y)
 
 float Vec2_Len(float const *a)
 {
-	return Vec2_Length(a);
+	return Vec2_Length_(a);
 }
 
-float Vec2_Length(float const *a)
+float Vec2_Length_(float const *a)
 {
 	float x = a[0];
 	float y = a[1];
@@ -2144,10 +2144,10 @@ float const *Vec3_FromValues(float x, float y, float z)
 
 float Vec3_Len(float const *a)
 {
-	return Vec3_Length(a);
+	return Vec3_Length_(a);
 }
 
-float Vec3_Length(float const *a)
+float Vec3_Length_(float const *a)
 {
 	float x = a[0];
 	float y = a[1];
@@ -2411,10 +2411,10 @@ float const *Vec4_FromValues(float x, float y, float z, float w)
 
 float Vec4_Len(float const *a)
 {
-	return Vec4_Length(a);
+	return Vec4_Length_(a);
 }
 
-float Vec4_Length(float const *a)
+float Vec4_Length_(float const *a)
 {
 	float x = a[0];
 	float y = a[1];

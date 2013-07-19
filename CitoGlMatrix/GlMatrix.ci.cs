@@ -66,7 +66,7 @@ public class Mat2
     /// Set a mat2 to the identity matrix
     /// @param {mat2} output the receiving matrix
     /// @returns {mat2} output
-    public static float[] Identity(float[] output)
+    public static float[] Identity_(float[] output)
     {
         output[0] = 1;
         output[1] = 0;
@@ -308,7 +308,7 @@ public class Mat2d
     // * @param {mat2d} output the receiving matrix
     // * @returns {mat2d} output
     // */
-    public static float[] Identity(float[] output)
+    public static float[] Identity_(float[] output)
     {
         output[0] = 1;
         output[1] = 0;
@@ -577,7 +577,7 @@ public class Mat3
     // * @param {mat3} output the receiving matrix
     // * @returns {mat3} output
     // */
-    public static float[] Identity(float[] output)
+    public static float[] Identity_(float[] output)
     {
         output[0] = 1;
         output[1] = 0;
@@ -1047,7 +1047,7 @@ public class Mat4
 
     /// Set a mat4 to the identity matrix
     /// Returns {mat4} out
-    public static float[] Identity(
+    public static float[] Identity_(
         /// {mat4} out the receiving matrix
         float[] output)
     {
@@ -1790,7 +1790,7 @@ public class Mat4
             GlMatrixMath.Abs(eyey - centery) < GlMatrixMath.GLMAT_EPSILON() &&
             GlMatrixMath.Abs(eyez - centerz) < GlMatrixMath.GLMAT_EPSILON())
         {
-            return Mat4.Identity(output);
+            return Mat4.Identity_(output);
         }
 
         z0 = eyex - centerx;
@@ -1933,7 +1933,7 @@ public class Quat
         if (dot < -nines)
         {
             Vec3.Cross(tmpvec3, xUnitVec3, a);
-            if (Vec3.Length(tmpvec3) < epsilon)
+            if (Vec3.Length_(tmpvec3) < epsilon)
                 Vec3.Cross(tmpvec3, yUnitVec3, a);
             Vec3.Normalize(tmpvec3, tmpvec3);
             Quat.SetAxisAngle(output, tmpvec3, GlMatrixMath.PI());
@@ -2052,7 +2052,7 @@ public class Quat
     // * @param {quat} output the receiving quaternion
     // * @returns {quat} output
     // */
-    public static float[] Identity(float[] output)
+    public static float[] Identity_(float[] output)
     {
         output[0] = 0;
         output[1] = 0;
@@ -2361,9 +2361,9 @@ public class Quat
     // * @function
     // */
     //quat.length = vec4.length;
-    public static float Length(float[] a)
+    public static float Length_(float[] a)
     {
-        return Vec4.Length(a);
+        return Vec4.Length_(a);
     }
 
     ///**
@@ -2372,7 +2372,7 @@ public class Quat
     // */
     public static float Len(float[] a)
     {
-        return Length(a);
+        return Length_(a);
     }
 
     ///**
@@ -2760,7 +2760,7 @@ public class Vec2
     // * @param {vec2} a vector to calculate length of
     // * @returns {Number} length of a
     // */
-    public static float Length(float[] a)
+    public static float Length_(float[] a)
     {
         float x = a[0];
         float y = a[1];
@@ -2773,7 +2773,7 @@ public class Vec2
     // */
     public static float Len(float[] a)
     {
-        return Length(a);
+        return Length_(a);
     }
 
     ///**
@@ -3297,7 +3297,7 @@ public class Vec3
 
     ///Calculates the length of a vec3
     ///@returns {Number} length of a
-    public static float Length(
+    public static float Length_(
         ////@param {vec3} a vector to calculate length of
         float[] a)
     {
@@ -3310,7 +3310,7 @@ public class Vec3
     ///Alias for {@link vec3.length}
     public static float Len(float[] a)
     {
-        return Length(a);
+        return Length_(a);
     }
 
     ///Calculates the squared length of a vec3
@@ -3889,7 +3889,7 @@ public class Vec4
     // * @param {vec4} a vector to calculate length of
     // * @returns {Number} length of a
     // */
-    public static float Length(float[] a)
+    public static float Length_(float[] a)
     {
         float x = a[0];
         float y = a[1];
@@ -3904,7 +3904,7 @@ public class Vec4
     // */
     public static float Len(float[] a)
     {
-        return Length(a);
+        return Length_(a);
     }
 
     ///**
@@ -4502,7 +4502,7 @@ public class TestVec3
         ScaleAndAdd(); ResetTests();
         Distance(); ResetTests();
         SquaredDistance(); ResetTests();
-        Length(); ResetTests();
+        Length_(); ResetTests();
         SquaredLength(); ResetTests();
         Negate(); ResetTests();
         Normalize(); ResetTests();
@@ -4792,9 +4792,9 @@ public class TestVec3
         AssertEqual(result, 27, "SquaredDistance should return the squared distance");
     }
 
-    void Length()
+    void Length_()
     {
-        float result = Vec3.Length(vecA);
+        float result = Vec3.Length_(vecA);
         float r = 3741657;
         r /= 1000 * 1000;// 3.741657
         AssertCloseTo(result, r, "Length should return the length");
@@ -4950,7 +4950,7 @@ public class TestMat4
         Create(); ResetTests();
         CloneIt(); ResetTests();
         Copy(); ResetTests();
-        Identity(); ResetTests();
+        Identity_(); ResetTests();
         Transpose(); ResetTests();
         Invert(); ResetTests();
         Adjoint(); ResetTests();
@@ -5017,9 +5017,9 @@ public class TestMat4
         AssertArrayEqual(result, output, 16, "Copy should return out");
     }
 
-    void Identity()
+    void Identity_()
     {
-        float[] result = Mat4.Identity(output);
+        float[] result = Mat4.Identity_(output);
         AssertArrayEqual(output, identity, 16, "Copy should place values into out");
         AssertArrayEqual(result, output, 16, "Copy should return out");
     }

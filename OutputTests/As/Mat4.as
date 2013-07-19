@@ -303,7 +303,7 @@ package
 		 * Returns {mat4} out
 		 * @param output {mat4} out the receiving matrix
 		 */
-		public static function identity(output : Array) : Array
+		public static function identity_(output : Array) : Array
 		{
 			output[0] = 1;
 			output[1] = 0;
@@ -415,7 +415,7 @@ package
 			var centery : float = center[1];
 			var centerz : float = center[2];
 			if (GlMatrixMath.abs(eyex - centerx) < GlMatrixMath.gLMAT_EPSILON() && GlMatrixMath.abs(eyey - centery) < GlMatrixMath.gLMAT_EPSILON() && GlMatrixMath.abs(eyez - centerz) < GlMatrixMath.gLMAT_EPSILON()) {
-				return Mat4.identity(output);
+				return Mat4.identity_(output);
 			}
 			z0 = eyex - centerx;
 			z1 = eyey - centery;

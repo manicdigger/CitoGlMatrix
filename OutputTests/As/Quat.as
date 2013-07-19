@@ -126,7 +126,7 @@ package
 		/**
 		 * **
 		 */
-		public static function identity(output : Array) : Array
+		public static function identity_(output : Array) : Array
 		{
 			output[0] = 0;
 			output[1] = 0;
@@ -159,15 +159,15 @@ package
 		 */
 		public static function len(a : Array) : float
 		{
-			return Quat.length(a);
+			return Quat.length_(a);
 		}
 
 		/**
 		 * **
 		 */
-		public static function length(a : Array) : float
+		public static function length_(a : Array) : float
 		{
-			return Vec4.length(a);
+			return Vec4.length_(a);
 		}
 
 		/**
@@ -286,7 +286,7 @@ package
 			epsilon /= 1000000;
 			if (dot < -nines) {
 				Vec3.cross(tmpvec3, xUnitVec3, a);
-				if (Vec3.length(tmpvec3) < epsilon)
+				if (Vec3.length_(tmpvec3) < epsilon)
 					Vec3.cross(tmpvec3, yUnitVec3, a);
 				Vec3.normalize(tmpvec3, tmpvec3);
 				Quat.setAxisAngle(output, tmpvec3, GlMatrixMath.pI());

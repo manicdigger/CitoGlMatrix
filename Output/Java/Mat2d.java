@@ -59,7 +59,7 @@ public class Mat2d
 	/**
 	 * **
 	 */
-	public static float[] identity(float[] output)
+	public static float[] identity_(float[] output)
 	{
 		output[0] = 1;
 		output[1] = 0;

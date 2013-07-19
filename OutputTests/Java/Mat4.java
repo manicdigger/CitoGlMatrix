@@ -301,7 +301,7 @@ public class Mat4
 	 * Returns {mat4} out
 	 * @param output {mat4} out the receiving matrix
 	 */
-	public static float[] identity(float[] output)
+	public static float[] identity_(float[] output)
 	{
 		output[0] = 1;
 		output[1] = 0;
@@ -413,7 +413,7 @@ public class Mat4
 		float centery = center[1];
 		float centerz = center[2];
 		if (GlMatrixMath.abs(eyex - centerx) < GlMatrixMath.gLMAT_EPSILON() && GlMatrixMath.abs(eyey - centery) < GlMatrixMath.gLMAT_EPSILON() && GlMatrixMath.abs(eyez - centerz) < GlMatrixMath.gLMAT_EPSILON()) {
-			return Mat4.identity(output);
+			return Mat4.identity_(output);
 		}
 		z0 = eyex - centerx;
 		z1 = eyey - centery;

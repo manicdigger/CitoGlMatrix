@@ -108,7 +108,7 @@ class Mat2
 	// Set a mat2 to the identity matrix
 	// @param {mat2} output the receiving matrix
 	// @returns {mat2} output
-	static function Identity(&$output)
+	static function Identity_(&$output)
 	{
 		$output[0] = 1;
 		$output[1] = 0;
@@ -259,7 +259,7 @@ class Mat2d
 	}
 
 	// **
-	static function Identity(&$output)
+	static function Identity_(&$output)
 	{
 		$output[0] = 1;
 		$output[1] = 0;
@@ -527,7 +527,7 @@ class Mat3
 	}
 
 	// **
-	static function Identity(&$output)
+	static function Identity_(&$output)
 	{
 		$output[0] = 1;
 		$output[1] = 0;
@@ -1032,7 +1032,7 @@ class Mat4
 	// Set a mat4 to the identity matrix
 	// Returns {mat4} out
 	/// <param name="output">{mat4} out the receiving matrix</param>
-	static function Identity(&$output)
+	static function Identity_(&$output)
 	{
 		$output[0] = 1;
 		$output[1] = 0;
@@ -1140,7 +1140,7 @@ class Mat4
 		$centery = $center[1];
 		$centerz = $center[2];
 		if (GlMatrixMath::Abs($eyex - $centerx) < GlMatrixMath::GLMAT_EPSILON() && GlMatrixMath::Abs($eyey - $centery) < GlMatrixMath::GLMAT_EPSILON() && GlMatrixMath::Abs($eyez - $centerz) < GlMatrixMath::GLMAT_EPSILON()) {
-			return Mat4::Identity($output);
+			return Mat4::Identity_($output);
 		}
 		$z0 = $eyex - $centerx;
 		$z1 = $eyey - $centery;
@@ -1787,7 +1787,7 @@ class Quat
 	}
 
 	// **
-	static function Identity(&$output)
+	static function Identity_(&$output)
 	{
 		$output[0] = 0;
 		$output[1] = 0;
@@ -1816,13 +1816,13 @@ class Quat
 	// **
 	static function Len(&$a)
 	{
-		return Quat::Length($a);
+		return Quat::Length_($a);
 	}
 
 	// **
-	static function Length(&$a)
+	static function Length_(&$a)
 	{
-		return Vec4::Length($a);
+		return Vec4::Length_($a);
 	}
 
 	// **
@@ -1925,7 +1925,7 @@ class Quat
 		$epsilon /= 1000000;
 		if ($dot < -$nines) {
 			Vec3::Cross($tmpvec3, $xUnitVec3, $a);
-			if (Vec3::Length($tmpvec3) < $epsilon)
+			if (Vec3::Length_($tmpvec3) < $epsilon)
 				Vec3::Cross($tmpvec3, $yUnitVec3, $a);
 			Vec3::Normalize($tmpvec3, $tmpvec3);
 			Quat::SetAxisAngle($output, $tmpvec3, GlMatrixMath::PI());
@@ -2141,11 +2141,11 @@ class Vec2
 	// **
 	static function Len(&$a)
 	{
-		return Vec2::Length($a);
+		return Vec2::Length_($a);
 	}
 
 	// **
-	static function Length(&$a)
+	static function Length_(&$a)
 	{
 		$x = $a[0];
 		$y = $a[1];
@@ -2461,13 +2461,13 @@ class Vec3
 	// Alias for {@link vec3.length}
 	static function Len(&$a)
 	{
-		return Vec3::Length($a);
+		return Vec3::Length_($a);
 	}
 
 	// Calculates the length of a vec3
 	// @returns {Number} length of a
 	/// <param name="a">/@param {vec3} a vector to calculate length of</param>
-	static function Length(&$a)
+	static function Length_(&$a)
 	{
 		$x = $a[0];
 		$y = $a[1];
@@ -2824,11 +2824,11 @@ class Vec4
 	// **
 	static function Len(&$a)
 	{
-		return Vec4::Length($a);
+		return Vec4::Length_($a);
 	}
 
 	// **
-	static function Length(&$a)
+	static function Length_(&$a)
 	{
 		$x = $a[0];
 		$y = $a[1];

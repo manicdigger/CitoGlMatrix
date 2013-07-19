@@ -117,13 +117,13 @@ public class Vec2
 	 */
 	public static float len(float[] a)
 	{
-		return Vec2.length(a);
+		return Vec2.length_(a);
 	}
 
 	/**
 	 * **
 	 */
-	public static float length(float[] a)
+	public static float length_(float[] a)
 	{
 		float x = a[0];
 		float y = a[1];

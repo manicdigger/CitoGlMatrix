@@ -119,13 +119,13 @@ package
 		 */
 		public static function len(a : Array) : float
 		{
-			return Vec2.length(a);
+			return Vec2.length_(a);
 		}
 
 		/**
 		 * **
 		 */
-		public static function length(a : Array) : float
+		public static function length_(a : Array) : float
 		{
 			var x : float = a[0];
 			var y : float = a[1];

@@ -78,9 +78,9 @@ public class TestMat4
 		this.assertArrayEqual(result, this.output, 16, "Frustum should return out");
 	}
 
-	private void identity()
+	private void identity_()
 	{
-		float[] result = Mat4.identity(this.output);
+		float[] result = Mat4.identity_(this.output);
 		this.assertArrayEqual(this.output, this.identity, 16, "Copy should place values into out");
 		this.assertArrayEqual(result, this.output, 16, "Copy should return out");
 	}
@@ -272,7 +272,7 @@ public class TestMat4
 		this.resetTests();
 		this.copy();
 		this.resetTests();
-		this.identity();
+		this.identity_();
 		this.resetTests();
 		this.transpose();
 		this.resetTests();

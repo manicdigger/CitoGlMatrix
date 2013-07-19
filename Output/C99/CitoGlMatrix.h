@@ -56,7 +56,7 @@ float Mat2_Determinant(float const *a);
  * @param {mat2} output the receiving matrix
  * @returns {mat2} output
  */
-float const *Mat2_Identity(float *output);
+float const *Mat2_Identity_(float *output);
 
 /**
  * Inverts a mat2
@@ -111,7 +111,7 @@ float Mat2d_Determinant(float const *a);
 /**
  * **
  */
-float const *Mat2d_Identity(float *output);
+float const *Mat2d_Identity_(float *output);
 
 /**
  * **
@@ -186,7 +186,7 @@ float const *Mat3_FromQuat(float *output, float const *q);
 /**
  * **
  */
-float const *Mat3_Identity(float *output);
+float const *Mat3_Identity_(float *output);
 
 /**
  * **
@@ -305,7 +305,7 @@ float const *Mat4_Frustum(float *output, float left, float right, float bottom, 
  * Returns {mat4} out
  * @param output {mat4} out the receiving matrix
  */
-float const *Mat4_Identity(float *output);
+float const *Mat4_Identity_(float *output);
 
 /**
  * Inverts a mat4
@@ -488,7 +488,7 @@ float const *Quat_FromValues(float x, float y, float z, float w);
 /**
  * **
  */
-float const *Quat_Identity(float *output);
+float const *Quat_Identity_(float *output);
 
 /**
  * **
@@ -503,7 +503,7 @@ float Quat_Len(float const *a);
 /**
  * **
  */
-float Quat_Length(float const *a);
+float Quat_Length_(float const *a);
 
 /**
  * **
@@ -643,7 +643,7 @@ float Vec2_Len(float const *a);
 /**
  * **
  */
-float Vec2_Length(float const *a);
+float Vec2_Length_(float const *a);
 
 /**
  * **
@@ -838,7 +838,7 @@ float Vec3_Len(float const *a);
  * @returns {Number} length of a
  * @param a /@param {vec3} a vector to calculate length of
  */
-float Vec3_Length(float const *a);
+float Vec3_Length_(float const *a);
 
 /**
  * Performs a linear interpolation between two vec3's
@@ -1071,7 +1071,7 @@ float Vec4_Len(float const *a);
 /**
  * **
  */
-float Vec4_Length(float const *a);
+float Vec4_Length_(float const *a);
 
 /**
  * **

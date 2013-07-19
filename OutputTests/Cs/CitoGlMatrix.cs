@@ -220,7 +220,7 @@ public class Mat2
 	/// <summary>Set a mat2 to the identity matrix
 	/// @param {mat2} output the receiving matrix
 	/// @returns {mat2} output</summary>
-	public static float[] Identity(float[] output)
+	public static float[] Identity_(float[] output)
 	{
 		output[0] = 1;
 		output[1] = 0;
@@ -371,7 +371,7 @@ public class Mat2d
 	}
 
 	/// <summary>**</summary>
-	public static float[] Identity(float[] output)
+	public static float[] Identity_(float[] output)
 	{
 		output[0] = 1;
 		output[1] = 0;
@@ -639,7 +639,7 @@ public class Mat3
 	}
 
 	/// <summary>**</summary>
-	public static float[] Identity(float[] output)
+	public static float[] Identity_(float[] output)
 	{
 		output[0] = 1;
 		output[1] = 0;
@@ -1144,7 +1144,7 @@ public class Mat4
 	/// <summary>Set a mat4 to the identity matrix
 	/// Returns {mat4} out</summary>
 	/// <param name="output">{mat4} out the receiving matrix</param>
-	public static float[] Identity(float[] output)
+	public static float[] Identity_(float[] output)
 	{
 		output[0] = 1;
 		output[1] = 0;
@@ -1252,7 +1252,7 @@ public class Mat4
 		float centery = center[1];
 		float centerz = center[2];
 		if (GlMatrixMath.Abs(eyex - centerx) < GlMatrixMath.GLMAT_EPSILON() && GlMatrixMath.Abs(eyey - centery) < GlMatrixMath.GLMAT_EPSILON() && GlMatrixMath.Abs(eyez - centerz) < GlMatrixMath.GLMAT_EPSILON()) {
-			return Mat4.Identity(output);
+			return Mat4.Identity_(output);
 		}
 		z0 = eyex - centerx;
 		z1 = eyey - centery;
@@ -1899,7 +1899,7 @@ public class Quat
 	}
 
 	/// <summary>**</summary>
-	public static float[] Identity(float[] output)
+	public static float[] Identity_(float[] output)
 	{
 		output[0] = 0;
 		output[1] = 0;
@@ -1928,13 +1928,13 @@ public class Quat
 	/// <summary>**</summary>
 	public static float Len(float[] a)
 	{
-		return Quat.Length(a);
+		return Quat.Length_(a);
 	}
 
 	/// <summary>**</summary>
-	public static float Length(float[] a)
+	public static float Length_(float[] a)
 	{
-		return Vec4.Length(a);
+		return Vec4.Length_(a);
 	}
 
 	/// <summary>**</summary>
@@ -2037,7 +2037,7 @@ public class Quat
 		epsilon /= 1000000;
 		if (dot < -nines) {
 			Vec3.Cross(tmpvec3, xUnitVec3, a);
-			if (Vec3.Length(tmpvec3) < epsilon)
+			if (Vec3.Length_(tmpvec3) < epsilon)
 				Vec3.Cross(tmpvec3, yUnitVec3, a);
 			Vec3.Normalize(tmpvec3, tmpvec3);
 			Quat.SetAxisAngle(output, tmpvec3, GlMatrixMath.PI());
@@ -2238,9 +2238,9 @@ public class TestMat4
 		this.AssertArrayEqual(result, this.output, 16, "Frustum should return out");
 	}
 
-	void Identity()
+	void Identity_()
 	{
-		float[] result = Mat4.Identity(this.output);
+		float[] result = Mat4.Identity_(this.output);
 		this.AssertArrayEqual(this.output, this.identity, 16, "Copy should place values into out");
 		this.AssertArrayEqual(result, this.output, 16, "Copy should return out");
 	}
@@ -2432,7 +2432,7 @@ public class TestMat4
 		this.ResetTests();
 		this.Copy();
 		this.ResetTests();
-		this.Identity();
+		this.Identity_();
 		this.ResetTests();
 		this.Transpose();
 		this.ResetTests();
@@ -2647,9 +2647,9 @@ public class TestVec3
 		this.AssertArrayEqual(result, this.Arr3(1, 2, 3), 3, "FromValues should return a 3 element array initialized to the values passed");
 	}
 
-	void Length()
+	void Length_()
 	{
-		float result = Vec3.Length(this.vecA);
+		float result = Vec3.Length_(this.vecA);
 		float r = 3741657;
 		r /= 1000000;
 		this.AssertCloseTo(result, r, "Length should return the length");
@@ -2898,7 +2898,7 @@ public class TestVec3
 		this.ResetTests();
 		this.SquaredDistance();
 		this.ResetTests();
-		this.Length();
+		this.Length_();
 		this.ResetTests();
 		this.SquaredLength();
 		this.ResetTests();
@@ -3090,11 +3090,11 @@ public class Vec2
 	/// <summary>**</summary>
 	public static float Len(float[] a)
 	{
-		return Vec2.Length(a);
+		return Vec2.Length_(a);
 	}
 
 	/// <summary>**</summary>
-	public static float Length(float[] a)
+	public static float Length_(float[] a)
 	{
 		float x = a[0];
 		float y = a[1];
@@ -3410,13 +3410,13 @@ public class Vec3
 	/// <summary>Alias for {@link vec3.length}</summary>
 	public static float Len(float[] a)
 	{
-		return Vec3.Length(a);
+		return Vec3.Length_(a);
 	}
 
 	/// <summary>Calculates the length of a vec3
 	/// @returns {Number} length of a</summary>
 	/// <param name="a">/@param {vec3} a vector to calculate length of</param>
-	public static float Length(float[] a)
+	public static float Length_(float[] a)
 	{
 		float x = a[0];
 		float y = a[1];
@@ -3788,11 +3788,11 @@ public class Vec4
 	/// <summary>**</summary>
 	public static float Len(float[] a)
 	{
-		return Vec4.Length(a);
+		return Vec4.Length_(a);
 	}
 
 	/// <summary>**</summary>
-	public static float Length(float[] a)
+	public static float Length_(float[] a)
 	{
 		float x = a[0];
 		float y = a[1];

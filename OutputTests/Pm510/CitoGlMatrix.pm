@@ -322,7 +322,7 @@ sub determinant($) {
 	return $a->[0] * $a->[3] - $a->[2] * $a->[1];
 }
 
-=head2 C<Mat2::identity(\@output)>
+=head2 C<Mat2::identity_(\@output)>
 
 Set a mat2 to the identity matrix
 @param {mat2} output the receiving matrix
@@ -330,7 +330,7 @@ Set a mat2 to the identity matrix
 
 =cut
 
-sub identity($) {
+sub identity_($) {
 	my ($output) = @_;
 	$output->[0] = 1;
 	$output->[1] = 0;
@@ -538,13 +538,13 @@ sub determinant($) {
 	return $a->[0] * $a->[3] - $a->[1] * $a->[2];
 }
 
-=head2 C<Mat2d::identity(\@output)>
+=head2 C<Mat2d::identity_(\@output)>
 
 **
 
 =cut
 
-sub identity($) {
+sub identity_($) {
 	my ($output) = @_;
 	$output->[0] = 1;
 	$output->[1] = 0;
@@ -890,13 +890,13 @@ sub from_quat($$) {
 	return $output;
 }
 
-=head2 C<Mat3::identity(\@output)>
+=head2 C<Mat3::identity_(\@output)>
 
 **
 
 =cut
 
-sub identity($) {
+sub identity_($) {
 	my ($output) = @_;
 	$output->[0] = 1;
 	$output->[1] = 0;
@@ -1584,7 +1584,7 @@ sub frustum($$$$$$$) {
 	return $output;
 }
 
-=head2 C<Mat4::identity(\@output)>
+=head2 C<Mat4::identity_(\@output)>
 
 Set a mat4 to the identity matrix
 Returns {mat4} out
@@ -1601,7 +1601,7 @@ Parameters:
 
 =cut
 
-sub identity($) {
+sub identity_($) {
 	my ($output) = @_;
 	$output->[0] = 1;
 	$output->[1] = 0;
@@ -1749,7 +1749,7 @@ sub look_at($$$$) {
 	my $centery = $center->[1];
 	my $centerz = $center->[2];
 	if (GlMatrixMath::abs($eyex - $centerx) < GlMatrixMath::g_l_m_a_t__e_p_s_i_l_o_n() && GlMatrixMath::abs($eyey - $centery) < GlMatrixMath::g_l_m_a_t__e_p_s_i_l_o_n() && GlMatrixMath::abs($eyez - $centerz) < GlMatrixMath::g_l_m_a_t__e_p_s_i_l_o_n()) {
-		return Mat4::identity($output);
+		return Mat4::identity_($output);
 	}
 	$z0 = $eyex - $centerx;
 	$z1 = $eyey - $centery;
@@ -2699,13 +2699,13 @@ sub from_values($$$$) {
 	return Vec4::from_values($x, $y, $z, $w);
 }
 
-=head2 C<Quat::identity(\@output)>
+=head2 C<Quat::identity_(\@output)>
 
 **
 
 =cut
 
-sub identity($) {
+sub identity_($) {
 	my ($output) = @_;
 	$output->[0] = 0;
 	$output->[1] = 0;
@@ -2744,18 +2744,18 @@ sub invert($$$) {
 
 sub len($) {
 	my ($a) = @_;
-	return Quat::length($a);
+	return Quat::length_($a);
 }
 
-=head2 C<Quat::length(\@a)>
+=head2 C<Quat::length_(\@a)>
 
 **
 
 =cut
 
-sub length($) {
+sub length_($) {
 	my ($a) = @_;
-	return Vec4::length($a);
+	return Vec4::length_($a);
 }
 
 =head2 C<Quat::lerp(\@output, \@a, \@b, $t)>
@@ -2898,7 +2898,7 @@ sub rotation_to($$$) {
 	$epsilon /= 1000000;
 	if ($dot < -$nines) {
 		Vec3::cross($tmpvec3, $xUnitVec3, $a);
-		if (Vec3::length($tmpvec3) < $epsilon) {
+		if (Vec3::length_($tmpvec3) < $epsilon) {
 			Vec3::cross($tmpvec3, $yUnitVec3, $a);
 		}
 		Vec3::normalize($tmpvec3, $tmpvec3);
@@ -3145,9 +3145,9 @@ sub frustum($) {
 	$self->assert_array_equal($result, $self->{output}, 16, "Frustum should return out");
 }
 
-sub identity($) {
+sub identity_($) {
 	my ($self) = @_;
-	my $result = Mat4::identity($self->{output});
+	my $result = Mat4::identity_($self->{output});
 	$self->assert_array_equal($self->{output}, $self->{identity}, 16, "Copy should place values into out");
 	$self->assert_array_equal($result, $self->{output}, 16, "Copy should return out");
 }
@@ -3343,7 +3343,7 @@ sub test($) {
 	$self->reset_tests();
 	$self->copy();
 	$self->reset_tests();
-	$self->identity();
+	$self->identity_();
 	$self->reset_tests();
 	$self->transpose();
 	$self->reset_tests();
@@ -3559,9 +3559,9 @@ sub from_values($) {
 	$self->assert_array_equal($result, $self->arr3(1, 2, 3), 3, "FromValues should return a 3 element array initialized to the values passed");
 }
 
-sub length($) {
+sub length_($) {
 	my ($self) = @_;
-	my $result = Vec3::length($self->{vec_a});
+	my $result = Vec3::length_($self->{vec_a});
 	my $r = 3741657;
 	$r /= 1000000;
 	$self->assert_close_to($result, $r, "Length should return the length");
@@ -3814,7 +3814,7 @@ sub test($) {
 	$self->reset_tests();
 	$self->squared_distance();
 	$self->reset_tests();
-	$self->length();
+	$self->length_();
 	$self->reset_tests();
 	$self->squared_length();
 	$self->reset_tests();
@@ -4086,16 +4086,16 @@ sub from_values($$) {
 
 sub len($) {
 	my ($a) = @_;
-	return Vec2::length($a);
+	return Vec2::length_($a);
 }
 
-=head2 C<Vec2::length(\@a)>
+=head2 C<Vec2::length_(\@a)>
 
 **
 
 =cut
 
-sub length($) {
+sub length_($) {
 	my ($a) = @_;
 	my $x = $a->[0];
 	my $y = $a->[1];
@@ -4685,10 +4685,10 @@ Alias for {@link vec3.length}
 
 sub len($) {
 	my ($a) = @_;
-	return Vec3::length($a);
+	return Vec3::length_($a);
 }
 
-=head2 C<Vec3::length(\@a)>
+=head2 C<Vec3::length_(\@a)>
 
 Calculates the length of a vec3
 @returns {Number} length of a
@@ -4705,7 +4705,7 @@ Parameters:
 
 =cut
 
-sub length($) {
+sub length_($) {
 	my ($a) = @_;
 	my $x = $a->[0];
 	my $y = $a->[1];
@@ -5446,16 +5446,16 @@ sub from_values($$$$) {
 
 sub len($) {
 	my ($a) = @_;
-	return Vec4::length($a);
+	return Vec4::length_($a);
 }
 
-=head2 C<Vec4::length(\@a)>
+=head2 C<Vec4::length_(\@a)>
 
 **
 
 =cut
 
-sub length($) {
+sub length_($) {
 	my ($a) = @_;
 	my $x = $a->[0];
 	my $y = $a->[1];

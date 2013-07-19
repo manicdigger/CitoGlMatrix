@@ -124,7 +124,7 @@ public class Quat
 	/**
 	 * **
 	 */
-	public static float[] identity(float[] output)
+	public static float[] identity_(float[] output)
 	{
 		output[0] = 0;
 		output[1] = 0;
@@ -157,15 +157,15 @@ public class Quat
 	 */
 	public static float len(float[] a)
 	{
-		return Quat.length(a);
+		return Quat.length_(a);
 	}
 
 	/**
 	 * **
 	 */
-	public static float length(float[] a)
+	public static float length_(float[] a)
 	{
-		return Vec4.length(a);
+		return Vec4.length_(a);
 	}
 
 	/**
@@ -284,7 +284,7 @@ public class Quat
 		epsilon /= 1000000;
 		if (dot < -nines) {
 			Vec3.cross(tmpvec3, xUnitVec3, a);
-			if (Vec3.length(tmpvec3) < epsilon)
+			if (Vec3.length_(tmpvec3) < epsilon)
 				Vec3.cross(tmpvec3, yUnitVec3, a);
 			Vec3.normalize(tmpvec3, tmpvec3);
 			Quat.setAxisAngle(output, tmpvec3, GlMatrixMath.pI());

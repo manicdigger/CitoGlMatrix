@@ -74,7 +74,7 @@ public class Mat2
 	 * @param {mat2} output the receiving matrix
 	 * @returns {mat2} output
 	 */
-	public static float[] identity(float[] output)
+	public static float[] identity_(float[] output)
 	{
 		output[0] = 1;
 		output[1] = 0;

@@ -161,7 +161,7 @@ public class Vec3
 	 */
 	public static float len(float[] a)
 	{
-		return Vec3.length(a);
+		return Vec3.length_(a);
 	}
 
 	/**
@@ -169,7 +169,7 @@ public class Vec3
 	 * @returns {Number} length of a
 	 * @param a /@param {vec3} a vector to calculate length of
 	 */
-	public static float length(float[] a)
+	public static float length_(float[] a)
 	{
 		float x = a[0];
 		float y = a[1];

@@ -80,9 +80,9 @@ package
 			this.assertArrayEqual(result, this.output, 16, "Frustum should return out");
 		}
 
-		private function identity() : void
+		private function identity_() : void
 		{
-			var result : Array = Mat4.identity(this.output);
+			var result : Array = Mat4.identity_(this.output);
 			this.assertArrayEqual(this.output, this.identity, 16, "Copy should place values into out");
 			this.assertArrayEqual(result, this.output, 16, "Copy should return out");
 		}
@@ -274,7 +274,7 @@ package
 			this.resetTests();
 			this.copy();
 			this.resetTests();
-			this.identity();
+			this.identity_();
 			this.resetTests();
 			this.transpose();
 			this.resetTests();

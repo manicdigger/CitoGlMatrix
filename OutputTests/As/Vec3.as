@@ -163,7 +163,7 @@ package
 		 */
 		public static function len(a : Array) : float
 		{
-			return Vec3.length(a);
+			return Vec3.length_(a);
 		}
 
 		/**
@@ -171,7 +171,7 @@ package
 		 * @returns {Number} length of a
 		 * @param a /@param {vec3} a vector to calculate length of
 		 */
-		public static function length(a : Array) : float
+		public static function length_(a : Array) : float
 		{
 			var x : float = a[0];
 			var y : float = a[1];

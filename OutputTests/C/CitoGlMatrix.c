@@ -40,7 +40,7 @@ static void TestMat4_Copy(TestMat4 const *self);
 static void TestMat4_Create(TestMat4 const *self);
 static void TestMat4_Determinant(TestMat4 const *self);
 static void TestMat4_Frustum(TestMat4 const *self);
-static void TestMat4_Identity(TestMat4 const *self);
+static void TestMat4_Identity_(TestMat4 const *self);
 static void TestMat4_Invert(TestMat4 const *self);
 static void TestMat4_InvertWhenMatAIsTheOutputMatrix(TestMat4 const *self);
 static void TestMat4_InvertWithASeparateOutputMatrix(TestMat4 const *self);
@@ -111,7 +111,7 @@ static void TestVec3_DivideWithASeparateOutputVector(TestVec3 const *self);
 static void TestVec3_Dot(TestVec3 const *self);
 static void TestVec3_ForEachDo(TestVec3 const *self);
 static void TestVec3_FromValues(TestVec3 const *self);
-static void TestVec3_Length(TestVec3 const *self);
+static void TestVec3_Length_(TestVec3 const *self);
 static void TestVec3_Lerp(TestVec3 const *self);
 static void TestVec3_LerpWhenVecAIsTheOutputVector(TestVec3 const *self);
 static void TestVec3_LerpWhenVecBIsTheOutputVector(TestVec3 const *self);
@@ -374,7 +374,7 @@ float Mat2_Determinant(float const *a)
 	return a[0] * a[3] - a[2] * a[1];
 }
 
-float const *Mat2_Identity(float *output)
+float const *Mat2_Identity_(float *output)
 {
 	output[0] = 1;
 	output[1] = 0;
@@ -504,7 +504,7 @@ float Mat2d_Determinant(float const *a)
 	return a[0] * a[3] - a[1] * a[2];
 }
 
-float const *Mat2d_Identity(float *output)
+float const *Mat2d_Identity_(float *output)
 {
 	output[0] = 1;
 	output[1] = 0;
@@ -749,7 +749,7 @@ float const *Mat3_FromQuat(float *output, float const *q)
 	return output;
 }
 
-float const *Mat3_Identity(float *output)
+float const *Mat3_Identity_(float *output)
 {
 	output[0] = 1;
 	output[1] = 0;
@@ -1195,7 +1195,7 @@ float const *Mat4_Frustum(float *output, float left, float right, float bottom, 
 	return output;
 }
 
-float const *Mat4_Identity(float *output)
+float const *Mat4_Identity_(float *output)
 {
 	output[0] = 1;
 	output[1] = 0;
@@ -1294,7 +1294,7 @@ float const *Mat4_LookAt(float *output, float const *eye, float const *center, f
 	float centery = center[1];
 	float centerz = center[2];
 	if (GlMatrixMath_Abs(eyex - centerx) < GlMatrixMath_GLMAT_EPSILON() && GlMatrixMath_Abs(eyey - centery) < GlMatrixMath_GLMAT_EPSILON() && GlMatrixMath_Abs(eyez - centerz) < GlMatrixMath_GLMAT_EPSILON()) {
-		return Mat4_Identity(output);
+		return Mat4_Identity_(output);
 	}
 	z0 = eyex - centerx;
 	z1 = eyey - centery;
@@ -1864,7 +1864,7 @@ float const *Quat_FromValues(float x, float y, float z, float w)
 	return Vec4_FromValues(x, y, z, w);
 }
 
-float const *Quat_Identity(float *output)
+float const *Quat_Identity_(float *output)
 {
 	output[0] = 0;
 	output[1] = 0;
@@ -1891,12 +1891,12 @@ float const *Quat_Invert(Quat const *self, float *output, float const *a)
 
 float Quat_Len(float const *a)
 {
-	return Quat_Length(a);
+	return Quat_Length_(a);
 }
 
-float Quat_Length(float const *a)
+float Quat_Length_(float const *a)
 {
-	return Vec4_Length(a);
+	return Vec4_Length_(a);
 }
 
 float const *Quat_Lerp(float *output, float const *a, float const *b, float t)
@@ -2010,7 +2010,7 @@ float const *Quat_RotationTo(float *output, float const *a, float const *b)
 	epsilon /= 1000000;
 	if (dot < -nines) {
 		Vec3_Cross(tmpvec3, xUnitVec3, a);
-		if (Vec3_Length(tmpvec3) < epsilon)
+		if (Vec3_Length_(tmpvec3) < epsilon)
 			Vec3_Cross(tmpvec3, yUnitVec3, a);
 		Vec3_Normalize(tmpvec3, tmpvec3);
 		Quat_SetAxisAngle(output, tmpvec3, GlMatrixMath_PI());
@@ -2194,9 +2194,9 @@ static void TestMat4_Frustum(TestMat4 const *self)
 	TestMat4_AssertArrayEqual(self, result, self->output, 16, "Frustum should return out");
 }
 
-static void TestMat4_Identity(TestMat4 const *self)
+static void TestMat4_Identity_(TestMat4 const *self)
 {
-	float const *result = Mat4_Identity(self->output);
+	float const *result = Mat4_Identity_(self->output);
 	TestMat4_AssertArrayEqual(self, self->output, self->identity, 16, "Copy should place values into out");
 	TestMat4_AssertArrayEqual(self, result, self->output, 16, "Copy should return out");
 }
@@ -2390,7 +2390,7 @@ void TestMat4_Test(TestMat4 *self)
 	TestMat4_ResetTests(self);
 	TestMat4_Copy(self);
 	TestMat4_ResetTests(self);
-	TestMat4_Identity(self);
+	TestMat4_Identity_(self);
 	TestMat4_ResetTests(self);
 	TestMat4_Transpose(self);
 	TestMat4_ResetTests(self);
@@ -2602,9 +2602,9 @@ static void TestVec3_FromValues(TestVec3 const *self)
 	TestVec3_AssertArrayEqual(self, result, TestVec3_Arr3(self, 1, 2, 3), 3, "FromValues should return a 3 element array initialized to the values passed");
 }
 
-static void TestVec3_Length(TestVec3 const *self)
+static void TestVec3_Length_(TestVec3 const *self)
 {
-	float result = Vec3_Length(self->vecA);
+	float result = Vec3_Length_(self->vecA);
 	float r = 3741657;
 	r /= 1000000;
 	TestVec3_AssertCloseTo(self, result, r, "Length should return the length");
@@ -2854,7 +2854,7 @@ void TestVec3_Test(TestVec3 *self)
 	TestVec3_ResetTests(self);
 	TestVec3_SquaredDistance(self);
 	TestVec3_ResetTests(self);
-	TestVec3_Length(self);
+	TestVec3_Length_(self);
 	TestVec3_ResetTests(self);
 	TestVec3_SquaredLength(self);
 	TestVec3_ResetTests(self);
@@ -3024,10 +3024,10 @@ float const *Vec2_FromValues(float x, float y)
 
 float Vec2_Len(float const *a)
 {
-	return Vec2_Length(a);
+	return Vec2_Length_(a);
 }
 
-float Vec2_Length(float const *a)
+float Vec2_Length_(float const *a)
 {
 	float x = a[0];
 	float y = a[1];
@@ -3272,10 +3272,10 @@ float const *Vec3_FromValues(float x, float y, float z)
 
 float Vec3_Len(float const *a)
 {
-	return Vec3_Length(a);
+	return Vec3_Length_(a);
 }
 
-float Vec3_Length(float const *a)
+float Vec3_Length_(float const *a)
 {
 	float x = a[0];
 	float y = a[1];
@@ -3539,10 +3539,10 @@ float const *Vec4_FromValues(float x, float y, float z, float w)
 
 float Vec4_Len(float const *a)
 {
-	return Vec4_Length(a);
+	return Vec4_Length_(a);
 }
 
-float Vec4_Length(float const *a)
+float Vec4_Length_(float const *a)
 {
 	float x = a[0];
 	float y = a[1];

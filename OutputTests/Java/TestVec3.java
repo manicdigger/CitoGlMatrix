@@ -141,9 +141,9 @@ public class TestVec3
 		this.assertArrayEqual(result, this.arr3(1, 2, 3), 3, "FromValues should return a 3 element array initialized to the values passed");
 	}
 
-	private void length()
+	private void length_()
 	{
-		float result = Vec3.length(this.vecA);
+		float result = Vec3.length_(this.vecA);
 		float r = 3741657;
 		r /= 1000000;
 		this.assertCloseTo(result, r, "Length should return the length");
@@ -392,7 +392,7 @@ public class TestVec3
 		this.resetTests();
 		this.squaredDistance();
 		this.resetTests();
-		this.length();
+		this.length_();
 		this.resetTests();
 		this.squaredLength();
 		this.resetTests();

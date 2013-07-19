@@ -1,10 +1,9 @@
 // Generated automatically with "cito". Do not edit.
-import std.utf;
 
-class GlMatrixMath
+public class GlMatrixMath
 {
 
-	static float Abs(float len)
+	public static float Abs(float len)
 	{
 		if (len < 0) {
 			return -len;
@@ -14,19 +13,19 @@ class GlMatrixMath
 		}
 	}
 
-	static float GLMAT_EPSILON()
+	public static float GLMAT_EPSILON()
 	{
 		float one = 1;
 		return one / 1000000;
 	}
 
-	static float PI()
+	public static float PI()
 	{
 		float a = 3141592;
 		return a / 1000000;
 	}
 
-	static float max(float a, float b)
+	public static float max(float a, float b)
 	{
 		if (a > b) {
 			return a;
@@ -36,7 +35,7 @@ class GlMatrixMath
 		}
 	}
 
-	static float min(float a, float b)
+	public static float min(float a, float b)
 	{
 		if (a < b) {
 			return a;
@@ -47,12 +46,12 @@ class GlMatrixMath
 	}
 }
 
-/// 2x2 Matrix
-class Mat2
+/// <summary>2x2 Matrix</summary>
+public class Mat2
 {
 
-	/// Calculates the adjugate of a mat2
-	static const(float)[] Adjoint(float[] output, const(float)[] a)
+	/// <summary>Calculates the adjugate of a mat2</summary>
+	public static float[] Adjoint(float[] output, float[] a)
 	{
 		float a0 = a[0];
 		output[0] = a[3];
@@ -62,11 +61,10 @@ class Mat2
 		return output;
 	}
 
-	/// Creates a new mat2 initialized with values from an existing matrix
-	/// @returns {mat2} a new 2x2 matrix
-	/// Params:
-	/// a = @param {mat2} a matrix to clone
-	static const(float)[] Clone(const(float)[] a)
+	/// <summary>Creates a new mat2 initialized with values from an existing matrix
+	/// @returns {mat2} a new 2x2 matrix</summary>
+	/// <param name="a">@param {mat2} a matrix to clone</param>
+	public static float[] Clone(float[] a)
 	{
 		float[] output = new float[4];
 		output[0] = a[0];
@@ -76,11 +74,11 @@ class Mat2
 		return output;
 	}
 
-	/// Copy the values from one mat2 to another
+	/// <summary>Copy the values from one mat2 to another
 	/// @param {mat2} output the receiving matrix
 	/// @param {mat2} a the source matrix
-	/// @returns {mat2} output
-	static const(float)[] Copy(float[] output, const(float)[] a)
+	/// @returns {mat2} output</summary>
+	public static float[] Copy(float[] output, float[] a)
 	{
 		output[0] = a[0];
 		output[1] = a[1];
@@ -89,9 +87,9 @@ class Mat2
 		return output;
 	}
 
-	/// Creates a new identity mat2
-	/// @returns {mat2} a new 2x2 matrix
-	static const(float)[] Create()
+	/// <summary>Creates a new identity mat2
+	/// @returns {mat2} a new 2x2 matrix</summary>
+	public static float[] Create()
 	{
 		float[] output = new float[4];
 		output[0] = 1;
@@ -101,15 +99,15 @@ class Mat2
 		return output;
 	}
 
-	static float Determinant(const(float)[] a)
+	public static float Determinant(float[] a)
 	{
 		return a[0] * a[3] - a[2] * a[1];
 	}
 
-	/// Set a mat2 to the identity matrix
+	/// <summary>Set a mat2 to the identity matrix
 	/// @param {mat2} output the receiving matrix
-	/// @returns {mat2} output
-	static const(float)[] Identity(float[] output)
+	/// @returns {mat2} output</summary>
+	public static float[] Identity(float[] output)
 	{
 		output[0] = 1;
 		output[1] = 0;
@@ -118,8 +116,8 @@ class Mat2
 		return output;
 	}
 
-	/// Inverts a mat2
-	static const(float)[] Invert(float[] output, const(float)[] a)
+	/// <summary>Inverts a mat2</summary>
+	public static float[] Invert(float[] output, float[] a)
 	{
 		float a0 = a[0];
 		float a1 = a[1];
@@ -138,13 +136,13 @@ class Mat2
 		return output;
 	}
 
-	/// Alias for {@link mat2.multiply}
-	static const(float)[] Mul(float[] output, const(float)[] a, const(float)[] b)
+	/// <summary>Alias for {@link mat2.multiply}</summary>
+	public static float[] Mul(float[] output, float[] a, float[] b)
 	{
 		return Mat2.Multiply(output, a, b);
 	}
 
-	static const(float)[] Multiply(float[] output, const(float)[] a, const(float)[] b)
+	public static float[] Multiply(float[] output, float[] a, float[] b)
 	{
 		float a0 = a[0];
 		float a1 = a[1];
@@ -161,8 +159,8 @@ class Mat2
 		return output;
 	}
 
-	/// **
-	static const(float)[] Rotate(float[] output, const(float)[] a, float rad)
+	/// <summary>**</summary>
+	public static float[] Rotate(float[] output, float[] a, float rad)
 	{
 		float a0 = a[0];
 		float a1 = a[1];
@@ -177,8 +175,8 @@ class Mat2
 		return output;
 	}
 
-	/// **
-	static const(float)[] Scale(float[] output, const(float)[] a, const(float)[] v)
+	/// <summary>**</summary>
+	public static float[] Scale(float[] output, float[] a, float[] v)
 	{
 		float a0 = a[0];
 		float a1 = a[1];
@@ -193,11 +191,11 @@ class Mat2
 		return output;
 	}
 
-	/// Transpose the values of a mat2
+	/// <summary>Transpose the values of a mat2
 	/// @param {mat2} output the receiving matrix
 	/// @param {mat2} a the source matrix
-	/// @returns {mat2} output
-	static const(float)[] Transpose(float[] output, const(float)[] a)
+	/// @returns {mat2} output</summary>
+	public static float[] Transpose(float[] output, float[] a)
 	{
 		output[0] = a[0];
 		output[1] = a[2];
@@ -206,17 +204,17 @@ class Mat2
 		return output;
 	}
 
-	/// **
-	private final void f()
+	/// <summary>**</summary>
+	void f()
 	{
 	}
 }
 
-class Mat2d
+public class Mat2d
 {
 
-	/// **
-	static const(float)[] Clone(const(float)[] a)
+	/// <summary>**</summary>
+	public static float[] Clone(float[] a)
 	{
 		float[] output = new float[6];
 		output[0] = a[0];
@@ -228,8 +226,8 @@ class Mat2d
 		return output;
 	}
 
-	/// **
-	static const(float)[] Copy(float[] output, const(float)[] a)
+	/// <summary>**</summary>
+	public static float[] Copy(float[] output, float[] a)
 	{
 		output[0] = a[0];
 		output[1] = a[1];
@@ -240,8 +238,8 @@ class Mat2d
 		return output;
 	}
 
-	/// **
-	static const(float)[] Create()
+	/// <summary>**</summary>
+	public static float[] Create()
 	{
 		float[] output = new float[6];
 		output[0] = 1;
@@ -253,14 +251,14 @@ class Mat2d
 		return output;
 	}
 
-	/// **
-	static float Determinant(const(float)[] a)
+	/// <summary>**</summary>
+	public static float Determinant(float[] a)
 	{
 		return a[0] * a[3] - a[1] * a[2];
 	}
 
-	/// **
-	static const(float)[] Identity(float[] output)
+	/// <summary>**</summary>
+	public static float[] Identity(float[] output)
 	{
 		output[0] = 1;
 		output[1] = 0;
@@ -271,8 +269,8 @@ class Mat2d
 		return output;
 	}
 
-	/// **
-	static const(float)[] Invert(float[] output, const(float)[] a)
+	/// <summary>**</summary>
+	public static float[] Invert(float[] output, float[] a)
 	{
 		float aa = a[0];
 		float ab = a[1];
@@ -295,14 +293,14 @@ class Mat2d
 		return output;
 	}
 
-	/// **
-	static const(float)[] Mul(float[] output, const(float)[] a, const(float)[] b)
+	/// <summary>**</summary>
+	public static float[] Mul(float[] output, float[] a, float[] b)
 	{
 		return Mat2d.Multiply(output, a, b);
 	}
 
-	/// **
-	static const(float)[] Multiply(float[] output, const(float)[] a, const(float)[] b)
+	/// <summary>**</summary>
+	public static float[] Multiply(float[] output, float[] a, float[] b)
 	{
 		float aa = a[0];
 		float ab = a[1];
@@ -325,8 +323,8 @@ class Mat2d
 		return output;
 	}
 
-	/// **
-	static const(float)[] Rotate(float[] output, const(float)[] a, float rad)
+	/// <summary>**</summary>
+	public static float[] Rotate(float[] output, float[] a, float rad)
 	{
 		float aa = a[0];
 		float ab = a[1];
@@ -345,8 +343,8 @@ class Mat2d
 		return output;
 	}
 
-	/// **
-	static const(float)[] Scale(float[] output, const(float)[] a, const(float)[] v)
+	/// <summary>**</summary>
+	public static float[] Scale(float[] output, float[] a, float[] v)
 	{
 		float vx = v[0];
 		float vy = v[1];
@@ -359,8 +357,8 @@ class Mat2d
 		return output;
 	}
 
-	/// **
-	static const(float)[] Translate(float[] output, const(float)[] a, const(float)[] v)
+	/// <summary>**</summary>
+	public static float[] Translate(float[] output, float[] a, float[] v)
 	{
 		output[0] = a[0];
 		output[1] = a[1];
@@ -371,17 +369,17 @@ class Mat2d
 		return output;
 	}
 
-	/// **
-	private final void f()
+	/// <summary>**</summary>
+	void f()
 	{
 	}
 }
 
-class Mat3
+public class Mat3
 {
 
-	/// **
-	static const(float)[] Adjoint(float[] output, const(float)[] a)
+	/// <summary>**</summary>
+	public static float[] Adjoint(float[] output, float[] a)
 	{
 		float a00 = a[0];
 		float a01 = a[1];
@@ -404,8 +402,8 @@ class Mat3
 		return output;
 	}
 
-	/// **
-	static const(float)[] Clone(const(float)[] a)
+	/// <summary>**</summary>
+	public static float[] Clone(float[] a)
 	{
 		float[] output = new float[9];
 		output[0] = a[0];
@@ -420,8 +418,8 @@ class Mat3
 		return output;
 	}
 
-	/// **
-	static const(float)[] Copy(float[] output, const(float)[] a)
+	/// <summary>**</summary>
+	public static float[] Copy(float[] output, float[] a)
 	{
 		output[0] = a[0];
 		output[1] = a[1];
@@ -435,8 +433,8 @@ class Mat3
 		return output;
 	}
 
-	/// **
-	static float[] Create()
+	/// <summary>**</summary>
+	public static float[] Create()
 	{
 		float[] output = new float[9];
 		output[0] = 1;
@@ -451,8 +449,8 @@ class Mat3
 		return output;
 	}
 
-	/// **
-	static float Determinant(const(float)[] a)
+	/// <summary>**</summary>
+	public static float Determinant(float[] a)
 	{
 		float a00 = a[0];
 		float a01 = a[1];
@@ -466,8 +464,8 @@ class Mat3
 		return a00 * (a22 * a11 - a12 * a21) + a01 * (-a22 * a10 + a12 * a20) + a02 * (a21 * a10 - a11 * a20);
 	}
 
-	/// **
-	static const(float)[] FromMat2d(float[] output, const(float)[] a)
+	/// <summary>**</summary>
+	public static float[] FromMat2d(float[] output, float[] a)
 	{
 		output[0] = a[0];
 		output[1] = a[1];
@@ -481,8 +479,8 @@ class Mat3
 		return output;
 	}
 
-	/// **
-	static const(float)[] FromMat4(float[] output, const(float)[] a)
+	/// <summary>**</summary>
+	public static float[] FromMat4(float[] output, float[] a)
 	{
 		output[0] = a[0];
 		output[1] = a[1];
@@ -496,8 +494,8 @@ class Mat3
 		return output;
 	}
 
-	/// **
-	static const(float)[] FromQuat(float[] output, const(float)[] q)
+	/// <summary>**</summary>
+	public static float[] FromQuat(float[] output, float[] q)
 	{
 		float x = q[0];
 		float y = q[1];
@@ -527,8 +525,8 @@ class Mat3
 		return output;
 	}
 
-	/// **
-	static const(float)[] Identity(float[] output)
+	/// <summary>**</summary>
+	public static float[] Identity(float[] output)
 	{
 		output[0] = 1;
 		output[1] = 0;
@@ -542,8 +540,8 @@ class Mat3
 		return output;
 	}
 
-	/// **
-	static const(float)[] Invert(float[] output, const(float)[] a)
+	/// <summary>**</summary>
+	public static float[] Invert(float[] output, float[] a)
 	{
 		float a00 = a[0];
 		float a01 = a[1];
@@ -575,14 +573,14 @@ class Mat3
 		return output;
 	}
 
-	/// **
-	static const(float)[] Mul(float[] output, const(float)[] a, const(float)[] b)
+	/// <summary>**</summary>
+	public static float[] Mul(float[] output, float[] a, float[] b)
 	{
 		return Mat3.Multiply(output, a, b);
 	}
 
-	/// **
-	static const(float)[] Multiply(float[] output, const(float)[] a, const(float)[] b)
+	/// <summary>**</summary>
+	public static float[] Multiply(float[] output, float[] a, float[] b)
 	{
 		float a00 = a[0];
 		float a01 = a[1];
@@ -614,8 +612,8 @@ class Mat3
 		return output;
 	}
 
-	/// **
-	static const(float)[] NormalFromMat4(float[] output, const(float)[] a)
+	/// <summary>**</summary>
+	public static float[] NormalFromMat4(float[] output, float[] a)
 	{
 		float a00 = a[0];
 		float a01 = a[1];
@@ -663,8 +661,8 @@ class Mat3
 		return output;
 	}
 
-	/// **
-	static const(float)[] Rotate(float[] output, const(float)[] a, float rad)
+	/// <summary>**</summary>
+	public static float[] Rotate(float[] output, float[] a, float rad)
 	{
 		float a00 = a[0];
 		float a01 = a[1];
@@ -689,8 +687,8 @@ class Mat3
 		return output;
 	}
 
-	/// **
-	static const(float)[] Scale(float[] output, const(float)[] a, const(float)[] v)
+	/// <summary>**</summary>
+	public static float[] Scale(float[] output, float[] a, float[] v)
 	{
 		float x = v[0];
 		float y = v[1];
@@ -706,8 +704,8 @@ class Mat3
 		return output;
 	}
 
-	/// **
-	static const(float)[] Translate(float[] output, const(float)[] a, const(float)[] v)
+	/// <summary>**</summary>
+	public static float[] Translate(float[] output, float[] a, float[] v)
 	{
 		float a00 = a[0];
 		float a01 = a[1];
@@ -732,8 +730,8 @@ class Mat3
 		return output;
 	}
 
-	/// **
-	static const(float)[] Transpose(float[] output, const(float)[] a)
+	/// <summary>**</summary>
+	public static float[] Transpose(float[] output, float[] a)
 	{
 		output[0] = a[0];
 		output[1] = a[3];
@@ -747,22 +745,21 @@ class Mat3
 		return output;
 	}
 
-	/// **
-	private final void f()
+	/// <summary>**</summary>
+	void f()
 	{
 	}
 }
 
-/// 4x4 Matrix
-class Mat4
+/// <summary>4x4 Matrix</summary>
+public class Mat4
 {
 
-	/// Calculates the adjugate of a mat4
-	/// @returns {mat4} out
-	/// Params:
-	/// output = @param {mat4} out the receiving matrix
-	/// a = @param {mat4} a the source matrix
-	static const(float)[] Adjoint(float[] output, const(float)[] a)
+	/// <summary>Calculates the adjugate of a mat4
+	/// @returns {mat4} out</summary>
+	/// <param name="output">@param {mat4} out the receiving matrix</param>
+	/// <param name="a">@param {mat4} a the source matrix</param>
+	public static float[] Adjoint(float[] output, float[] a)
 	{
 		float a00 = a[0];
 		float a01 = a[1];
@@ -799,11 +796,10 @@ class Mat4
 		return output;
 	}
 
-	/// Creates a new mat4 initialized with values from an existing matrix
-	/// Returns {mat4} a new 4x4 matrix
-	/// Params:
-	/// a = {mat4} a matrix to clone
-	static const(float)[] Clone(const(float)[] a)
+	/// <summary>Creates a new mat4 initialized with values from an existing matrix
+	/// Returns {mat4} a new 4x4 matrix</summary>
+	/// <param name="a">{mat4} a matrix to clone</param>
+	public static float[] Clone(float[] a)
 	{
 		float[] output = new float[16];
 		output[0] = a[0];
@@ -825,12 +821,11 @@ class Mat4
 		return output;
 	}
 
-	/// Copy the values from one mat4 to another
-	/// Returns {mat4} out
-	/// Params:
-	/// output = {mat4} out the receiving matrix
-	/// a = {mat4} a the source matrix
-	static const(float)[] Copy(float[] output, const(float)[] a)
+	/// <summary>Copy the values from one mat4 to another
+	/// Returns {mat4} out</summary>
+	/// <param name="output">{mat4} out the receiving matrix</param>
+	/// <param name="a">{mat4} a the source matrix</param>
+	public static float[] Copy(float[] output, float[] a)
 	{
 		output[0] = a[0];
 		output[1] = a[1];
@@ -851,9 +846,9 @@ class Mat4
 		return output;
 	}
 
-	/// Creates a new identity mat4
-	/// Returns {mat4} a new 4x4 matrix
-	static const(float)[] Create()
+	/// <summary>Creates a new identity mat4
+	/// Returns {mat4} a new 4x4 matrix</summary>
+	public static float[] Create()
 	{
 		float[] output = new float[16];
 		output[0] = 1;
@@ -875,11 +870,10 @@ class Mat4
 		return output;
 	}
 
-	/// Calculates the determinant of a mat4
-	/// @returns {Number} determinant of a
-	/// Params:
-	/// a = @param {mat4} a the source matrix
-	static float Determinant(const(float)[] a)
+	/// <summary>Calculates the determinant of a mat4
+	/// @returns {Number} determinant of a</summary>
+	/// <param name="a">@param {mat4} a the source matrix</param>
+	public static float Determinant(float[] a)
 	{
 		float a00 = a[0];
 		float a01 = a[1];
@@ -912,12 +906,11 @@ class Mat4
 		return b00 * b11 - b01 * b10 + b02 * b09 + b03 * b08 - b04 * b07 + b05 * b06;
 	}
 
-	/// Calculates a 4x4 matrix from the given quaternion
-	/// @returns {mat4} out
-	/// Params:
-	/// output = {mat4} out mat4 receiving operation result
-	/// q = {quat} q Quaternion to create matrix from
-	static const(float)[] FromQuat(float[] output, const(float)[] q)
+	/// <summary>Calculates a 4x4 matrix from the given quaternion
+	/// @returns {mat4} out</summary>
+	/// <param name="output">{mat4} out mat4 receiving operation result</param>
+	/// <param name="q">{quat} q Quaternion to create matrix from</param>
+	public static float[] FromQuat(float[] output, float[] q)
 	{
 		float x = q[0];
 		float y = q[1];
@@ -954,19 +947,18 @@ class Mat4
 		return output;
 	}
 
-	/// Creates a matrix from a quaternion rotation and vector translation
+	/// <summary>Creates a matrix from a quaternion rotation and vector translation
 	/// This is equivalent to (but much faster than):
 	/// mat4.identity(dest);
 	/// mat4.translate(dest, vec);
 	/// var quatMat = mat4.create();
 	/// quat4.toMat4(quat, quatMat);
 	/// mat4.multiply(dest, quatMat);
-	/// @returns {mat4} out
-	/// Params:
-	/// output = {mat4} out mat4 receiving operation result
-	/// q = {quat4} q Rotation quaternion
-	/// v = {vec3} v Translation vector
-	static const(float)[] FromRotationTranslation(float[] output, const(float)[] q, const(float)[] v)
+	/// @returns {mat4} out</summary>
+	/// <param name="output">{mat4} out mat4 receiving operation result</param>
+	/// <param name="q">{quat4} q Rotation quaternion</param>
+	/// <param name="v">{vec3} v Translation vector</param>
+	public static float[] FromRotationTranslation(float[] output, float[] q, float[] v)
 	{
 		float x = q[0];
 		float y = q[1];
@@ -1003,17 +995,16 @@ class Mat4
 		return output;
 	}
 
-	/// Generates a frustum matrix with the given bounds
-	/// @returns {mat4} out
-	/// Params:
-	/// output = {mat4} out mat4 frustum matrix will be written into
-	/// left = {Number} left Left bound of the frustum
-	/// right = {Number} right Right bound of the frustum
-	/// bottom = {Number} bottom Bottom bound of the frustum
-	/// top = {Number} top Top bound of the frustum
-	/// near = {Number} near Near bound of the frustum
-	/// far = {Number} far Far bound of the frustum
-	static const(float)[] Frustum(float[] output, float left, float right, float bottom, float top, float near, float far)
+	/// <summary>Generates a frustum matrix with the given bounds
+	/// @returns {mat4} out</summary>
+	/// <param name="output">{mat4} out mat4 frustum matrix will be written into</param>
+	/// <param name="left">{Number} left Left bound of the frustum</param>
+	/// <param name="right">{Number} right Right bound of the frustum</param>
+	/// <param name="bottom">{Number} bottom Bottom bound of the frustum</param>
+	/// <param name="top">{Number} top Top bound of the frustum</param>
+	/// <param name="near">{Number} near Near bound of the frustum</param>
+	/// <param name="far">{Number} far Far bound of the frustum</param>
+	public static float[] Frustum(float[] output, float left, float right, float bottom, float top, float near, float far)
 	{
 		float rl = 1 / (right - left);
 		float tb = 1 / (top - bottom);
@@ -1037,11 +1028,10 @@ class Mat4
 		return output;
 	}
 
-	/// Set a mat4 to the identity matrix
-	/// Returns {mat4} out
-	/// Params:
-	/// output = {mat4} out the receiving matrix
-	static const(float)[] Identity(float[] output)
+	/// <summary>Set a mat4 to the identity matrix
+	/// Returns {mat4} out</summary>
+	/// <param name="output">{mat4} out the receiving matrix</param>
+	public static float[] Identity(float[] output)
 	{
 		output[0] = 1;
 		output[1] = 0;
@@ -1062,12 +1052,11 @@ class Mat4
 		return output;
 	}
 
-	/// Inverts a mat4
-	/// @returns {mat4} out
-	/// Params:
-	/// output = {mat4} out the receiving matrix
-	/// a = {mat4} a the source matrix
-	static const(float)[] Invert(float[] output, const(float)[] a)
+	/// <summary>Inverts a mat4
+	/// @returns {mat4} out</summary>
+	/// <param name="output">{mat4} out the receiving matrix</param>
+	/// <param name="a">{mat4} a the source matrix</param>
+	public static float[] Invert(float[] output, float[] a)
 	{
 		float a00 = a[0];
 		float a01 = a[1];
@@ -1122,14 +1111,13 @@ class Mat4
 		return output;
 	}
 
-	/// Generates a look-at matrix with the given eye position, focal point, and up axis
-	/// @returns {mat4} out
-	/// Params:
-	/// output = {mat4} out mat4 frustum matrix will be written into
-	/// eye = {vec3} eye Position of the viewer
-	/// center = {vec3} center Point the viewer is looking at
-	/// up = {vec3} up vec3 pointing up
-	static const(float)[] LookAt(float[] output, const(float)[] eye, const(float)[] center, const(float)[] up)
+	/// <summary>Generates a look-at matrix with the given eye position, focal point, and up axis
+	/// @returns {mat4} out</summary>
+	/// <param name="output">{mat4} out mat4 frustum matrix will be written into</param>
+	/// <param name="eye">{vec3} eye Position of the viewer</param>
+	/// <param name="center">{vec3} center Point the viewer is looking at</param>
+	/// <param name="up">{vec3} up vec3 pointing up</param>
+	public static float[] LookAt(float[] output, float[] eye, float[] center, float[] up)
 	{
 		float x0;
 		float x1;
@@ -1209,19 +1197,18 @@ class Mat4
 		return output;
 	}
 
-	/// Alias for {@link mat4.multiply}
-	static const(float)[] Mul(float[] output, const(float)[] a, const(float)[] b)
+	/// <summary>Alias for {@link mat4.multiply}</summary>
+	public static float[] Mul(float[] output, float[] a, float[] b)
 	{
 		return Mat4.Multiply(output, a, b);
 	}
 
-	/// Multiplies two mat4's
-	/// @returns {mat4} out
-	/// Params:
-	/// output = @param {mat4} out the receiving matrix
-	/// a = @param {mat4} a the first operand
-	/// b = @param {mat4} b the second operand
-	static const(float)[] Multiply(float[] output, const(float)[] a, const(float)[] b)
+	/// <summary>Multiplies two mat4's
+	/// @returns {mat4} out</summary>
+	/// <param name="output">@param {mat4} out the receiving matrix</param>
+	/// <param name="a">@param {mat4} a the first operand</param>
+	/// <param name="b">@param {mat4} b the second operand</param>
+	public static float[] Multiply(float[] output, float[] a, float[] b)
 	{
 		float a00 = a[0];
 		float a01 = a[1];
@@ -1274,17 +1261,16 @@ class Mat4
 		return output;
 	}
 
-	/// Generates a orthogonal projection matrix with the given bounds
-	/// @returns {mat4} out
-	/// Params:
-	/// output = {mat4} out mat4 frustum matrix will be written into
-	/// left = {number} left Left bound of the frustum
-	/// right = {number} right Right bound of the frustum
-	/// bottom = {number} bottom Bottom bound of the frustum
-	/// top = {number} top Top bound of the frustum
-	/// near = {number} near Near bound of the frustum
-	/// far = {number} far Far bound of the frustum
-	static const(float)[] Ortho(float[] output, float left, float right, float bottom, float top, float near, float far)
+	/// <summary>Generates a orthogonal projection matrix with the given bounds
+	/// @returns {mat4} out</summary>
+	/// <param name="output">{mat4} out mat4 frustum matrix will be written into</param>
+	/// <param name="left">{number} left Left bound of the frustum</param>
+	/// <param name="right">{number} right Right bound of the frustum</param>
+	/// <param name="bottom">{number} bottom Bottom bound of the frustum</param>
+	/// <param name="top">{number} top Top bound of the frustum</param>
+	/// <param name="near">{number} near Near bound of the frustum</param>
+	/// <param name="far">{number} far Far bound of the frustum</param>
+	public static float[] Ortho(float[] output, float left, float right, float bottom, float top, float near, float far)
 	{
 		float lr = 1 / (left - right);
 		float bt = 1 / (bottom - top);
@@ -1308,15 +1294,14 @@ class Mat4
 		return output;
 	}
 
-	/// Generates a perspective projection matrix with the given bounds
-	/// @returns {mat4} out
-	/// Params:
-	/// output = {mat4} out mat4 frustum matrix will be written into
-	/// fovy = {number} fovy Vertical field of view in radians
-	/// aspect = {number} aspect Aspect ratio. typically viewport width/height
-	/// near = {number} near Near bound of the frustum
-	/// far = {number} far Far bound of the frustum
-	static const(float)[] Perspective(float[] output, float fovy, float aspect, float near, float far)
+	/// <summary>Generates a perspective projection matrix with the given bounds
+	/// @returns {mat4} out</summary>
+	/// <param name="output">{mat4} out mat4 frustum matrix will be written into</param>
+	/// <param name="fovy">{number} fovy Vertical field of view in radians</param>
+	/// <param name="aspect">{number} aspect Aspect ratio. typically viewport width/height</param>
+	/// <param name="near">{number} near Near bound of the frustum</param>
+	/// <param name="far">{number} far Far bound of the frustum</param>
+	public static float[] Perspective(float[] output, float fovy, float aspect, float near, float far)
 	{
 		float one = 1;
 		float f = one / Platform.Tan(fovy / 2);
@@ -1340,14 +1325,13 @@ class Mat4
 		return output;
 	}
 
-	/// Rotates a mat4 by the given angle
-	/// @returns {mat4} out
-	/// Params:
-	/// output = {mat4} out the receiving matrix
-	/// a = {mat4} a the matrix to rotate
-	/// rad = {Number} rad the angle to rotate the matrix by
-	/// axis = {vec3} axis the axis to rotate around
-	static const(float)[] Rotate(float[] output, const(float)[] a, float rad, const(float)[] axis)
+	/// <summary>Rotates a mat4 by the given angle
+	/// @returns {mat4} out</summary>
+	/// <param name="output">{mat4} out the receiving matrix</param>
+	/// <param name="a">{mat4} a the matrix to rotate</param>
+	/// <param name="rad">{Number} rad the angle to rotate the matrix by</param>
+	/// <param name="axis">{vec3} axis the axis to rotate around</param>
+	public static float[] Rotate(float[] output, float[] a, float rad, float[] axis)
 	{
 		float x = axis[0];
 		float y = axis[1];
@@ -1427,13 +1411,12 @@ class Mat4
 		return output;
 	}
 
-	/// Rotates a matrix by the given angle around the X axis
-	/// @returns {mat4} out
-	/// Params:
-	/// output = {mat4} out the receiving matrix
-	/// a = {mat4} a the matrix to rotate
-	/// rad = {Number} rad the angle to rotate the matrix by
-	static const(float)[] RotateX(float[] output, const(float)[] a, float rad)
+	/// <summary>Rotates a matrix by the given angle around the X axis
+	/// @returns {mat4} out</summary>
+	/// <param name="output">{mat4} out the receiving matrix</param>
+	/// <param name="a">{mat4} a the matrix to rotate</param>
+	/// <param name="rad">{Number} rad the angle to rotate the matrix by</param>
+	public static float[] RotateX(float[] output, float[] a, float rad)
 	{
 		float s = Platform.Sin(rad);
 		float c = Platform.Cos(rad);
@@ -1464,13 +1447,12 @@ class Mat4
 		return output;
 	}
 
-	/// Rotates a matrix by the given angle around the Y axis
-	/// @returns {mat4} out
-	/// Params:
-	/// output = {mat4} out the receiving matrix
-	/// a = {mat4} a the matrix to rotate
-	/// rad = {Number} rad the angle to rotate the matrix by
-	static const(float)[] RotateY(float[] output, const(float)[] a, float rad)
+	/// <summary>Rotates a matrix by the given angle around the Y axis
+	/// @returns {mat4} out</summary>
+	/// <param name="output">{mat4} out the receiving matrix</param>
+	/// <param name="a">{mat4} a the matrix to rotate</param>
+	/// <param name="rad">{Number} rad the angle to rotate the matrix by</param>
+	public static float[] RotateY(float[] output, float[] a, float rad)
 	{
 		float s = Platform.Sin(rad);
 		float c = Platform.Cos(rad);
@@ -1501,13 +1483,12 @@ class Mat4
 		return output;
 	}
 
-	/// Rotates a matrix by the given angle around the Z axis
-	/// @returns {mat4} out
-	/// Params:
-	/// output = {mat4} out the receiving matrix
-	/// a = {mat4} a the matrix to rotate
-	/// rad = {Number} rad the angle to rotate the matrix by
-	static const(float)[] RotateZ(float[] output, const(float)[] a, float rad)
+	/// <summary>Rotates a matrix by the given angle around the Z axis
+	/// @returns {mat4} out</summary>
+	/// <param name="output">{mat4} out the receiving matrix</param>
+	/// <param name="a">{mat4} a the matrix to rotate</param>
+	/// <param name="rad">{Number} rad the angle to rotate the matrix by</param>
+	public static float[] RotateZ(float[] output, float[] a, float rad)
 	{
 		float s = Platform.Sin(rad);
 		float c = Platform.Cos(rad);
@@ -1538,13 +1519,12 @@ class Mat4
 		return output;
 	}
 
-	/// Scales the mat4 by the dimensions in the given vec3
-	/// @returns {mat4} out
-	/// Params:
-	/// output = {mat4} out the receiving matrix
-	/// a = {mat4} a the matrix to scale
-	/// v = {vec3} v the vec3 to scale the matrix by
-	static const(float)[] Scale(float[] output, const(float)[] a, const(float)[] v)
+	/// <summary>Scales the mat4 by the dimensions in the given vec3
+	/// @returns {mat4} out</summary>
+	/// <param name="output">{mat4} out the receiving matrix</param>
+	/// <param name="a">{mat4} a the matrix to scale</param>
+	/// <param name="v">{vec3} v the vec3 to scale the matrix by</param>
+	public static float[] Scale(float[] output, float[] a, float[] v)
 	{
 		float x = v[0];
 		float y = v[1];
@@ -1568,13 +1548,12 @@ class Mat4
 		return output;
 	}
 
-	/// Translate a mat4 by the given vector
-	/// @returns {mat4} out
-	/// Params:
-	/// output = {mat4} out the receiving matrix
-	/// a = {mat4} a the matrix to translate
-	/// v = {vec3} v vector to translate by
-	static const(float)[] Translate(float[] output, const(float)[] a, const(float)[] v)
+	/// <summary>Translate a mat4 by the given vector
+	/// @returns {mat4} out</summary>
+	/// <param name="output">{mat4} out the receiving matrix</param>
+	/// <param name="a">{mat4} a the matrix to translate</param>
+	/// <param name="v">{vec3} v vector to translate by</param>
+	public static float[] Translate(float[] output, float[] a, float[] v)
 	{
 		float x = v[0];
 		float y = v[1];
@@ -1622,12 +1601,11 @@ class Mat4
 		return output;
 	}
 
-	/// Transpose the values of a mat4
-	/// @returns {mat4} out
-	/// Params:
-	/// output = @param {mat4} out the receiving matrix
-	/// a = @param {mat4} a the source matrix
-	static const(float)[] Transpose(float[] output, const(float)[] a)
+	/// <summary>Transpose the values of a mat4
+	/// @returns {mat4} out</summary>
+	/// <param name="output">@param {mat4} out the receiving matrix</param>
+	/// <param name="a">@param {mat4} a the source matrix</param>
+	public static float[] Transpose(float[] output, float[] a)
 	{
 		output[0] = a[0];
 		output[1] = a[4];
@@ -1648,57 +1626,65 @@ class Mat4
 		return output;
 	}
 
-	/// **
-	private final void f()
+	/// <summary>**</summary>
+	void f()
 	{
 	}
 }
 
-class Platform
+public class Platform
 {
 
-	static float Acos(float a)
+	public static float Acos(float a)
 	{
 		return 0;
 	}
 
-	static float Cos(float r)
+	public static float Cos(float r)
+	{
+		
+            return (float)System.Math.Cos(r);
+        return 0;
+	}
+
+	public static float Random()
 	{
 		return 0;
 	}
 
-	static float Random()
+	public static float Sin(float r)
 	{
-		return 0;
+		
+            return (float)System.Math.Sin(r);
+        return 0;
 	}
 
-	static float Sin(float r)
+	public static float Sqrt(float a)
 	{
-		return 0;
+		
+            return (float)System.Math.Sqrt(a);
+        return 0;
 	}
 
-	static float Sqrt(float a)
+	public static float Tan(float p)
 	{
-		return 0;
-	}
-
-	static float Tan(float p)
-	{
-		return 0;
+		
+            return (float)System.Math.Tan(p);
+        return 0;
 	}
 }
 
-class Quat
+public class Quat
 {
 
-	/// **
-	static const(float)[] Add(float[] output, const(float)[] a, const(float)[] b)
+	/// <summary>**</summary>
+	public static float[] Add(float[] output, float[] a, float[] b)
 	{
 		return Vec4.Add(output, a, b);
 	}
 
-	/// **
-	static const(float)[] CalculateW(float[] output, const(float)[] a)
+	/// <summary>**</summary>
+	public static float[] CalculateW(float[] output, float[] a)
 	{
 		float x = a[0];
 		float y = a[1];
@@ -1711,14 +1697,14 @@ class Quat
 		return output;
 	}
 
-	/// **
-	static const(float)[] Clone(const(float)[] a)
+	/// <summary>**</summary>
+	public static float[] Clone(float[] a)
 	{
 		return Vec4.Clone(a);
 	}
 
-	/// **
-	final const(float)[] Conjugate(float[] output, const(float)[] a)
+	/// <summary>**</summary>
+	public float[] Conjugate(float[] output, float[] a)
 	{
 		output[0] = -a[0];
 		output[1] = -a[1];
@@ -1727,14 +1713,14 @@ class Quat
 		return output;
 	}
 
-	/// **
-	static const(float)[] Copy(float[] output, const(float)[] a)
+	/// <summary>**</summary>
+	public static float[] Copy(float[] output, float[] a)
 	{
 		return Vec4.Copy(output, a);
 	}
 
-	/// **
-	static const(float)[] Create()
+	/// <summary>**</summary>
+	public static float[] Create()
 	{
 		float[] output = new float[4];
 		output[0] = 0;
@@ -1744,14 +1730,14 @@ class Quat
 		return output;
 	}
 
-	/// **
-	static float Dot(const(float)[] a, const(float)[] b)
+	/// <summary>**</summary>
+	public static float Dot(float[] a, float[] b)
 	{
 		return Vec4.Dot(a, b);
 	}
 
-	/// **
-	static const(float)[] FromMat3(float[] output, const(float)[] m)
+	/// <summary>**</summary>
+	public static float[] FromMat3(float[] output, float[] m)
 	{
 		float fTrace = m[0] + m[4] + m[8];
 		float fRoot;
@@ -1784,14 +1770,14 @@ class Quat
 		return output;
 	}
 
-	/// **
-	static const(float)[] FromValues(float x, float y, float z, float w)
+	/// <summary>**</summary>
+	public static float[] FromValues(float x, float y, float z, float w)
 	{
 		return Vec4.FromValues(x, y, z, w);
 	}
 
-	/// **
-	static const(float)[] Identity(float[] output)
+	/// <summary>**</summary>
+	public static float[] Identity(float[] output)
 	{
 		output[0] = 0;
 		output[1] = 0;
@@ -1800,8 +1786,8 @@ class Quat
 		return output;
 	}
 
-	/// **
-	final const(float)[] Invert(float[] output, const(float)[] a)
+	/// <summary>**</summary>
+	public float[] Invert(float[] output, float[] a)
 	{
 		float a0 = a[0];
 		float a1 = a[1];
@@ -1817,32 +1803,32 @@ class Quat
 		return output;
 	}
 
-	/// **
-	static float Len(const(float)[] a)
+	/// <summary>**</summary>
+	public static float Len(float[] a)
 	{
 		return Quat.Length(a);
 	}
 
-	/// **
-	static float Length(const(float)[] a)
+	/// <summary>**</summary>
+	public static float Length(float[] a)
 	{
 		return Vec4.Length(a);
 	}
 
-	/// **
-	static const(float)[] Lerp(float[] output, const(float)[] a, const(float)[] b, float t)
+	/// <summary>**</summary>
+	public static float[] Lerp(float[] output, float[] a, float[] b, float t)
 	{
 		return Vec4.Lerp(output, a, b, t);
 	}
 
-	/// **
-	static const(float)[] Mul(float[] output, const(float)[] a, const(float)[] b)
+	/// <summary>**</summary>
+	public static float[] Mul(float[] output, float[] a, float[] b)
 	{
 		return Quat.Multiply(output, a, b);
 	}
 
-	/// **
-	static const(float)[] Multiply(float[] output, const(float)[] a, const(float)[] b)
+	/// <summary>**</summary>
+	public static float[] Multiply(float[] output, float[] a, float[] b)
 	{
 		float ax = a[0];
 		float ay = a[1];
@@ -1859,14 +1845,14 @@ class Quat
 		return output;
 	}
 
-	/// **
-	static const(float)[] Normalize(float[] output, const(float)[] a)
+	/// <summary>**</summary>
+	public static float[] Normalize(float[] output, float[] a)
 	{
 		return Vec4.Normalize(output, a);
 	}
 
-	/// **
-	static const(float)[] RotateX(float[] output, const(float)[] a, float rad)
+	/// <summary>**</summary>
+	public static float[] RotateX(float[] output, float[] a, float rad)
 	{
 		rad /= 2;
 		float ax = a[0];
@@ -1882,8 +1868,8 @@ class Quat
 		return output;
 	}
 
-	/// **
-	static const(float)[] RotateY(float[] output, const(float)[] a, float rad)
+	/// <summary>**</summary>
+	public static float[] RotateY(float[] output, float[] a, float rad)
 	{
 		rad /= 2;
 		float ax = a[0];
@@ -1899,8 +1885,8 @@ class Quat
 		return output;
 	}
 
-	/// **
-	static const(float)[] RotateZ(float[] output, const(float)[] a, float rad)
+	/// <summary>**</summary>
+	public static float[] RotateZ(float[] output, float[] a, float rad)
 	{
 		rad /= 2;
 		float ax = a[0];
@@ -1916,12 +1902,12 @@ class Quat
 		return output;
 	}
 
-	/// **
-	static const(float)[] RotationTo(float[] output, const(float)[] a, const(float)[] b)
+	/// <summary>**</summary>
+	public static float[] RotationTo(float[] output, float[] a, float[] b)
 	{
 		float[] tmpvec3 = Vec3.Create();
-		const(float)[] xUnitVec3 = Vec3.FromValues(1, 0, 0);
-		const(float)[] yUnitVec3 = Vec3.FromValues(0, 1, 0);
+		float[] xUnitVec3 = Vec3.FromValues(1, 0, 0);
+		float[] yUnitVec3 = Vec3.FromValues(0, 1, 0);
 		float dot = Vec3.Dot(a, b);
 		float nines = 999999;
 		nines /= 1000000;
@@ -1952,20 +1938,20 @@ class Quat
 		}
 	}
 
-	/// **
-	static const(float)[] Scale(float[] output, const(float)[] a, float b)
+	/// <summary>**</summary>
+	public static float[] Scale(float[] output, float[] a, float b)
 	{
 		return Vec4.Scale(output, a, b);
 	}
 
-	/// **
-	static const(float)[] Set(float[] output, float x, float y, float z, float w)
+	/// <summary>**</summary>
+	public static float[] Set(float[] output, float x, float y, float z, float w)
 	{
 		return Vec4.Set(output, x, y, z, w);
 	}
 
-	/// **
-	static const(float)[] SetAxes(float[] output, const(float)[] view, const(float)[] right, const(float)[] up)
+	/// <summary>**</summary>
+	public static float[] SetAxes(float[] output, float[] view, float[] right, float[] up)
 	{
 		float[] matr = Mat3.Create();
 		matr[0] = right[0];
@@ -1980,8 +1966,8 @@ class Quat
 		return Quat.Normalize(output, Quat.FromMat3(output, matr));
 	}
 
-	/// **
-	static const(float)[] SetAxisAngle(float[] output, const(float)[] axis, float rad)
+	/// <summary>**</summary>
+	public static float[] SetAxisAngle(float[] output, float[] axis, float rad)
 	{
 		rad = rad / 2;
 		float s = Platform.Sin(rad);
@@ -1992,8 +1978,8 @@ class Quat
 		return output;
 	}
 
-	/// **
-	static const(float)[] Slerp(float[] output, const(float)[] a, const(float)[] b, float t)
+	/// <summary>**</summary>
+	public static float[] Slerp(float[] output, float[] a, float[] b, float t)
 	{
 		float ax = a[0];
 		float ay = a[1];
@@ -2035,37 +2021,381 @@ class Quat
 		return output;
 	}
 
-	/// **
-	static float SqrLen(const(float)[] a)
+	/// <summary>**</summary>
+	public static float SqrLen(float[] a)
 	{
 		return Quat.SquaredLength(a);
 	}
 
-	/// **
-	static float SquaredLength(const(float)[] a)
+	/// <summary>**</summary>
+	public static float SquaredLength(float[] a)
 	{
 		return Vec4.SquaredLength(a);
 	}
 
-	/// **
-	private final void f()
+	/// <summary>**</summary>
+	void f()
 	{
 	}
 }
 
-class Vec2
+public class TestVec3
 {
 
-	/// **
-	static const(float)[] Add(float[] output, const(float)[] a, const(float)[] b)
+	void Add()
+	{
+		this.AddWithASeparateOutputVector();
+		this.AddWhenVecAIsTheOutputVector();
+		this.AddWhenVecBIsTheOutputVector();
+	}
+
+	void AddWhenVecAIsTheOutputVector()
+	{
+	}
+
+	void AddWhenVecBIsTheOutputVector()
+	{
+	}
+
+	void AddWithASeparateOutputVector()
+	{
+		float[] result = Vec3.Add(this.output, this.vecA, this.vecB);
+		this.AssertArrayEqual(this.output, this.Arr3(5, 7, 9), 3, "Add should place values into out");
+		this.AssertArrayEqual(result, this.output, 3, "Add should return out");
+		this.AssertArrayEqual(this.vecA, this.Arr3(1, 2, 3), 3, "Add should not modify vecA");
+		this.AssertArrayEqual(this.vecB, this.Arr3(4, 5, 6), 3, "Add should not modify vecB");
+	}
+
+	float[] Arr16(int p, int p_2, int p_3, int p_4, int p_5, int p_6, int p_7, int p_8, int p_9, int p_10, int p_11, int p_12, int p_13, int p_14, int p_15, int p_16)
+	{
+		float[] arr = new float[16];
+		arr[0] = p;
+		arr[1] = p_2;
+		arr[2] = p_3;
+		arr[3] = p_4;
+		arr[4] = p_5;
+		arr[5] = p_6;
+		arr[6] = p_7;
+		arr[7] = p_8;
+		arr[8] = p_9;
+		arr[9] = p_10;
+		arr[10] = p_11;
+		arr[11] = p_12;
+		arr[12] = p_13;
+		arr[13] = p_14;
+		arr[14] = p_15;
+		arr[15] = p_16;
+		return arr;
+	}
+
+	float[] Arr3(int p, int p_2, int p_3)
+	{
+		float[] arr = new float[3];
+		arr[0] = p;
+		arr[1] = p_2;
+		arr[2] = p_3;
+		return arr;
+	}
+
+	float[] Arr9(int p, int p_2, int p_3, int p_4, int p_5, int p_6, int p_7, int p_8, int p_9)
+	{
+		float[] arr = new float[16];
+		arr[0] = p;
+		arr[1] = p_2;
+		arr[2] = p_3;
+		arr[3] = p_4;
+		arr[4] = p_5;
+		arr[5] = p_6;
+		arr[6] = p_7;
+		arr[7] = p_8;
+		arr[8] = p_9;
+		return arr;
+	}
+
+	void AssertArrayEqual(float[] actual, float[] expected, int length, string msg)
+	{
+		for (int i = 0; i < length; i++) {
+			if (actual[i] != expected[i]) {
+				this.errors[this.errorsCount++] = msg;
+			}
+		}
+	}
+
+	void AssertCloseTo(float actual, float expected, string msg)
+	{
+		if (GlMatrixMath.Abs(actual - expected) > GlMatrixMath.GLMAT_EPSILON()) {
+			this.errors[this.errorsCount++] = msg;
+		}
+	}
+
+	void AssertEqual(float actual, float expected, string msg)
+	{
+		if (actual != expected) {
+			this.errors[this.errorsCount++] = msg;
+		}
+	}
+
+	void Clone()
+	{
+		float[] result = Vec3.Clone(this.vecA);
+		this.AssertArrayEqual(result, this.vecA, 3, "Clone should return a 3 element array initialized to the values in vecA");
+	}
+
+	void Copy()
+	{
+		float[] result = Vec3.Copy(this.output, this.vecA);
+		this.AssertArrayEqual(this.output, this.Arr3(1, 2, 3), 3, "Copy should place values into out");
+		this.AssertArrayEqual(result, this.output, 3, "Copy should return output");
+	}
+
+	void Create()
+	{
+		float[] result = Vec3.Create();
+		this.AssertArrayEqual(result, this.Arr3(0, 0, 0), 3, "Create should return a 3 element array initialized to 0s");
+	}
+
+	void Cross()
+	{
+	}
+
+	void Distance()
+	{
+		float result = Vec3.Distance(this.vecA, this.vecB);
+		float r = 5196152;
+		r /= 1000000;
+		this.AssertCloseTo(result, r, "Distance should return the distance");
+	}
+
+	void Divide()
+	{
+	}
+
+	void Dot()
+	{
+		float result = Vec3.Dot(this.vecA, this.vecB);
+		this.AssertEqual(result, 32, "Dot should return the dot product");
+		this.AssertArrayEqual(this.vecA, this.Arr3(1, 2, 3), 3, "Dot should not modify vecA");
+		this.AssertArrayEqual(this.vecB, this.Arr3(4, 5, 6), 3, "Dot should not modify vecB");
+	}
+
+	void ForEach()
+	{
+	}
+
+	void FromValues()
+	{
+		float[] result = Vec3.FromValues(1, 2, 3);
+		this.AssertArrayEqual(result, this.Arr3(1, 2, 3), 3, "FromValues should return a 3 element array initialized to the values passed");
+	}
+
+	void Length()
+	{
+		float result = Vec3.Length(this.vecA);
+		float r = 3741657;
+		r /= 1000000;
+		this.AssertCloseTo(result, r, "Length should return the length");
+	}
+
+	void Lerp()
+	{
+	}
+
+	void Max()
+	{
+	}
+
+	void Min()
+	{
+	}
+
+	void Multiply()
+	{
+	}
+
+	void Negate()
+	{
+	}
+
+	void Normalize()
+	{
+	}
+
+	void Random()
+	{
+	}
+
+	void Scale()
+	{
+	}
+
+	void ScaleAndAdd()
+	{
+	}
+
+	void Set()
+	{
+		float[] result = Vec3.Set(this.output, 1, 2, 3);
+		this.AssertArrayEqual(this.output, this.Arr3(1, 2, 3), 3, "Set should place values into output");
+		this.AssertArrayEqual(result, this.output, 3, "Set should return output");
+	}
+
+	void SquaredDistance()
+	{
+		float result = Vec3.SquaredDistance(this.vecA, this.vecB);
+		this.AssertEqual(result, 27, "SquaredDistance should return the squared distance");
+	}
+
+	void SquaredLength()
+	{
+		float result = Vec3.SquaredLength(this.vecA);
+		this.AssertEqual(result, 14, "SquaredLength should return the squared length");
+	}
+
+	void Str()
+	{
+	}
+
+	void Subtract()
+	{
+		this.SubtractShouldHaveAnAliasCalledSub();
+		this.SubtractWithASeparateOutputVector();
+		this.SubtractWhenVecAIsTheOutputVector();
+		this.SubtractWhenVecBIsTheOutputVector();
+	}
+
+	void SubtractShouldHaveAnAliasCalledSub()
+	{
+	}
+
+	void SubtractWhenVecAIsTheOutputVector()
+	{
+	}
+
+	void SubtractWhenVecBIsTheOutputVector()
+	{
+	}
+
+	void SubtractWithASeparateOutputVector()
+	{
+	}
+
+	public void Test()
+	{
+		this.errors = new string[1024];
+		this.errorsCount = 0;
+		this.vecA = this.Arr3(1, 2, 3);
+		this.vecB = this.Arr3(4, 5, 6);
+		this.output = this.Arr3(0, 0, 0);
+		this.TransformMat4();
+		this.Create();
+		this.Clone();
+		this.FromValues();
+		this.Copy();
+		this.Set();
+		this.Add();
+		this.Subtract();
+		this.Multiply();
+		this.Divide();
+		this.Min();
+		this.Max();
+		this.Scale();
+		this.ScaleAndAdd();
+		this.Distance();
+		this.SquaredDistance();
+		this.Length();
+		this.SquaredLength();
+		this.Negate();
+		this.Normalize();
+		this.Dot();
+		this.Cross();
+		this.Lerp();
+		this.Random();
+		this.ForEach();
+		this.Str();
+	}
+
+	void TransformMat3With90DegAboutX()
+	{
+		float[] result = Vec3.TransformMat3(this.output, this.Arr3(0, 1, 0), this.Arr9(1, 0, 0, 0, 0, 1, 0, -1, 0));
+		this.AssertArrayEqual(this.output, this.Arr3(0, 0, 1), 3, "TransformMat3With90DegAboutX should produce correct output");
+	}
+
+	void TransformMat3With90DegAboutY()
+	{
+		float[] result = Vec3.TransformMat3(this.output, this.Arr3(1, 0, 0), this.Arr9(0, 0, -1, 0, 1, 0, 1, 0, 0));
+		this.AssertArrayEqual(this.output, this.Arr3(0, 0, -1), 3, "TransformMat3With90DegAboutU should produce correct output");
+	}
+
+	void TransformMat3With90DegAboutZ()
+	{
+		float[] result = Vec3.TransformMat3(this.output, this.Arr3(1, 0, 0), this.Arr9(0, 1, 0, -1, 0, 0, 0, 0, 1));
+		this.AssertArrayEqual(this.output, this.Arr3(0, 1, 0), 3, "TransformMat3With90DegAboutZ should produce correct output");
+	}
+
+	void TransformMat3WithALookAtNormalMatrix()
+	{
+		float[] matr = Mat4.LookAt(Mat4.Create(), this.Arr3(5, 6, 7), this.Arr3(2, 6, 7), this.Arr3(0, 1, 0));
+		float[] n = Mat3.Create();
+		matr = Mat3.Transpose(n, Mat3.Invert(n, Mat3.FromMat4(n, matr)));
+		float[] result = Vec3.TransformMat3(this.output, this.Arr3(1, 0, 0), matr);
+		this.AssertArrayEqual(this.output, this.Arr3(0, 0, 1), 3, "TransformMat3WithALookAtNormalMatrix should rotate the input");
+		this.AssertArrayEqual(result, this.output, 3, "TransformMat3WithALookAtNormalMatrix should return output");
+	}
+
+	void TransformMat3WithAnIdentity()
+	{
+		float[] matr = this.Arr9(1, 0, 0, 0, 1, 0, 0, 0, 1);
+		float[] result = Vec3.TransformMat3(this.output, this.vecA, matr);
+		this.AssertArrayEqual(this.output, this.Arr3(1, 2, 3), 3, "TransformMat3WithAnIdentity should produce the input");
+		this.AssertArrayEqual(result, this.output, 3, "TransformMat3WithAnIdentity should return output");
+	}
+
+	void TransformMat4()
+	{
+		this.TransformMat4WithAnIdentity();
+		this.TransformMat4WithALookAt();
+		this.TransformMat3WithAnIdentity();
+		this.TransformMat3With90DegAboutX();
+		this.TransformMat3With90DegAboutY();
+		this.TransformMat3With90DegAboutZ();
+		this.TransformMat3WithALookAtNormalMatrix();
+	}
+
+	void TransformMat4WithALookAt()
+	{
+		float[] matr = Mat4.LookAt(Mat4.Create(), this.Arr3(5, 6, 7), this.Arr3(2, 6, 7), this.Arr3(0, 1, 0));
+		float[] result = Vec3.TransformMat4(this.output, this.vecA, matr);
+		this.AssertArrayEqual(this.output, this.Arr3(4, -4, -4), 3, "TransformMat4WithALookAt should rotate and translate the input");
+		this.AssertArrayEqual(result, this.output, 3, "TransformMat4WithALookAt should return out");
+	}
+
+	void TransformMat4WithAnIdentity()
+	{
+		float[] matr = this.Arr16(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1);
+		float[] result = Vec3.TransformMat4(this.output, this.vecA, matr);
+		this.AssertArrayEqual(this.output, this.Arr3(1, 2, 3), 3, "TransformMat4WithAnIdentity should produce the input");
+		this.AssertArrayEqual(result, this.output, 3, "TransformMat4WithAnIdentity should return output");
+	}
+	string[] errors;
+	int errorsCount;
+	float[] output;
+	float[] vecA;
+	float[] vecB;
+}
+
+public class Vec2
+{
+
+	/// <summary>**</summary>
+	public static float[] Add(float[] output, float[] a, float[] b)
 	{
 		output[0] = a[0] + b[0];
 		output[1] = a[1] + b[1];
 		return output;
 	}
 
-	/// **
-	static const(float)[] Clone(const(float)[] a)
+	/// <summary>**</summary>
+	public static float[] Clone(float[] a)
 	{
 		float[] output = new float[2];
 		output[0] = a[0];
@@ -2073,16 +2403,16 @@ class Vec2
 		return output;
 	}
 
-	/// **
-	static const(float)[] Copy(float[] output, const(float)[] a)
+	/// <summary>**</summary>
+	public static float[] Copy(float[] output, float[] a)
 	{
 		output[0] = a[0];
 		output[1] = a[1];
 		return output;
 	}
 
-	/// **
-	static const(float)[] Create()
+	/// <summary>**</summary>
+	public static float[] Create()
 	{
 		float[] output = new float[2];
 		output[0] = 0;
@@ -2090,8 +2420,8 @@ class Vec2
 		return output;
 	}
 
-	/// **
-	static const(float)[] Cross(float[] output, const(float)[] a, const(float)[] b)
+	/// <summary>**</summary>
+	public static float[] Cross(float[] output, float[] a, float[] b)
 	{
 		float z = a[0] * b[1] - a[1] * b[0];
 		output[0] = output[1] = 0;
@@ -2099,42 +2429,42 @@ class Vec2
 		return output;
 	}
 
-	/// **
-	static float Dist(const(float)[] a, const(float)[] b)
+	/// <summary>**</summary>
+	public static float Dist(float[] a, float[] b)
 	{
 		return Vec2.Distance(a, b);
 	}
 
-	/// **
-	static float Distance(const(float)[] a, const(float)[] b)
+	/// <summary>**</summary>
+	public static float Distance(float[] a, float[] b)
 	{
 		float x = b[0] - a[0];
 		float y = b[1] - a[1];
 		return Platform.Sqrt(x * x + y * y);
 	}
 
-	/// **
-	static const(float)[] Div(float[] output, const(float)[] a, const(float)[] b)
+	/// <summary>**</summary>
+	public static float[] Div(float[] output, float[] a, float[] b)
 	{
 		return Vec2.Divide(output, a, b);
 	}
 
-	/// **
-	static const(float)[] Divide(float[] output, const(float)[] a, const(float)[] b)
+	/// <summary>**</summary>
+	public static float[] Divide(float[] output, float[] a, float[] b)
 	{
 		output[0] = a[0] / b[0];
 		output[1] = a[1] / b[1];
 		return output;
 	}
 
-	/// **
-	static float Dot(const(float)[] a, const(float)[] b)
+	/// <summary>**</summary>
+	public static float Dot(float[] a, float[] b)
 	{
 		return a[0] * b[0] + a[1] * b[1];
 	}
 
-	/// **
-	static const(float)[] FromValues(float x, float y)
+	/// <summary>**</summary>
+	public static float[] FromValues(float x, float y)
 	{
 		float[] output = new float[2];
 		output[0] = x;
@@ -2142,22 +2472,22 @@ class Vec2
 		return output;
 	}
 
-	/// **
-	static float Len(const(float)[] a)
+	/// <summary>**</summary>
+	public static float Len(float[] a)
 	{
 		return Vec2.Length(a);
 	}
 
-	/// **
-	static float Length(const(float)[] a)
+	/// <summary>**</summary>
+	public static float Length(float[] a)
 	{
 		float x = a[0];
 		float y = a[1];
 		return Platform.Sqrt(x * x + y * y);
 	}
 
-	/// **
-	static const(float)[] Lerp(float[] output, const(float)[] a, const(float)[] b, float t)
+	/// <summary>**</summary>
+	public static float[] Lerp(float[] output, float[] a, float[] b, float t)
 	{
 		float ax = a[0];
 		float ay = a[1];
@@ -2166,46 +2496,46 @@ class Vec2
 		return output;
 	}
 
-	/// **
-	static const(float)[] Max(float[] output, const(float)[] a, const(float)[] b)
+	/// <summary>**</summary>
+	public static float[] Max(float[] output, float[] a, float[] b)
 	{
 		output[0] = GlMatrixMath.max(a[0], b[0]);
 		output[1] = GlMatrixMath.max(a[1], b[1]);
 		return output;
 	}
 
-	/// **
-	static const(float)[] Min(float[] output, const(float)[] a, const(float)[] b)
+	/// <summary>**</summary>
+	public static float[] Min(float[] output, float[] a, float[] b)
 	{
 		output[0] = GlMatrixMath.min(a[0], b[0]);
 		output[1] = GlMatrixMath.min(a[1], b[1]);
 		return output;
 	}
 
-	/// **
-	static const(float)[] Mul(float[] output, const(float)[] a, const(float)[] b)
+	/// <summary>**</summary>
+	public static float[] Mul(float[] output, float[] a, float[] b)
 	{
 		return Vec2.Multiply(output, a, b);
 	}
 
-	/// **
-	static const(float)[] Multiply(float[] output, const(float)[] a, const(float)[] b)
+	/// <summary>**</summary>
+	public static float[] Multiply(float[] output, float[] a, float[] b)
 	{
 		output[0] = a[0] * b[0];
 		output[1] = a[1] * b[1];
 		return output;
 	}
 
-	/// **
-	static const(float)[] Negate(float[] output, const(float)[] a)
+	/// <summary>**</summary>
+	public static float[] Negate(float[] output, float[] a)
 	{
 		output[0] = -a[0];
 		output[1] = -a[1];
 		return output;
 	}
 
-	/// **
-	static const(float)[] Normalize(float[] output, const(float)[] a)
+	/// <summary>**</summary>
+	public static float[] Normalize(float[] output, float[] a)
 	{
 		float x = a[0];
 		float y = a[1];
@@ -2218,8 +2548,8 @@ class Vec2
 		return output;
 	}
 
-	/// **
-	static const(float)[] Random(float[] output, float scale)
+	/// <summary>**</summary>
+	public static float[] Random(float[] output, float scale)
 	{
 		float r = Platform.Random() * 2 * GlMatrixMath.PI();
 		output[0] = Platform.Cos(r) * scale;
@@ -2227,74 +2557,74 @@ class Vec2
 		return output;
 	}
 
-	/// **
-	static const(float)[] Scale(float[] output, const(float)[] a, float b)
+	/// <summary>**</summary>
+	public static float[] Scale(float[] output, float[] a, float b)
 	{
 		output[0] = a[0] * b;
 		output[1] = a[1] * b;
 		return output;
 	}
 
-	/// **
-	static const(float)[] ScaleAndAdd(float[] output, const(float)[] a, const(float)[] b, float scale)
+	/// <summary>**</summary>
+	public static float[] ScaleAndAdd(float[] output, float[] a, float[] b, float scale)
 	{
 		output[0] = a[0] + b[0] * scale;
 		output[1] = a[1] + b[1] * scale;
 		return output;
 	}
 
-	/// **
-	static const(float)[] Set(float[] output, float x, float y)
+	/// <summary>**</summary>
+	public static float[] Set(float[] output, float x, float y)
 	{
 		output[0] = x;
 		output[1] = y;
 		return output;
 	}
 
-	/// **
-	static float SqrDist(const(float)[] a, const(float)[] b)
+	/// <summary>**</summary>
+	public static float SqrDist(float[] a, float[] b)
 	{
 		return Vec2.SquaredDistance(a, b);
 	}
 
-	/// **
-	static float SqrLen(const(float)[] a)
+	/// <summary>**</summary>
+	public static float SqrLen(float[] a)
 	{
 		return Vec2.SquaredLength(a);
 	}
 
-	/// **
-	static float SquaredDistance(const(float)[] a, const(float)[] b)
+	/// <summary>**</summary>
+	public static float SquaredDistance(float[] a, float[] b)
 	{
 		float x = b[0] - a[0];
 		float y = b[1] - a[1];
 		return x * x + y * y;
 	}
 
-	/// **
-	static float SquaredLength(const(float)[] a)
+	/// <summary>**</summary>
+	public static float SquaredLength(float[] a)
 	{
 		float x = a[0];
 		float y = a[1];
 		return x * x + y * y;
 	}
 
-	/// **
-	static const(float)[] Sub(float[] output, const(float)[] a, const(float)[] b)
+	/// <summary>**</summary>
+	public static float[] Sub(float[] output, float[] a, float[] b)
 	{
 		return Vec2.Subtract(output, a, b);
 	}
 
-	/// **
-	static const(float)[] Subtract(float[] output, const(float)[] a, const(float)[] b)
+	/// <summary>**</summary>
+	public static float[] Subtract(float[] output, float[] a, float[] b)
 	{
 		output[0] = a[0] - b[0];
 		output[1] = a[1] - b[1];
 		return output;
 	}
 
-	/// **
-	static const(float)[] TransformMat2(float[] output, const(float)[] a, const(float)[] m)
+	/// <summary>**</summary>
+	public static float[] TransformMat2(float[] output, float[] a, float[] m)
 	{
 		float x = a[0];
 		float y = a[1];
@@ -2303,8 +2633,8 @@ class Vec2
 		return output;
 	}
 
-	/// **
-	static const(float)[] TransformMat2d(float[] output, const(float)[] a, const(float)[] m)
+	/// <summary>**</summary>
+	public static float[] TransformMat2d(float[] output, float[] a, float[] m)
 	{
 		float x = a[0];
 		float y = a[1];
@@ -2313,8 +2643,8 @@ class Vec2
 		return output;
 	}
 
-	/// **
-	static const(float)[] TransformMat3(float[] output, const(float)[] a, const(float)[] m)
+	/// <summary>**</summary>
+	public static float[] TransformMat3(float[] output, float[] a, float[] m)
 	{
 		float x = a[0];
 		float y = a[1];
@@ -2323,8 +2653,8 @@ class Vec2
 		return output;
 	}
 
-	/// **
-	static const(float)[] TransformMat4(float[] output, const(float)[] a, const(float)[] m)
+	/// <summary>**</summary>
+	public static float[] TransformMat4(float[] output, float[] a, float[] m)
 	{
 		float x = a[0];
 		float y = a[1];
@@ -2333,24 +2663,23 @@ class Vec2
 		return output;
 	}
 
-	/// **
-	/// **
-	private final void f()
+	/// <summary>**
+	/// **</summary>
+	void f()
 	{
 	}
 }
 
-/// 3 Dimensional Vector
-class Vec3
+/// <summary>3 Dimensional Vector</summary>
+public class Vec3
 {
 
-	/// Adds two vec3's
-	/// @returns {vec3} out
-	/// Params:
-	/// output = /@param {vec3} out the receiving vector
-	/// a = /@param {vec3} a the first operand
-	/// b = /@param {vec3} b the second operand
-	static const(float)[] Add(float[] output, const(float)[] a, const(float)[] b)
+	/// <summary>Adds two vec3's
+	/// @returns {vec3} out</summary>
+	/// <param name="output">/@param {vec3} out the receiving vector</param>
+	/// <param name="a">/@param {vec3} a the first operand</param>
+	/// <param name="b">/@param {vec3} b the second operand</param>
+	public static float[] Add(float[] output, float[] a, float[] b)
 	{
 		output[0] = a[0] + b[0];
 		output[1] = a[1] + b[1];
@@ -2358,11 +2687,10 @@ class Vec3
 		return output;
 	}
 
-	/// Creates a new vec3 initialized with values from an existing vector
-	/// Returns {vec3} a new 3D vector
-	/// Params:
-	/// a = a vector to clone
-	static const(float)[] Clone(const(float)[] a)
+	/// <summary>Creates a new vec3 initialized with values from an existing vector
+	/// Returns {vec3} a new 3D vector</summary>
+	/// <param name="a">a vector to clone</param>
+	public static float[] Clone(float[] a)
 	{
 		float[] output = new float[3];
 		output[0] = a[0];
@@ -2371,12 +2699,11 @@ class Vec3
 		return output;
 	}
 
-	/// Copy the values from one vec3 to another
-	/// @returns {vec3} out
-	/// Params:
-	/// output = /@param {vec3} out the receiving vector
-	/// a = /@param {vec3} a the source vector
-	static const(float)[] Copy(float[] output, const(float)[] a)
+	/// <summary>Copy the values from one vec3 to another
+	/// @returns {vec3} out</summary>
+	/// <param name="output">/@param {vec3} out the receiving vector</param>
+	/// <param name="a">/@param {vec3} a the source vector</param>
+	public static float[] Copy(float[] output, float[] a)
 	{
 		output[0] = a[0];
 		output[1] = a[1];
@@ -2384,9 +2711,9 @@ class Vec3
 		return output;
 	}
 
-	/// Creates a new, empty vec3
-	/// Returns {vec3} a new 3D vector.
-	static float[] Create()
+	/// <summary>Creates a new, empty vec3
+	/// Returns {vec3} a new 3D vector.</summary>
+	public static float[] Create()
 	{
 		float[] output = new float[3];
 		output[0] = 0;
@@ -2395,13 +2722,12 @@ class Vec3
 		return output;
 	}
 
-	/// Computes the cross product of two vec3's
-	/// @returns {vec3} out
-	/// Params:
-	/// output = /@param {vec3} out the receiving vector
-	/// a = /@param {vec3} a the first operand
-	/// b = /@param {vec3} b the second operand
-	static const(float)[] Cross(float[] output, const(float)[] a, const(float)[] b)
+	/// <summary>Computes the cross product of two vec3's
+	/// @returns {vec3} out</summary>
+	/// <param name="output">/@param {vec3} out the receiving vector</param>
+	/// <param name="a">/@param {vec3} a the first operand</param>
+	/// <param name="b">/@param {vec3} b the second operand</param>
+	public static float[] Cross(float[] output, float[] a, float[] b)
 	{
 		float ax = a[0];
 		float ay = a[1];
@@ -2415,18 +2741,17 @@ class Vec3
 		return output;
 	}
 
-	/// Alias for {@link vec3.distance}
-	static float Dist(const(float)[] a, const(float)[] b)
+	/// <summary>Alias for {@link vec3.distance}</summary>
+	public static float Dist(float[] a, float[] b)
 	{
 		return Vec3.Distance(a, b);
 	}
 
-	/// Calculates the euclidian distance between two vec3's
-	/// @returns {Number} distance between a and b
-	/// Params:
-	/// a = /@param {vec3} a the first operand
-	/// b = /@param {vec3} b the second operand
-	static float Distance(const(float)[] a, const(float)[] b)
+	/// <summary>Calculates the euclidian distance between two vec3's
+	/// @returns {Number} distance between a and b</summary>
+	/// <param name="a">/@param {vec3} a the first operand</param>
+	/// <param name="b">/@param {vec3} b the second operand</param>
+	public static float Distance(float[] a, float[] b)
 	{
 		float x = b[0] - a[0];
 		float y = b[1] - a[1];
@@ -2434,19 +2759,18 @@ class Vec3
 		return Platform.Sqrt(x * x + y * y + z * z);
 	}
 
-	/// Alias for {@link vec3.divide}
-	static const(float)[] Div(float[] output, const(float)[] a, const(float)[] b)
+	/// <summary>Alias for {@link vec3.divide}</summary>
+	public static float[] Div(float[] output, float[] a, float[] b)
 	{
 		return Vec3.Divide(output, a, b);
 	}
 
-	/// Divides two vec3's
-	/// @returns {vec3} out
-	/// Params:
-	/// output = /@param {vec3} out the receiving vector
-	/// a = /@param {vec3} a the first operand
-	/// b = /@param {vec3} b the second operand
-	static const(float)[] Divide(float[] output, const(float)[] a, const(float)[] b)
+	/// <summary>Divides two vec3's
+	/// @returns {vec3} out</summary>
+	/// <param name="output">/@param {vec3} out the receiving vector</param>
+	/// <param name="a">/@param {vec3} a the first operand</param>
+	/// <param name="b">/@param {vec3} b the second operand</param>
+	public static float[] Divide(float[] output, float[] a, float[] b)
 	{
 		output[0] = a[0] / b[0];
 		output[1] = a[1] / b[1];
@@ -2454,23 +2778,21 @@ class Vec3
 		return output;
 	}
 
-	/// Calculates the dot product of two vec3's
-	/// @returns {Number} dot product of a and b
-	/// Params:
-	/// a = /@param {vec3} a the first operand
-	/// b = /@param {vec3} b the second operand
-	static float Dot(const(float)[] a, const(float)[] b)
+	/// <summary>Calculates the dot product of two vec3's
+	/// @returns {Number} dot product of a and b</summary>
+	/// <param name="a">/@param {vec3} a the first operand</param>
+	/// <param name="b">/@param {vec3} b the second operand</param>
+	public static float Dot(float[] a, float[] b)
 	{
 		return a[0] * b[0] + a[1] * b[1] + a[2] * b[2];
 	}
 
-	/// Creates a new vec3 initialized with the given values
-	/// Returns {vec3} a new 3D vector
-	/// Params:
-	/// x = X component
-	/// y = Y component
-	/// z = Z component
-	static const(float)[] FromValues(float x, float y, float z)
+	/// <summary>Creates a new vec3 initialized with the given values
+	/// Returns {vec3} a new 3D vector</summary>
+	/// <param name="x">X component</param>
+	/// <param name="y">Y component</param>
+	/// <param name="z">Z component</param>
+	public static float[] FromValues(float x, float y, float z)
 	{
 		float[] output = new float[3];
 		output[0] = x;
@@ -2479,17 +2801,16 @@ class Vec3
 		return output;
 	}
 
-	/// Alias for {@link vec3.length}
-	static float Len(const(float)[] a)
+	/// <summary>Alias for {@link vec3.length}</summary>
+	public static float Len(float[] a)
 	{
 		return Vec3.Length(a);
 	}
 
-	/// Calculates the length of a vec3
-	/// @returns {Number} length of a
-	/// Params:
-	/// a = /@param {vec3} a vector to calculate length of
-	static float Length(const(float)[] a)
+	/// <summary>Calculates the length of a vec3
+	/// @returns {Number} length of a</summary>
+	/// <param name="a">/@param {vec3} a vector to calculate length of</param>
+	public static float Length(float[] a)
 	{
 		float x = a[0];
 		float y = a[1];
@@ -2497,14 +2818,13 @@ class Vec3
 		return Platform.Sqrt(x * x + y * y + z * z);
 	}
 
-	/// Performs a linear interpolation between two vec3's
-	/// @returns {vec3} out
-	/// Params:
-	/// output = /@param {vec3} out the receiving vector
-	/// a = /@param {vec3} a the first operand
-	/// b = /@param {vec3} b the second operand
-	/// t = /@param {Number} t interpolation amount between the two inputs
-	static const(float)[] Lerp(float[] output, const(float)[] a, const(float)[] b, float t)
+	/// <summary>Performs a linear interpolation between two vec3's
+	/// @returns {vec3} out</summary>
+	/// <param name="output">/@param {vec3} out the receiving vector</param>
+	/// <param name="a">/@param {vec3} a the first operand</param>
+	/// <param name="b">/@param {vec3} b the second operand</param>
+	/// <param name="t">/@param {Number} t interpolation amount between the two inputs</param>
+	public static float[] Lerp(float[] output, float[] a, float[] b, float t)
 	{
 		float ax = a[0];
 		float ay = a[1];
@@ -2515,13 +2835,12 @@ class Vec3
 		return output;
 	}
 
-	/// Returns the maximum of two vec3's
-	/// @returns {vec3} out
-	/// Params:
-	/// output = /@param {vec3} out the receiving vector
-	/// a = /@param {vec3} a the first operand
-	/// b = /@param {vec3} b the second operand
-	static const(float)[] Max(float[] output, const(float)[] a, const(float)[] b)
+	/// <summary>Returns the maximum of two vec3's
+	/// @returns {vec3} out</summary>
+	/// <param name="output">/@param {vec3} out the receiving vector</param>
+	/// <param name="a">/@param {vec3} a the first operand</param>
+	/// <param name="b">/@param {vec3} b the second operand</param>
+	public static float[] Max(float[] output, float[] a, float[] b)
 	{
 		output[0] = GlMatrixMath.max(a[0], b[0]);
 		output[1] = GlMatrixMath.max(a[1], b[1]);
@@ -2529,13 +2848,12 @@ class Vec3
 		return output;
 	}
 
-	/// Returns the minimum of two vec3's
-	/// @returns {vec3} out
-	/// Params:
-	/// output = /@param {vec3} out the receiving vector
-	/// a = /@param {vec3} a the first operand
-	/// b = /@param {vec3} b the second operand
-	static const(float)[] Min(float[] output, const(float)[] a, const(float)[] b)
+	/// <summary>Returns the minimum of two vec3's
+	/// @returns {vec3} out</summary>
+	/// <param name="output">/@param {vec3} out the receiving vector</param>
+	/// <param name="a">/@param {vec3} a the first operand</param>
+	/// <param name="b">/@param {vec3} b the second operand</param>
+	public static float[] Min(float[] output, float[] a, float[] b)
 	{
 		output[0] = GlMatrixMath.min(a[0], b[0]);
 		output[1] = GlMatrixMath.min(a[1], b[1]);
@@ -2543,19 +2861,18 @@ class Vec3
 		return output;
 	}
 
-	/// Alias for {@link vec3.multiply}
-	static const(float)[] Mul(float[] output, const(float)[] a, const(float)[] b)
+	/// <summary>Alias for {@link vec3.multiply}</summary>
+	public static float[] Mul(float[] output, float[] a, float[] b)
 	{
 		return Vec3.Multiply(output, a, b);
 	}
 
-	/// Multiplies two vec3's
-	/// @returns {vec3} out
-	/// Params:
-	/// output = /@param {vec3} out the receiving vector
-	/// a = /@param {vec3} a the first operand
-	/// b = /@param {vec3} b the second operand
-	static const(float)[] Multiply(float[] output, const(float)[] a, const(float)[] b)
+	/// <summary>Multiplies two vec3's
+	/// @returns {vec3} out</summary>
+	/// <param name="output">/@param {vec3} out the receiving vector</param>
+	/// <param name="a">/@param {vec3} a the first operand</param>
+	/// <param name="b">/@param {vec3} b the second operand</param>
+	public static float[] Multiply(float[] output, float[] a, float[] b)
 	{
 		output[0] = a[0] * b[0];
 		output[1] = a[1] * b[1];
@@ -2563,12 +2880,11 @@ class Vec3
 		return output;
 	}
 
-	/// Negates the components of a vec3
-	/// @returns {vec3} out
-	/// Params:
-	/// output = /@param {vec3} out the receiving vector
-	/// a = /@param {vec3} a vector to negate
-	static const(float)[] Negate(float[] output, const(float)[] a)
+	/// <summary>Negates the components of a vec3
+	/// @returns {vec3} out</summary>
+	/// <param name="output">/@param {vec3} out the receiving vector</param>
+	/// <param name="a">/@param {vec3} a vector to negate</param>
+	public static float[] Negate(float[] output, float[] a)
 	{
 		output[0] = 0 - a[0];
 		output[1] = 0 - a[1];
@@ -2576,12 +2892,11 @@ class Vec3
 		return output;
 	}
 
-	/// Normalize a vec3
-	/// @returns {vec3} out
-	/// Params:
-	/// output = /@param {vec3} out the receiving vector
-	/// a = /@param {vec3} a vector to normalize
-	static const(float)[] Normalize(float[] output, const(float)[] a)
+	/// <summary>Normalize a vec3
+	/// @returns {vec3} out</summary>
+	/// <param name="output">/@param {vec3} out the receiving vector</param>
+	/// <param name="a">/@param {vec3} a vector to normalize</param>
+	public static float[] Normalize(float[] output, float[] a)
 	{
 		float x = a[0];
 		float y = a[1];
@@ -2597,12 +2912,11 @@ class Vec3
 		return output;
 	}
 
-	/// Generates a random vector with the given scale
-	/// @returns {vec3} out
-	/// Params:
-	/// output = /@param {vec3} out the receiving vector
-	/// scale = /@param {Number} [scale] Length of the resulting vector. If ommitted, a unit vector will be returned
-	static const(float)[] Random(float[] output, float scale)
+	/// <summary>Generates a random vector with the given scale
+	/// @returns {vec3} out</summary>
+	/// <param name="output">/@param {vec3} out the receiving vector</param>
+	/// <param name="scale">/@param {Number} [scale] Length of the resulting vector. If ommitted, a unit vector will be returned</param>
+	public static float[] Random(float[] output, float scale)
 	{
 		float one = 1;
 		float two = 2;
@@ -2615,13 +2929,12 @@ class Vec3
 		return output;
 	}
 
-	/// Scales a vec3 by a scalar number
-	/// @returns {vec3} out
-	/// Params:
-	/// output = /@param {vec3} out the receiving vector
-	/// a = /@param {vec3} a the vector to scale
-	/// b = /@param {Number} b amount to scale the vector by
-	static const(float)[] Scale(float[] output, const(float)[] a, float b)
+	/// <summary>Scales a vec3 by a scalar number
+	/// @returns {vec3} out</summary>
+	/// <param name="output">/@param {vec3} out the receiving vector</param>
+	/// <param name="a">/@param {vec3} a the vector to scale</param>
+	/// <param name="b">/@param {Number} b amount to scale the vector by</param>
+	public static float[] Scale(float[] output, float[] a, float b)
 	{
 		output[0] = a[0] * b;
 		output[1] = a[1] * b;
@@ -2629,14 +2942,13 @@ class Vec3
 		return output;
 	}
 
-	/// Adds two vec3's after scaling the second operand by a scalar value
-	/// @returns {vec3} out
-	/// Params:
-	/// output = /@param {vec3} out the receiving vector
-	/// a = /@param {vec3} a the first operand
-	/// b = /@param {vec3} b the second operand
-	/// scale = /@param {Number} scale the amount to scale b by before adding
-	static const(float)[] ScaleAndAdd(float[] output, const(float)[] a, const(float)[] b, float scale)
+	/// <summary>Adds two vec3's after scaling the second operand by a scalar value
+	/// @returns {vec3} out</summary>
+	/// <param name="output">/@param {vec3} out the receiving vector</param>
+	/// <param name="a">/@param {vec3} a the first operand</param>
+	/// <param name="b">/@param {vec3} b the second operand</param>
+	/// <param name="scale">/@param {Number} scale the amount to scale b by before adding</param>
+	public static float[] ScaleAndAdd(float[] output, float[] a, float[] b, float scale)
 	{
 		output[0] = a[0] + b[0] * scale;
 		output[1] = a[1] + b[1] * scale;
@@ -2644,14 +2956,13 @@ class Vec3
 		return output;
 	}
 
-	/// Set the components of a vec3 to the given values
-	/// @returns {vec3} out
-	/// Params:
-	/// output = /@param {vec3} out the receiving vector
-	/// x = /@param {Number} x X component
-	/// y = /@param {Number} y Y component
-	/// z = /@param {Number} z Z component
-	static const(float)[] Set(float[] output, float x, float y, float z)
+	/// <summary>Set the components of a vec3 to the given values
+	/// @returns {vec3} out</summary>
+	/// <param name="output">/@param {vec3} out the receiving vector</param>
+	/// <param name="x">/@param {Number} x X component</param>
+	/// <param name="y">/@param {Number} y Y component</param>
+	/// <param name="z">/@param {Number} z Z component</param>
+	public static float[] Set(float[] output, float x, float y, float z)
 	{
 		output[0] = x;
 		output[1] = y;
@@ -2659,25 +2970,24 @@ class Vec3
 		return output;
 	}
 
-	/// Alias for {@link vec3.squaredDistance}
-	/// @function
-	static float SqrDist(const(float)[] a, const(float)[] b)
+	/// <summary>Alias for {@link vec3.squaredDistance}
+	/// @function</summary>
+	public static float SqrDist(float[] a, float[] b)
 	{
 		return Vec3.SquaredDistance(a, b);
 	}
 
-	/// Alias for {@link vec3.squaredLength}
-	static float SqrLen(const(float)[] a)
+	/// <summary>Alias for {@link vec3.squaredLength}</summary>
+	public static float SqrLen(float[] a)
 	{
 		return Vec3.SquaredLength(a);
 	}
 
-	/// Calculates the squared euclidian distance between two vec3's
-	/// @returns {Number} squared distance between a and b
-	/// Params:
-	/// a = /@param {vec3} a the first operand
-	/// b = /@param {vec3} b the second operand
-	static float SquaredDistance(const(float)[] a, const(float)[] b)
+	/// <summary>Calculates the squared euclidian distance between two vec3's
+	/// @returns {Number} squared distance between a and b</summary>
+	/// <param name="a">/@param {vec3} a the first operand</param>
+	/// <param name="b">/@param {vec3} b the second operand</param>
+	public static float SquaredDistance(float[] a, float[] b)
 	{
 		float x = b[0] - a[0];
 		float y = b[1] - a[1];
@@ -2685,11 +2995,10 @@ class Vec3
 		return x * x + y * y + z * z;
 	}
 
-	/// Calculates the squared length of a vec3
-	/// @returns {Number} squared length of a
-	/// Params:
-	/// a = /@param {vec3} a vector to calculate squared length of
-	static float SquaredLength(const(float)[] a)
+	/// <summary>Calculates the squared length of a vec3
+	/// @returns {Number} squared length of a</summary>
+	/// <param name="a">/@param {vec3} a vector to calculate squared length of</param>
+	public static float SquaredLength(float[] a)
 	{
 		float x = a[0];
 		float y = a[1];
@@ -2697,20 +3006,19 @@ class Vec3
 		return x * x + y * y + z * z;
 	}
 
-	/// Alias for {@link vec3.subtract}
-	/// @function
-	static const(float)[] Sub(float[] output, const(float)[] a, const(float)[] b)
+	/// <summary>Alias for {@link vec3.subtract}
+	/// @function</summary>
+	public static float[] Sub(float[] output, float[] a, float[] b)
 	{
 		return Vec3.Substract(output, a, b);
 	}
 
-	/// Subtracts vector b from vector a
-	/// @returns {vec3} out
-	/// Params:
-	/// output = /@param {vec3} out the receiving vector
-	/// a = /@param {vec3} a the first operand
-	/// b = /@param {vec3} b the second operand
-	static const(float)[] Substract(float[] output, const(float)[] a, const(float)[] b)
+	/// <summary>Subtracts vector b from vector a
+	/// @returns {vec3} out</summary>
+	/// <param name="output">/@param {vec3} out the receiving vector</param>
+	/// <param name="a">/@param {vec3} a the first operand</param>
+	/// <param name="b">/@param {vec3} b the second operand</param>
+	public static float[] Substract(float[] output, float[] a, float[] b)
 	{
 		output[0] = a[0] - b[0];
 		output[1] = a[1] - b[1];
@@ -2718,14 +3026,12 @@ class Vec3
 		return output;
 	}
 
-	/// Transforms the vec3 with a mat3.
-	///
-	/// @returns {vec3} out
-	/// Params:
-	/// output = /@param {vec3} out the receiving vector
-	/// a = /@param {vec3} a the vector to transform
-	/// m = /@param {mat4} m the 3x3 matrix to transform with
-	static const(float)[] TransformMat3(float[] output, const(float)[] a, const(float)[] m)
+	/// <summary>Transforms the vec3 with a mat3.</summary>
+	/// <remarks>@returns {vec3} out</remarks>
+	/// <param name="output">/@param {vec3} out the receiving vector</param>
+	/// <param name="a">/@param {vec3} a the vector to transform</param>
+	/// <param name="m">/@param {mat4} m the 3x3 matrix to transform with</param>
+	public static float[] TransformMat3(float[] output, float[] a, float[] m)
 	{
 		float x = a[0];
 		float y = a[1];
@@ -2736,15 +3042,13 @@ class Vec3
 		return output;
 	}
 
-	/// /Transforms the vec3 with a mat4.
-	///
-	/// /4th vector component is implicitly '1'
-	/// /@returns {vec3} out
-	/// Params:
-	/// output = /@param {vec3} out the receiving vector
-	/// a = /@param {vec3} a the vector to transform
-	/// m = /@param {mat4} m matrix to transform with
-	static const(float)[] TransformMat4(float[] output, const(float)[] a, const(float)[] m)
+	/// <summary>/Transforms the vec3 with a mat4.</summary>
+	/// <remarks>/4th vector component is implicitly '1'
+	/// /@returns {vec3} out</remarks>
+	/// <param name="output">/@param {vec3} out the receiving vector</param>
+	/// <param name="a">/@param {vec3} a the vector to transform</param>
+	/// <param name="m">/@param {mat4} m matrix to transform with</param>
+	public static float[] TransformMat4(float[] output, float[] a, float[] m)
 	{
 		float x = a[0];
 		float y = a[1];
@@ -2755,13 +3059,12 @@ class Vec3
 		return output;
 	}
 
-	/// Transforms the vec3 with a quat
-	/// @returns {vec3} out
-	/// Params:
-	/// output = /@param {vec3} out the receiving vector
-	/// a = /@param {vec3} a the vector to transform
-	/// q = /@param {quat} q quaternion to transform with
-	static const(float)[] TransformQuat(float[] output, const(float)[] a, const(float)[] q)
+	/// <summary>Transforms the vec3 with a quat
+	/// @returns {vec3} out</summary>
+	/// <param name="output">/@param {vec3} out the receiving vector</param>
+	/// <param name="a">/@param {vec3} a the vector to transform</param>
+	/// <param name="q">/@param {quat} q quaternion to transform with</param>
+	public static float[] TransformQuat(float[] output, float[] a, float[] q)
 	{
 		float x = a[0];
 		float y = a[1];
@@ -2780,9 +3083,8 @@ class Vec3
 		return output;
 	}
 
-	/// /Perform some operation over an array of vec3s.
-	///
-	/// /@param {Array} a the array of vectors to iterate over
+	/// <summary>/Perform some operation over an array of vec3s.</summary>
+	/// <remarks>/@param {Array} a the array of vectors to iterate over
 	/// /@param {Number} stride Number of elements between the start of each vec3. If 0 assumes tightly packed
 	/// /@param {Number} offset Number of elements to skip at the beginning of the array
 	/// /@param {Number} count Number of vec3s to iterate over. If 0 iterates over entire array
@@ -2793,18 +3095,18 @@ class Vec3
 	/// / Returns a string representation of a vector
 	/// /
 	/// / @param {vec3} vec vector to represent as a string
-	/// / @returns {String} string representation of the vector
-	static string str(const(float)[] a)
+	/// / @returns {String} string representation of the vector</remarks>
+	public static string str(float[] a)
 	{
 		return "";
 	}
 }
 
-class Vec4
+public class Vec4
 {
 
-	/// **
-	static const(float)[] Add(float[] output, const(float)[] a, const(float)[] b)
+	/// <summary>**</summary>
+	public static float[] Add(float[] output, float[] a, float[] b)
 	{
 		output[0] = a[0] + b[0];
 		output[1] = a[1] + b[1];
@@ -2813,8 +3115,8 @@ class Vec4
 		return output;
 	}
 
-	/// **
-	static const(float)[] Clone(const(float)[] a)
+	/// <summary>**</summary>
+	public static float[] Clone(float[] a)
 	{
 		float[] output = new float[4];
 		output[0] = a[0];
@@ -2824,8 +3126,8 @@ class Vec4
 		return output;
 	}
 
-	/// **
-	static const(float)[] Copy(float[] output, const(float)[] a)
+	/// <summary>**</summary>
+	public static float[] Copy(float[] output, float[] a)
 	{
 		output[0] = a[0];
 		output[1] = a[1];
@@ -2834,8 +3136,8 @@ class Vec4
 		return output;
 	}
 
-	/// **
-	static const(float)[] Create()
+	/// <summary>**</summary>
+	public static float[] Create()
 	{
 		float[] output = new float[4];
 		output[0] = 0;
@@ -2845,14 +3147,14 @@ class Vec4
 		return output;
 	}
 
-	/// **
-	static float Dist(const(float)[] a, const(float)[] b)
+	/// <summary>**</summary>
+	public static float Dist(float[] a, float[] b)
 	{
 		return Vec4.Distance(a, b);
 	}
 
-	/// **
-	static float Distance(const(float)[] a, const(float)[] b)
+	/// <summary>**</summary>
+	public static float Distance(float[] a, float[] b)
 	{
 		float x = b[0] - a[0];
 		float y = b[1] - a[1];
@@ -2861,14 +3163,14 @@ class Vec4
 		return Platform.Sqrt(x * x + y * y + z * z + w * w);
 	}
 
-	/// **
-	static const(float)[] Div(float[] output, const(float)[] a, const(float)[] b)
+	/// <summary>**</summary>
+	public static float[] Div(float[] output, float[] a, float[] b)
 	{
 		return Vec4.Divide(output, a, b);
 	}
 
-	/// **
-	static const(float)[] Divide(float[] output, const(float)[] a, const(float)[] b)
+	/// <summary>**</summary>
+	public static float[] Divide(float[] output, float[] a, float[] b)
 	{
 		output[0] = a[0] / b[0];
 		output[1] = a[1] / b[1];
@@ -2877,14 +3179,14 @@ class Vec4
 		return output;
 	}
 
-	/// **
-	static float Dot(const(float)[] a, const(float)[] b)
+	/// <summary>**</summary>
+	public static float Dot(float[] a, float[] b)
 	{
 		return a[0] * b[0] + a[1] * b[1] + a[2] * b[2] + a[3] * b[3];
 	}
 
-	/// **
-	static const(float)[] FromValues(float x, float y, float z, float w)
+	/// <summary>**</summary>
+	public static float[] FromValues(float x, float y, float z, float w)
 	{
 		float[] output = new float[4];
 		output[0] = x;
@@ -2894,14 +3196,14 @@ class Vec4
 		return output;
 	}
 
-	/// **
-	static float Len(const(float)[] a)
+	/// <summary>**</summary>
+	public static float Len(float[] a)
 	{
 		return Vec4.Length(a);
 	}
 
-	/// **
-	static float Length(const(float)[] a)
+	/// <summary>**</summary>
+	public static float Length(float[] a)
 	{
 		float x = a[0];
 		float y = a[1];
@@ -2910,8 +3212,8 @@ class Vec4
 		return Platform.Sqrt(x * x + y * y + z * z + w * w);
 	}
 
-	/// **
-	static const(float)[] Lerp(float[] output, const(float)[] a, const(float)[] b, float t)
+	/// <summary>**</summary>
+	public static float[] Lerp(float[] output, float[] a, float[] b, float t)
 	{
 		float ax = a[0];
 		float ay = a[1];
@@ -2924,8 +3226,8 @@ class Vec4
 		return output;
 	}
 
-	/// **
-	static const(float)[] Max(float[] output, const(float)[] a, const(float)[] b)
+	/// <summary>**</summary>
+	public static float[] Max(float[] output, float[] a, float[] b)
 	{
 		output[0] = GlMatrixMath.max(a[0], b[0]);
 		output[1] = GlMatrixMath.max(a[1], b[1]);
@@ -2934,8 +3236,8 @@ class Vec4
 		return output;
 	}
 
-	/// **
-	static const(float)[] Min(float[] output, const(float)[] a, const(float)[] b)
+	/// <summary>**</summary>
+	public static float[] Min(float[] output, float[] a, float[] b)
 	{
 		output[0] = GlMatrixMath.min(a[0], b[0]);
 		output[1] = GlMatrixMath.min(a[1], b[1]);
@@ -2944,14 +3246,14 @@ class Vec4
 		return output;
 	}
 
-	/// **
-	static const(float)[] Mul(float[] output, const(float)[] a, const(float)[] b)
+	/// <summary>**</summary>
+	public static float[] Mul(float[] output, float[] a, float[] b)
 	{
 		return Vec4.Multiply(output, a, b);
 	}
 
-	/// **
-	static const(float)[] Multiply(float[] output, const(float)[] a, const(float)[] b)
+	/// <summary>**</summary>
+	public static float[] Multiply(float[] output, float[] a, float[] b)
 	{
 		output[0] = a[0] * b[0];
 		output[1] = a[1] * b[1];
@@ -2960,8 +3262,8 @@ class Vec4
 		return output;
 	}
 
-	/// **
-	static const(float)[] Negate(float[] output, const(float)[] a)
+	/// <summary>**</summary>
+	public static float[] Negate(float[] output, float[] a)
 	{
 		output[0] = -a[0];
 		output[1] = -a[1];
@@ -2970,8 +3272,8 @@ class Vec4
 		return output;
 	}
 
-	/// **
-	static const(float)[] Normalize(float[] output, const(float)[] a)
+	/// <summary>**</summary>
+	public static float[] Normalize(float[] output, float[] a)
 	{
 		float x = a[0];
 		float y = a[1];
@@ -2989,8 +3291,8 @@ class Vec4
 		return output;
 	}
 
-	/// **
-	static const(float)[] Random(float[] output, float scale)
+	/// <summary>**</summary>
+	public static float[] Random(float[] output, float scale)
 	{
 		output[0] = Platform.Random();
 		output[1] = Platform.Random();
@@ -3001,8 +3303,8 @@ class Vec4
 		return output;
 	}
 
-	/// **
-	static const(float)[] Scale(float[] output, const(float)[] a, float b)
+	/// <summary>**</summary>
+	public static float[] Scale(float[] output, float[] a, float b)
 	{
 		output[0] = a[0] * b;
 		output[1] = a[1] * b;
@@ -3011,8 +3313,8 @@ class Vec4
 		return output;
 	}
 
-	/// **
-	static const(float)[] ScaleAndAdd(float[] output, const(float)[] a, const(float)[] b, float scale)
+	/// <summary>**</summary>
+	public static float[] ScaleAndAdd(float[] output, float[] a, float[] b, float scale)
 	{
 		output[0] = a[0] + b[0] * scale;
 		output[1] = a[1] + b[1] * scale;
@@ -3021,8 +3323,8 @@ class Vec4
 		return output;
 	}
 
-	/// **
-	static const(float)[] Set(float[] output, float x, float y, float z, float w)
+	/// <summary>**</summary>
+	public static float[] Set(float[] output, float x, float y, float z, float w)
 	{
 		output[0] = x;
 		output[1] = y;
@@ -3031,20 +3333,20 @@ class Vec4
 		return output;
 	}
 
-	/// **
-	static float SqrDist(const(float)[] a, const(float)[] b)
+	/// <summary>**</summary>
+	public static float SqrDist(float[] a, float[] b)
 	{
 		return Vec4.SquaredDistance(a, b);
 	}
 
-	/// **
-	static float SqrLen(const(float)[] a)
+	/// <summary>**</summary>
+	public static float SqrLen(float[] a)
 	{
 		return Vec4.SquaredLength(a);
 	}
 
-	/// **
-	static float SquaredDistance(const(float)[] a, const(float)[] b)
+	/// <summary>**</summary>
+	public static float SquaredDistance(float[] a, float[] b)
 	{
 		float x = b[0] - a[0];
 		float y = b[1] - a[1];
@@ -3053,8 +3355,8 @@ class Vec4
 		return x * x + y * y + z * z + w * w;
 	}
 
-	/// **
-	static float SquaredLength(const(float)[] a)
+	/// <summary>**</summary>
+	public static float SquaredLength(float[] a)
 	{
 		float x = a[0];
 		float y = a[1];
@@ -3063,14 +3365,14 @@ class Vec4
 		return x * x + y * y + z * z + w * w;
 	}
 
-	/// **
-	static const(float)[] Sub(float[] output, const(float)[] a, const(float)[] b)
+	/// <summary>**</summary>
+	public static float[] Sub(float[] output, float[] a, float[] b)
 	{
 		return Vec4.Subtract(output, a, b);
 	}
 
-	/// **
-	static const(float)[] Subtract(float[] output, const(float)[] a, const(float)[] b)
+	/// <summary>**</summary>
+	public static float[] Subtract(float[] output, float[] a, float[] b)
 	{
 		output[0] = a[0] - b[0];
 		output[1] = a[1] - b[1];
@@ -3079,8 +3381,8 @@ class Vec4
 		return output;
 	}
 
-	/// **
-	static const(float)[] TransformMat4(float[] output, const(float)[] a, const(float)[] m)
+	/// <summary>**</summary>
+	public static float[] TransformMat4(float[] output, float[] a, float[] m)
 	{
 		float x = a[0];
 		float y = a[1];
@@ -3093,14 +3395,14 @@ class Vec4
 		return output;
 	}
 
-	/// **
-	/// **
-	private final void f()
+	/// <summary>**
+	/// **</summary>
+	void f()
 	{
 	}
 
-	/// **
-	static const(float)[] transformQuat(float[] output, const(float)[] a, const(float)[] q)
+	/// <summary>**</summary>
+	public static float[] transformQuat(float[] output, float[] a, float[] q)
 	{
 		float x = a[0];
 		float y = a[1];

@@ -4248,6 +4248,7 @@ public class GlMatrixMath
     }
 }
 
+#if TESTS
 public class TestVec3
 {
     public void Test()
@@ -4597,3 +4598,4 @@ public class TestVec3
         return arr;
     }
 }
+#endif

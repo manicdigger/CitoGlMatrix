@@ -16,6 +16,7 @@ sub new($) {
 	my $self = bless {}, shift;
 	$self->{errors} = [];
 	$self->{errors_count} = 0;
+	$self->{test_i} = 0;
 	return $self;
 }
 
@@ -83,11 +84,24 @@ sub arr9($$$$$$$$$$) {
 
 sub assert_array_equal($$$$$) {
 	my ($self, $actual, $expected, $length, $msg) = @_;
+	Platform::write_string("Test ");
+	Platform::write_int($self->{test_i});
+	my $isequal = 1;
 	for (my $i = 0; $i < $length; $i++) {
 		if ($actual->[$i] != $expected->[$i]) {
-			$self->{errors}->[$self->{errors_count}++] = $msg;
+			$isequal = 0;
 		}
 	}
+	if (!$isequal) {
+		$self->{errors}->[$self->{errors_count}++] = $msg;
+		Platform::write_string(" error: ");
+		Platform::write_string($msg);
+	}
+	else {
+		Platform::write_string(" ok");
+	}
+	Platform::write_string("\n");
+	$self->{test_i}++;
 }
 
 =head2 C<$citoassert-E<gt>assert_close_to($actual, $expected, $msg)>
@@ -96,9 +110,18 @@ sub assert_array_equal($$$$$) {
 
 sub assert_close_to($$$$) {
 	my ($self, $actual, $expected, $msg) = @_;
+	Platform::write_string("Test ");
+	Platform::write_int($self->{test_i});
 	if (GlMatrixMath::abs($actual - $expected) > GlMatrixMath::g_l_m_a_t__e_p_s_i_l_o_n()) {
 		$self->{errors}->[$self->{errors_count}++] = $msg;
+		Platform::write_string(" error: ");
+		Platform::write_string($msg);
 	}
+	else {
+		Platform::write_string(" ok");
+	}
+	Platform::write_string("\n");
+	$self->{test_i}++;
 }
 
 =head2 C<$citoassert-E<gt>assert_equal($actual, $expected, $msg)>
@@ -107,9 +130,18 @@ sub assert_close_to($$$$) {
 
 sub assert_equal($$$$) {
 	my ($self, $actual, $expected, $msg) = @_;
+	Platform::write_string("Test ");
+	Platform::write_int($self->{test_i});
 	if ($actual != $expected) {
 		$self->{errors}->[$self->{errors_count}++] = $msg;
+		Platform::write_string(" error: ");
+		Platform::write_string($msg);
 	}
+	else {
+		Platform::write_string(" ok");
+	}
+	Platform::write_string("\n");
+	$self->{test_i}++;
 }
 
 =head1 Class GlMatrixMath
@@ -2499,6 +2531,22 @@ sub tan($) {
 	return 0;
 }
 
+=head2 C<Platform::write_int($a)>
+
+=cut
+
+sub write_int($) {
+	my ($a) = @_;
+}
+
+=head2 C<Platform::write_string($a)>
+
+=cut
+
+sub write_string($) {
+	my ($a) = @_;
+}
+
 =head1 Class Quat
 
 =cut
@@ -3861,6 +3909,32 @@ sub transform_mat4_with_an_identity($) {
 	my $result = Vec3::transform_mat4($self->{output}, $self->{vec_a}, $matr);
 	$self->assert_array_equal($self->{output}, $self->arr3(1, 2, 3), 3, "TransformMat4WithAnIdentity should produce the input");
 	$self->assert_array_equal($result, $self->{output}, 3, "TransformMat4WithAnIdentity should return output");
+}
+
+=head1 Class Tests
+
+=cut
+
+package Tests;
+
+=head2 C<$tests = Tests-E<gt>new()>
+
+=cut
+
+sub new($) {
+	my $self = bless {}, shift;
+	return $self;
+}
+
+=head2 C<Tests::run_all()>
+
+=cut
+
+sub run_all() {
+	my $testvec3 = TestVec3->new();
+	$testvec3->test();
+	my $testmat4 = TestMat4->new();
+	$testmat4->test();
 }
 
 =head1 Class Vec2

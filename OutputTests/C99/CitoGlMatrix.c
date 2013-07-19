@@ -5,6 +5,7 @@
 
 struct CitoAssert {
 	int errorsCount;
+	int testI;
 	const char **errors;
 };
 static void CitoAssert_Construct(CitoAssert *self);
@@ -163,10 +164,12 @@ static void TestVec3_TransformMat4WithAnIdentity(TestVec3 const *self);
 
 
 
+
 static void CitoAssert_Construct(CitoAssert *self)
 {
 	self->errors = (const char **) malloc(1024 * sizeof(const char *));
 	self->errorsCount = 0;
+	self->testI = 0;
 }
 
 CitoAssert *CitoAssert_New(void)
@@ -230,25 +233,56 @@ float const *CitoAssert_Arr9(CitoAssert const *self, int p, int p_2, int p_3, in
 
 void CitoAssert_AssertArrayEqual(CitoAssert *self, float const *actual, float const *expected, int length, const char *msg)
 {
+	Platform_WriteString("Test ");
+	Platform_WriteInt(self->testI);
+	bool isequal = true;
 	for (int i = 0; i < length; i++) {
 		if (actual[i] != expected[i]) {
-			self->errors[self->errorsCount++] = msg;
+			isequal = false;
 		}
 	}
+	if (!isequal) {
+		self->errors[self->errorsCount++] = msg;
+		Platform_WriteString(" error: ");
+		Platform_WriteString(msg);
+	}
+	else {
+		Platform_WriteString(" ok");
+	}
+	Platform_WriteString("\n");
+	self->testI++;
 }
 
 void CitoAssert_AssertCloseTo(CitoAssert *self, float actual, float expected, const char *msg)
 {
+	Platform_WriteString("Test ");
+	Platform_WriteInt(self->testI);
 	if (GlMatrixMath_Abs(actual - expected) > GlMatrixMath_GLMAT_EPSILON()) {
 		self->errors[self->errorsCount++] = msg;
+		Platform_WriteString(" error: ");
+		Platform_WriteString(msg);
 	}
+	else {
+		Platform_WriteString(" ok");
+	}
+	Platform_WriteString("\n");
+	self->testI++;
 }
 
 void CitoAssert_AssertEqual(CitoAssert *self, float actual, float expected, const char *msg)
 {
+	Platform_WriteString("Test ");
+	Platform_WriteInt(self->testI);
 	if (actual != expected) {
 		self->errors[self->errorsCount++] = msg;
+		Platform_WriteString(" error: ");
+		Platform_WriteString(msg);
 	}
+	else {
+		Platform_WriteString(" ok");
+	}
+	Platform_WriteString("\n");
+	self->testI++;
 }
 
 float GlMatrixMath_Abs(float len)
@@ -1722,6 +1756,18 @@ float Platform_Tan(float a)
         return 0;
 }
 
+void Platform_WriteInt(int a)
+{
+	
+            printf("%i", a);
+        }
+
+void Platform_WriteString(const char *a)
+{
+	
+            printf("%s", a);
+        }
+
 float const *Quat_Add(float *output, float const *a, float const *b)
 {
 	return Vec4_Add(output, a, b);
@@ -2864,6 +2910,14 @@ static void TestVec3_TransformMat4WithAnIdentity(TestVec3 const *self)
 	float const *result = Vec3_TransformMat4(self->output, self->vecA, matr);
 	TestVec3_AssertArrayEqual(self, self->output, TestVec3_Arr3(self, 1, 2, 3), 3, "TransformMat4WithAnIdentity should produce the input");
 	TestVec3_AssertArrayEqual(self, result, self->output, 3, "TransformMat4WithAnIdentity should return output");
+}
+
+void Tests_RunAll(void)
+{
+	TestVec3 *testvec3 = TestVec3_New();
+	TestVec3_Test(testvec3);
+	TestMat4 *testmat4 = TestMat4_New();
+	TestMat4_Test(testmat4);
 }
 
 float const *Vec2_Add(float *output, float const *a, float const *b)

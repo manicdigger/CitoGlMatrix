@@ -1686,6 +1686,14 @@ class Platform
 	{
 		return 0;
 	}
+
+	static void WriteInt(int a)
+	{
+	}
+
+	static void WriteString(string a)
+	{
+	}
 }
 
 class Quat

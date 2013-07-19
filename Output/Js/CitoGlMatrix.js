@@ -1434,6 +1434,16 @@ Platform.tan = function(a) {
         return 0;
 }
 
+Platform.writeInt = function(a) {
+	
+            console.log(a);
+        }
+
+Platform.writeString = function(a) {
+	
+            console.log(a);
+        }
+
 function Quat()
 {
 }

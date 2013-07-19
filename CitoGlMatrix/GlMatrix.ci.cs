@@ -4314,6 +4314,66 @@ public class Platform
 #endif
 #endif
     }
+
+    public static void WriteString(string a)
+    {
+#if CS
+        native
+        {
+            System.Console.Write(a);
+        }
+#elif JS
+        native
+        {
+            console.log(a);
+        }
+#elif C
+        native
+        {
+            printf("%s", a);
+        }
+#elif C99
+        native
+        {
+            printf("%s", a);
+        }
+#else
+#if CITO
+#else
+        System.Console.Write(a);
+#endif
+#endif
+    }
+
+    public static void WriteInt(int a)
+    {
+#if CS
+        native
+        {
+            System.Console.Write(a);
+        }
+#elif JS
+        native
+        {
+            console.log(a);
+        }
+#elif C
+        native
+        {
+            printf("%i", a);
+        }
+#elif C99
+        native
+        {
+            printf("%i", a);
+        }
+#else
+#if CITO
+#else
+        System.Console.Write(a);
+#endif
+#endif
+    }
 }
 
 public class GlMatrixMath
@@ -4368,6 +4428,18 @@ public class GlMatrixMath
 }
 
 #if TESTS
+
+public class Tests
+{
+    public static void RunAll()
+    {
+        TestVec3 testvec3 = new TestVec3();
+        testvec3.Test();
+        TestMat4 testmat4 = new TestMat4();
+        testmat4.Test();
+    }
+}
+
 public class TestVec3
 {
     public void Test()
@@ -5217,36 +5289,74 @@ public class CitoAssert
     {
         errors = new string[1024];
         errorsCount = 0;
+        testI = 0;
     }
 
     string[] errors;
     int errorsCount;
 
+    int testI;
+
     public void AssertEqual(float actual, float expected, string msg)
     {
+        Platform.WriteString("Test ");
+        Platform.WriteInt(testI);
         if (actual != expected)
         {
             errors[errorsCount++] = msg;
+            Platform.WriteString(" error: ");
+            Platform.WriteString(msg);
         }
+        else
+        {
+            Platform.WriteString(" ok");
+        }
+        Platform.WriteString("\n");
+        testI++;
     }
 
     public void AssertCloseTo(float actual, float expected, string msg)
     {
+        Platform.WriteString("Test ");
+        Platform.WriteInt(testI);
         if (GlMatrixMath.Abs(actual - expected) > GlMatrixMath.GLMAT_EPSILON())
         {
             errors[errorsCount++] = msg;
+            Platform.WriteString(" error: ");
+            Platform.WriteString(msg);
         }
+        else
+        {
+            Platform.WriteString(" ok");
+        }
+        Platform.WriteString("\n");
+        testI++;
     }
 
     public void AssertArrayEqual(float[] actual, float[] expected, int length, string msg)
     {
+        Platform.WriteString("Test ");
+        Platform.WriteInt(testI);
+        bool isequal = true;
         for (int i = 0; i < length; i++)
         {
             if (actual[i] != expected[i])
             {
-                errors[errorsCount++] = msg;
+                isequal = false;
             }
         }
+        if (!isequal)
+        {
+            errors[errorsCount++] = msg;
+            Platform.WriteString(" error: ");
+            Platform.WriteString(msg);
+        }
+        else
+        {
+            Platform.WriteString(" ok");
+        }
+        Platform.WriteString("\n");
+        testI++;
     }
 
     public float[] Arr3(float p, float p_2, float p_3)

@@ -35,5 +35,13 @@ package
 		{
 			return 0;
 		}
+
+		public static function writeInt(a : int) : void
+		{
+		}
+
+		public static function writeString(a : String) : void
+		{
+		}
 	}
 }

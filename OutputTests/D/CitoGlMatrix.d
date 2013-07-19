@@ -52,32 +52,65 @@ class CitoAssert
 
 	final void AssertArrayEqual(const(float)[] actual, const(float)[] expected, int length, string msg)
 	{
+		Platform.WriteString("Test ");
+		Platform.WriteInt(this.testI);
+		bool isequal = true;
 		for (int i = 0; i < length; i++) {
 			if (actual[i] != expected[i]) {
-				this.errors[this.errorsCount++] = msg;
+				isequal = false;
 			}
 		}
+		if (!isequal) {
+			this.errors[this.errorsCount++] = msg;
+			Platform.WriteString(" error: ");
+			Platform.WriteString(msg);
+		}
+		else {
+			Platform.WriteString(" ok");
+		}
+		Platform.WriteString("\n");
+		this.testI++;
 	}
 
 	final void AssertCloseTo(float actual, float expected, string msg)
 	{
+		Platform.WriteString("Test ");
+		Platform.WriteInt(this.testI);
 		if (GlMatrixMath.Abs(actual - expected) > GlMatrixMath.GLMAT_EPSILON()) {
 			this.errors[this.errorsCount++] = msg;
+			Platform.WriteString(" error: ");
+			Platform.WriteString(msg);
 		}
+		else {
+			Platform.WriteString(" ok");
+		}
+		Platform.WriteString("\n");
+		this.testI++;
 	}
 
 	final void AssertEqual(float actual, float expected, string msg)
 	{
+		Platform.WriteString("Test ");
+		Platform.WriteInt(this.testI);
 		if (actual != expected) {
 			this.errors[this.errorsCount++] = msg;
+			Platform.WriteString(" error: ");
+			Platform.WriteString(msg);
 		}
+		else {
+			Platform.WriteString(" ok");
+		}
+		Platform.WriteString("\n");
+		this.testI++;
 	}
 	private string[] errors;
 	private int errorsCount;
+	private int testI;
 	this()
 	{
 		this.errors = new string[1024];
 		this.errorsCount = 0;
+		this.testI = 0;
 	}
 }
 
@@ -1766,6 +1799,14 @@ class Platform
 	{
 		return 0;
 	}
+
+	static void WriteInt(int a)
+	{
+	}
+
+	static void WriteString(string a)
+	{
+	}
 }
 
 class Quat
@@ -2962,6 +3003,18 @@ class TestVec3
 	private float[] output;
 	private float[] vecA;
 	private const(float)[] vecB;
+}
+
+class Tests
+{
+
+	static void RunAll()
+	{
+		TestVec3 testvec3 = new TestVec3;
+		testvec3.Test();
+		TestMat4 testmat4 = new TestMat4;
+		testmat4.Test();
+	}
 }
 
 class Vec2

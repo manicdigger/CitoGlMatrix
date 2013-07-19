@@ -456,6 +456,10 @@ float Platform_Sqrt(float a);
 
 float Platform_Tan(float a);
 
+void Platform_WriteInt(int a);
+
+void Platform_WriteString(const char *a);
+
 /**
  * **
  */
@@ -605,6 +609,8 @@ TestVec3 *TestVec3_New(void);
 void TestVec3_Delete(TestVec3 *self);
 
 void TestVec3_Test(TestVec3 *self);
+
+void Tests_RunAll(void);
 
 /**
  * **

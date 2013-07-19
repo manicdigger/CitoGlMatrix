@@ -1489,6 +1489,18 @@ float Platform_Tan(float a)
         return 0;
 }
 
+void Platform_WriteInt(int a)
+{
+	
+            printf("%i", a);
+        }
+
+void Platform_WriteString(const char *a)
+{
+	
+            printf("%s", a);
+        }
+
 float const *Quat_Add(float *output, float const *a, float const *b)
 {
 	return Vec4_Add(output, a, b);

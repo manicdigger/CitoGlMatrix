@@ -9,6 +9,7 @@ package
 		{
 			this.errors = new Array(1024);
 			this.errorsCount = 0;
+			this.testI = 0;
 		}
 
 		public final function arr16(p : int, p_2 : int, p_3 : int, p_4 : int, p_5 : int, p_6 : int, p_7 : int, p_8 : int, p_9 : int, p_10 : int, p_11 : int, p_12 : int, p_13 : int, p_14 : int, p_15 : int, p_16 : int) : Array
@@ -59,27 +60,59 @@ package
 
 		public final function assertArrayEqual(actual : Array, expected : Array, length : int, msg : String) : void
 		{
+			Platform.writeString("Test ");
+			Platform.writeInt(this.testI);
+			var isequal : Boolean = true;
 			for (var i : int = 0; i < length; i++) {
 				if (actual[i] != expected[i]) {
-					this.errors[this.errorsCount++] = msg;
+					isequal = false;
 				}
 			}
+			if (!isequal) {
+				this.errors[this.errorsCount++] = msg;
+				Platform.writeString(" error: ");
+				Platform.writeString(msg);
+			}
+			else {
+				Platform.writeString(" ok");
+			}
+			Platform.writeString("\n");
+			this.testI++;
 		}
 
 		public final function assertCloseTo(actual : float, expected : float, msg : String) : void
 		{
+			Platform.writeString("Test ");
+			Platform.writeInt(this.testI);
 			if (GlMatrixMath.abs(actual - expected) > GlMatrixMath.gLMAT_EPSILON()) {
 				this.errors[this.errorsCount++] = msg;
+				Platform.writeString(" error: ");
+				Platform.writeString(msg);
 			}
+			else {
+				Platform.writeString(" ok");
+			}
+			Platform.writeString("\n");
+			this.testI++;
 		}
 
 		public final function assertEqual(actual : float, expected : float, msg : String) : void
 		{
+			Platform.writeString("Test ");
+			Platform.writeInt(this.testI);
 			if (actual != expected) {
 				this.errors[this.errorsCount++] = msg;
+				Platform.writeString(" error: ");
+				Platform.writeString(msg);
 			}
+			else {
+				Platform.writeString(" ok");
+			}
+			Platform.writeString("\n");
+			this.testI++;
 		}
 		private var errors : Array;
 		private var errorsCount : int;
+		private var testI : int;
 	}
 }

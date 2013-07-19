@@ -438,6 +438,10 @@ float Platform_Sqrt(float a);
 
 float Platform_Tan(float a);
 
+void Platform_WriteInt(int a);
+
+void Platform_WriteString(const char *a);
+
 /**
  * **
  */

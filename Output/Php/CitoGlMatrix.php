@@ -1665,6 +1665,14 @@ class Platform
 	{
 		return 0;
 	}
+
+	static function WriteInt($a)
+	{
+	}
+
+	static function WriteString($a)
+	{
+	}
 }
 
 class Quat

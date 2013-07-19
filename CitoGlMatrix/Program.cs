@@ -9,6 +9,7 @@ namespace CitoGlMatrix
     {
         static void Main(string[] args)
         {
+            Tests.RunAll();
         }
     }
 }

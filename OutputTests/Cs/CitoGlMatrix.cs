@@ -6,6 +6,7 @@ public class CitoAssert
 	{
 		this.errors = new string[1024];
 		this.errorsCount = 0;
+		this.testI = 0;
 	}
 
 	public float[] Arr16(int p, int p_2, int p_3, int p_4, int p_5, int p_6, int p_7, int p_8, int p_9, int p_10, int p_11, int p_12, int p_13, int p_14, int p_15, int p_16)
@@ -56,28 +57,60 @@ public class CitoAssert
 
 	public void AssertArrayEqual(float[] actual, float[] expected, int length, string msg)
 	{
+		Platform.WriteString("Test ");
+		Platform.WriteInt(this.testI);
+		bool isequal = true;
 		for (int i = 0; i < length; i++) {
 			if (actual[i] != expected[i]) {
-				this.errors[this.errorsCount++] = msg;
+				isequal = false;
 			}
 		}
+		if (!isequal) {
+			this.errors[this.errorsCount++] = msg;
+			Platform.WriteString(" error: ");
+			Platform.WriteString(msg);
+		}
+		else {
+			Platform.WriteString(" ok");
+		}
+		Platform.WriteString("\n");
+		this.testI++;
 	}
 
 	public void AssertCloseTo(float actual, float expected, string msg)
 	{
+		Platform.WriteString("Test ");
+		Platform.WriteInt(this.testI);
 		if (GlMatrixMath.Abs(actual - expected) > GlMatrixMath.GLMAT_EPSILON()) {
 			this.errors[this.errorsCount++] = msg;
+			Platform.WriteString(" error: ");
+			Platform.WriteString(msg);
 		}
+		else {
+			Platform.WriteString(" ok");
+		}
+		Platform.WriteString("\n");
+		this.testI++;
 	}
 
 	public void AssertEqual(float actual, float expected, string msg)
 	{
+		Platform.WriteString("Test ");
+		Platform.WriteInt(this.testI);
 		if (actual != expected) {
 			this.errors[this.errorsCount++] = msg;
+			Platform.WriteString(" error: ");
+			Platform.WriteString(msg);
 		}
+		else {
+			Platform.WriteString(" ok");
+		}
+		Platform.WriteString("\n");
+		this.testI++;
 	}
 	string[] errors;
 	int errorsCount;
+	int testI;
 }
 
 public class GlMatrixMath
@@ -1754,6 +1787,18 @@ public class Platform
             return (float)System.Math.Tan(a);
         return 0;
 	}
+
+	public static void WriteInt(int a)
+	{
+		
+            System.Console.Write(a);
+        }
+
+	public static void WriteString(string a)
+	{
+		
+            System.Console.Write(a);
+        }
 }
 
 public class Quat
@@ -2950,6 +2995,18 @@ public class TestVec3
 	float[] output;
 	float[] vecA;
 	float[] vecB;
+}
+
+public class Tests
+{
+
+	public static void RunAll()
+	{
+		TestVec3 testvec3 = new TestVec3();
+		testvec3.Test();
+		TestMat4 testmat4 = new TestMat4();
+		testmat4.Test();
+	}
 }
 
 public class Vec2

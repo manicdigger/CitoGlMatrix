@@ -6,6 +6,7 @@ class CitoAssert
 	function __construct(){
 		$this->errors = array();
 		$this->errorsCount = 0;
+		$this->testI = 0;
 	}
 
 	function Arr16($p, $p_2, $p_3, $p_4, $p_5, $p_6, $p_7, $p_8, $p_9, $p_10, $p_11, $p_12, $p_13, $p_14, $p_15, $p_16)
@@ -56,28 +57,60 @@ class CitoAssert
 
 	function AssertArrayEqual(&$actual, &$expected, $length, $msg)
 	{
+		Platform::WriteString("Test ");
+		Platform::WriteInt($this->testI);
+		$isequal = true;
 		for ($i = 0; $i < $length; $i++) {
 			if ($actual[$i] != $expected[$i]) {
-				$this->errors[$this->errorsCount++] = $msg;
+				$isequal = false;
 			}
 		}
+		if (!$isequal) {
+			$this->errors[$this->errorsCount++] = $msg;
+			Platform::WriteString(" error: ");
+			Platform::WriteString($msg);
+		}
+		else {
+			Platform::WriteString(" ok");
+		}
+		Platform::WriteString("\n");
+		$this->testI++;
 	}
 
 	function AssertCloseTo($actual, $expected, $msg)
 	{
+		Platform::WriteString("Test ");
+		Platform::WriteInt($this->testI);
 		if (GlMatrixMath::Abs($actual - $expected) > GlMatrixMath::GLMAT_EPSILON()) {
 			$this->errors[$this->errorsCount++] = $msg;
+			Platform::WriteString(" error: ");
+			Platform::WriteString($msg);
 		}
+		else {
+			Platform::WriteString(" ok");
+		}
+		Platform::WriteString("\n");
+		$this->testI++;
 	}
 
 	function AssertEqual($actual, $expected, $msg)
 	{
+		Platform::WriteString("Test ");
+		Platform::WriteInt($this->testI);
 		if ($actual != $expected) {
 			$this->errors[$this->errorsCount++] = $msg;
+			Platform::WriteString(" error: ");
+			Platform::WriteString($msg);
 		}
+		else {
+			Platform::WriteString(" ok");
+		}
+		Platform::WriteString("\n");
+		$this->testI++;
 	}
 	private $errors;
 	private $errorsCount;
+	private $testI;
 }
 
 class GlMatrixMath
@@ -1744,6 +1777,14 @@ class Platform
 	{
 		return 0;
 	}
+
+	static function WriteInt($a)
+	{
+	}
+
+	static function WriteString($a)
+	{
+	}
 }
 
 class Quat
@@ -2940,6 +2981,18 @@ class TestVec3
 	private $output;
 	private $vecA;
 	private $vecB;
+}
+
+class Tests
+{
+
+	static function RunAll()
+	{
+		$testvec3 = new TestVec3();
+		$testvec3->Test();
+		$testmat4 = new TestMat4();
+		$testmat4->Test();
+	}
 }
 
 class Vec2

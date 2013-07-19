@@ -1674,6 +1674,18 @@ public class Platform
             return (float)System.Math.Tan(a);
         return 0;
 	}
+
+	public static void WriteInt(int a)
+	{
+		
+            System.Console.Write(a);
+        }
+
+	public static void WriteString(string a)
+	{
+		
+            System.Console.Write(a);
+        }
 }
 
 public class Quat

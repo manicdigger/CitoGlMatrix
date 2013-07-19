@@ -2389,6 +2389,22 @@ sub tan($) {
 	return 0;
 }
 
+=head2 C<Platform::write_int($a)>
+
+=cut
+
+sub write_int($) {
+	my ($a) = @_;
+}
+
+=head2 C<Platform::write_string($a)>
+
+=cut
+
+sub write_string($) {
+	my ($a) = @_;
+}
+
 =head1 Class Quat
 
 =cut

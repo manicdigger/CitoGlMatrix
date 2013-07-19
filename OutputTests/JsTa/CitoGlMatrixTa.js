@@ -4,8 +4,10 @@ function CitoAssert()
 {
 	this.errors = null;
 	this.errorsCount = 0;
+	this.testI = 0;
 	this.errors = new Array(1024);
 	this.errorsCount = 0;
+	this.testI = 0;
 }
 
 CitoAssert.prototype.arr16 = function(p, p_2, p_3, p_4, p_5, p_6, p_7, p_8, p_9, p_10, p_11, p_12, p_13, p_14, p_15, p_16) {
@@ -52,23 +54,54 @@ CitoAssert.prototype.arr9 = function(p, p_2, p_3, p_4, p_5, p_6, p_7, p_8, p_9) 
 }
 
 CitoAssert.prototype.assertArrayEqual = function(actual, expected, length, msg) {
+	Platform.writeString("Test ");
+	Platform.writeInt(this.testI);
+	var isequal = true;
 	for (var i = 0; i < length; i++) {
 		if (actual[i] != expected[i]) {
-			this.errors[this.errorsCount++] = msg;
+			isequal = false;
 		}
 	}
+	if (!isequal) {
+		this.errors[this.errorsCount++] = msg;
+		Platform.writeString(" error: ");
+		Platform.writeString(msg);
+	}
+	else {
+		Platform.writeString(" ok");
+	}
+	Platform.writeString("\n");
+	this.testI++;
 }
 
 CitoAssert.prototype.assertCloseTo = function(actual, expected, msg) {
+	Platform.writeString("Test ");
+	Platform.writeInt(this.testI);
 	if (GlMatrixMath.abs(actual - expected) > GlMatrixMath.gLMAT_EPSILON()) {
 		this.errors[this.errorsCount++] = msg;
+		Platform.writeString(" error: ");
+		Platform.writeString(msg);
 	}
+	else {
+		Platform.writeString(" ok");
+	}
+	Platform.writeString("\n");
+	this.testI++;
 }
 
 CitoAssert.prototype.assertEqual = function(actual, expected, msg) {
+	Platform.writeString("Test ");
+	Platform.writeInt(this.testI);
 	if (actual != expected) {
 		this.errors[this.errorsCount++] = msg;
+		Platform.writeString(" error: ");
+		Platform.writeString(msg);
 	}
+	else {
+		Platform.writeString(" ok");
+	}
+	Platform.writeString("\n");
+	this.testI++;
 }
 
 function GlMatrixMath()
@@ -1495,6 +1528,12 @@ Platform.tan = function(a) {
 	return 0;
 }
 
+Platform.writeInt = function(a) {
+}
+
+Platform.writeString = function(a) {
+}
+
 function Quat()
 {
 }
@@ -2502,6 +2541,17 @@ TestVec3.prototype.transformMat4WithAnIdentity = function() {
 	var result = Vec3.transformMat4(this.output, this.vecA, matr);
 	this.assertArrayEqual(this.output, this.arr3(1, 2, 3), 3, "TransformMat4WithAnIdentity should produce the input");
 	this.assertArrayEqual(result, this.output, 3, "TransformMat4WithAnIdentity should return output");
+}
+
+function Tests()
+{
+}
+
+Tests.runAll = function() {
+	var testvec3 = new TestVec3();
+	testvec3.test();
+	var testmat4 = new TestMat4();
+	testmat4.test();
 }
 
 function Vec2()

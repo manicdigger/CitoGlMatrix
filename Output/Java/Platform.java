@@ -33,4 +33,12 @@ public class Platform
 	{
 		return 0;
 	}
+
+	public static void writeInt(int a)
+	{
+	}
+
+	public static void writeString(String a)
+	{
+	}
 }

@@ -1,5 +1,76 @@
 // Generated automatically with "cito". Do not edit.
 
+function CitoAssert()
+{
+	this.errors = null;
+	this.errorsCount = 0;
+	this.errors = new Array(1024);
+	this.errorsCount = 0;
+}
+
+CitoAssert.prototype.arr16 = function(p, p_2, p_3, p_4, p_5, p_6, p_7, p_8, p_9, p_10, p_11, p_12, p_13, p_14, p_15, p_16) {
+	var arr = new Array(16);
+	arr[0] = p;
+	arr[1] = p_2;
+	arr[2] = p_3;
+	arr[3] = p_4;
+	arr[4] = p_5;
+	arr[5] = p_6;
+	arr[6] = p_7;
+	arr[7] = p_8;
+	arr[8] = p_9;
+	arr[9] = p_10;
+	arr[10] = p_11;
+	arr[11] = p_12;
+	arr[12] = p_13;
+	arr[13] = p_14;
+	arr[14] = p_15;
+	arr[15] = p_16;
+	return arr;
+}
+
+CitoAssert.prototype.arr3 = function(p, p_2, p_3) {
+	var arr = new Array(3);
+	arr[0] = p;
+	arr[1] = p_2;
+	arr[2] = p_3;
+	return arr;
+}
+
+CitoAssert.prototype.arr9 = function(p, p_2, p_3, p_4, p_5, p_6, p_7, p_8, p_9) {
+	var arr = new Array(16);
+	arr[0] = p;
+	arr[1] = p_2;
+	arr[2] = p_3;
+	arr[3] = p_4;
+	arr[4] = p_5;
+	arr[5] = p_6;
+	arr[6] = p_7;
+	arr[7] = p_8;
+	arr[8] = p_9;
+	return arr;
+}
+
+CitoAssert.prototype.assertArrayEqual = function(actual, expected, length, msg) {
+	for (var i = 0; i < length; i++) {
+		if (actual[i] != expected[i]) {
+			this.errors[this.errorsCount++] = msg;
+		}
+	}
+}
+
+CitoAssert.prototype.assertCloseTo = function(actual, expected, msg) {
+	if (GlMatrixMath.abs(actual - expected) > GlMatrixMath.gLMAT_EPSILON()) {
+		this.errors[this.errorsCount++] = msg;
+	}
+}
+
+CitoAssert.prototype.assertEqual = function(actual, expected, msg) {
+	if (actual != expected) {
+		this.errors[this.errorsCount++] = msg;
+	}
+}
+
 function GlMatrixMath()
 {
 }
@@ -1401,27 +1472,37 @@ function Platform()
 }
 
 Platform.acos = function(a) {
-	return 0;
+	
+            return Math.acos(a);
+        return 0;
 }
 
-Platform.cos = function(r) {
-	return 0;
+Platform.cos = function(a) {
+	
+            return Math.cos(a);
+        return 0;
 }
 
 Platform.random = function() {
 	return 0;
 }
 
-Platform.sin = function(r) {
-	return 0;
+Platform.sin = function(a) {
+	
+            return Math.sin(a);
+        return 0;
 }
 
 Platform.sqrt = function(a) {
-	return 0;
+	
+            return Math.sqrt(a);
+        return 0;
 }
 
-Platform.tan = function(p) {
-	return 0;
+Platform.tan = function(a) {
+	
+            return Math.tan(a);
+        return 0;
 }
 
 function Quat()
@@ -1731,10 +1812,149 @@ Quat.squaredLength = function(a) {
 Quat.prototype.f = function() {
 }
 
+function TestMat4()
+{
+	this.citoassert = null;
+	this.identity = null;
+	this.matA = null;
+	this.matB = null;
+	this.output = null;
+}
+
+TestMat4.prototype.adjoint = function() {
+}
+
+TestMat4.prototype.arr16 = function(p, p_2, p_3, p_4, p_5, p_6, p_7, p_8, p_9, p_10, p_11, p_12, p_13, p_14, p_15, p_16) {
+	return this.citoassert.arr16(p, p_2, p_3, p_4, p_5, p_6, p_7, p_8, p_9, p_10, p_11, p_12, p_13, p_14, p_15, p_16);
+}
+
+TestMat4.prototype.arr3 = function(p, p_2, p_3) {
+	return this.citoassert.arr3(p, p_2, p_3);
+}
+
+TestMat4.prototype.arr9 = function(p, p_2, p_3, p_4, p_5, p_6, p_7, p_8, p_9) {
+	return this.citoassert.arr9(p, p_2, p_3, p_4, p_5, p_6, p_7, p_8, p_9);
+}
+
+TestMat4.prototype.assertArrayEqual = function(actual, expected, length, msg) {
+	this.citoassert.assertArrayEqual(actual, expected, length, msg);
+}
+
+TestMat4.prototype.assertCloseTo = function(actual, expected, msg) {
+	this.citoassert.assertCloseTo(actual, expected, msg);
+}
+
+TestMat4.prototype.assertEqual = function(actual, expected, msg) {
+	this.citoassert.assertEqual(actual, expected, msg);
+}
+
+TestMat4.prototype.clone = function() {
+}
+
+TestMat4.prototype.copy = function() {
+}
+
+TestMat4.prototype.create = function() {
+}
+
+TestMat4.prototype.determinant = function() {
+}
+
+TestMat4.prototype.frustum = function() {
+}
+
+TestMat4.prototype.identity = function() {
+}
+
+TestMat4.prototype.invert = function() {
+}
+
+TestMat4.prototype.lookAt = function() {
+}
+
+TestMat4.prototype.multiply = function() {
+}
+
+TestMat4.prototype.ortho = function() {
+}
+
+TestMat4.prototype.resetTests = function() {
+	this.matA = this.arr16(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 1, 2, 3, 1);
+	this.matB = this.arr16(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 4, 5, 6, 1);
+	this.output = this.arr16(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+	this.identity = this.arr16(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1);
+}
+
+TestMat4.prototype.rotate = function() {
+}
+
+TestMat4.prototype.rotateX = function() {
+}
+
+TestMat4.prototype.rotateY = function() {
+}
+
+TestMat4.prototype.rotateZ = function() {
+}
+
+TestMat4.prototype.scale = function() {
+}
+
+TestMat4.prototype.str = function() {
+}
+
+TestMat4.prototype.test = function() {
+	this.citoassert = new CitoAssert();
+	this.resetTests();
+	this.create();
+	this.resetTests();
+	this.clone();
+	this.resetTests();
+	this.copy();
+	this.resetTests();
+	this.identity();
+	this.resetTests();
+	this.transpose();
+	this.resetTests();
+	this.invert();
+	this.resetTests();
+	this.adjoint();
+	this.resetTests();
+	this.determinant();
+	this.resetTests();
+	this.multiply();
+	this.resetTests();
+	this.translate();
+	this.resetTests();
+	this.scale();
+	this.resetTests();
+	this.rotate();
+	this.resetTests();
+	this.rotateX();
+	this.resetTests();
+	this.rotateY();
+	this.resetTests();
+	this.rotateZ();
+	this.resetTests();
+	this.frustum();
+	this.resetTests();
+	this.ortho();
+	this.resetTests();
+	this.lookAt();
+	this.resetTests();
+	this.str();
+	this.resetTests();
+}
+
+TestMat4.prototype.translate = function() {
+}
+
+TestMat4.prototype.transpose = function() {
+}
+
 function TestVec3()
 {
-	this.errors = null;
-	this.errorsCount = 0;
+	this.citoassert = null;
 	this.output = null;
 	this.vecA = null;
 	this.vecB = null;
@@ -1761,66 +1981,27 @@ TestVec3.prototype.addWithASeparateOutputVector = function() {
 }
 
 TestVec3.prototype.arr16 = function(p, p_2, p_3, p_4, p_5, p_6, p_7, p_8, p_9, p_10, p_11, p_12, p_13, p_14, p_15, p_16) {
-	var arr = new Array(16);
-	arr[0] = p;
-	arr[1] = p_2;
-	arr[2] = p_3;
-	arr[3] = p_4;
-	arr[4] = p_5;
-	arr[5] = p_6;
-	arr[6] = p_7;
-	arr[7] = p_8;
-	arr[8] = p_9;
-	arr[9] = p_10;
-	arr[10] = p_11;
-	arr[11] = p_12;
-	arr[12] = p_13;
-	arr[13] = p_14;
-	arr[14] = p_15;
-	arr[15] = p_16;
-	return arr;
+	return this.citoassert.arr16(p, p_2, p_3, p_4, p_5, p_6, p_7, p_8, p_9, p_10, p_11, p_12, p_13, p_14, p_15, p_16);
 }
 
 TestVec3.prototype.arr3 = function(p, p_2, p_3) {
-	var arr = new Array(3);
-	arr[0] = p;
-	arr[1] = p_2;
-	arr[2] = p_3;
-	return arr;
+	return this.citoassert.arr3(p, p_2, p_3);
 }
 
 TestVec3.prototype.arr9 = function(p, p_2, p_3, p_4, p_5, p_6, p_7, p_8, p_9) {
-	var arr = new Array(16);
-	arr[0] = p;
-	arr[1] = p_2;
-	arr[2] = p_3;
-	arr[3] = p_4;
-	arr[4] = p_5;
-	arr[5] = p_6;
-	arr[6] = p_7;
-	arr[7] = p_8;
-	arr[8] = p_9;
-	return arr;
+	return this.citoassert.arr9(p, p_2, p_3, p_4, p_5, p_6, p_7, p_8, p_9);
 }
 
 TestVec3.prototype.assertArrayEqual = function(actual, expected, length, msg) {
-	for (var i = 0; i < length; i++) {
-		if (actual[i] != expected[i]) {
-			this.errors[this.errorsCount++] = msg;
-		}
-	}
+	this.citoassert.assertArrayEqual(actual, expected, length, msg);
 }
 
 TestVec3.prototype.assertCloseTo = function(actual, expected, msg) {
-	if (GlMatrixMath.abs(actual - expected) > GlMatrixMath.gLMAT_EPSILON()) {
-		this.errors[this.errorsCount++] = msg;
-	}
+	this.citoassert.assertCloseTo(actual, expected, msg);
 }
 
 TestVec3.prototype.assertEqual = function(actual, expected, msg) {
-	if (actual != expected) {
-		this.errors[this.errorsCount++] = msg;
-	}
+	this.citoassert.assertEqual(actual, expected, msg);
 }
 
 TestVec3.prototype.clone = function() {
@@ -1840,6 +2021,18 @@ TestVec3.prototype.create = function() {
 }
 
 TestVec3.prototype.cross = function() {
+	this.crossWithASeparateOutputVector();
+	this.crossWhenVecAIsTheOutputVector();
+	this.crossWhenVecBIsTheOutputVector();
+}
+
+TestVec3.prototype.crossWhenVecAIsTheOutputVector = function() {
+}
+
+TestVec3.prototype.crossWhenVecBIsTheOutputVector = function() {
+}
+
+TestVec3.prototype.crossWithASeparateOutputVector = function() {
 }
 
 TestVec3.prototype.distance = function() {
@@ -1850,6 +2043,18 @@ TestVec3.prototype.distance = function() {
 }
 
 TestVec3.prototype.divide = function() {
+	this.divideWithASeparateOutputVector();
+	this.divideWhenVecAIsTheOutputVector();
+	this.divideWhenVecBIsTheOutputVector();
+}
+
+TestVec3.prototype.divideWhenVecAIsTheOutputVector = function() {
+}
+
+TestVec3.prototype.divideWhenVecBIsTheOutputVector = function() {
+}
+
+TestVec3.prototype.divideWithASeparateOutputVector = function() {
 }
 
 TestVec3.prototype.dot = function() {
@@ -1875,30 +2080,136 @@ TestVec3.prototype.length = function() {
 }
 
 TestVec3.prototype.lerp = function() {
+	this.lerpWithASeparateOutputVector();
+	this.lerpWhenVecAIsTheOutputVector();
+	this.lerpWhenVecBIsTheOutputVector();
+}
+
+TestVec3.prototype.lerpWhenVecAIsTheOutputVector = function() {
+}
+
+TestVec3.prototype.lerpWhenVecBIsTheOutputVector = function() {
+}
+
+TestVec3.prototype.lerpWithASeparateOutputVector = function() {
 }
 
 TestVec3.prototype.max = function() {
+	this.maxWithASeparateOutputVector();
+	this.maxWhenVecAIsTheOutputVector();
+	this.maxWhenVecBIsTheOutputVector();
+}
+
+TestVec3.prototype.maxWhenVecAIsTheOutputVector = function() {
+}
+
+TestVec3.prototype.maxWhenVecBIsTheOutputVector = function() {
+}
+
+TestVec3.prototype.maxWithASeparateOutputVector = function() {
 }
 
 TestVec3.prototype.min = function() {
+	this.minWithASeparateOutputVector();
+	this.minWhenVecAIsTheOutputVector();
+	this.minWhenVecBIsTheOutputVector();
+}
+
+TestVec3.prototype.minWhenVecAIsTheOutputVector = function() {
+}
+
+TestVec3.prototype.minWhenVecBIsTheOutputVector = function() {
+}
+
+TestVec3.prototype.minWithASeparateOutputVector = function() {
 }
 
 TestVec3.prototype.multiply = function() {
+	this.multiplyWithASeparateOutputVector();
+	this.multiplyWhenVecAIsTheOutputVector();
+	this.multiplyWhenVecBIsTheOutputVector();
+}
+
+TestVec3.prototype.multiplyWhenVecAIsTheOutputVector = function() {
+}
+
+TestVec3.prototype.multiplyWhenVecBIsTheOutputVector = function() {
+}
+
+TestVec3.prototype.multiplyWithASeparateOutputVector = function() {
 }
 
 TestVec3.prototype.negate = function() {
+	this.negateWithASeparateOutputVector();
+	this.negateWhenVecAIsTheOutputVector();
+}
+
+TestVec3.prototype.negateWhenVecAIsTheOutputVector = function() {
+	var result = Vec3.negate(this.vecA, this.vecA);
+	this.assertArrayEqual(this.vecA, this.arr3(-1, -2, -3), 3, "NegateWhenVecAIsTheOutputVector should place values into vecA");
+	this.assertArrayEqual(result, this.vecA, 3, "NegateWhenVecAIsTheOutputVector should return vecA");
+}
+
+TestVec3.prototype.negateWithASeparateOutputVector = function() {
+	var result = Vec3.negate(this.output, this.vecA);
+	this.assertArrayEqual(this.output, this.arr3(-1, -2, -3), 3, "NegateWithASeparateOutputVector should place values into out");
+	this.assertArrayEqual(result, this.output, 3, "NegateWithASeparateOutputVector should should return out");
+	this.assertArrayEqual(this.vecA, this.arr3(1, 2, 3), 3, "NegateWithASeparateOutputVector should not modify vecA");
 }
 
 TestVec3.prototype.normalize = function() {
+	this.normalizeWithASeparateOutputVector();
+	this.normalizeWhenVecAIsTheOutputVector();
+}
+
+TestVec3.prototype.normalizeWhenVecAIsTheOutputVector = function() {
+	var vecA1 = this.arr3(5, 0, 0);
+	var result = Vec3.normalize(this.vecA, this.vecA);
+	this.assertArrayEqual(this.vecA, this.arr3(1, 0, 0), 3, "NormalizeWhenVecAIsTheOutputVector should place values into vecA");
+	this.assertArrayEqual(result, this.vecA, 3, "NormalizeWhenVecAIsTheOutputVector should return vecA");
+}
+
+TestVec3.prototype.normalizeWithASeparateOutputVector = function() {
+	this.vecA = this.arr3(5, 0, 0);
+	var result = Vec3.normalize(this.output, this.vecA);
+	this.assertArrayEqual(this.output, this.arr3(1, 0, 0), 3, "NormalizeWithASeparateOutputVector should place values into out");
+	this.assertArrayEqual(result, this.output, 3, "NormalizeWithASeparateOutputVector should return out");
+	this.assertArrayEqual(this.vecA, this.arr3(5, 0, 0), 3, "NormalizeWithASeparateOutputVector should not modify vecA");
 }
 
 TestVec3.prototype.random = function() {
 }
 
+TestVec3.prototype.resetTests = function() {
+	this.vecA = this.arr3(1, 2, 3);
+	this.vecB = this.arr3(4, 5, 6);
+	this.output = this.arr3(0, 0, 0);
+}
+
 TestVec3.prototype.scale = function() {
+	this.scaleWithASeparateOutputVector();
+	this.scaleWhenVecAIsTheOutputVector();
 }
 
 TestVec3.prototype.scaleAndAdd = function() {
+	this.scaleAndAddWithASeparateOutputVector();
+	this.scaleAndAddWhenVecAIsTheOutputVector();
+	this.scaleAndAddWhenVecBIsTheOutputVector();
+}
+
+TestVec3.prototype.scaleAndAddWhenVecAIsTheOutputVector = function() {
+}
+
+TestVec3.prototype.scaleAndAddWhenVecBIsTheOutputVector = function() {
+}
+
+TestVec3.prototype.scaleAndAddWithASeparateOutputVector = function() {
+}
+
+TestVec3.prototype.scaleWhenVecAIsTheOutputVector = function() {
+}
+
+TestVec3.prototype.scaleWithASeparateOutputVector = function() {
 }
 
 TestVec3.prototype.set = function() {
@@ -1940,37 +2251,60 @@ TestVec3.prototype.subtractWithASeparateOutputVector = function() {
 }
 
 TestVec3.prototype.test = function() {
-	this.errors = new Array(1024);
-	this.errorsCount = 0;
-	this.vecA = this.arr3(1, 2, 3);
-	this.vecB = this.arr3(4, 5, 6);
-	this.output = this.arr3(0, 0, 0);
+	this.citoassert = new CitoAssert();
+	this.resetTests();
 	this.transformMat4();
+	this.resetTests();
 	this.create();
+	this.resetTests();
 	this.clone();
+	this.resetTests();
 	this.fromValues();
+	this.resetTests();
 	this.copy();
+	this.resetTests();
 	this.set();
+	this.resetTests();
 	this.add();
+	this.resetTests();
 	this.subtract();
+	this.resetTests();
 	this.multiply();
+	this.resetTests();
 	this.divide();
+	this.resetTests();
 	this.min();
+	this.resetTests();
 	this.max();
+	this.resetTests();
 	this.scale();
+	this.resetTests();
 	this.scaleAndAdd();
+	this.resetTests();
 	this.distance();
+	this.resetTests();
 	this.squaredDistance();
+	this.resetTests();
 	this.length();
+	this.resetTests();
 	this.squaredLength();
+	this.resetTests();
 	this.negate();
+	this.resetTests();
 	this.normalize();
+	this.resetTests();
 	this.dot();
+	this.resetTests();
 	this.cross();
+	this.resetTests();
 	this.lerp();
+	this.resetTests();
 	this.random();
+	this.resetTests();
 	this.forEach();
+	this.resetTests();
 	this.str();
+	this.resetTests();
 }
 
 TestVec3.prototype.transformMat3With90DegAboutX = function() {

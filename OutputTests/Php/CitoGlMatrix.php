@@ -1,6 +1,85 @@
 <?php
 // Generated automatically with "cito". Do not edit.
 
+class CitoAssert
+{
+	function __construct(){
+		$this->errors = array();
+		$this->errorsCount = 0;
+	}
+
+	function Arr16($p, $p_2, $p_3, $p_4, $p_5, $p_6, $p_7, $p_8, $p_9, $p_10, $p_11, $p_12, $p_13, $p_14, $p_15, $p_16)
+	{
+		$arr = array();
+		$arr[0] = $p;
+		$arr[1] = $p_2;
+		$arr[2] = $p_3;
+		$arr[3] = $p_4;
+		$arr[4] = $p_5;
+		$arr[5] = $p_6;
+		$arr[6] = $p_7;
+		$arr[7] = $p_8;
+		$arr[8] = $p_9;
+		$arr[9] = $p_10;
+		$arr[10] = $p_11;
+		$arr[11] = $p_12;
+		$arr[12] = $p_13;
+		$arr[13] = $p_14;
+		$arr[14] = $p_15;
+		$arr[15] = $p_16;
+		return $arr;
+	}
+
+	function Arr3($p, $p_2, $p_3)
+	{
+		$arr = array();
+		$arr[0] = $p;
+		$arr[1] = $p_2;
+		$arr[2] = $p_3;
+		return $arr;
+	}
+
+	function Arr9($p, $p_2, $p_3, $p_4, $p_5, $p_6, $p_7, $p_8, $p_9)
+	{
+		$arr = array();
+		$arr[0] = $p;
+		$arr[1] = $p_2;
+		$arr[2] = $p_3;
+		$arr[3] = $p_4;
+		$arr[4] = $p_5;
+		$arr[5] = $p_6;
+		$arr[6] = $p_7;
+		$arr[7] = $p_8;
+		$arr[8] = $p_9;
+		return $arr;
+	}
+
+	function AssertArrayEqual(&$actual, &$expected, $length, $msg)
+	{
+		for ($i = 0; $i < $length; $i++) {
+			if ($actual[$i] != $expected[$i]) {
+				$this->errors[$this->errorsCount++] = $msg;
+			}
+		}
+	}
+
+	function AssertCloseTo($actual, $expected, $msg)
+	{
+		if (GlMatrixMath::Abs($actual - $expected) > GlMatrixMath::GLMAT_EPSILON()) {
+			$this->errors[$this->errorsCount++] = $msg;
+		}
+	}
+
+	function AssertEqual($actual, $expected, $msg)
+	{
+		if ($actual != $expected) {
+			$this->errors[$this->errorsCount++] = $msg;
+		}
+	}
+	private $errors;
+	private $errorsCount;
+}
+
 class GlMatrixMath
 {
 
@@ -1641,7 +1720,7 @@ class Platform
 		return 0;
 	}
 
-	static function Cos($r)
+	static function Cos($a)
 	{
 		return 0;
 	}
@@ -1651,7 +1730,7 @@ class Platform
 		return 0;
 	}
 
-	static function Sin($r)
+	static function Sin($a)
 	{
 		return 0;
 	}
@@ -1661,7 +1740,7 @@ class Platform
 		return 0;
 	}
 
-	static function Tan($p)
+	static function Tan($a)
 	{
 		return 0;
 	}
@@ -2032,6 +2111,173 @@ class Quat
 	}
 }
 
+class TestMat4
+{
+
+	private function Adjoint()
+	{
+	}
+
+	private function Arr16($p, $p_2, $p_3, $p_4, $p_5, $p_6, $p_7, $p_8, $p_9, $p_10, $p_11, $p_12, $p_13, $p_14, $p_15, $p_16)
+	{
+		return $this->citoassert->Arr16($p, $p_2, $p_3, $p_4, $p_5, $p_6, $p_7, $p_8, $p_9, $p_10, $p_11, $p_12, $p_13, $p_14, $p_15, $p_16);
+	}
+
+	private function Arr3($p, $p_2, $p_3)
+	{
+		return $this->citoassert->Arr3($p, $p_2, $p_3);
+	}
+
+	private function Arr9($p, $p_2, $p_3, $p_4, $p_5, $p_6, $p_7, $p_8, $p_9)
+	{
+		return $this->citoassert->Arr9($p, $p_2, $p_3, $p_4, $p_5, $p_6, $p_7, $p_8, $p_9);
+	}
+
+	private function AssertArrayEqual(&$actual, &$expected, $length, $msg)
+	{
+		$this->citoassert->AssertArrayEqual($actual, $expected, $length, $msg);
+	}
+
+	private function AssertCloseTo($actual, $expected, $msg)
+	{
+		$this->citoassert->AssertCloseTo($actual, $expected, $msg);
+	}
+
+	private function AssertEqual($actual, $expected, $msg)
+	{
+		$this->citoassert->AssertEqual($actual, $expected, $msg);
+	}
+
+	private function Clone()
+	{
+	}
+
+	private function Copy()
+	{
+	}
+
+	private function Create()
+	{
+	}
+
+	private function Determinant()
+	{
+	}
+
+	private function Frustum()
+	{
+	}
+
+	private function Identity()
+	{
+	}
+
+	private function Invert()
+	{
+	}
+
+	private function LookAt()
+	{
+	}
+
+	private function Multiply()
+	{
+	}
+
+	private function Ortho()
+	{
+	}
+
+	private function ResetTests()
+	{
+		$this->matA = $this->Arr16(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 1, 2, 3, 1);
+		$this->matB = $this->Arr16(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 4, 5, 6, 1);
+		$this->output = $this->Arr16(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+		$this->identity = $this->Arr16(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1);
+	}
+
+	private function Rotate()
+	{
+	}
+
+	private function RotateX()
+	{
+	}
+
+	private function RotateY()
+	{
+	}
+
+	private function RotateZ()
+	{
+	}
+
+	private function Scale()
+	{
+	}
+
+	private function Str()
+	{
+	}
+
+	function Test()
+	{
+		$this->citoassert = new CitoAssert();
+		$this->ResetTests();
+		$this->Create();
+		$this->ResetTests();
+		$this->Clone();
+		$this->ResetTests();
+		$this->Copy();
+		$this->ResetTests();
+		$this->Identity();
+		$this->ResetTests();
+		$this->Transpose();
+		$this->ResetTests();
+		$this->Invert();
+		$this->ResetTests();
+		$this->Adjoint();
+		$this->ResetTests();
+		$this->Determinant();
+		$this->ResetTests();
+		$this->Multiply();
+		$this->ResetTests();
+		$this->Translate();
+		$this->ResetTests();
+		$this->Scale();
+		$this->ResetTests();
+		$this->Rotate();
+		$this->ResetTests();
+		$this->RotateX();
+		$this->ResetTests();
+		$this->RotateY();
+		$this->ResetTests();
+		$this->RotateZ();
+		$this->ResetTests();
+		$this->Frustum();
+		$this->ResetTests();
+		$this->Ortho();
+		$this->ResetTests();
+		$this->LookAt();
+		$this->ResetTests();
+		$this->Str();
+		$this->ResetTests();
+	}
+
+	private function Translate()
+	{
+	}
+
+	private function Transpose()
+	{
+	}
+	private $citoassert;
+	private $identity;
+	private $matA;
+	private $matB;
+	private $output;
+}
+
 class TestVec3
 {
 
@@ -2061,71 +2307,32 @@ class TestVec3
 
 	private function Arr16($p, $p_2, $p_3, $p_4, $p_5, $p_6, $p_7, $p_8, $p_9, $p_10, $p_11, $p_12, $p_13, $p_14, $p_15, $p_16)
 	{
-		$arr = array();
-		$arr[0] = $p;
-		$arr[1] = $p_2;
-		$arr[2] = $p_3;
-		$arr[3] = $p_4;
-		$arr[4] = $p_5;
-		$arr[5] = $p_6;
-		$arr[6] = $p_7;
-		$arr[7] = $p_8;
-		$arr[8] = $p_9;
-		$arr[9] = $p_10;
-		$arr[10] = $p_11;
-		$arr[11] = $p_12;
-		$arr[12] = $p_13;
-		$arr[13] = $p_14;
-		$arr[14] = $p_15;
-		$arr[15] = $p_16;
-		return $arr;
+		return $this->citoassert->Arr16($p, $p_2, $p_3, $p_4, $p_5, $p_6, $p_7, $p_8, $p_9, $p_10, $p_11, $p_12, $p_13, $p_14, $p_15, $p_16);
 	}
 
 	private function Arr3($p, $p_2, $p_3)
 	{
-		$arr = array();
-		$arr[0] = $p;
-		$arr[1] = $p_2;
-		$arr[2] = $p_3;
-		return $arr;
+		return $this->citoassert->Arr3($p, $p_2, $p_3);
 	}
 
 	private function Arr9($p, $p_2, $p_3, $p_4, $p_5, $p_6, $p_7, $p_8, $p_9)
 	{
-		$arr = array();
-		$arr[0] = $p;
-		$arr[1] = $p_2;
-		$arr[2] = $p_3;
-		$arr[3] = $p_4;
-		$arr[4] = $p_5;
-		$arr[5] = $p_6;
-		$arr[6] = $p_7;
-		$arr[7] = $p_8;
-		$arr[8] = $p_9;
-		return $arr;
+		return $this->citoassert->Arr9($p, $p_2, $p_3, $p_4, $p_5, $p_6, $p_7, $p_8, $p_9);
 	}
 
 	private function AssertArrayEqual(&$actual, &$expected, $length, $msg)
 	{
-		for ($i = 0; $i < $length; $i++) {
-			if ($actual[$i] != $expected[$i]) {
-				$this->errors[$this->errorsCount++] = $msg;
-			}
-		}
+		$this->citoassert->AssertArrayEqual($actual, $expected, $length, $msg);
 	}
 
 	private function AssertCloseTo($actual, $expected, $msg)
 	{
-		if (GlMatrixMath::Abs($actual - $expected) > GlMatrixMath::GLMAT_EPSILON()) {
-			$this->errors[$this->errorsCount++] = $msg;
-		}
+		$this->citoassert->AssertCloseTo($actual, $expected, $msg);
 	}
 
 	private function AssertEqual($actual, $expected, $msg)
 	{
-		if ($actual != $expected) {
-			$this->errors[$this->errorsCount++] = $msg;
-		}
+		$this->citoassert->AssertEqual($actual, $expected, $msg);
 	}
 
 	private function Clone()
@@ -2149,6 +2356,21 @@ class TestVec3
 
 	private function Cross()
 	{
+		$this->CrossWithASeparateOutputVector();
+		$this->CrossWhenVecAIsTheOutputVector();
+		$this->CrossWhenVecBIsTheOutputVector();
+	}
+
+	private function CrossWhenVecAIsTheOutputVector()
+	{
+	}
+
+	private function CrossWhenVecBIsTheOutputVector()
+	{
+	}
+
+	private function CrossWithASeparateOutputVector()
+	{
 	}
 
 	private function Distance()
@@ -2160,6 +2382,21 @@ class TestVec3
 	}
 
 	private function Divide()
+	{
+		$this->DivideWithASeparateOutputVector();
+		$this->DivideWhenVecAIsTheOutputVector();
+		$this->DivideWhenVecBIsTheOutputVector();
+	}
+
+	private function DivideWhenVecAIsTheOutputVector()
+	{
+	}
+
+	private function DivideWhenVecBIsTheOutputVector()
+	{
+	}
+
+	private function DivideWithASeparateOutputVector()
 	{
 	}
 
@@ -2191,37 +2428,165 @@ class TestVec3
 
 	private function Lerp()
 	{
+		$this->LerpWithASeparateOutputVector();
+		$this->LerpWhenVecAIsTheOutputVector();
+		$this->LerpWhenVecBIsTheOutputVector();
+	}
+
+	private function LerpWhenVecAIsTheOutputVector()
+	{
+	}
+
+	private function LerpWhenVecBIsTheOutputVector()
+	{
+	}
+
+	private function LerpWithASeparateOutputVector()
+	{
 	}
 
 	private function Max()
+	{
+		$this->MaxWithASeparateOutputVector();
+		$this->MaxWhenVecAIsTheOutputVector();
+		$this->MaxWhenVecBIsTheOutputVector();
+	}
+
+	private function MaxWhenVecAIsTheOutputVector()
+	{
+	}
+
+	private function MaxWhenVecBIsTheOutputVector()
+	{
+	}
+
+	private function MaxWithASeparateOutputVector()
 	{
 	}
 
 	private function Min()
 	{
+		$this->MinWithASeparateOutputVector();
+		$this->MinWhenVecAIsTheOutputVector();
+		$this->MinWhenVecBIsTheOutputVector();
+	}
+
+	private function MinWhenVecAIsTheOutputVector()
+	{
+	}
+
+	private function MinWhenVecBIsTheOutputVector()
+	{
+	}
+
+	private function MinWithASeparateOutputVector()
+	{
 	}
 
 	private function Multiply()
+	{
+		$this->MultiplyWithASeparateOutputVector();
+		$this->MultiplyWhenVecAIsTheOutputVector();
+		$this->MultiplyWhenVecBIsTheOutputVector();
+	}
+
+	private function MultiplyWhenVecAIsTheOutputVector()
+	{
+	}
+
+	private function MultiplyWhenVecBIsTheOutputVector()
+	{
+	}
+
+	private function MultiplyWithASeparateOutputVector()
 	{
 	}
 
 	private function Negate()
 	{
+		$this->NegateWithASeparateOutputVector();
+		$this->NegateWhenVecAIsTheOutputVector();
+	}
+
+	private function NegateWhenVecAIsTheOutputVector()
+	{
+		$result = Vec3::Negate($this->vecA, $this->vecA);
+		$this->AssertArrayEqual($this->vecA, $this->Arr3(-1, -2, -3), 3, "NegateWhenVecAIsTheOutputVector should place values into vecA");
+		$this->AssertArrayEqual($result, $this->vecA, 3, "NegateWhenVecAIsTheOutputVector should return vecA");
+	}
+
+	private function NegateWithASeparateOutputVector()
+	{
+		$result = Vec3::Negate($this->output, $this->vecA);
+		$this->AssertArrayEqual($this->output, $this->Arr3(-1, -2, -3), 3, "NegateWithASeparateOutputVector should place values into out");
+		$this->AssertArrayEqual($result, $this->output, 3, "NegateWithASeparateOutputVector should should return out");
+		$this->AssertArrayEqual($this->vecA, $this->Arr3(1, 2, 3), 3, "NegateWithASeparateOutputVector should not modify vecA");
 	}
 
 	private function Normalize()
 	{
+		$this->NormalizeWithASeparateOutputVector();
+		$this->NormalizeWhenVecAIsTheOutputVector();
+	}
+
+	private function NormalizeWhenVecAIsTheOutputVector()
+	{
+		$vecA1 = $this->Arr3(5, 0, 0);
+		$result = Vec3::Normalize($this->vecA, $this->vecA);
+		$this->AssertArrayEqual($this->vecA, $this->Arr3(1, 0, 0), 3, "NormalizeWhenVecAIsTheOutputVector should place values into vecA");
+		$this->AssertArrayEqual($result, $this->vecA, 3, "NormalizeWhenVecAIsTheOutputVector should return vecA");
+	}
+
+	private function NormalizeWithASeparateOutputVector()
+	{
+		$this->vecA = $this->Arr3(5, 0, 0);
+		$result = Vec3::Normalize($this->output, $this->vecA);
+		$this->AssertArrayEqual($this->output, $this->Arr3(1, 0, 0), 3, "NormalizeWithASeparateOutputVector should place values into out");
+		$this->AssertArrayEqual($result, $this->output, 3, "NormalizeWithASeparateOutputVector should return out");
+		$this->AssertArrayEqual($this->vecA, $this->Arr3(5, 0, 0), 3, "NormalizeWithASeparateOutputVector should not modify vecA");
 	}
 
 	private function Random()
 	{
 	}
 
+	private function ResetTests()
+	{
+		$this->vecA = $this->Arr3(1, 2, 3);
+		$this->vecB = $this->Arr3(4, 5, 6);
+		$this->output = $this->Arr3(0, 0, 0);
+	}
+
 	private function Scale()
 	{
+		$this->ScaleWithASeparateOutputVector();
+		$this->ScaleWhenVecAIsTheOutputVector();
 	}
 
 	private function ScaleAndAdd()
+	{
+		$this->ScaleAndAddWithASeparateOutputVector();
+		$this->ScaleAndAddWhenVecAIsTheOutputVector();
+		$this->ScaleAndAddWhenVecBIsTheOutputVector();
+	}
+
+	private function ScaleAndAddWhenVecAIsTheOutputVector()
+	{
+	}
+
+	private function ScaleAndAddWhenVecBIsTheOutputVector()
+	{
+	}
+
+	private function ScaleAndAddWithASeparateOutputVector()
+	{
+	}
+
+	private function ScaleWhenVecAIsTheOutputVector()
+	{
+	}
+
+	private function ScaleWithASeparateOutputVector()
 	{
 	}
 
@@ -2274,37 +2639,60 @@ class TestVec3
 
 	function Test()
 	{
-		$this->errors = array();
-		$this->errorsCount = 0;
-		$this->vecA = $this->Arr3(1, 2, 3);
-		$this->vecB = $this->Arr3(4, 5, 6);
-		$this->output = $this->Arr3(0, 0, 0);
+		$this->citoassert = new CitoAssert();
+		$this->ResetTests();
 		$this->TransformMat4();
+		$this->ResetTests();
 		$this->Create();
+		$this->ResetTests();
 		$this->Clone();
+		$this->ResetTests();
 		$this->FromValues();
+		$this->ResetTests();
 		$this->Copy();
+		$this->ResetTests();
 		$this->Set();
+		$this->ResetTests();
 		$this->Add();
+		$this->ResetTests();
 		$this->Subtract();
+		$this->ResetTests();
 		$this->Multiply();
+		$this->ResetTests();
 		$this->Divide();
+		$this->ResetTests();
 		$this->Min();
+		$this->ResetTests();
 		$this->Max();
+		$this->ResetTests();
 		$this->Scale();
+		$this->ResetTests();
 		$this->ScaleAndAdd();
+		$this->ResetTests();
 		$this->Distance();
+		$this->ResetTests();
 		$this->SquaredDistance();
+		$this->ResetTests();
 		$this->Length();
+		$this->ResetTests();
 		$this->SquaredLength();
+		$this->ResetTests();
 		$this->Negate();
+		$this->ResetTests();
 		$this->Normalize();
+		$this->ResetTests();
 		$this->Dot();
+		$this->ResetTests();
 		$this->Cross();
+		$this->ResetTests();
 		$this->Lerp();
+		$this->ResetTests();
 		$this->Random();
+		$this->ResetTests();
 		$this->ForEach();
+		$this->ResetTests();
 		$this->Str();
+		$this->ResetTests();
 	}
 
 	private function TransformMat3With90DegAboutX()
@@ -2369,8 +2757,7 @@ class TestVec3
 		$this->AssertArrayEqual($this->output, $this->Arr3(1, 2, 3), 3, "TransformMat4WithAnIdentity should produce the input");
 		$this->AssertArrayEqual($result, $this->output, 3, "TransformMat4WithAnIdentity should return output");
 	}
-	private $errors;
-	private $errorsCount;
+	private $citoassert;
 	private $output;
 	private $vecA;
 	private $vecB;

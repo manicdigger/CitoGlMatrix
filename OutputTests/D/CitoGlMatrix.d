@@ -1,6 +1,86 @@
 // Generated automatically with "cito". Do not edit.
 import std.utf;
 
+class CitoAssert
+{
+
+	final const(float)[] Arr16(int p, int p_2, int p_3, int p_4, int p_5, int p_6, int p_7, int p_8, int p_9, int p_10, int p_11, int p_12, int p_13, int p_14, int p_15, int p_16)
+	{
+		float[] arr = new float[16];
+		arr[0] = p;
+		arr[1] = p_2;
+		arr[2] = p_3;
+		arr[3] = p_4;
+		arr[4] = p_5;
+		arr[5] = p_6;
+		arr[6] = p_7;
+		arr[7] = p_8;
+		arr[8] = p_9;
+		arr[9] = p_10;
+		arr[10] = p_11;
+		arr[11] = p_12;
+		arr[12] = p_13;
+		arr[13] = p_14;
+		arr[14] = p_15;
+		arr[15] = p_16;
+		return arr;
+	}
+
+	final const(float)[] Arr3(int p, int p_2, int p_3)
+	{
+		float[] arr = new float[3];
+		arr[0] = p;
+		arr[1] = p_2;
+		arr[2] = p_3;
+		return arr;
+	}
+
+	final const(float)[] Arr9(int p, int p_2, int p_3, int p_4, int p_5, int p_6, int p_7, int p_8, int p_9)
+	{
+		float[] arr = new float[16];
+		arr[0] = p;
+		arr[1] = p_2;
+		arr[2] = p_3;
+		arr[3] = p_4;
+		arr[4] = p_5;
+		arr[5] = p_6;
+		arr[6] = p_7;
+		arr[7] = p_8;
+		arr[8] = p_9;
+		return arr;
+	}
+
+	final void AssertArrayEqual(const(float)[] actual, const(float)[] expected, int length, string msg)
+	{
+		for (int i = 0; i < length; i++) {
+			if (actual[i] != expected[i]) {
+				this.errors[this.errorsCount++] = msg;
+			}
+		}
+	}
+
+	final void AssertCloseTo(float actual, float expected, string msg)
+	{
+		if (GlMatrixMath.Abs(actual - expected) > GlMatrixMath.GLMAT_EPSILON()) {
+			this.errors[this.errorsCount++] = msg;
+		}
+	}
+
+	final void AssertEqual(float actual, float expected, string msg)
+	{
+		if (actual != expected) {
+			this.errors[this.errorsCount++] = msg;
+		}
+	}
+	private string[] errors;
+	private int errorsCount;
+	this()
+	{
+		this.errors = new string[1024];
+		this.errorsCount = 0;
+	}
+}
+
 class GlMatrixMath
 {
 
@@ -1662,7 +1742,7 @@ class Platform
 		return 0;
 	}
 
-	static float Cos(float r)
+	static float Cos(float a)
 	{
 		return 0;
 	}
@@ -1672,7 +1752,7 @@ class Platform
 		return 0;
 	}
 
-	static float Sin(float r)
+	static float Sin(float a)
 	{
 		return 0;
 	}
@@ -1682,7 +1762,7 @@ class Platform
 		return 0;
 	}
 
-	static float Tan(float p)
+	static float Tan(float a)
 	{
 		return 0;
 	}
@@ -2053,6 +2133,173 @@ class Quat
 	}
 }
 
+class TestMat4
+{
+
+	private void Adjoint()
+	{
+	}
+
+	private const(float)[] Arr16(int p, int p_2, int p_3, int p_4, int p_5, int p_6, int p_7, int p_8, int p_9, int p_10, int p_11, int p_12, int p_13, int p_14, int p_15, int p_16)
+	{
+		return this.citoassert.Arr16(p, p_2, p_3, p_4, p_5, p_6, p_7, p_8, p_9, p_10, p_11, p_12, p_13, p_14, p_15, p_16);
+	}
+
+	private final const(float)[] Arr3(int p, int p_2, int p_3)
+	{
+		return this.citoassert.Arr3(p, p_2, p_3);
+	}
+
+	private final const(float)[] Arr9(int p, int p_2, int p_3, int p_4, int p_5, int p_6, int p_7, int p_8, int p_9)
+	{
+		return this.citoassert.Arr9(p, p_2, p_3, p_4, p_5, p_6, p_7, p_8, p_9);
+	}
+
+	private final void AssertArrayEqual(const(float)[] actual, const(float)[] expected, int length, string msg)
+	{
+		this.citoassert.AssertArrayEqual(actual, expected, length, msg);
+	}
+
+	private final void AssertCloseTo(float actual, float expected, string msg)
+	{
+		this.citoassert.AssertCloseTo(actual, expected, msg);
+	}
+
+	private final void AssertEqual(float actual, float expected, string msg)
+	{
+		this.citoassert.AssertEqual(actual, expected, msg);
+	}
+
+	private void Clone()
+	{
+	}
+
+	private void Copy()
+	{
+	}
+
+	private void Create()
+	{
+	}
+
+	private void Determinant()
+	{
+	}
+
+	private void Frustum()
+	{
+	}
+
+	private void Identity()
+	{
+	}
+
+	private void Invert()
+	{
+	}
+
+	private void LookAt()
+	{
+	}
+
+	private void Multiply()
+	{
+	}
+
+	private void Ortho()
+	{
+	}
+
+	private void ResetTests()
+	{
+		this.matA = this.Arr16(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 1, 2, 3, 1);
+		this.matB = this.Arr16(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 4, 5, 6, 1);
+		this.output = this.Arr16(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+		this.identity = this.Arr16(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1);
+	}
+
+	private void Rotate()
+	{
+	}
+
+	private void RotateX()
+	{
+	}
+
+	private void RotateY()
+	{
+	}
+
+	private void RotateZ()
+	{
+	}
+
+	private void Scale()
+	{
+	}
+
+	private void Str()
+	{
+	}
+
+	final void Test()
+	{
+		this.citoassert = new CitoAssert;
+		this.ResetTests();
+		this.Create();
+		this.ResetTests();
+		this.Clone();
+		this.ResetTests();
+		this.Copy();
+		this.ResetTests();
+		this.Identity();
+		this.ResetTests();
+		this.Transpose();
+		this.ResetTests();
+		this.Invert();
+		this.ResetTests();
+		this.Adjoint();
+		this.ResetTests();
+		this.Determinant();
+		this.ResetTests();
+		this.Multiply();
+		this.ResetTests();
+		this.Translate();
+		this.ResetTests();
+		this.Scale();
+		this.ResetTests();
+		this.Rotate();
+		this.ResetTests();
+		this.RotateX();
+		this.ResetTests();
+		this.RotateY();
+		this.ResetTests();
+		this.RotateZ();
+		this.ResetTests();
+		this.Frustum();
+		this.ResetTests();
+		this.Ortho();
+		this.ResetTests();
+		this.LookAt();
+		this.ResetTests();
+		this.Str();
+		this.ResetTests();
+	}
+
+	private void Translate()
+	{
+	}
+
+	private void Transpose()
+	{
+	}
+	private CitoAssert citoassert;
+	private const(float)[] identity;
+	private const(float)[] matA;
+	private const(float)[] matB;
+	private const(float)[] output;
+}
+
 class TestVec3
 {
 
@@ -2082,71 +2329,32 @@ class TestVec3
 
 	private const(float)[] Arr16(int p, int p_2, int p_3, int p_4, int p_5, int p_6, int p_7, int p_8, int p_9, int p_10, int p_11, int p_12, int p_13, int p_14, int p_15, int p_16)
 	{
-		float[] arr = new float[16];
-		arr[0] = p;
-		arr[1] = p_2;
-		arr[2] = p_3;
-		arr[3] = p_4;
-		arr[4] = p_5;
-		arr[5] = p_6;
-		arr[6] = p_7;
-		arr[7] = p_8;
-		arr[8] = p_9;
-		arr[9] = p_10;
-		arr[10] = p_11;
-		arr[11] = p_12;
-		arr[12] = p_13;
-		arr[13] = p_14;
-		arr[14] = p_15;
-		arr[15] = p_16;
-		return arr;
+		return this.citoassert.Arr16(p, p_2, p_3, p_4, p_5, p_6, p_7, p_8, p_9, p_10, p_11, p_12, p_13, p_14, p_15, p_16);
 	}
 
 	private float[] Arr3(int p, int p_2, int p_3)
 	{
-		float[] arr = new float[3];
-		arr[0] = p;
-		arr[1] = p_2;
-		arr[2] = p_3;
-		return arr;
+		return this.citoassert.Arr3(p, p_2, p_3);
 	}
 
 	private const(float)[] Arr9(int p, int p_2, int p_3, int p_4, int p_5, int p_6, int p_7, int p_8, int p_9)
 	{
-		float[] arr = new float[16];
-		arr[0] = p;
-		arr[1] = p_2;
-		arr[2] = p_3;
-		arr[3] = p_4;
-		arr[4] = p_5;
-		arr[5] = p_6;
-		arr[6] = p_7;
-		arr[7] = p_8;
-		arr[8] = p_9;
-		return arr;
+		return this.citoassert.Arr9(p, p_2, p_3, p_4, p_5, p_6, p_7, p_8, p_9);
 	}
 
 	private void AssertArrayEqual(const(float)[] actual, const(float)[] expected, int length, string msg)
 	{
-		for (int i = 0; i < length; i++) {
-			if (actual[i] != expected[i]) {
-				this.errors[this.errorsCount++] = msg;
-			}
-		}
+		this.citoassert.AssertArrayEqual(actual, expected, length, msg);
 	}
 
 	private void AssertCloseTo(float actual, float expected, string msg)
 	{
-		if (GlMatrixMath.Abs(actual - expected) > GlMatrixMath.GLMAT_EPSILON()) {
-			this.errors[this.errorsCount++] = msg;
-		}
+		this.citoassert.AssertCloseTo(actual, expected, msg);
 	}
 
 	private void AssertEqual(float actual, float expected, string msg)
 	{
-		if (actual != expected) {
-			this.errors[this.errorsCount++] = msg;
-		}
+		this.citoassert.AssertEqual(actual, expected, msg);
 	}
 
 	private void Clone()
@@ -2170,6 +2378,21 @@ class TestVec3
 
 	private void Cross()
 	{
+		this.CrossWithASeparateOutputVector();
+		this.CrossWhenVecAIsTheOutputVector();
+		this.CrossWhenVecBIsTheOutputVector();
+	}
+
+	private void CrossWhenVecAIsTheOutputVector()
+	{
+	}
+
+	private void CrossWhenVecBIsTheOutputVector()
+	{
+	}
+
+	private void CrossWithASeparateOutputVector()
+	{
 	}
 
 	private void Distance()
@@ -2181,6 +2404,21 @@ class TestVec3
 	}
 
 	private void Divide()
+	{
+		this.DivideWithASeparateOutputVector();
+		this.DivideWhenVecAIsTheOutputVector();
+		this.DivideWhenVecBIsTheOutputVector();
+	}
+
+	private void DivideWhenVecAIsTheOutputVector()
+	{
+	}
+
+	private void DivideWhenVecBIsTheOutputVector()
+	{
+	}
+
+	private void DivideWithASeparateOutputVector()
 	{
 	}
 
@@ -2212,37 +2450,165 @@ class TestVec3
 
 	private void Lerp()
 	{
+		this.LerpWithASeparateOutputVector();
+		this.LerpWhenVecAIsTheOutputVector();
+		this.LerpWhenVecBIsTheOutputVector();
+	}
+
+	private void LerpWhenVecAIsTheOutputVector()
+	{
+	}
+
+	private void LerpWhenVecBIsTheOutputVector()
+	{
+	}
+
+	private void LerpWithASeparateOutputVector()
+	{
 	}
 
 	private void Max()
+	{
+		this.MaxWithASeparateOutputVector();
+		this.MaxWhenVecAIsTheOutputVector();
+		this.MaxWhenVecBIsTheOutputVector();
+	}
+
+	private void MaxWhenVecAIsTheOutputVector()
+	{
+	}
+
+	private void MaxWhenVecBIsTheOutputVector()
+	{
+	}
+
+	private void MaxWithASeparateOutputVector()
 	{
 	}
 
 	private void Min()
 	{
+		this.MinWithASeparateOutputVector();
+		this.MinWhenVecAIsTheOutputVector();
+		this.MinWhenVecBIsTheOutputVector();
+	}
+
+	private void MinWhenVecAIsTheOutputVector()
+	{
+	}
+
+	private void MinWhenVecBIsTheOutputVector()
+	{
+	}
+
+	private void MinWithASeparateOutputVector()
+	{
 	}
 
 	private void Multiply()
+	{
+		this.MultiplyWithASeparateOutputVector();
+		this.MultiplyWhenVecAIsTheOutputVector();
+		this.MultiplyWhenVecBIsTheOutputVector();
+	}
+
+	private void MultiplyWhenVecAIsTheOutputVector()
+	{
+	}
+
+	private void MultiplyWhenVecBIsTheOutputVector()
+	{
+	}
+
+	private void MultiplyWithASeparateOutputVector()
 	{
 	}
 
 	private void Negate()
 	{
+		this.NegateWithASeparateOutputVector();
+		this.NegateWhenVecAIsTheOutputVector();
+	}
+
+	private void NegateWhenVecAIsTheOutputVector()
+	{
+		const(float)[] result = Vec3.Negate(this.vecA, this.vecA);
+		this.AssertArrayEqual(this.vecA, this.Arr3(-1, -2, -3), 3, "NegateWhenVecAIsTheOutputVector should place values into vecA");
+		this.AssertArrayEqual(result, this.vecA, 3, "NegateWhenVecAIsTheOutputVector should return vecA");
+	}
+
+	private void NegateWithASeparateOutputVector()
+	{
+		const(float)[] result = Vec3.Negate(this.output, this.vecA);
+		this.AssertArrayEqual(this.output, this.Arr3(-1, -2, -3), 3, "NegateWithASeparateOutputVector should place values into out");
+		this.AssertArrayEqual(result, this.output, 3, "NegateWithASeparateOutputVector should should return out");
+		this.AssertArrayEqual(this.vecA, this.Arr3(1, 2, 3), 3, "NegateWithASeparateOutputVector should not modify vecA");
 	}
 
 	private void Normalize()
 	{
+		this.NormalizeWithASeparateOutputVector();
+		this.NormalizeWhenVecAIsTheOutputVector();
+	}
+
+	private void NormalizeWhenVecAIsTheOutputVector()
+	{
+		const(float)[] vecA1 = this.Arr3(5, 0, 0);
+		const(float)[] result = Vec3.Normalize(this.vecA, this.vecA);
+		this.AssertArrayEqual(this.vecA, this.Arr3(1, 0, 0), 3, "NormalizeWhenVecAIsTheOutputVector should place values into vecA");
+		this.AssertArrayEqual(result, this.vecA, 3, "NormalizeWhenVecAIsTheOutputVector should return vecA");
+	}
+
+	private void NormalizeWithASeparateOutputVector()
+	{
+		this.vecA = this.Arr3(5, 0, 0);
+		const(float)[] result = Vec3.Normalize(this.output, this.vecA);
+		this.AssertArrayEqual(this.output, this.Arr3(1, 0, 0), 3, "NormalizeWithASeparateOutputVector should place values into out");
+		this.AssertArrayEqual(result, this.output, 3, "NormalizeWithASeparateOutputVector should return out");
+		this.AssertArrayEqual(this.vecA, this.Arr3(5, 0, 0), 3, "NormalizeWithASeparateOutputVector should not modify vecA");
 	}
 
 	private void Random()
 	{
 	}
 
+	private void ResetTests()
+	{
+		this.vecA = this.Arr3(1, 2, 3);
+		this.vecB = this.Arr3(4, 5, 6);
+		this.output = this.Arr3(0, 0, 0);
+	}
+
 	private void Scale()
 	{
+		this.ScaleWithASeparateOutputVector();
+		this.ScaleWhenVecAIsTheOutputVector();
 	}
 
 	private void ScaleAndAdd()
+	{
+		this.ScaleAndAddWithASeparateOutputVector();
+		this.ScaleAndAddWhenVecAIsTheOutputVector();
+		this.ScaleAndAddWhenVecBIsTheOutputVector();
+	}
+
+	private void ScaleAndAddWhenVecAIsTheOutputVector()
+	{
+	}
+
+	private void ScaleAndAddWhenVecBIsTheOutputVector()
+	{
+	}
+
+	private void ScaleAndAddWithASeparateOutputVector()
+	{
+	}
+
+	private void ScaleWhenVecAIsTheOutputVector()
+	{
+	}
+
+	private void ScaleWithASeparateOutputVector()
 	{
 	}
 
@@ -2295,37 +2661,60 @@ class TestVec3
 
 	final void Test()
 	{
-		this.errors = new string[1024];
-		this.errorsCount = 0;
-		this.vecA = this.Arr3(1, 2, 3);
-		this.vecB = this.Arr3(4, 5, 6);
-		this.output = this.Arr3(0, 0, 0);
+		this.citoassert = new CitoAssert;
+		this.ResetTests();
 		this.TransformMat4();
+		this.ResetTests();
 		this.Create();
+		this.ResetTests();
 		this.Clone();
+		this.ResetTests();
 		this.FromValues();
+		this.ResetTests();
 		this.Copy();
+		this.ResetTests();
 		this.Set();
+		this.ResetTests();
 		this.Add();
+		this.ResetTests();
 		this.Subtract();
+		this.ResetTests();
 		this.Multiply();
+		this.ResetTests();
 		this.Divide();
+		this.ResetTests();
 		this.Min();
+		this.ResetTests();
 		this.Max();
+		this.ResetTests();
 		this.Scale();
+		this.ResetTests();
 		this.ScaleAndAdd();
+		this.ResetTests();
 		this.Distance();
+		this.ResetTests();
 		this.SquaredDistance();
+		this.ResetTests();
 		this.Length();
+		this.ResetTests();
 		this.SquaredLength();
+		this.ResetTests();
 		this.Negate();
+		this.ResetTests();
 		this.Normalize();
+		this.ResetTests();
 		this.Dot();
+		this.ResetTests();
 		this.Cross();
+		this.ResetTests();
 		this.Lerp();
+		this.ResetTests();
 		this.Random();
+		this.ResetTests();
 		this.ForEach();
+		this.ResetTests();
 		this.Str();
+		this.ResetTests();
 	}
 
 	private void TransformMat3With90DegAboutX()
@@ -2390,10 +2779,9 @@ class TestVec3
 		this.AssertArrayEqual(this.output, this.Arr3(1, 2, 3), 3, "TransformMat4WithAnIdentity should produce the input");
 		this.AssertArrayEqual(result, this.output, 3, "TransformMat4WithAnIdentity should return output");
 	}
-	private string[] errors;
-	private int errorsCount;
+	private CitoAssert citoassert;
 	private float[] output;
-	private const(float)[] vecA;
+	private float[] vecA;
 	private const(float)[] vecB;
 }
 

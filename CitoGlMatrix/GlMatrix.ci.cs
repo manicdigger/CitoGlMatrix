@@ -4352,8 +4352,7 @@ public class TestVec3
 {
     public void Test()
     {
-        errors = new string[1024]; 
-        errorsCount = 0;
+        citoassert = new CitoAssert();
         ResetTests();
         TransformMat4(); ResetTests();
         Create(); ResetTests();
@@ -4540,25 +4539,110 @@ public class TestVec3
 
     void Multiply()
     {
+        MultiplyWithASeparateOutputVector();
+        MultiplyWhenVecAIsTheOutputVector();
+        MultiplyWhenVecBIsTheOutputVector();
+    }
+
+    void MultiplyWithASeparateOutputVector()
+    {
+    }
+
+    void MultiplyWhenVecAIsTheOutputVector()
+    {
+    }
+
+    void MultiplyWhenVecBIsTheOutputVector()
+    {
     }
 
     void Divide()
+    {
+        DivideWithASeparateOutputVector();
+        DivideWhenVecAIsTheOutputVector();
+        DivideWhenVecBIsTheOutputVector();
+    }
+
+    void DivideWithASeparateOutputVector()
+    {
+    }
+
+    void DivideWhenVecAIsTheOutputVector()
+    {
+    }
+
+    void DivideWhenVecBIsTheOutputVector()
     {
     }
 
     void Min()
     {
+        MinWithASeparateOutputVector();
+        MinWhenVecAIsTheOutputVector();
+        MinWhenVecBIsTheOutputVector();
+    }
+
+    void MinWithASeparateOutputVector()
+    {
+    }
+
+    void MinWhenVecAIsTheOutputVector()
+    {
+    }
+
+    void MinWhenVecBIsTheOutputVector()
+    {
     }
 
     void Max()
+    {
+        MaxWithASeparateOutputVector();
+        MaxWhenVecAIsTheOutputVector();
+        MaxWhenVecBIsTheOutputVector();
+    }
+
+    void MaxWithASeparateOutputVector()
+    {
+    }
+
+    void MaxWhenVecAIsTheOutputVector()
+    {
+    }
+
+    void MaxWhenVecBIsTheOutputVector()
     {
     }
 
     void Scale()
     {
+        ScaleWithASeparateOutputVector();
+        ScaleWhenVecAIsTheOutputVector();
+    }
+
+    void ScaleWithASeparateOutputVector()
+    {
+    }
+
+    void ScaleWhenVecAIsTheOutputVector()
+    {
     }
 
     void ScaleAndAdd()
+    {
+        ScaleAndAddWithASeparateOutputVector();
+        ScaleAndAddWhenVecAIsTheOutputVector();
+        ScaleAndAddWhenVecBIsTheOutputVector();
+    }
+
+    void ScaleAndAddWithASeparateOutputVector()
+    {
+    }
+
+    void ScaleAndAddWhenVecAIsTheOutputVector()
+    {
+    }
+
+    void ScaleAndAddWhenVecBIsTheOutputVector()
     {
     }
 
@@ -4644,9 +4728,39 @@ public class TestVec3
 
     void Cross()
     {
+        CrossWithASeparateOutputVector();
+        CrossWhenVecAIsTheOutputVector();
+        CrossWhenVecBIsTheOutputVector();
+    }
+
+    void CrossWithASeparateOutputVector()
+    {
+    }
+
+    void CrossWhenVecAIsTheOutputVector()
+    {
+    }
+
+    void CrossWhenVecBIsTheOutputVector()
+    {
     }
 
     void Lerp()
+    {
+        LerpWithASeparateOutputVector();
+        LerpWhenVecAIsTheOutputVector();
+        LerpWhenVecBIsTheOutputVector();
+    }
+
+    void LerpWithASeparateOutputVector()
+    {
+    }
+
+    void LerpWhenVecAIsTheOutputVector()
+    {
+    }
+
+    void LerpWhenVecBIsTheOutputVector()
     {
     }
 
@@ -4664,13 +4778,240 @@ public class TestVec3
 
     void AssertEqual(float actual, float expected, string msg)
     {
+        citoassert.AssertEqual(actual, expected, msg);
+    }
+
+    void AssertCloseTo(float actual, float expected, string msg)
+    {
+        citoassert.AssertCloseTo(actual, expected, msg);
+    }
+
+    void AssertArrayEqual(float[] actual, float[] expected, int length, string msg)
+    {
+        citoassert.AssertArrayEqual(actual, expected, length, msg);
+    }
+
+    float[] Arr3(int p, int p_2, int p_3)
+    {
+        return citoassert.Arr3(p, p_2, p_3);
+    }
+
+    float[] Arr9(int p, int p_2, int p_3, int p_4, int p_5, int p_6, int p_7, int p_8, int p_9)
+    {
+        return citoassert.Arr9(p, p_2, p_3, p_4, p_5, p_6, p_7, p_8, p_9);
+    }
+
+    float[] Arr16(int p, int p_2, int p_3, int p_4, int p_5, int p_6, int p_7, int p_8, int p_9, int p_10, int p_11, int p_12, int p_13, int p_14, int p_15, int p_16)
+    {
+        return citoassert.Arr16(p, p_2, p_3, p_4, p_5, p_6, p_7, p_8, p_9, p_10, p_11, p_12, p_13, p_14, p_15, p_16);
+    }
+
+    CitoAssert citoassert;
+}
+
+public class TestMat4
+{
+    public void Test()
+    {
+        citoassert = new CitoAssert();
+        ResetTests();
+        Create(); ResetTests();
+        Clone(); ResetTests();
+        Copy(); ResetTests();
+        Identity(); ResetTests();
+        Transpose(); ResetTests();
+        Invert(); ResetTests();
+        Adjoint(); ResetTests();
+        Determinant(); ResetTests();
+        Multiply(); ResetTests();
+        Translate(); ResetTests();
+        Scale(); ResetTests();
+        Rotate(); ResetTests();
+        RotateX(); ResetTests();
+        RotateY(); ResetTests();
+        RotateZ(); ResetTests();
+        Frustum(); ResetTests();
+        Ortho(); ResetTests();
+        LookAt(); ResetTests();
+        Str(); ResetTests();
+    }
+
+    CitoAssert citoassert;
+    float[] matA;
+    float[] matB;
+    float[] output;
+    float[] identity;
+
+    void ResetTests()
+    {
+        // Attempting to portray a semi-realistic transform matrix
+        matA = Arr16(1, 0, 0, 0,
+                0, 1, 0, 0,
+                0, 0, 1, 0,
+                1, 2, 3, 1);
+        matB = Arr16(1, 0, 0, 0,
+                0, 1, 0, 0,
+                0, 0, 1, 0,
+                4, 5, 6, 1);
+
+        output = Arr16(0, 0, 0, 0,
+                0, 0, 0, 0,
+                0, 0, 0, 0,
+                0, 0, 0, 0);
+
+        identity = Arr16(1, 0, 0, 0,
+                    0, 1, 0, 0,
+                    0, 0, 1, 0,
+                    0, 0, 0, 1);
+    }
+
+    void Create()
+    {
+
+    }
+
+    void Clone()
+    {
+
+    }
+
+    void Copy()
+    {
+
+    }
+
+    void Identity()
+    {
+
+    }
+
+    void Transpose()
+    {
+
+    }
+
+    void Invert()
+    {
+
+    }
+
+    void Adjoint()
+    {
+
+    }
+
+    void Determinant()
+    {
+
+    }
+
+    void Multiply()
+    {
+
+    }
+
+    void Translate()
+    {
+
+    }
+
+    void Scale()
+    {
+
+    }
+
+    void Rotate()
+    {
+
+    }
+
+    void RotateX()
+    {
+
+    }
+
+    void RotateY()
+    {
+
+    }
+
+    void RotateZ()
+    {
+
+    }
+
+    void Frustum()
+    {
+
+    }
+
+    void Ortho()
+    {
+
+    }
+
+    void LookAt()
+    {
+
+    }
+
+    void Str()
+    {
+
+    }
+
+
+    void AssertEqual(float actual, float expected, string msg)
+    {
+        citoassert.AssertEqual(actual, expected, msg);
+    }
+
+    void AssertCloseTo(float actual, float expected, string msg)
+    {
+        citoassert.AssertCloseTo(actual, expected, msg);
+    }
+
+    void AssertArrayEqual(float[] actual, float[] expected, int length, string msg)
+    {
+        citoassert.AssertArrayEqual(actual, expected, length, msg);
+    }
+
+    float[] Arr3(int p, int p_2, int p_3)
+    {
+        return citoassert.Arr3(p, p_2, p_3);
+    }
+
+    float[] Arr9(int p, int p_2, int p_3, int p_4, int p_5, int p_6, int p_7, int p_8, int p_9)
+    {
+        return citoassert.Arr9(p, p_2, p_3, p_4, p_5, p_6, p_7, p_8, p_9);
+    }
+
+    float[] Arr16(int p, int p_2, int p_3, int p_4, int p_5, int p_6, int p_7, int p_8, int p_9, int p_10, int p_11, int p_12, int p_13, int p_14, int p_15, int p_16)
+    {
+        return citoassert.Arr16(p, p_2, p_3, p_4, p_5, p_6, p_7, p_8, p_9, p_10, p_11, p_12, p_13, p_14, p_15, p_16);
+    }
+}
+
+public class CitoAssert
+{
+    public CitoAssert()
+    {
+        errors = new string[1024];
+        errorsCount = 0;
+    }
+
+    string[] errors;
+    int errorsCount;
+
+    public void AssertEqual(float actual, float expected, string msg)
+    {
         if (actual != expected)
         {
             errors[errorsCount++] = msg;
         }
     }
 
-    void AssertCloseTo(float actual, float expected, string msg)
+    public void AssertCloseTo(float actual, float expected, string msg)
     {
         if (GlMatrixMath.Abs(actual - expected) > GlMatrixMath.GLMAT_EPSILON())
         {
@@ -4678,7 +5019,7 @@ public class TestVec3
         }
     }
 
-    void AssertArrayEqual(float[] actual, float[] expected, int length, string msg)
+    public void AssertArrayEqual(float[] actual, float[] expected, int length, string msg)
     {
         for (int i = 0; i < length; i++)
         {
@@ -4689,10 +5030,7 @@ public class TestVec3
         }
     }
 
-    string[] errors;
-    int errorsCount;
-
-    float[] Arr3(int p, int p_2, int p_3)
+    public float[] Arr3(int p, int p_2, int p_3)
     {
         float[] arr = new float[3];
         arr[0] = p;
@@ -4701,7 +5039,7 @@ public class TestVec3
         return arr;
     }
 
-    float[] Arr9(int p, int p_2, int p_3, int p_4, int p_5, int p_6, int p_7, int p_8, int p_9)
+    public float[] Arr9(int p, int p_2, int p_3, int p_4, int p_5, int p_6, int p_7, int p_8, int p_9)
     {
         float[] arr = new float[16];
         arr[0] = p;
@@ -4716,7 +5054,7 @@ public class TestVec3
         return arr;
     }
 
-    float[] Arr16(int p, int p_2, int p_3, int p_4, int p_5, int p_6, int p_7, int p_8, int p_9, int p_10, int p_11, int p_12, int p_13, int p_14, int p_15, int p_16)
+    public float[] Arr16(int p, int p_2, int p_3, int p_4, int p_5, int p_6, int p_7, int p_8, int p_9, int p_10, int p_11, int p_12, int p_13, int p_14, int p_15, int p_16)
     {
         float[] arr = new float[16];
         arr[0] = p;

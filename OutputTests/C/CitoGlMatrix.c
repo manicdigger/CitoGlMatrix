@@ -3,74 +3,222 @@
 #include <string.h>
 #include "CitoGlMatrix.h"
 
-
-
-
-
-
-
-
-struct TestVec3 {
+struct CitoAssert {
 	int errorsCount;
 	const char **errors;
+};
+static void CitoAssert_Construct(CitoAssert *self);
+
+
+
+
+
+
+
+
+struct TestMat4 {
+	CitoAssert *citoassert;
+	float const *identity;
+	float const *matA;
+	float const *matB;
+	float const *output;
+};
+static void TestMat4_Adjoint(TestMat4 const *self);
+static float const *TestMat4_Arr16(TestMat4 const *self, int p, int p_2, int p_3, int p_4, int p_5, int p_6, int p_7, int p_8, int p_9, int p_10, int p_11, int p_12, int p_13, int p_14, int p_15, int p_16);
+static void TestMat4_Clone(TestMat4 const *self);
+static void TestMat4_Copy(TestMat4 const *self);
+static void TestMat4_Create(TestMat4 const *self);
+static void TestMat4_Determinant(TestMat4 const *self);
+static void TestMat4_Frustum(TestMat4 const *self);
+static void TestMat4_Identity(TestMat4 const *self);
+static void TestMat4_Invert(TestMat4 const *self);
+static void TestMat4_LookAt(TestMat4 const *self);
+static void TestMat4_Multiply(TestMat4 const *self);
+static void TestMat4_Ortho(TestMat4 const *self);
+static void TestMat4_ResetTests(TestMat4 *self);
+static void TestMat4_Rotate(TestMat4 const *self);
+static void TestMat4_RotateX(TestMat4 const *self);
+static void TestMat4_RotateY(TestMat4 const *self);
+static void TestMat4_RotateZ(TestMat4 const *self);
+static void TestMat4_Scale(TestMat4 const *self);
+static void TestMat4_Str(TestMat4 const *self);
+static void TestMat4_Translate(TestMat4 const *self);
+static void TestMat4_Transpose(TestMat4 const *self);
+
+struct TestVec3 {
+	CitoAssert *citoassert;
 	float *output;
 	float *vecA;
 	float const *vecB;
 };
-static void TestVec3_Add(TestVec3 *self);
+static void TestVec3_Add(TestVec3 const *self);
 static void TestVec3_AddWhenVecAIsTheOutputVector(TestVec3 const *self);
 static void TestVec3_AddWhenVecBIsTheOutputVector(TestVec3 const *self);
-static void TestVec3_AddWithASeparateOutputVector(TestVec3 *self);
+static void TestVec3_AddWithASeparateOutputVector(TestVec3 const *self);
 static float const *TestVec3_Arr16(TestVec3 const *self, int p, int p_2, int p_3, int p_4, int p_5, int p_6, int p_7, int p_8, int p_9, int p_10, int p_11, int p_12, int p_13, int p_14, int p_15, int p_16);
 static float *TestVec3_Arr3(TestVec3 const *self, int p, int p_2, int p_3);
 static float const *TestVec3_Arr9(TestVec3 const *self, int p, int p_2, int p_3, int p_4, int p_5, int p_6, int p_7, int p_8, int p_9);
-static void TestVec3_AssertArrayEqual(TestVec3 *self, float const *actual, float const *expected, int length, const char *msg);
-static void TestVec3_AssertCloseTo(TestVec3 *self, float actual, float expected, const char *msg);
-static void TestVec3_AssertEqual(TestVec3 *self, float actual, float expected, const char *msg);
-static void TestVec3_Clone(TestVec3 *self);
-static void TestVec3_Copy(TestVec3 *self);
-static void TestVec3_Create(TestVec3 *self);
+static void TestVec3_AssertArrayEqual(TestVec3 const *self, float const *actual, float const *expected, int length, const char *msg);
+static void TestVec3_AssertCloseTo(TestVec3 const *self, float actual, float expected, const char *msg);
+static void TestVec3_AssertEqual(TestVec3 const *self, float actual, float expected, const char *msg);
+static void TestVec3_Clone(TestVec3 const *self);
+static void TestVec3_Copy(TestVec3 const *self);
+static void TestVec3_Create(TestVec3 const *self);
 static void TestVec3_Cross(TestVec3 const *self);
-static void TestVec3_Distance(TestVec3 *self);
+static void TestVec3_CrossWhenVecAIsTheOutputVector(TestVec3 const *self);
+static void TestVec3_CrossWhenVecBIsTheOutputVector(TestVec3 const *self);
+static void TestVec3_CrossWithASeparateOutputVector(TestVec3 const *self);
+static void TestVec3_Distance(TestVec3 const *self);
 static void TestVec3_Divide(TestVec3 const *self);
-static void TestVec3_Dot(TestVec3 *self);
+static void TestVec3_DivideWhenVecAIsTheOutputVector(TestVec3 const *self);
+static void TestVec3_DivideWhenVecBIsTheOutputVector(TestVec3 const *self);
+static void TestVec3_DivideWithASeparateOutputVector(TestVec3 const *self);
+static void TestVec3_Dot(TestVec3 const *self);
 static void TestVec3_ForEach(TestVec3 const *self);
-static void TestVec3_FromValues(TestVec3 *self);
-static void TestVec3_Length(TestVec3 *self);
+static void TestVec3_FromValues(TestVec3 const *self);
+static void TestVec3_Length(TestVec3 const *self);
 static void TestVec3_Lerp(TestVec3 const *self);
+static void TestVec3_LerpWhenVecAIsTheOutputVector(TestVec3 const *self);
+static void TestVec3_LerpWhenVecBIsTheOutputVector(TestVec3 const *self);
+static void TestVec3_LerpWithASeparateOutputVector(TestVec3 const *self);
 static void TestVec3_Max(TestVec3 const *self);
+static void TestVec3_MaxWhenVecAIsTheOutputVector(TestVec3 const *self);
+static void TestVec3_MaxWhenVecBIsTheOutputVector(TestVec3 const *self);
+static void TestVec3_MaxWithASeparateOutputVector(TestVec3 const *self);
 static void TestVec3_Min(TestVec3 const *self);
+static void TestVec3_MinWhenVecAIsTheOutputVector(TestVec3 const *self);
+static void TestVec3_MinWhenVecBIsTheOutputVector(TestVec3 const *self);
+static void TestVec3_MinWithASeparateOutputVector(TestVec3 const *self);
 static void TestVec3_Multiply(TestVec3 const *self);
-static void TestVec3_Negate(TestVec3 *self);
-static void TestVec3_NegateWhenVecAIsTheOutputVector(TestVec3 *self);
-static void TestVec3_NegateWithASeparateOutputVector(TestVec3 *self);
+static void TestVec3_MultiplyWhenVecAIsTheOutputVector(TestVec3 const *self);
+static void TestVec3_MultiplyWhenVecBIsTheOutputVector(TestVec3 const *self);
+static void TestVec3_MultiplyWithASeparateOutputVector(TestVec3 const *self);
+static void TestVec3_Negate(TestVec3 const *self);
+static void TestVec3_NegateWhenVecAIsTheOutputVector(TestVec3 const *self);
+static void TestVec3_NegateWithASeparateOutputVector(TestVec3 const *self);
 static void TestVec3_Normalize(TestVec3 *self);
-static void TestVec3_NormalizeWhenVecAIsTheOutputVector(TestVec3 *self);
+static void TestVec3_NormalizeWhenVecAIsTheOutputVector(TestVec3 const *self);
 static void TestVec3_NormalizeWithASeparateOutputVector(TestVec3 *self);
 static void TestVec3_Random(TestVec3 const *self);
 static void TestVec3_ResetTests(TestVec3 *self);
 static void TestVec3_Scale(TestVec3 const *self);
 static void TestVec3_ScaleAndAdd(TestVec3 const *self);
-static void TestVec3_Set(TestVec3 *self);
-static void TestVec3_SquaredDistance(TestVec3 *self);
-static void TestVec3_SquaredLength(TestVec3 *self);
+static void TestVec3_ScaleAndAddWhenVecAIsTheOutputVector(TestVec3 const *self);
+static void TestVec3_ScaleAndAddWhenVecBIsTheOutputVector(TestVec3 const *self);
+static void TestVec3_ScaleAndAddWithASeparateOutputVector(TestVec3 const *self);
+static void TestVec3_ScaleWhenVecAIsTheOutputVector(TestVec3 const *self);
+static void TestVec3_ScaleWithASeparateOutputVector(TestVec3 const *self);
+static void TestVec3_Set(TestVec3 const *self);
+static void TestVec3_SquaredDistance(TestVec3 const *self);
+static void TestVec3_SquaredLength(TestVec3 const *self);
 static void TestVec3_Str(TestVec3 const *self);
 static void TestVec3_Subtract(TestVec3 const *self);
 static void TestVec3_SubtractShouldHaveAnAliasCalledSub(TestVec3 const *self);
 static void TestVec3_SubtractWhenVecAIsTheOutputVector(TestVec3 const *self);
 static void TestVec3_SubtractWhenVecBIsTheOutputVector(TestVec3 const *self);
 static void TestVec3_SubtractWithASeparateOutputVector(TestVec3 const *self);
-static void TestVec3_TransformMat3With90DegAboutX(TestVec3 *self);
-static void TestVec3_TransformMat3With90DegAboutY(TestVec3 *self);
-static void TestVec3_TransformMat3With90DegAboutZ(TestVec3 *self);
-static void TestVec3_TransformMat3WithALookAtNormalMatrix(TestVec3 *self);
-static void TestVec3_TransformMat3WithAnIdentity(TestVec3 *self);
-static void TestVec3_TransformMat4(TestVec3 *self);
-static void TestVec3_TransformMat4WithALookAt(TestVec3 *self);
-static void TestVec3_TransformMat4WithAnIdentity(TestVec3 *self);
+static void TestVec3_TransformMat3With90DegAboutX(TestVec3 const *self);
+static void TestVec3_TransformMat3With90DegAboutY(TestVec3 const *self);
+static void TestVec3_TransformMat3With90DegAboutZ(TestVec3 const *self);
+static void TestVec3_TransformMat3WithALookAtNormalMatrix(TestVec3 const *self);
+static void TestVec3_TransformMat3WithAnIdentity(TestVec3 const *self);
+static void TestVec3_TransformMat4(TestVec3 const *self);
+static void TestVec3_TransformMat4WithALookAt(TestVec3 const *self);
+static void TestVec3_TransformMat4WithAnIdentity(TestVec3 const *self);
 
 
 
+
+static void CitoAssert_Construct(CitoAssert *self)
+{
+	self->errors = (const char **) malloc(1024 * sizeof(const char *));
+	self->errorsCount = 0;
+}
+
+CitoAssert *CitoAssert_New(void)
+{
+	CitoAssert *self = (CitoAssert *) malloc(sizeof(CitoAssert));
+	if (self != NULL)
+		CitoAssert_Construct(self);
+	return self;
+}
+
+void CitoAssert_Delete(CitoAssert *self)
+{
+	free(self);
+}
+
+float const *CitoAssert_Arr16(CitoAssert const *self, int p, int p_2, int p_3, int p_4, int p_5, int p_6, int p_7, int p_8, int p_9, int p_10, int p_11, int p_12, int p_13, int p_14, int p_15, int p_16)
+{
+	float *arr = (float *) malloc(16 * sizeof(float ));
+	arr[0] = p;
+	arr[1] = p_2;
+	arr[2] = p_3;
+	arr[3] = p_4;
+	arr[4] = p_5;
+	arr[5] = p_6;
+	arr[6] = p_7;
+	arr[7] = p_8;
+	arr[8] = p_9;
+	arr[9] = p_10;
+	arr[10] = p_11;
+	arr[11] = p_12;
+	arr[12] = p_13;
+	arr[13] = p_14;
+	arr[14] = p_15;
+	arr[15] = p_16;
+	return arr;
+}
+
+float const *CitoAssert_Arr3(CitoAssert const *self, int p, int p_2, int p_3)
+{
+	float *arr = (float *) malloc(3 * sizeof(float ));
+	arr[0] = p;
+	arr[1] = p_2;
+	arr[2] = p_3;
+	return arr;
+}
+
+float const *CitoAssert_Arr9(CitoAssert const *self, int p, int p_2, int p_3, int p_4, int p_5, int p_6, int p_7, int p_8, int p_9)
+{
+	float *arr = (float *) malloc(16 * sizeof(float ));
+	arr[0] = p;
+	arr[1] = p_2;
+	arr[2] = p_3;
+	arr[3] = p_4;
+	arr[4] = p_5;
+	arr[5] = p_6;
+	arr[6] = p_7;
+	arr[7] = p_8;
+	arr[8] = p_9;
+	return arr;
+}
+
+void CitoAssert_AssertArrayEqual(CitoAssert *self, float const *actual, float const *expected, int length, const char *msg)
+{
+	{
+		int i;
+		for (i = 0; i < length; i++) {
+			if (actual[i] != expected[i]) {
+				self->errors[self->errorsCount++] = msg;
+			}
+		}
+	}
+}
+
+void CitoAssert_AssertCloseTo(CitoAssert *self, float actual, float expected, const char *msg)
+{
+	if (GlMatrixMath_Abs(actual - expected) > GlMatrixMath_GLMAT_EPSILON()) {
+		self->errors[self->errorsCount++] = msg;
+	}
+}
+
+void CitoAssert_AssertEqual(CitoAssert *self, float actual, float expected, const char *msg)
+{
+	if (actual != expected) {
+		self->errors[self->errorsCount++] = msg;
+	}
+}
 
 float GlMatrixMath_Abs(float len)
 {
@@ -1901,6 +2049,150 @@ float Quat_SquaredLength(float const *a)
 	return Vec4_SquaredLength(a);
 }
 
+TestMat4 *TestMat4_New(void)
+{
+	TestMat4 *self = (TestMat4 *) malloc(sizeof(TestMat4));
+	return self;
+}
+
+void TestMat4_Delete(TestMat4 *self)
+{
+	free(self);
+}
+
+static void TestMat4_Adjoint(TestMat4 const *self)
+{
+}
+
+static float const *TestMat4_Arr16(TestMat4 const *self, int p, int p_2, int p_3, int p_4, int p_5, int p_6, int p_7, int p_8, int p_9, int p_10, int p_11, int p_12, int p_13, int p_14, int p_15, int p_16)
+{
+	return CitoAssert_Arr16(self->citoassert, p, p_2, p_3, p_4, p_5, p_6, p_7, p_8, p_9, p_10, p_11, p_12, p_13, p_14, p_15, p_16);
+}
+
+static void TestMat4_Clone(TestMat4 const *self)
+{
+}
+
+static void TestMat4_Copy(TestMat4 const *self)
+{
+}
+
+static void TestMat4_Create(TestMat4 const *self)
+{
+}
+
+static void TestMat4_Determinant(TestMat4 const *self)
+{
+}
+
+static void TestMat4_Frustum(TestMat4 const *self)
+{
+}
+
+static void TestMat4_Identity(TestMat4 const *self)
+{
+}
+
+static void TestMat4_Invert(TestMat4 const *self)
+{
+}
+
+static void TestMat4_LookAt(TestMat4 const *self)
+{
+}
+
+static void TestMat4_Multiply(TestMat4 const *self)
+{
+}
+
+static void TestMat4_Ortho(TestMat4 const *self)
+{
+}
+
+static void TestMat4_ResetTests(TestMat4 *self)
+{
+	self->matA = TestMat4_Arr16(self, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 1, 2, 3, 1);
+	self->matB = TestMat4_Arr16(self, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 4, 5, 6, 1);
+	self->output = TestMat4_Arr16(self, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+	self->identity = TestMat4_Arr16(self, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1);
+}
+
+static void TestMat4_Rotate(TestMat4 const *self)
+{
+}
+
+static void TestMat4_RotateX(TestMat4 const *self)
+{
+}
+
+static void TestMat4_RotateY(TestMat4 const *self)
+{
+}
+
+static void TestMat4_RotateZ(TestMat4 const *self)
+{
+}
+
+static void TestMat4_Scale(TestMat4 const *self)
+{
+}
+
+static void TestMat4_Str(TestMat4 const *self)
+{
+}
+
+void TestMat4_Test(TestMat4 *self)
+{
+	self->citoassert = CitoAssert_New();
+	TestMat4_ResetTests(self);
+	TestMat4_Create(self);
+	TestMat4_ResetTests(self);
+	TestMat4_Clone(self);
+	TestMat4_ResetTests(self);
+	TestMat4_Copy(self);
+	TestMat4_ResetTests(self);
+	TestMat4_Identity(self);
+	TestMat4_ResetTests(self);
+	TestMat4_Transpose(self);
+	TestMat4_ResetTests(self);
+	TestMat4_Invert(self);
+	TestMat4_ResetTests(self);
+	TestMat4_Adjoint(self);
+	TestMat4_ResetTests(self);
+	TestMat4_Determinant(self);
+	TestMat4_ResetTests(self);
+	TestMat4_Multiply(self);
+	TestMat4_ResetTests(self);
+	TestMat4_Translate(self);
+	TestMat4_ResetTests(self);
+	TestMat4_Scale(self);
+	TestMat4_ResetTests(self);
+	TestMat4_Rotate(self);
+	TestMat4_ResetTests(self);
+	TestMat4_RotateX(self);
+	TestMat4_ResetTests(self);
+	TestMat4_RotateY(self);
+	TestMat4_ResetTests(self);
+	TestMat4_RotateZ(self);
+	TestMat4_ResetTests(self);
+	TestMat4_Frustum(self);
+	TestMat4_ResetTests(self);
+	TestMat4_Ortho(self);
+	TestMat4_ResetTests(self);
+	TestMat4_LookAt(self);
+	TestMat4_ResetTests(self);
+	TestMat4_Str(self);
+	TestMat4_ResetTests(self);
+}
+
+static void TestMat4_Translate(TestMat4 const *self)
+{
+}
+
+static void TestMat4_Transpose(TestMat4 const *self)
+{
+}
+
 TestVec3 *TestVec3_New(void)
 {
 	TestVec3 *self = (TestVec3 *) malloc(sizeof(TestVec3));
@@ -1912,7 +2204,7 @@ void TestVec3_Delete(TestVec3 *self)
 	free(self);
 }
 
-static void TestVec3_Add(TestVec3 *self)
+static void TestVec3_Add(TestVec3 const *self)
 {
 	TestVec3_AddWithASeparateOutputVector(self);
 	TestVec3_AddWhenVecAIsTheOutputVector(self);
@@ -1927,7 +2219,7 @@ static void TestVec3_AddWhenVecBIsTheOutputVector(TestVec3 const *self)
 {
 }
 
-static void TestVec3_AddWithASeparateOutputVector(TestVec3 *self)
+static void TestVec3_AddWithASeparateOutputVector(TestVec3 const *self)
 {
 	float const *result = Vec3_Add(self->output, self->vecA, self->vecB);
 	TestVec3_AssertArrayEqual(self, self->output, TestVec3_Arr3(self, 5, 7, 9), 3, "Add should place values into out");
@@ -1938,90 +2230,48 @@ static void TestVec3_AddWithASeparateOutputVector(TestVec3 *self)
 
 static float const *TestVec3_Arr16(TestVec3 const *self, int p, int p_2, int p_3, int p_4, int p_5, int p_6, int p_7, int p_8, int p_9, int p_10, int p_11, int p_12, int p_13, int p_14, int p_15, int p_16)
 {
-	float *arr = (float *) malloc(16 * sizeof(float ));
-	arr[0] = p;
-	arr[1] = p_2;
-	arr[2] = p_3;
-	arr[3] = p_4;
-	arr[4] = p_5;
-	arr[5] = p_6;
-	arr[6] = p_7;
-	arr[7] = p_8;
-	arr[8] = p_9;
-	arr[9] = p_10;
-	arr[10] = p_11;
-	arr[11] = p_12;
-	arr[12] = p_13;
-	arr[13] = p_14;
-	arr[14] = p_15;
-	arr[15] = p_16;
-	return arr;
+	return CitoAssert_Arr16(self->citoassert, p, p_2, p_3, p_4, p_5, p_6, p_7, p_8, p_9, p_10, p_11, p_12, p_13, p_14, p_15, p_16);
 }
 
 static float *TestVec3_Arr3(TestVec3 const *self, int p, int p_2, int p_3)
 {
-	float *arr = (float *) malloc(3 * sizeof(float ));
-	arr[0] = p;
-	arr[1] = p_2;
-	arr[2] = p_3;
-	return arr;
+	return CitoAssert_Arr3(self->citoassert, p, p_2, p_3);
 }
 
 static float const *TestVec3_Arr9(TestVec3 const *self, int p, int p_2, int p_3, int p_4, int p_5, int p_6, int p_7, int p_8, int p_9)
 {
-	float *arr = (float *) malloc(16 * sizeof(float ));
-	arr[0] = p;
-	arr[1] = p_2;
-	arr[2] = p_3;
-	arr[3] = p_4;
-	arr[4] = p_5;
-	arr[5] = p_6;
-	arr[6] = p_7;
-	arr[7] = p_8;
-	arr[8] = p_9;
-	return arr;
+	return CitoAssert_Arr9(self->citoassert, p, p_2, p_3, p_4, p_5, p_6, p_7, p_8, p_9);
 }
 
-static void TestVec3_AssertArrayEqual(TestVec3 *self, float const *actual, float const *expected, int length, const char *msg)
+static void TestVec3_AssertArrayEqual(TestVec3 const *self, float const *actual, float const *expected, int length, const char *msg)
 {
-	{
-		int i;
-		for (i = 0; i < length; i++) {
-			if (actual[i] != expected[i]) {
-				self->errors[self->errorsCount++] = msg;
-			}
-		}
-	}
+	CitoAssert_AssertArrayEqual(self->citoassert, actual, expected, length, msg);
 }
 
-static void TestVec3_AssertCloseTo(TestVec3 *self, float actual, float expected, const char *msg)
+static void TestVec3_AssertCloseTo(TestVec3 const *self, float actual, float expected, const char *msg)
 {
-	if (GlMatrixMath_Abs(actual - expected) > GlMatrixMath_GLMAT_EPSILON()) {
-		self->errors[self->errorsCount++] = msg;
-	}
+	CitoAssert_AssertCloseTo(self->citoassert, actual, expected, msg);
 }
 
-static void TestVec3_AssertEqual(TestVec3 *self, float actual, float expected, const char *msg)
+static void TestVec3_AssertEqual(TestVec3 const *self, float actual, float expected, const char *msg)
 {
-	if (actual != expected) {
-		self->errors[self->errorsCount++] = msg;
-	}
+	CitoAssert_AssertEqual(self->citoassert, actual, expected, msg);
 }
 
-static void TestVec3_Clone(TestVec3 *self)
+static void TestVec3_Clone(TestVec3 const *self)
 {
 	float const *result = Vec3_Clone(self->vecA);
 	TestVec3_AssertArrayEqual(self, result, self->vecA, 3, "Clone should return a 3 element array initialized to the values in vecA");
 }
 
-static void TestVec3_Copy(TestVec3 *self)
+static void TestVec3_Copy(TestVec3 const *self)
 {
 	float const *result = Vec3_Copy(self->output, self->vecA);
 	TestVec3_AssertArrayEqual(self, self->output, TestVec3_Arr3(self, 1, 2, 3), 3, "Copy should place values into out");
 	TestVec3_AssertArrayEqual(self, result, self->output, 3, "Copy should return output");
 }
 
-static void TestVec3_Create(TestVec3 *self)
+static void TestVec3_Create(TestVec3 const *self)
 {
 	float const *result = Vec3_Create();
 	TestVec3_AssertArrayEqual(self, result, TestVec3_Arr3(self, 0, 0, 0), 3, "Create should return a 3 element array initialized to 0s");
@@ -2029,9 +2279,24 @@ static void TestVec3_Create(TestVec3 *self)
 
 static void TestVec3_Cross(TestVec3 const *self)
 {
+	TestVec3_CrossWithASeparateOutputVector(self);
+	TestVec3_CrossWhenVecAIsTheOutputVector(self);
+	TestVec3_CrossWhenVecBIsTheOutputVector(self);
 }
 
-static void TestVec3_Distance(TestVec3 *self)
+static void TestVec3_CrossWhenVecAIsTheOutputVector(TestVec3 const *self)
+{
+}
+
+static void TestVec3_CrossWhenVecBIsTheOutputVector(TestVec3 const *self)
+{
+}
+
+static void TestVec3_CrossWithASeparateOutputVector(TestVec3 const *self)
+{
+}
+
+static void TestVec3_Distance(TestVec3 const *self)
 {
 	float result = Vec3_Distance(self->vecA, self->vecB);
 	float r = 5196152;
@@ -2041,9 +2306,24 @@ static void TestVec3_Distance(TestVec3 *self)
 
 static void TestVec3_Divide(TestVec3 const *self)
 {
+	TestVec3_DivideWithASeparateOutputVector(self);
+	TestVec3_DivideWhenVecAIsTheOutputVector(self);
+	TestVec3_DivideWhenVecBIsTheOutputVector(self);
 }
 
-static void TestVec3_Dot(TestVec3 *self)
+static void TestVec3_DivideWhenVecAIsTheOutputVector(TestVec3 const *self)
+{
+}
+
+static void TestVec3_DivideWhenVecBIsTheOutputVector(TestVec3 const *self)
+{
+}
+
+static void TestVec3_DivideWithASeparateOutputVector(TestVec3 const *self)
+{
+}
+
+static void TestVec3_Dot(TestVec3 const *self)
 {
 	float result = Vec3_Dot(self->vecA, self->vecB);
 	TestVec3_AssertEqual(self, result, 32, "Dot should return the dot product");
@@ -2055,13 +2335,13 @@ static void TestVec3_ForEach(TestVec3 const *self)
 {
 }
 
-static void TestVec3_FromValues(TestVec3 *self)
+static void TestVec3_FromValues(TestVec3 const *self)
 {
 	float const *result = Vec3_FromValues(1, 2, 3);
 	TestVec3_AssertArrayEqual(self, result, TestVec3_Arr3(self, 1, 2, 3), 3, "FromValues should return a 3 element array initialized to the values passed");
 }
 
-static void TestVec3_Length(TestVec3 *self)
+static void TestVec3_Length(TestVec3 const *self)
 {
 	float result = Vec3_Length(self->vecA);
 	float r = 3741657;
@@ -2071,34 +2351,94 @@ static void TestVec3_Length(TestVec3 *self)
 
 static void TestVec3_Lerp(TestVec3 const *self)
 {
+	TestVec3_LerpWithASeparateOutputVector(self);
+	TestVec3_LerpWhenVecAIsTheOutputVector(self);
+	TestVec3_LerpWhenVecBIsTheOutputVector(self);
+}
+
+static void TestVec3_LerpWhenVecAIsTheOutputVector(TestVec3 const *self)
+{
+}
+
+static void TestVec3_LerpWhenVecBIsTheOutputVector(TestVec3 const *self)
+{
+}
+
+static void TestVec3_LerpWithASeparateOutputVector(TestVec3 const *self)
+{
 }
 
 static void TestVec3_Max(TestVec3 const *self)
+{
+	TestVec3_MaxWithASeparateOutputVector(self);
+	TestVec3_MaxWhenVecAIsTheOutputVector(self);
+	TestVec3_MaxWhenVecBIsTheOutputVector(self);
+}
+
+static void TestVec3_MaxWhenVecAIsTheOutputVector(TestVec3 const *self)
+{
+}
+
+static void TestVec3_MaxWhenVecBIsTheOutputVector(TestVec3 const *self)
+{
+}
+
+static void TestVec3_MaxWithASeparateOutputVector(TestVec3 const *self)
 {
 }
 
 static void TestVec3_Min(TestVec3 const *self)
 {
+	TestVec3_MinWithASeparateOutputVector(self);
+	TestVec3_MinWhenVecAIsTheOutputVector(self);
+	TestVec3_MinWhenVecBIsTheOutputVector(self);
+}
+
+static void TestVec3_MinWhenVecAIsTheOutputVector(TestVec3 const *self)
+{
+}
+
+static void TestVec3_MinWhenVecBIsTheOutputVector(TestVec3 const *self)
+{
+}
+
+static void TestVec3_MinWithASeparateOutputVector(TestVec3 const *self)
+{
 }
 
 static void TestVec3_Multiply(TestVec3 const *self)
 {
+	TestVec3_MultiplyWithASeparateOutputVector(self);
+	TestVec3_MultiplyWhenVecAIsTheOutputVector(self);
+	TestVec3_MultiplyWhenVecBIsTheOutputVector(self);
 }
 
-static void TestVec3_Negate(TestVec3 *self)
+static void TestVec3_MultiplyWhenVecAIsTheOutputVector(TestVec3 const *self)
+{
+}
+
+static void TestVec3_MultiplyWhenVecBIsTheOutputVector(TestVec3 const *self)
+{
+}
+
+static void TestVec3_MultiplyWithASeparateOutputVector(TestVec3 const *self)
+{
+}
+
+static void TestVec3_Negate(TestVec3 const *self)
 {
 	TestVec3_NegateWithASeparateOutputVector(self);
 	TestVec3_NegateWhenVecAIsTheOutputVector(self);
 }
 
-static void TestVec3_NegateWhenVecAIsTheOutputVector(TestVec3 *self)
+static void TestVec3_NegateWhenVecAIsTheOutputVector(TestVec3 const *self)
 {
 	float const *result = Vec3_Negate(self->vecA, self->vecA);
 	TestVec3_AssertArrayEqual(self, self->vecA, TestVec3_Arr3(self, -1, -2, -3), 3, "NegateWhenVecAIsTheOutputVector should place values into vecA");
 	TestVec3_AssertArrayEqual(self, result, self->vecA, 3, "NegateWhenVecAIsTheOutputVector should return vecA");
 }
 
-static void TestVec3_NegateWithASeparateOutputVector(TestVec3 *self)
+static void TestVec3_NegateWithASeparateOutputVector(TestVec3 const *self)
 {
 	float const *result = Vec3_Negate(self->output, self->vecA);
 	TestVec3_AssertArrayEqual(self, self->output, TestVec3_Arr3(self, -1, -2, -3), 3, "NegateWithASeparateOutputVector should place values into out");
@@ -2112,7 +2452,7 @@ static void TestVec3_Normalize(TestVec3 *self)
 	TestVec3_NormalizeWhenVecAIsTheOutputVector(self);
 }
 
-static void TestVec3_NormalizeWhenVecAIsTheOutputVector(TestVec3 *self)
+static void TestVec3_NormalizeWhenVecAIsTheOutputVector(TestVec3 const *self)
 {
 	float const *vecA1 = TestVec3_Arr3(self, 5, 0, 0);
 	float const *result = Vec3_Normalize(self->vecA, self->vecA);
@@ -2143,26 +2483,51 @@ static void TestVec3_ResetTests(TestVec3 *self)
 
 static void TestVec3_Scale(TestVec3 const *self)
 {
+	TestVec3_ScaleWithASeparateOutputVector(self);
+	TestVec3_ScaleWhenVecAIsTheOutputVector(self);
 }
 
 static void TestVec3_ScaleAndAdd(TestVec3 const *self)
 {
+	TestVec3_ScaleAndAddWithASeparateOutputVector(self);
+	TestVec3_ScaleAndAddWhenVecAIsTheOutputVector(self);
+	TestVec3_ScaleAndAddWhenVecBIsTheOutputVector(self);
 }
 
-static void TestVec3_Set(TestVec3 *self)
+static void TestVec3_ScaleAndAddWhenVecAIsTheOutputVector(TestVec3 const *self)
+{
+}
+
+static void TestVec3_ScaleAndAddWhenVecBIsTheOutputVector(TestVec3 const *self)
+{
+}
+
+static void TestVec3_ScaleAndAddWithASeparateOutputVector(TestVec3 const *self)
+{
+}
+
+static void TestVec3_ScaleWhenVecAIsTheOutputVector(TestVec3 const *self)
+{
+}
+
+static void TestVec3_ScaleWithASeparateOutputVector(TestVec3 const *self)
+{
+}
+
+static void TestVec3_Set(TestVec3 const *self)
 {
 	float const *result = Vec3_Set(self->output, 1, 2, 3);
 	TestVec3_AssertArrayEqual(self, self->output, TestVec3_Arr3(self, 1, 2, 3), 3, "Set should place values into output");
 	TestVec3_AssertArrayEqual(self, result, self->output, 3, "Set should return output");
 }
 
-static void TestVec3_SquaredDistance(TestVec3 *self)
+static void TestVec3_SquaredDistance(TestVec3 const *self)
 {
 	float result = Vec3_SquaredDistance(self->vecA, self->vecB);
 	TestVec3_AssertEqual(self, result, 27, "SquaredDistance should return the squared distance");
 }
 
-static void TestVec3_SquaredLength(TestVec3 *self)
+static void TestVec3_SquaredLength(TestVec3 const *self)
 {
 	float result = Vec3_SquaredLength(self->vecA);
 	TestVec3_AssertEqual(self, result, 14, "SquaredLength should return the squared length");
@@ -2198,8 +2563,7 @@ static void TestVec3_SubtractWithASeparateOutputVector(TestVec3 const *self)
 
 void TestVec3_Test(TestVec3 *self)
 {
-	self->errors = (const char **) malloc(1024 * sizeof(const char *));
-	self->errorsCount = 0;
+	self->citoassert = CitoAssert_New();
 	TestVec3_ResetTests(self);
 	TestVec3_TransformMat4(self);
 	TestVec3_ResetTests(self);
@@ -2255,25 +2619,25 @@ void TestVec3_Test(TestVec3 *self)
 	TestVec3_ResetTests(self);
 }
 
-static void TestVec3_TransformMat3With90DegAboutX(TestVec3 *self)
+static void TestVec3_TransformMat3With90DegAboutX(TestVec3 const *self)
 {
 	float const *result = Vec3_TransformMat3(self->output, TestVec3_Arr3(self, 0, 1, 0), TestVec3_Arr9(self, 1, 0, 0, 0, 0, 1, 0, -1, 0));
 	TestVec3_AssertArrayEqual(self, self->output, TestVec3_Arr3(self, 0, 0, 1), 3, "TransformMat3With90DegAboutX should produce correct output");
 }
 
-static void TestVec3_TransformMat3With90DegAboutY(TestVec3 *self)
+static void TestVec3_TransformMat3With90DegAboutY(TestVec3 const *self)
 {
 	float const *result = Vec3_TransformMat3(self->output, TestVec3_Arr3(self, 1, 0, 0), TestVec3_Arr9(self, 0, 0, -1, 0, 1, 0, 1, 0, 0));
 	TestVec3_AssertArrayEqual(self, self->output, TestVec3_Arr3(self, 0, 0, -1), 3, "TransformMat3With90DegAboutU should produce correct output");
 }
 
-static void TestVec3_TransformMat3With90DegAboutZ(TestVec3 *self)
+static void TestVec3_TransformMat3With90DegAboutZ(TestVec3 const *self)
 {
 	float const *result = Vec3_TransformMat3(self->output, TestVec3_Arr3(self, 1, 0, 0), TestVec3_Arr9(self, 0, 1, 0, -1, 0, 0, 0, 0, 1));
 	TestVec3_AssertArrayEqual(self, self->output, TestVec3_Arr3(self, 0, 1, 0), 3, "TransformMat3With90DegAboutZ should produce correct output");
 }
 
-static void TestVec3_TransformMat3WithALookAtNormalMatrix(TestVec3 *self)
+static void TestVec3_TransformMat3WithALookAtNormalMatrix(TestVec3 const *self)
 {
 	float const *matr = Mat4_LookAt(Mat4_Create(), TestVec3_Arr3(self, 5, 6, 7), TestVec3_Arr3(self, 2, 6, 7), TestVec3_Arr3(self, 0, 1, 0));
 	float *n = Mat3_Create();
@@ -2284,7 +2648,7 @@ static void TestVec3_TransformMat3WithALookAtNormalMatrix(TestVec3 *self)
 	TestVec3_AssertArrayEqual(self, result, self->output, 3, "TransformMat3WithALookAtNormalMatrix should return output");
 }
 
-static void TestVec3_TransformMat3WithAnIdentity(TestVec3 *self)
+static void TestVec3_TransformMat3WithAnIdentity(TestVec3 const *self)
 {
 	float const *matr = TestVec3_Arr9(self, 1, 0, 0, 0, 1, 0, 0, 0, 1);
 	float const *result = Vec3_TransformMat3(self->output, self->vecA, matr);
@@ -2292,7 +2656,7 @@ static void TestVec3_TransformMat3WithAnIdentity(TestVec3 *self)
 	TestVec3_AssertArrayEqual(self, result, self->output, 3, "TransformMat3WithAnIdentity should return output");
 }
 
-static void TestVec3_TransformMat4(TestVec3 *self)
+static void TestVec3_TransformMat4(TestVec3 const *self)
 {
 	TestVec3_TransformMat4WithAnIdentity(self);
 	TestVec3_TransformMat4WithALookAt(self);
@@ -2303,7 +2667,7 @@ static void TestVec3_TransformMat4(TestVec3 *self)
 	TestVec3_TransformMat3WithALookAtNormalMatrix(self);
 }
 
-static void TestVec3_TransformMat4WithALookAt(TestVec3 *self)
+static void TestVec3_TransformMat4WithALookAt(TestVec3 const *self)
 {
 	float const *matr = Mat4_LookAt(Mat4_Create(), TestVec3_Arr3(self, 5, 6, 7), TestVec3_Arr3(self, 2, 6, 7), TestVec3_Arr3(self, 0, 1, 0));
 	float const *result = Vec3_TransformMat4(self->output, self->vecA, matr);
@@ -2311,7 +2675,7 @@ static void TestVec3_TransformMat4WithALookAt(TestVec3 *self)
 	TestVec3_AssertArrayEqual(self, result, self->output, 3, "TransformMat4WithALookAt should return out");
 }
 
-static void TestVec3_TransformMat4WithAnIdentity(TestVec3 *self)
+static void TestVec3_TransformMat4WithAnIdentity(TestVec3 const *self)
 {
 	float const *matr = TestVec3_Arr16(self, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1);
 	float const *result = Vec3_TransformMat4(self->output, self->vecA, matr);

@@ -32,71 +32,32 @@ package
 
 		private function arr16(p : int, p_2 : int, p_3 : int, p_4 : int, p_5 : int, p_6 : int, p_7 : int, p_8 : int, p_9 : int, p_10 : int, p_11 : int, p_12 : int, p_13 : int, p_14 : int, p_15 : int, p_16 : int) : Array
 		{
-			var arr : Array = new Array(16);
-			arr[0] = p;
-			arr[1] = p_2;
-			arr[2] = p_3;
-			arr[3] = p_4;
-			arr[4] = p_5;
-			arr[5] = p_6;
-			arr[6] = p_7;
-			arr[7] = p_8;
-			arr[8] = p_9;
-			arr[9] = p_10;
-			arr[10] = p_11;
-			arr[11] = p_12;
-			arr[12] = p_13;
-			arr[13] = p_14;
-			arr[14] = p_15;
-			arr[15] = p_16;
-			return arr;
+			return this.citoassert.arr16(p, p_2, p_3, p_4, p_5, p_6, p_7, p_8, p_9, p_10, p_11, p_12, p_13, p_14, p_15, p_16);
 		}
 
 		private function arr3(p : int, p_2 : int, p_3 : int) : Array
 		{
-			var arr : Array = new Array(3);
-			arr[0] = p;
-			arr[1] = p_2;
-			arr[2] = p_3;
-			return arr;
+			return this.citoassert.arr3(p, p_2, p_3);
 		}
 
 		private function arr9(p : int, p_2 : int, p_3 : int, p_4 : int, p_5 : int, p_6 : int, p_7 : int, p_8 : int, p_9 : int) : Array
 		{
-			var arr : Array = new Array(16);
-			arr[0] = p;
-			arr[1] = p_2;
-			arr[2] = p_3;
-			arr[3] = p_4;
-			arr[4] = p_5;
-			arr[5] = p_6;
-			arr[6] = p_7;
-			arr[7] = p_8;
-			arr[8] = p_9;
-			return arr;
+			return this.citoassert.arr9(p, p_2, p_3, p_4, p_5, p_6, p_7, p_8, p_9);
 		}
 
 		private function assertArrayEqual(actual : Array, expected : Array, length : int, msg : String) : void
 		{
-			for (var i : int = 0; i < length; i++) {
-				if (actual[i] != expected[i]) {
-					this.errors[this.errorsCount++] = msg;
-				}
-			}
+			this.citoassert.assertArrayEqual(actual, expected, length, msg);
 		}
 
 		private function assertCloseTo(actual : float, expected : float, msg : String) : void
 		{
-			if (GlMatrixMath.abs(actual - expected) > GlMatrixMath.gLMAT_EPSILON()) {
-				this.errors[this.errorsCount++] = msg;
-			}
+			this.citoassert.assertCloseTo(actual, expected, msg);
 		}
 
 		private function assertEqual(actual : float, expected : float, msg : String) : void
 		{
-			if (actual != expected) {
-				this.errors[this.errorsCount++] = msg;
-			}
+			this.citoassert.assertEqual(actual, expected, msg);
 		}
 
 		private function clone() : void
@@ -120,6 +81,21 @@ package
 
 		private function cross() : void
 		{
+			this.crossWithASeparateOutputVector();
+			this.crossWhenVecAIsTheOutputVector();
+			this.crossWhenVecBIsTheOutputVector();
+		}
+
+		private function crossWhenVecAIsTheOutputVector() : void
+		{
+		}
+
+		private function crossWhenVecBIsTheOutputVector() : void
+		{
+		}
+
+		private function crossWithASeparateOutputVector() : void
+		{
 		}
 
 		private function distance() : void
@@ -131,6 +107,21 @@ package
 		}
 
 		private function divide() : void
+		{
+			this.divideWithASeparateOutputVector();
+			this.divideWhenVecAIsTheOutputVector();
+			this.divideWhenVecBIsTheOutputVector();
+		}
+
+		private function divideWhenVecAIsTheOutputVector() : void
+		{
+		}
+
+		private function divideWhenVecBIsTheOutputVector() : void
+		{
+		}
+
+		private function divideWithASeparateOutputVector() : void
 		{
 		}
 
@@ -162,37 +153,165 @@ package
 
 		private function lerp() : void
 		{
+			this.lerpWithASeparateOutputVector();
+			this.lerpWhenVecAIsTheOutputVector();
+			this.lerpWhenVecBIsTheOutputVector();
+		}
+
+		private function lerpWhenVecAIsTheOutputVector() : void
+		{
+		}
+
+		private function lerpWhenVecBIsTheOutputVector() : void
+		{
+		}
+
+		private function lerpWithASeparateOutputVector() : void
+		{
 		}
 
 		private function max() : void
+		{
+			this.maxWithASeparateOutputVector();
+			this.maxWhenVecAIsTheOutputVector();
+			this.maxWhenVecBIsTheOutputVector();
+		}
+
+		private function maxWhenVecAIsTheOutputVector() : void
+		{
+		}
+
+		private function maxWhenVecBIsTheOutputVector() : void
+		{
+		}
+
+		private function maxWithASeparateOutputVector() : void
 		{
 		}
 
 		private function min() : void
 		{
+			this.minWithASeparateOutputVector();
+			this.minWhenVecAIsTheOutputVector();
+			this.minWhenVecBIsTheOutputVector();
+		}
+
+		private function minWhenVecAIsTheOutputVector() : void
+		{
+		}
+
+		private function minWhenVecBIsTheOutputVector() : void
+		{
+		}
+
+		private function minWithASeparateOutputVector() : void
+		{
 		}
 
 		private function multiply() : void
+		{
+			this.multiplyWithASeparateOutputVector();
+			this.multiplyWhenVecAIsTheOutputVector();
+			this.multiplyWhenVecBIsTheOutputVector();
+		}
+
+		private function multiplyWhenVecAIsTheOutputVector() : void
+		{
+		}
+
+		private function multiplyWhenVecBIsTheOutputVector() : void
+		{
+		}
+
+		private function multiplyWithASeparateOutputVector() : void
 		{
 		}
 
 		private function negate() : void
 		{
+			this.negateWithASeparateOutputVector();
+			this.negateWhenVecAIsTheOutputVector();
+		}
+
+		private function negateWhenVecAIsTheOutputVector() : void
+		{
+			var result : Array = Vec3.negate(this.vecA, this.vecA);
+			this.assertArrayEqual(this.vecA, this.arr3(-1, -2, -3), 3, "NegateWhenVecAIsTheOutputVector should place values into vecA");
+			this.assertArrayEqual(result, this.vecA, 3, "NegateWhenVecAIsTheOutputVector should return vecA");
+		}
+
+		private function negateWithASeparateOutputVector() : void
+		{
+			var result : Array = Vec3.negate(this.output, this.vecA);
+			this.assertArrayEqual(this.output, this.arr3(-1, -2, -3), 3, "NegateWithASeparateOutputVector should place values into out");
+			this.assertArrayEqual(result, this.output, 3, "NegateWithASeparateOutputVector should should return out");
+			this.assertArrayEqual(this.vecA, this.arr3(1, 2, 3), 3, "NegateWithASeparateOutputVector should not modify vecA");
 		}
 
 		private function normalize() : void
 		{
+			this.normalizeWithASeparateOutputVector();
+			this.normalizeWhenVecAIsTheOutputVector();
+		}
+
+		private function normalizeWhenVecAIsTheOutputVector() : void
+		{
+			var vecA1 : Array = this.arr3(5, 0, 0);
+			var result : Array = Vec3.normalize(this.vecA, this.vecA);
+			this.assertArrayEqual(this.vecA, this.arr3(1, 0, 0), 3, "NormalizeWhenVecAIsTheOutputVector should place values into vecA");
+			this.assertArrayEqual(result, this.vecA, 3, "NormalizeWhenVecAIsTheOutputVector should return vecA");
+		}
+
+		private function normalizeWithASeparateOutputVector() : void
+		{
+			this.vecA = this.arr3(5, 0, 0);
+			var result : Array = Vec3.normalize(this.output, this.vecA);
+			this.assertArrayEqual(this.output, this.arr3(1, 0, 0), 3, "NormalizeWithASeparateOutputVector should place values into out");
+			this.assertArrayEqual(result, this.output, 3, "NormalizeWithASeparateOutputVector should return out");
+			this.assertArrayEqual(this.vecA, this.arr3(5, 0, 0), 3, "NormalizeWithASeparateOutputVector should not modify vecA");
 		}
 
 		private function random() : void
 		{
 		}
 
+		private function resetTests() : void
+		{
+			this.vecA = this.arr3(1, 2, 3);
+			this.vecB = this.arr3(4, 5, 6);
+			this.output = this.arr3(0, 0, 0);
+		}
+
 		private function scale() : void
 		{
+			this.scaleWithASeparateOutputVector();
+			this.scaleWhenVecAIsTheOutputVector();
 		}
 
 		private function scaleAndAdd() : void
+		{
+			this.scaleAndAddWithASeparateOutputVector();
+			this.scaleAndAddWhenVecAIsTheOutputVector();
+			this.scaleAndAddWhenVecBIsTheOutputVector();
+		}
+
+		private function scaleAndAddWhenVecAIsTheOutputVector() : void
+		{
+		}
+
+		private function scaleAndAddWhenVecBIsTheOutputVector() : void
+		{
+		}
+
+		private function scaleAndAddWithASeparateOutputVector() : void
+		{
+		}
+
+		private function scaleWhenVecAIsTheOutputVector() : void
+		{
+		}
+
+		private function scaleWithASeparateOutputVector() : void
 		{
 		}
 
@@ -245,37 +364,60 @@ package
 
 		public final function test() : void
 		{
-			this.errors = new Array(1024);
-			this.errorsCount = 0;
-			this.vecA = this.arr3(1, 2, 3);
-			this.vecB = this.arr3(4, 5, 6);
-			this.output = this.arr3(0, 0, 0);
+			this.citoassert = new CitoAssert();
+			this.resetTests();
 			this.transformMat4();
+			this.resetTests();
 			this.create();
+			this.resetTests();
 			this.clone();
+			this.resetTests();
 			this.fromValues();
+			this.resetTests();
 			this.copy();
+			this.resetTests();
 			this.set();
+			this.resetTests();
 			this.add();
+			this.resetTests();
 			this.subtract();
+			this.resetTests();
 			this.multiply();
+			this.resetTests();
 			this.divide();
+			this.resetTests();
 			this.min();
+			this.resetTests();
 			this.max();
+			this.resetTests();
 			this.scale();
+			this.resetTests();
 			this.scaleAndAdd();
+			this.resetTests();
 			this.distance();
+			this.resetTests();
 			this.squaredDistance();
+			this.resetTests();
 			this.length();
+			this.resetTests();
 			this.squaredLength();
+			this.resetTests();
 			this.negate();
+			this.resetTests();
 			this.normalize();
+			this.resetTests();
 			this.dot();
+			this.resetTests();
 			this.cross();
+			this.resetTests();
 			this.lerp();
+			this.resetTests();
 			this.random();
+			this.resetTests();
 			this.forEach();
+			this.resetTests();
 			this.str();
+			this.resetTests();
 		}
 
 		private function transformMat3With90DegAboutX() : void
@@ -340,8 +482,7 @@ package
 			this.assertArrayEqual(this.output, this.arr3(1, 2, 3), 3, "TransformMat4WithAnIdentity should produce the input");
 			this.assertArrayEqual(result, this.output, 3, "TransformMat4WithAnIdentity should return output");
 		}
-		private var errors : Array;
-		private var errorsCount : int;
+		private var citoassert : CitoAssert;
 		private var output : Array;
 		private var vecA : Array;
 		private var vecB : Array;

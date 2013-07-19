@@ -2,6 +2,116 @@
 use integer;
 use strict;
 
+=head1 Class CitoAssert
+
+=cut
+
+package CitoAssert;
+
+=head2 C<$citoassert = CitoAssert-E<gt>new()>
+
+=cut
+
+sub new($) {
+	my $self = bless {}, shift;
+	$self->{errors} = [];
+	$self->{errors_count} = 0;
+	return $self;
+}
+
+=head2 C<$citoassert-E<gt>arr16($p, $p_2, $p_3, $p_4, $p_5, $p_6, $p_7, $p_8, $p_9, $p_10, $p_11, $p_12, $p_13, $p_14, $p_15, $p_16)>
+
+=cut
+
+sub arr16($$$$$$$$$$$$$$$$$) {
+	my ($self, $p, $p_2, $p_3, $p_4, $p_5, $p_6, $p_7, $p_8, $p_9, $p_10, $p_11, $p_12, $p_13, $p_14, $p_15, $p_16) = @_;
+	my $arr = [];
+	$arr->[0] = $p;
+	$arr->[1] = $p_2;
+	$arr->[2] = $p_3;
+	$arr->[3] = $p_4;
+	$arr->[4] = $p_5;
+	$arr->[5] = $p_6;
+	$arr->[6] = $p_7;
+	$arr->[7] = $p_8;
+	$arr->[8] = $p_9;
+	$arr->[9] = $p_10;
+	$arr->[10] = $p_11;
+	$arr->[11] = $p_12;
+	$arr->[12] = $p_13;
+	$arr->[13] = $p_14;
+	$arr->[14] = $p_15;
+	$arr->[15] = $p_16;
+	return $arr;
+}
+
+=head2 C<$citoassert-E<gt>arr3($p, $p_2, $p_3)>
+
+=cut
+
+sub arr3($$$$) {
+	my ($self, $p, $p_2, $p_3) = @_;
+	my $arr = [];
+	$arr->[0] = $p;
+	$arr->[1] = $p_2;
+	$arr->[2] = $p_3;
+	return $arr;
+}
+
+=head2 C<$citoassert-E<gt>arr9($p, $p_2, $p_3, $p_4, $p_5, $p_6, $p_7, $p_8, $p_9)>
+
+=cut
+
+sub arr9($$$$$$$$$$) {
+	my ($self, $p, $p_2, $p_3, $p_4, $p_5, $p_6, $p_7, $p_8, $p_9) = @_;
+	my $arr = [];
+	$arr->[0] = $p;
+	$arr->[1] = $p_2;
+	$arr->[2] = $p_3;
+	$arr->[3] = $p_4;
+	$arr->[4] = $p_5;
+	$arr->[5] = $p_6;
+	$arr->[6] = $p_7;
+	$arr->[7] = $p_8;
+	$arr->[8] = $p_9;
+	return $arr;
+}
+
+=head2 C<$citoassert-E<gt>assert_array_equal(\@actual, \@expected, $length, $msg)>
+
+=cut
+
+sub assert_array_equal($$$$$) {
+	my ($self, $actual, $expected, $length, $msg) = @_;
+	for (my $i = 0; $i < $length; $i++) {
+		if ($actual->[$i] != $expected->[$i]) {
+			$self->{errors}->[$self->{errors_count}++] = $msg;
+		}
+	}
+}
+
+=head2 C<$citoassert-E<gt>assert_close_to($actual, $expected, $msg)>
+
+=cut
+
+sub assert_close_to($$$$) {
+	my ($self, $actual, $expected, $msg) = @_;
+	if (GlMatrixMath::abs($actual - $expected) > GlMatrixMath::g_l_m_a_t__e_p_s_i_l_o_n()) {
+		$self->{errors}->[$self->{errors_count}++] = $msg;
+	}
+}
+
+=head2 C<$citoassert-E<gt>assert_equal($actual, $expected, $msg)>
+
+=cut
+
+sub assert_equal($$$$) {
+	my ($self, $actual, $expected, $msg) = @_;
+	if ($actual != $expected) {
+		$self->{errors}->[$self->{errors_count}++] = $msg;
+	}
+}
+
 =head1 Class GlMatrixMath
 
 =cut
@@ -2345,12 +2455,12 @@ sub acos($) {
 	return 0;
 }
 
-=head2 C<Platform::cos($r)>
+=head2 C<Platform::cos($a)>
 
 =cut
 
 sub cos($) {
-	my ($r) = @_;
+	my ($a) = @_;
 	return 0;
 }
 
@@ -2362,12 +2472,12 @@ sub random() {
 	return 0;
 }
 
-=head2 C<Platform::sin($r)>
+=head2 C<Platform::sin($a)>
 
 =cut
 
 sub sin($) {
-	my ($r) = @_;
+	my ($a) = @_;
 	return 0;
 }
 
@@ -2380,12 +2490,12 @@ sub sqrt($) {
 	return 0;
 }
 
-=head2 C<Platform::tan($p)>
+=head2 C<Platform::tan($a)>
 
 =cut
 
 sub tan($) {
-	my ($p) = @_;
+	my ($a) = @_;
 	return 0;
 }
 
@@ -2906,6 +3016,183 @@ sub f($) {
 	my ($self) = @_;
 }
 
+=head1 Class TestMat4
+
+=cut
+
+package TestMat4;
+
+=head2 C<$testmat4 = TestMat4-E<gt>new()>
+
+=cut
+
+sub new($) {
+	my $self = bless {}, shift;
+	return $self;
+}
+
+sub adjoint($) {
+	my ($self) = @_;
+}
+
+sub arr16($$$$$$$$$$$$$$$$$) {
+	my ($self, $p, $p_2, $p_3, $p_4, $p_5, $p_6, $p_7, $p_8, $p_9, $p_10, $p_11, $p_12, $p_13, $p_14, $p_15, $p_16) = @_;
+	return $self->{citoassert}->arr16($p, $p_2, $p_3, $p_4, $p_5, $p_6, $p_7, $p_8, $p_9, $p_10, $p_11, $p_12, $p_13, $p_14, $p_15, $p_16);
+}
+
+sub arr3($$$$) {
+	my ($self, $p, $p_2, $p_3) = @_;
+	return $self->{citoassert}->arr3($p, $p_2, $p_3);
+}
+
+sub arr9($$$$$$$$$$) {
+	my ($self, $p, $p_2, $p_3, $p_4, $p_5, $p_6, $p_7, $p_8, $p_9) = @_;
+	return $self->{citoassert}->arr9($p, $p_2, $p_3, $p_4, $p_5, $p_6, $p_7, $p_8, $p_9);
+}
+
+sub assert_array_equal($$$$$) {
+	my ($self, $actual, $expected, $length, $msg) = @_;
+	$self->{citoassert}->assert_array_equal($actual, $expected, $length, $msg);
+}
+
+sub assert_close_to($$$$) {
+	my ($self, $actual, $expected, $msg) = @_;
+	$self->{citoassert}->assert_close_to($actual, $expected, $msg);
+}
+
+sub assert_equal($$$$) {
+	my ($self, $actual, $expected, $msg) = @_;
+	$self->{citoassert}->assert_equal($actual, $expected, $msg);
+}
+
+sub clone($) {
+	my ($self) = @_;
+}
+
+sub copy($) {
+	my ($self) = @_;
+}
+
+sub create($) {
+	my ($self) = @_;
+}
+
+sub determinant($) {
+	my ($self) = @_;
+}
+
+sub frustum($) {
+	my ($self) = @_;
+}
+
+sub identity($) {
+	my ($self) = @_;
+}
+
+sub invert($) {
+	my ($self) = @_;
+}
+
+sub look_at($) {
+	my ($self) = @_;
+}
+
+sub multiply($) {
+	my ($self) = @_;
+}
+
+sub ortho($) {
+	my ($self) = @_;
+}
+
+sub reset_tests($) {
+	my ($self) = @_;
+	$self->{mat_a} = $self->arr16(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 1, 2, 3, 1);
+	$self->{mat_b} = $self->arr16(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 4, 5, 6, 1);
+	$self->{output} = $self->arr16(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+	$self->{identity} = $self->arr16(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1);
+}
+
+sub rotate($) {
+	my ($self) = @_;
+}
+
+sub rotate_x($) {
+	my ($self) = @_;
+}
+
+sub rotate_y($) {
+	my ($self) = @_;
+}
+
+sub rotate_z($) {
+	my ($self) = @_;
+}
+
+sub scale($) {
+	my ($self) = @_;
+}
+
+sub str($) {
+	my ($self) = @_;
+}
+
+=head2 C<$testmat4-E<gt>test()>
+
+=cut
+
+sub test($) {
+	my ($self) = @_;
+	$self->{citoassert} = CitoAssert->new();
+	$self->reset_tests();
+	$self->create();
+	$self->reset_tests();
+	$self->clone();
+	$self->reset_tests();
+	$self->copy();
+	$self->reset_tests();
+	$self->identity();
+	$self->reset_tests();
+	$self->transpose();
+	$self->reset_tests();
+	$self->invert();
+	$self->reset_tests();
+	$self->adjoint();
+	$self->reset_tests();
+	$self->determinant();
+	$self->reset_tests();
+	$self->multiply();
+	$self->reset_tests();
+	$self->translate();
+	$self->reset_tests();
+	$self->scale();
+	$self->reset_tests();
+	$self->rotate();
+	$self->reset_tests();
+	$self->rotate_x();
+	$self->reset_tests();
+	$self->rotate_y();
+	$self->reset_tests();
+	$self->rotate_z();
+	$self->reset_tests();
+	$self->frustum();
+	$self->reset_tests();
+	$self->ortho();
+	$self->reset_tests();
+	$self->look_at();
+	$self->reset_tests();
+	$self->str();
+	$self->reset_tests();
+}
+
+sub translate($) {
+	my ($self) = @_;
+}
+
+sub transpose($) {
+	my ($self) = @_;
+}
+
 =head1 Class TestVec3
 
 =cut
@@ -2947,71 +3234,32 @@ sub add_with_a_separate_output_vector($) {
 
 sub arr16($$$$$$$$$$$$$$$$$) {
 	my ($self, $p, $p_2, $p_3, $p_4, $p_5, $p_6, $p_7, $p_8, $p_9, $p_10, $p_11, $p_12, $p_13, $p_14, $p_15, $p_16) = @_;
-	my $arr = [];
-	$arr->[0] = $p;
-	$arr->[1] = $p_2;
-	$arr->[2] = $p_3;
-	$arr->[3] = $p_4;
-	$arr->[4] = $p_5;
-	$arr->[5] = $p_6;
-	$arr->[6] = $p_7;
-	$arr->[7] = $p_8;
-	$arr->[8] = $p_9;
-	$arr->[9] = $p_10;
-	$arr->[10] = $p_11;
-	$arr->[11] = $p_12;
-	$arr->[12] = $p_13;
-	$arr->[13] = $p_14;
-	$arr->[14] = $p_15;
-	$arr->[15] = $p_16;
-	return $arr;
+	return $self->{citoassert}->arr16($p, $p_2, $p_3, $p_4, $p_5, $p_6, $p_7, $p_8, $p_9, $p_10, $p_11, $p_12, $p_13, $p_14, $p_15, $p_16);
 }
 
 sub arr3($$$$) {
 	my ($self, $p, $p_2, $p_3) = @_;
-	my $arr = [];
-	$arr->[0] = $p;
-	$arr->[1] = $p_2;
-	$arr->[2] = $p_3;
-	return $arr;
+	return $self->{citoassert}->arr3($p, $p_2, $p_3);
 }
 
 sub arr9($$$$$$$$$$) {
 	my ($self, $p, $p_2, $p_3, $p_4, $p_5, $p_6, $p_7, $p_8, $p_9) = @_;
-	my $arr = [];
-	$arr->[0] = $p;
-	$arr->[1] = $p_2;
-	$arr->[2] = $p_3;
-	$arr->[3] = $p_4;
-	$arr->[4] = $p_5;
-	$arr->[5] = $p_6;
-	$arr->[6] = $p_7;
-	$arr->[7] = $p_8;
-	$arr->[8] = $p_9;
-	return $arr;
+	return $self->{citoassert}->arr9($p, $p_2, $p_3, $p_4, $p_5, $p_6, $p_7, $p_8, $p_9);
 }
 
 sub assert_array_equal($$$$$) {
 	my ($self, $actual, $expected, $length, $msg) = @_;
-	for (my $i = 0; $i < $length; $i++) {
-		if ($actual->[$i] != $expected->[$i]) {
-			$self->{errors}->[$self->{errors_count}++] = $msg;
-		}
-	}
+	$self->{citoassert}->assert_array_equal($actual, $expected, $length, $msg);
 }
 
 sub assert_close_to($$$$) {
 	my ($self, $actual, $expected, $msg) = @_;
-	if (GlMatrixMath::abs($actual - $expected) > GlMatrixMath::g_l_m_a_t__e_p_s_i_l_o_n()) {
-		$self->{errors}->[$self->{errors_count}++] = $msg;
-	}
+	$self->{citoassert}->assert_close_to($actual, $expected, $msg);
 }
 
 sub assert_equal($$$$) {
 	my ($self, $actual, $expected, $msg) = @_;
-	if ($actual != $expected) {
-		$self->{errors}->[$self->{errors_count}++] = $msg;
-	}
+	$self->{citoassert}->assert_equal($actual, $expected, $msg);
 }
 
 sub clone($) {
@@ -3035,6 +3283,21 @@ sub create($) {
 
 sub cross($) {
 	my ($self) = @_;
+	$self->cross_with_a_separate_output_vector();
+	$self->cross_when_vec_a_is_the_output_vector();
+	$self->cross_when_vec_b_is_the_output_vector();
+}
+
+sub cross_when_vec_a_is_the_output_vector($) {
+	my ($self) = @_;
+}
+
+sub cross_when_vec_b_is_the_output_vector($) {
+	my ($self) = @_;
+}
+
+sub cross_with_a_separate_output_vector($) {
+	my ($self) = @_;
 }
 
 sub distance($) {
@@ -3046,6 +3309,21 @@ sub distance($) {
 }
 
 sub divide($) {
+	my ($self) = @_;
+	$self->divide_with_a_separate_output_vector();
+	$self->divide_when_vec_a_is_the_output_vector();
+	$self->divide_when_vec_b_is_the_output_vector();
+}
+
+sub divide_when_vec_a_is_the_output_vector($) {
+	my ($self) = @_;
+}
+
+sub divide_when_vec_b_is_the_output_vector($) {
+	my ($self) = @_;
+}
+
+sub divide_with_a_separate_output_vector($) {
 	my ($self) = @_;
 }
 
@@ -3077,37 +3355,165 @@ sub length($) {
 
 sub lerp($) {
 	my ($self) = @_;
+	$self->lerp_with_a_separate_output_vector();
+	$self->lerp_when_vec_a_is_the_output_vector();
+	$self->lerp_when_vec_b_is_the_output_vector();
+}
+
+sub lerp_when_vec_a_is_the_output_vector($) {
+	my ($self) = @_;
+}
+
+sub lerp_when_vec_b_is_the_output_vector($) {
+	my ($self) = @_;
+}
+
+sub lerp_with_a_separate_output_vector($) {
+	my ($self) = @_;
 }
 
 sub max($) {
+	my ($self) = @_;
+	$self->max_with_a_separate_output_vector();
+	$self->max_when_vec_a_is_the_output_vector();
+	$self->max_when_vec_b_is_the_output_vector();
+}
+
+sub max_when_vec_a_is_the_output_vector($) {
+	my ($self) = @_;
+}
+
+sub max_when_vec_b_is_the_output_vector($) {
+	my ($self) = @_;
+}
+
+sub max_with_a_separate_output_vector($) {
 	my ($self) = @_;
 }
 
 sub min($) {
 	my ($self) = @_;
+	$self->min_with_a_separate_output_vector();
+	$self->min_when_vec_a_is_the_output_vector();
+	$self->min_when_vec_b_is_the_output_vector();
+}
+
+sub min_when_vec_a_is_the_output_vector($) {
+	my ($self) = @_;
+}
+
+sub min_when_vec_b_is_the_output_vector($) {
+	my ($self) = @_;
+}
+
+sub min_with_a_separate_output_vector($) {
+	my ($self) = @_;
 }
 
 sub multiply($) {
+	my ($self) = @_;
+	$self->multiply_with_a_separate_output_vector();
+	$self->multiply_when_vec_a_is_the_output_vector();
+	$self->multiply_when_vec_b_is_the_output_vector();
+}
+
+sub multiply_when_vec_a_is_the_output_vector($) {
+	my ($self) = @_;
+}
+
+sub multiply_when_vec_b_is_the_output_vector($) {
+	my ($self) = @_;
+}
+
+sub multiply_with_a_separate_output_vector($) {
 	my ($self) = @_;
 }
 
 sub negate($) {
 	my ($self) = @_;
+	$self->negate_with_a_separate_output_vector();
+	$self->negate_when_vec_a_is_the_output_vector();
+}
+
+sub negate_when_vec_a_is_the_output_vector($) {
+	my ($self) = @_;
+	my $result = Vec3::negate($self->{vec_a}, $self->{vec_a});
+	$self->assert_array_equal($self->{vec_a}, $self->arr3(-1, -2, -3), 3, "NegateWhenVecAIsTheOutputVector should place values into vecA");
+	$self->assert_array_equal($result, $self->{vec_a}, 3, "NegateWhenVecAIsTheOutputVector should return vecA");
+}
+
+sub negate_with_a_separate_output_vector($) {
+	my ($self) = @_;
+	my $result = Vec3::negate($self->{output}, $self->{vec_a});
+	$self->assert_array_equal($self->{output}, $self->arr3(-1, -2, -3), 3, "NegateWithASeparateOutputVector should place values into out");
+	$self->assert_array_equal($result, $self->{output}, 3, "NegateWithASeparateOutputVector should should return out");
+	$self->assert_array_equal($self->{vec_a}, $self->arr3(1, 2, 3), 3, "NegateWithASeparateOutputVector should not modify vecA");
 }
 
 sub normalize($) {
 	my ($self) = @_;
+	$self->normalize_with_a_separate_output_vector();
+	$self->normalize_when_vec_a_is_the_output_vector();
+}
+
+sub normalize_when_vec_a_is_the_output_vector($) {
+	my ($self) = @_;
+	my $vecA1 = $self->arr3(5, 0, 0);
+	my $result = Vec3::normalize($self->{vec_a}, $self->{vec_a});
+	$self->assert_array_equal($self->{vec_a}, $self->arr3(1, 0, 0), 3, "NormalizeWhenVecAIsTheOutputVector should place values into vecA");
+	$self->assert_array_equal($result, $self->{vec_a}, 3, "NormalizeWhenVecAIsTheOutputVector should return vecA");
+}
+
+sub normalize_with_a_separate_output_vector($) {
+	my ($self) = @_;
+	$self->{vec_a} = $self->arr3(5, 0, 0);
+	my $result = Vec3::normalize($self->{output}, $self->{vec_a});
+	$self->assert_array_equal($self->{output}, $self->arr3(1, 0, 0), 3, "NormalizeWithASeparateOutputVector should place values into out");
+	$self->assert_array_equal($result, $self->{output}, 3, "NormalizeWithASeparateOutputVector should return out");
+	$self->assert_array_equal($self->{vec_a}, $self->arr3(5, 0, 0), 3, "NormalizeWithASeparateOutputVector should not modify vecA");
 }
 
 sub random($) {
 	my ($self) = @_;
 }
 
+sub reset_tests($) {
+	my ($self) = @_;
+	$self->{vec_a} = $self->arr3(1, 2, 3);
+	$self->{vec_b} = $self->arr3(4, 5, 6);
+	$self->{output} = $self->arr3(0, 0, 0);
+}
+
 sub scale($) {
 	my ($self) = @_;
+	$self->scale_with_a_separate_output_vector();
+	$self->scale_when_vec_a_is_the_output_vector();
 }
 
 sub scale_and_add($) {
+	my ($self) = @_;
+	$self->scale_and_add_with_a_separate_output_vector();
+	$self->scale_and_add_when_vec_a_is_the_output_vector();
+	$self->scale_and_add_when_vec_b_is_the_output_vector();
+}
+
+sub scale_and_add_when_vec_a_is_the_output_vector($) {
+	my ($self) = @_;
+}
+
+sub scale_and_add_when_vec_b_is_the_output_vector($) {
+	my ($self) = @_;
+}
+
+sub scale_and_add_with_a_separate_output_vector($) {
+	my ($self) = @_;
+}
+
+sub scale_when_vec_a_is_the_output_vector($) {
+	my ($self) = @_;
+}
+
+sub scale_with_a_separate_output_vector($) {
 	my ($self) = @_;
 }
 
@@ -3164,37 +3570,60 @@ sub subtract_with_a_separate_output_vector($) {
 
 sub test($) {
 	my ($self) = @_;
-	$self->{errors} = [];
-	$self->{errors_count} = 0;
-	$self->{vec_a} = $self->arr3(1, 2, 3);
-	$self->{vec_b} = $self->arr3(4, 5, 6);
-	$self->{output} = $self->arr3(0, 0, 0);
+	$self->{citoassert} = CitoAssert->new();
+	$self->reset_tests();
 	$self->transform_mat4();
+	$self->reset_tests();
 	$self->create();
+	$self->reset_tests();
 	$self->clone();
+	$self->reset_tests();
 	$self->from_values();
+	$self->reset_tests();
 	$self->copy();
+	$self->reset_tests();
 	$self->set();
+	$self->reset_tests();
 	$self->add();
+	$self->reset_tests();
 	$self->subtract();
+	$self->reset_tests();
 	$self->multiply();
+	$self->reset_tests();
 	$self->divide();
+	$self->reset_tests();
 	$self->min();
+	$self->reset_tests();
 	$self->max();
+	$self->reset_tests();
 	$self->scale();
+	$self->reset_tests();
 	$self->scale_and_add();
+	$self->reset_tests();
 	$self->distance();
+	$self->reset_tests();
 	$self->squared_distance();
+	$self->reset_tests();
 	$self->length();
+	$self->reset_tests();
 	$self->squared_length();
+	$self->reset_tests();
 	$self->negate();
+	$self->reset_tests();
 	$self->normalize();
+	$self->reset_tests();
 	$self->dot();
+	$self->reset_tests();
 	$self->cross();
+	$self->reset_tests();
 	$self->lerp();
+	$self->reset_tests();
 	$self->random();
+	$self->reset_tests();
 	$self->for_each();
+	$self->reset_tests();
 	$self->str();
+	$self->reset_tests();
 }
 
 sub transform_mat3_with90_deg_about_x($) {

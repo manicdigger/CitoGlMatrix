@@ -5,14 +5,31 @@
 #ifdef __cplusplus
 extern "C" {
 #endif
+typedef struct CitoAssert CitoAssert;
 typedef struct Mat2 Mat2;
 typedef struct Mat2d Mat2d;
 typedef struct Mat3 Mat3;
 typedef struct Mat4 Mat4;
 typedef struct Quat Quat;
+typedef struct TestMat4 TestMat4;
 typedef struct TestVec3 TestVec3;
 typedef struct Vec2 Vec2;
 typedef struct Vec4 Vec4;
+
+CitoAssert *CitoAssert_New(void);
+void CitoAssert_Delete(CitoAssert *self);
+
+float const *CitoAssert_Arr16(CitoAssert const *self, int p, int p_2, int p_3, int p_4, int p_5, int p_6, int p_7, int p_8, int p_9, int p_10, int p_11, int p_12, int p_13, int p_14, int p_15, int p_16);
+
+float const *CitoAssert_Arr3(CitoAssert const *self, int p, int p_2, int p_3);
+
+float const *CitoAssert_Arr9(CitoAssert const *self, int p, int p_2, int p_3, int p_4, int p_5, int p_6, int p_7, int p_8, int p_9);
+
+void CitoAssert_AssertArrayEqual(CitoAssert *self, float const *actual, float const *expected, int length, const char *msg);
+
+void CitoAssert_AssertCloseTo(CitoAssert *self, float actual, float expected, const char *msg);
+
+void CitoAssert_AssertEqual(CitoAssert *self, float actual, float expected, const char *msg);
 
 float GlMatrixMath_Abs(float len);
 
@@ -578,6 +595,11 @@ float Quat_SqrLen(float const *a);
  * **
  */
 float Quat_SquaredLength(float const *a);
+
+TestMat4 *TestMat4_New(void);
+void TestMat4_Delete(TestMat4 *self);
+
+void TestMat4_Test(TestMat4 *self);
 
 TestVec3 *TestVec3_New(void);
 void TestVec3_Delete(TestVec3 *self);

@@ -11,7 +11,7 @@ package
 			return 0;
 		}
 
-		public static function cos(r : float) : float
+		public static function cos(a : float) : float
 		{
 			return 0;
 		}
@@ -21,7 +21,7 @@ package
 			return 0;
 		}
 
-		public static function sin(r : float) : float
+		public static function sin(a : float) : float
 		{
 			return 0;
 		}
@@ -31,7 +31,7 @@ package
 			return 0;
 		}
 
-		public static function tan(p : float) : float
+		public static function tan(a : float) : float
 		{
 			return 0;
 		}

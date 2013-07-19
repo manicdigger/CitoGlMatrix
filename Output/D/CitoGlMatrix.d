@@ -853,7 +853,7 @@ class Mat4
 
 	/// Creates a new identity mat4
 	/// Returns {mat4} a new 4x4 matrix
-	static const(float)[] Create()
+	static float[] Create()
 	{
 		float[] output = new float[16];
 		output[0] = 1;
@@ -2051,6 +2051,275 @@ class Quat
 	private final void f()
 	{
 	}
+}
+
+class TestVec3
+{
+
+	private void Add()
+	{
+	}
+
+	private const(float)[] Arr16(int p, int p_2, int p_3, int p_4, int p_5, int p_6, int p_7, int p_8, int p_9, int p_10, int p_11, int p_12, int p_13, int p_14, int p_15, int p_16)
+	{
+		float[] arr = new float[16];
+		arr[0] = p;
+		arr[1] = p_2;
+		arr[2] = p_3;
+		arr[3] = p_4;
+		arr[4] = p_5;
+		arr[5] = p_6;
+		arr[6] = p_7;
+		arr[7] = p_8;
+		arr[8] = p_9;
+		arr[9] = p_10;
+		arr[10] = p_11;
+		arr[11] = p_12;
+		arr[12] = p_13;
+		arr[13] = p_14;
+		arr[14] = p_15;
+		arr[15] = p_16;
+		return arr;
+	}
+
+	private float[] Arr3(int p, int p_2, int p_3)
+	{
+		float[] arr = new float[3];
+		arr[0] = p;
+		arr[1] = p_2;
+		arr[2] = p_3;
+		return arr;
+	}
+
+	private const(float)[] Arr9(int p, int p_2, int p_3, int p_4, int p_5, int p_6, int p_7, int p_8, int p_9)
+	{
+		float[] arr = new float[16];
+		arr[0] = p;
+		arr[1] = p_2;
+		arr[2] = p_3;
+		arr[3] = p_4;
+		arr[4] = p_5;
+		arr[5] = p_6;
+		arr[6] = p_7;
+		arr[7] = p_8;
+		arr[8] = p_9;
+		return arr;
+	}
+
+	private void AssertArrayEqual(const(float)[] actual, const(float)[] expected, int length, string msg)
+	{
+		for (int i = 0; i < length; i++) {
+			if (actual[i] != expected[i]) {
+				this.errors[this.errorsCount++] = msg;
+			}
+		}
+	}
+
+	private void Clone()
+	{
+		const(float)[] result = Vec3.Clone(this.vecA);
+		this.AssertArrayEqual(result, this.vecA, 3, "Clone should return a 3 element array initialized to the values in vecA");
+	}
+
+	private void Copy()
+	{
+		const(float)[] result = Vec3.Copy(this.output, this.vecA);
+		this.AssertArrayEqual(this.output, this.Arr3(1, 2, 3), 3, "Copy should place values into out");
+		this.AssertArrayEqual(result, this.output, 3, "Copy should return output");
+	}
+
+	private void Create()
+	{
+		const(float)[] result = Vec3.Create();
+		this.AssertArrayEqual(result, this.Arr3(0, 0, 0), 3, "Create should return a 3 element array initialized to 0s");
+	}
+
+	private void Cross()
+	{
+	}
+
+	private void Distance()
+	{
+	}
+
+	private void Divide()
+	{
+	}
+
+	private void Dot()
+	{
+	}
+
+	private void ForEach()
+	{
+	}
+
+	private void FromValues()
+	{
+		const(float)[] result = Vec3.FromValues(1, 2, 3);
+		this.AssertArrayEqual(result, this.Arr3(1, 2, 3), 3, "FromValues should return a 3 element array initialized to the values passed");
+	}
+
+	private void Length()
+	{
+	}
+
+	private void Lerp()
+	{
+	}
+
+	private void Max()
+	{
+	}
+
+	private void Min()
+	{
+	}
+
+	private void Multiply()
+	{
+	}
+
+	private void Negate()
+	{
+	}
+
+	private void Normalize()
+	{
+	}
+
+	private void Random()
+	{
+	}
+
+	private void Scale()
+	{
+	}
+
+	private void ScaleAndAdd()
+	{
+	}
+
+	private void Set()
+	{
+		const(float)[] result = Vec3.Set(this.output, 1, 2, 3);
+		this.AssertArrayEqual(this.output, this.Arr3(1, 2, 3), 3, "Set should place values into output");
+		this.AssertArrayEqual(result, this.output, 3, "Set should return output");
+	}
+
+	private void SquaredDistance()
+	{
+	}
+
+	private void SquaredLength()
+	{
+	}
+
+	private void Str()
+	{
+	}
+
+	private void Subtract()
+	{
+	}
+
+	final void Test()
+	{
+		this.errors = new string[1024];
+		this.errorsCount = 0;
+		this.vecA = this.Arr3(1, 2, 3);
+		this.vecB = this.Arr3(4, 5, 6);
+		this.output = this.Arr3(0, 0, 0);
+		this.TransformMat4WithAnIdentity();
+		this.TransformMat4WithALookAt();
+		this.TransformMat3WithAnIdentity();
+		this.TransformMat3With90DegAboutX();
+		this.TransformMat3With90DegAboutY();
+		this.TransformMat3With90DegAboutZ();
+		this.TransformMat3WithALookAtNormalMatrix();
+		this.Create();
+		this.Clone();
+		this.FromValues();
+		this.Copy();
+		this.Set();
+		this.Add();
+		this.Subtract();
+		this.Multiply();
+		this.Divide();
+		this.Min();
+		this.Max();
+		this.Scale();
+		this.ScaleAndAdd();
+		this.Distance();
+		this.SquaredDistance();
+		this.Length();
+		this.SquaredLength();
+		this.Negate();
+		this.Normalize();
+		this.Dot();
+		this.Cross();
+		this.Lerp();
+		this.Random();
+		this.ForEach();
+		this.Str();
+	}
+
+	private void TransformMat3With90DegAboutX()
+	{
+		const(float)[] result = Vec3.TransformMat3(this.output, this.Arr3(0, 1, 0), this.Arr9(1, 0, 0, 0, 0, 1, 0, -1, 0));
+		this.AssertArrayEqual(this.output, this.Arr3(0, 0, 1), 3, "TransformMat3With90DegAboutX should produce correct output");
+	}
+
+	private void TransformMat3With90DegAboutY()
+	{
+		const(float)[] result = Vec3.TransformMat3(this.output, this.Arr3(1, 0, 0), this.Arr9(0, 0, -1, 0, 1, 0, 1, 0, 0));
+		this.AssertArrayEqual(this.output, this.Arr3(0, 0, -1), 3, "TransformMat3With90DegAboutU should produce correct output");
+	}
+
+	private void TransformMat3With90DegAboutZ()
+	{
+		const(float)[] result = Vec3.TransformMat3(this.output, this.Arr3(1, 0, 0), this.Arr9(0, 1, 0, -1, 0, 0, 0, 0, 1));
+		this.AssertArrayEqual(this.output, this.Arr3(0, 1, 0), 3, "TransformMat3With90DegAboutZ should produce correct output");
+	}
+
+	private void TransformMat3WithALookAtNormalMatrix()
+	{
+		const(float)[] matr = Mat4.LookAt(Mat4.Create(), this.Arr3(5, 6, 7), this.Arr3(2, 6, 7), this.Arr3(0, 1, 0));
+		float[] n = Mat3.Create();
+		matr = Mat3.Transpose(n, Mat3.Invert(n, Mat3.FromMat4(n, matr)));
+		const(float)[] result = Vec3.TransformMat3(this.output, this.Arr3(1, 0, 0), matr);
+		this.AssertArrayEqual(this.output, this.Arr3(0, 0, 1), 3, "TransformMat3WithALookAtNormalMatrix should rotate the input");
+		this.AssertArrayEqual(result, this.output, 3, "TransformMat3WithALookAtNormalMatrix should return output");
+	}
+
+	private void TransformMat3WithAnIdentity()
+	{
+		const(float)[] matr = this.Arr9(1, 0, 0, 0, 1, 0, 0, 0, 1);
+		const(float)[] result = Vec3.TransformMat3(this.output, this.vecA, matr);
+		this.AssertArrayEqual(this.output, this.Arr3(1, 2, 3), 3, "TransformMat3WithAnIdentity should produce the input");
+		this.AssertArrayEqual(result, this.output, 3, "TransformMat3WithAnIdentity should return output");
+	}
+
+	private void TransformMat4WithALookAt()
+	{
+		const(float)[] matr = Mat4.LookAt(Mat4.Create(), this.Arr3(5, 6, 7), this.Arr3(2, 6, 7), this.Arr3(0, 1, 0));
+		const(float)[] result = Vec3.TransformMat4(this.output, this.vecA, matr);
+		this.AssertArrayEqual(this.output, this.Arr3(4, -4, -4), 3, "TransformMat4WithALookAt should rotate and translate the input");
+		this.AssertArrayEqual(result, this.output, 3, "TransformMat4WithALookAt should return out");
+	}
+
+	private void TransformMat4WithAnIdentity()
+	{
+		const(float)[] matr = this.Arr16(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1);
+		const(float)[] result = Vec3.TransformMat4(this.output, this.vecA, matr);
+		this.AssertArrayEqual(this.output, this.Arr3(1, 2, 3), 3, "TransformMat4WithAnIdentity should produce the input");
+		this.AssertArrayEqual(result, this.output, 3, "TransformMat4WithAnIdentity should return output");
+	}
+	private string[] errors;
+	private int errorsCount;
+	private float[] output;
+	private const(float)[] vecA;
+	private const(float)[] vecB;
 }
 
 class Vec2

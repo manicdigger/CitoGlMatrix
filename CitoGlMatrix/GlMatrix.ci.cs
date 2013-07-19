@@ -4247,3 +4247,276 @@ public class GlMatrixMath
         return one / 1000000;
     }
 }
+
+public class TestVec3
+{
+    public void Test()
+    {
+        errors = new string[1024];
+        errorsCount = 0;
+        vecA = Arr3(1, 2, 3);
+        vecB = Arr3(4, 5, 6);
+        output = Arr3(0, 0, 0);
+        TransformMat4WithAnIdentity();
+        TransformMat4WithALookAt();
+        TransformMat3WithAnIdentity();
+        TransformMat3With90DegAboutX();
+        TransformMat3With90DegAboutY();
+        TransformMat3With90DegAboutZ();
+        TransformMat3WithALookAtNormalMatrix();
+        Create();
+        Clone();
+        FromValues();
+        Copy();
+        Set();
+        Add();
+        Subtract();
+        Multiply();
+        Divide();
+        Min();
+        Max();
+        Scale();
+        ScaleAndAdd();
+        Distance();
+        SquaredDistance();
+        Length();
+        SquaredLength();
+        Negate();
+        Normalize();
+        Dot();
+        Cross();
+        Lerp();
+        Random();
+        ForEach();
+        Str();
+    }
+
+    float[] vecA;
+    float[] vecB;
+    float[] output;
+
+    void TransformMat4WithAnIdentity()
+    {
+        float[] matr = Arr16(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1);
+        float[] result = Vec3.TransformMat4(output, vecA, matr);
+        AssertArrayEqual(output, Arr3(1, 2, 3), 3, "TransformMat4WithAnIdentity should produce the input");
+        AssertArrayEqual(result, output, 3, "TransformMat4WithAnIdentity should return output");
+    }
+
+    void TransformMat4WithALookAt()
+    {
+        float[] matr = Mat4.LookAt(Mat4.Create(), Arr3(5, 6, 7), Arr3(2, 6, 7), Arr3(0, 1, 0));
+        float[] result = Vec3.TransformMat4(output, vecA, matr);
+        AssertArrayEqual(output, Arr3(4, -4, -4), 3, "TransformMat4WithALookAt should rotate and translate the input");
+        AssertArrayEqual(result, output, 3, "TransformMat4WithALookAt should return out");
+    }
+
+    void TransformMat3WithAnIdentity()
+    {
+        float[] matr = Arr9(1, 0, 0, 0, 1, 0, 0, 0, 1);
+        float[] result = Vec3.TransformMat3(output, vecA, matr);
+        AssertArrayEqual(output, Arr3(1, 2, 3), 3, "TransformMat3WithAnIdentity should produce the input");
+        AssertArrayEqual(result, output, 3, "TransformMat3WithAnIdentity should return output");
+    }
+
+    void TransformMat3With90DegAboutX()
+    {
+        float[] result = Vec3.TransformMat3(output, Arr3(0, 1, 0), Arr9(1, 0, 0, 0, 0, 1, 0, -1, 0));
+        AssertArrayEqual(output, Arr3(0, 0, 1), 3, "TransformMat3With90DegAboutX should produce correct output");
+    }
+
+    void TransformMat3With90DegAboutY()
+    {
+        float[] result = Vec3.TransformMat3(output, Arr3(1, 0, 0), Arr9(0, 0, -1, 0, 1, 0, 1, 0, 0));
+        AssertArrayEqual(output, Arr3(0, 0, -1), 3, "TransformMat3With90DegAboutU should produce correct output");
+    }
+
+    void TransformMat3With90DegAboutZ()
+    {
+        float[] result = Vec3.TransformMat3(output, Arr3(1, 0, 0), Arr9(0, 1, 0, -1, 0, 0, 0, 0, 1));
+        AssertArrayEqual(output, Arr3(0, 1, 0), 3, "TransformMat3With90DegAboutZ should produce correct output");
+    }
+
+    void TransformMat3WithALookAtNormalMatrix()
+    {
+        float[] matr = Mat4.LookAt(Mat4.Create(), Arr3(5, 6, 7), Arr3(2, 6, 7), Arr3(0, 1, 0));
+        float[] n = Mat3.Create();
+        matr = Mat3.Transpose(n, Mat3.Invert(n, Mat3.FromMat4(n, matr)));
+        float[] result = Vec3.TransformMat3(output, Arr3(1, 0, 0), matr);
+
+        AssertArrayEqual(output, Arr3(0, 0, 1), 3, "TransformMat3WithALookAtNormalMatrix should rotate the input");
+        AssertArrayEqual(result, output, 3, "TransformMat3WithALookAtNormalMatrix should return output");
+    }
+
+    void Create()
+    {
+        float[] result = Vec3.Create();
+        AssertArrayEqual(result, Arr3(0, 0, 0), 3, "Create should return a 3 element array initialized to 0s");
+    }
+
+    void Clone()
+    {
+        float[] result = Vec3.Clone(vecA);
+        AssertArrayEqual(result, vecA, 3, "Clone should return a 3 element array initialized to the values in vecA");
+    }
+
+    void FromValues()
+    {
+        float[] result = Vec3.FromValues(1, 2, 3);
+        AssertArrayEqual(result, Arr3(1, 2, 3), 3, "FromValues should return a 3 element array initialized to the values passed");
+    }
+
+    void Copy()
+    {
+        float[] result = Vec3.Copy(output, vecA);
+        AssertArrayEqual(output, Arr3(1, 2, 3), 3, "Copy should place values into out");
+        AssertArrayEqual(result, output, 3, "Copy should return output");
+    }
+
+    void Set()
+    {
+        float[] result = Vec3.Set(output, 1, 2, 3);
+        AssertArrayEqual(output, Arr3(1, 2, 3), 3, "Set should place values into output");
+        AssertArrayEqual(result, output, 3, "Set should return output");
+    }
+
+    void Add()
+    {
+    }
+
+    void Subtract()
+    {
+    }
+
+    void Multiply()
+    {
+    }
+
+    void Divide()
+    {
+    }
+
+    void Min()
+    {
+    }
+
+    void Max()
+    {
+    }
+
+    void Scale()
+    {
+    }
+
+    void ScaleAndAdd()
+    {
+    }
+
+    void Distance()
+    {
+    }
+
+    void SquaredDistance()
+    {
+    }
+
+    void Length()
+    {
+    }
+
+    void SquaredLength()
+    {
+    }
+
+    void Negate()
+    {
+    }
+
+    void Normalize()
+    {
+    }
+
+    void Dot()
+    {
+    }
+
+    void Cross()
+    {
+    }
+
+    void Lerp()
+    {
+    }
+
+    void Random()
+    {
+    }
+
+    void ForEach()
+    {
+    }
+
+    void Str()
+    {
+    }
+
+    void AssertArrayEqual(float[] actual, float[] expected, int length, string msg)
+    {
+        for (int i = 0; i < length; i++)
+        {
+            if (actual[i] != expected[i])
+            {
+                errors[errorsCount++] = msg;
+            }
+        }
+    }
+
+    string[] errors;
+    int errorsCount;
+
+    float[] Arr3(int p, int p_2, int p_3)
+    {
+        float[] arr = new float[3];
+        arr[0] = p;
+        arr[1] = p_2;
+        arr[2] = p_3;
+        return arr;
+    }
+
+    float[] Arr9(int p, int p_2, int p_3, int p_4, int p_5, int p_6, int p_7, int p_8, int p_9)
+    {
+        float[] arr = new float[16];
+        arr[0] = p;
+        arr[1] = p_2;
+        arr[2] = p_3;
+        arr[3] = p_4;
+        arr[4] = p_5;
+        arr[5] = p_6;
+        arr[6] = p_7;
+        arr[7] = p_8;
+        arr[8] = p_9;
+        return arr;
+    }
+
+    float[] Arr16(int p, int p_2, int p_3, int p_4, int p_5, int p_6, int p_7, int p_8, int p_9, int p_10, int p_11, int p_12, int p_13, int p_14, int p_15, int p_16)
+    {
+        float[] arr = new float[16];
+        arr[0] = p;
+        arr[1] = p_2;
+        arr[2] = p_3;
+        arr[3] = p_4;
+        arr[4] = p_5;
+        arr[5] = p_6;
+        arr[6] = p_7;
+        arr[7] = p_8;
+        arr[8] = p_9;
+        arr[9] = p_10;
+        arr[10] = p_11;
+        arr[11] = p_12;
+        arr[12] = p_13;
+        arr[13] = p_14;
+        arr[14] = p_15;
+        arr[15] = p_16;
+        return arr;
+    }
+}

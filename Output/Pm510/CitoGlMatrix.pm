@@ -2906,6 +2906,285 @@ sub f($) {
 	my ($self) = @_;
 }
 
+=head1 Class TestVec3
+
+=cut
+
+package TestVec3;
+
+=head2 C<$testvec3 = TestVec3-E<gt>new()>
+
+=cut
+
+sub new($) {
+	my $self = bless {}, shift;
+	return $self;
+}
+
+sub add($) {
+	my ($self) = @_;
+}
+
+sub arr16($$$$$$$$$$$$$$$$$) {
+	my ($self, $p, $p_2, $p_3, $p_4, $p_5, $p_6, $p_7, $p_8, $p_9, $p_10, $p_11, $p_12, $p_13, $p_14, $p_15, $p_16) = @_;
+	my $arr = [];
+	$arr->[0] = $p;
+	$arr->[1] = $p_2;
+	$arr->[2] = $p_3;
+	$arr->[3] = $p_4;
+	$arr->[4] = $p_5;
+	$arr->[5] = $p_6;
+	$arr->[6] = $p_7;
+	$arr->[7] = $p_8;
+	$arr->[8] = $p_9;
+	$arr->[9] = $p_10;
+	$arr->[10] = $p_11;
+	$arr->[11] = $p_12;
+	$arr->[12] = $p_13;
+	$arr->[13] = $p_14;
+	$arr->[14] = $p_15;
+	$arr->[15] = $p_16;
+	return $arr;
+}
+
+sub arr3($$$$) {
+	my ($self, $p, $p_2, $p_3) = @_;
+	my $arr = [];
+	$arr->[0] = $p;
+	$arr->[1] = $p_2;
+	$arr->[2] = $p_3;
+	return $arr;
+}
+
+sub arr9($$$$$$$$$$) {
+	my ($self, $p, $p_2, $p_3, $p_4, $p_5, $p_6, $p_7, $p_8, $p_9) = @_;
+	my $arr = [];
+	$arr->[0] = $p;
+	$arr->[1] = $p_2;
+	$arr->[2] = $p_3;
+	$arr->[3] = $p_4;
+	$arr->[4] = $p_5;
+	$arr->[5] = $p_6;
+	$arr->[6] = $p_7;
+	$arr->[7] = $p_8;
+	$arr->[8] = $p_9;
+	return $arr;
+}
+
+sub assert_array_equal($$$$$) {
+	my ($self, $actual, $expected, $length, $msg) = @_;
+	for (my $i = 0; $i < $length; $i++) {
+		if ($actual->[$i] != $expected->[$i]) {
+			$self->{errors}->[$self->{errors_count}++] = $msg;
+		}
+	}
+}
+
+sub clone($) {
+	my ($self) = @_;
+	my $result = Vec3::clone($self->{vec_a});
+	$self->assert_array_equal($result, $self->{vec_a}, 3, "Clone should return a 3 element array initialized to the values in vecA");
+}
+
+sub copy($) {
+	my ($self) = @_;
+	my $result = Vec3::copy($self->{output}, $self->{vec_a});
+	$self->assert_array_equal($self->{output}, $self->arr3(1, 2, 3), 3, "Copy should place values into out");
+	$self->assert_array_equal($result, $self->{output}, 3, "Copy should return output");
+}
+
+sub create($) {
+	my ($self) = @_;
+	my $result = Vec3::create();
+	$self->assert_array_equal($result, $self->arr3(0, 0, 0), 3, "Create should return a 3 element array initialized to 0s");
+}
+
+sub cross($) {
+	my ($self) = @_;
+}
+
+sub distance($) {
+	my ($self) = @_;
+}
+
+sub divide($) {
+	my ($self) = @_;
+}
+
+sub dot($) {
+	my ($self) = @_;
+}
+
+sub for_each($) {
+	my ($self) = @_;
+}
+
+sub from_values($) {
+	my ($self) = @_;
+	my $result = Vec3::from_values(1, 2, 3);
+	$self->assert_array_equal($result, $self->arr3(1, 2, 3), 3, "FromValues should return a 3 element array initialized to the values passed");
+}
+
+sub length($) {
+	my ($self) = @_;
+}
+
+sub lerp($) {
+	my ($self) = @_;
+}
+
+sub max($) {
+	my ($self) = @_;
+}
+
+sub min($) {
+	my ($self) = @_;
+}
+
+sub multiply($) {
+	my ($self) = @_;
+}
+
+sub negate($) {
+	my ($self) = @_;
+}
+
+sub normalize($) {
+	my ($self) = @_;
+}
+
+sub random($) {
+	my ($self) = @_;
+}
+
+sub scale($) {
+	my ($self) = @_;
+}
+
+sub scale_and_add($) {
+	my ($self) = @_;
+}
+
+sub set($) {
+	my ($self) = @_;
+	my $result = Vec3::set($self->{output}, 1, 2, 3);
+	$self->assert_array_equal($self->{output}, $self->arr3(1, 2, 3), 3, "Set should place values into output");
+	$self->assert_array_equal($result, $self->{output}, 3, "Set should return output");
+}
+
+sub squared_distance($) {
+	my ($self) = @_;
+}
+
+sub squared_length($) {
+	my ($self) = @_;
+}
+
+sub str($) {
+	my ($self) = @_;
+}
+
+sub subtract($) {
+	my ($self) = @_;
+}
+
+=head2 C<$testvec3-E<gt>test()>
+
+=cut
+
+sub test($) {
+	my ($self) = @_;
+	$self->{errors} = [];
+	$self->{errors_count} = 0;
+	$self->{vec_a} = $self->arr3(1, 2, 3);
+	$self->{vec_b} = $self->arr3(4, 5, 6);
+	$self->{output} = $self->arr3(0, 0, 0);
+	$self->transform_mat4_with_an_identity();
+	$self->transform_mat4_with_a_look_at();
+	$self->transform_mat3_with_an_identity();
+	$self->transform_mat3_with90_deg_about_x();
+	$self->transform_mat3_with90_deg_about_y();
+	$self->transform_mat3_with90_deg_about_z();
+	$self->transform_mat3_with_a_look_at_normal_matrix();
+	$self->create();
+	$self->clone();
+	$self->from_values();
+	$self->copy();
+	$self->set();
+	$self->add();
+	$self->subtract();
+	$self->multiply();
+	$self->divide();
+	$self->min();
+	$self->max();
+	$self->scale();
+	$self->scale_and_add();
+	$self->distance();
+	$self->squared_distance();
+	$self->length();
+	$self->squared_length();
+	$self->negate();
+	$self->normalize();
+	$self->dot();
+	$self->cross();
+	$self->lerp();
+	$self->random();
+	$self->for_each();
+	$self->str();
+}
+
+sub transform_mat3_with90_deg_about_x($) {
+	my ($self) = @_;
+	my $result = Vec3::transform_mat3($self->{output}, $self->arr3(0, 1, 0), $self->arr9(1, 0, 0, 0, 0, 1, 0, -1, 0));
+	$self->assert_array_equal($self->{output}, $self->arr3(0, 0, 1), 3, "TransformMat3With90DegAboutX should produce correct output");
+}
+
+sub transform_mat3_with90_deg_about_y($) {
+	my ($self) = @_;
+	my $result = Vec3::transform_mat3($self->{output}, $self->arr3(1, 0, 0), $self->arr9(0, 0, -1, 0, 1, 0, 1, 0, 0));
+	$self->assert_array_equal($self->{output}, $self->arr3(0, 0, -1), 3, "TransformMat3With90DegAboutU should produce correct output");
+}
+
+sub transform_mat3_with90_deg_about_z($) {
+	my ($self) = @_;
+	my $result = Vec3::transform_mat3($self->{output}, $self->arr3(1, 0, 0), $self->arr9(0, 1, 0, -1, 0, 0, 0, 0, 1));
+	$self->assert_array_equal($self->{output}, $self->arr3(0, 1, 0), 3, "TransformMat3With90DegAboutZ should produce correct output");
+}
+
+sub transform_mat3_with_a_look_at_normal_matrix($) {
+	my ($self) = @_;
+	my $matr = Mat4::look_at(Mat4::create(), $self->arr3(5, 6, 7), $self->arr3(2, 6, 7), $self->arr3(0, 1, 0));
+	my $n = Mat3::create();
+	$matr = Mat3::transpose($n, Mat3::invert($n, Mat3::from_mat4($n, $matr)));
+	my $result = Vec3::transform_mat3($self->{output}, $self->arr3(1, 0, 0), $matr);
+	$self->assert_array_equal($self->{output}, $self->arr3(0, 0, 1), 3, "TransformMat3WithALookAtNormalMatrix should rotate the input");
+	$self->assert_array_equal($result, $self->{output}, 3, "TransformMat3WithALookAtNormalMatrix should return output");
+}
+
+sub transform_mat3_with_an_identity($) {
+	my ($self) = @_;
+	my $matr = $self->arr9(1, 0, 0, 0, 1, 0, 0, 0, 1);
+	my $result = Vec3::transform_mat3($self->{output}, $self->{vec_a}, $matr);
+	$self->assert_array_equal($self->{output}, $self->arr3(1, 2, 3), 3, "TransformMat3WithAnIdentity should produce the input");
+	$self->assert_array_equal($result, $self->{output}, 3, "TransformMat3WithAnIdentity should return output");
+}
+
+sub transform_mat4_with_a_look_at($) {
+	my ($self) = @_;
+	my $matr = Mat4::look_at(Mat4::create(), $self->arr3(5, 6, 7), $self->arr3(2, 6, 7), $self->arr3(0, 1, 0));
+	my $result = Vec3::transform_mat4($self->{output}, $self->{vec_a}, $matr);
+	$self->assert_array_equal($self->{output}, $self->arr3(4, -4, -4), 3, "TransformMat4WithALookAt should rotate and translate the input");
+	$self->assert_array_equal($result, $self->{output}, 3, "TransformMat4WithALookAt should return out");
+}
+
+sub transform_mat4_with_an_identity($) {
+	my ($self) = @_;
+	my $matr = $self->arr16(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1);
+	my $result = Vec3::transform_mat4($self->{output}, $self->{vec_a}, $matr);
+	$self->assert_array_equal($self->{output}, $self->arr3(1, 2, 3), 3, "TransformMat4WithAnIdentity should produce the input");
+	$self->assert_array_equal($result, $self->{output}, 3, "TransformMat4WithAnIdentity should return output");
+}
+
 =head1 Class Vec2
 
 =cut

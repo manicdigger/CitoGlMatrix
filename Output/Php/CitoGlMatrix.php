@@ -2032,6 +2032,275 @@ class Quat
 	}
 }
 
+class TestVec3
+{
+
+	private function Add()
+	{
+	}
+
+	private function Arr16($p, $p_2, $p_3, $p_4, $p_5, $p_6, $p_7, $p_8, $p_9, $p_10, $p_11, $p_12, $p_13, $p_14, $p_15, $p_16)
+	{
+		$arr = array();
+		$arr[0] = $p;
+		$arr[1] = $p_2;
+		$arr[2] = $p_3;
+		$arr[3] = $p_4;
+		$arr[4] = $p_5;
+		$arr[5] = $p_6;
+		$arr[6] = $p_7;
+		$arr[7] = $p_8;
+		$arr[8] = $p_9;
+		$arr[9] = $p_10;
+		$arr[10] = $p_11;
+		$arr[11] = $p_12;
+		$arr[12] = $p_13;
+		$arr[13] = $p_14;
+		$arr[14] = $p_15;
+		$arr[15] = $p_16;
+		return $arr;
+	}
+
+	private function Arr3($p, $p_2, $p_3)
+	{
+		$arr = array();
+		$arr[0] = $p;
+		$arr[1] = $p_2;
+		$arr[2] = $p_3;
+		return $arr;
+	}
+
+	private function Arr9($p, $p_2, $p_3, $p_4, $p_5, $p_6, $p_7, $p_8, $p_9)
+	{
+		$arr = array();
+		$arr[0] = $p;
+		$arr[1] = $p_2;
+		$arr[2] = $p_3;
+		$arr[3] = $p_4;
+		$arr[4] = $p_5;
+		$arr[5] = $p_6;
+		$arr[6] = $p_7;
+		$arr[7] = $p_8;
+		$arr[8] = $p_9;
+		return $arr;
+	}
+
+	private function AssertArrayEqual(&$actual, &$expected, $length, $msg)
+	{
+		for ($i = 0; $i < $length; $i++) {
+			if ($actual[$i] != $expected[$i]) {
+				$this->errors[$this->errorsCount++] = $msg;
+			}
+		}
+	}
+
+	private function Clone()
+	{
+		$result = Vec3::Clone($this->vecA);
+		$this->AssertArrayEqual($result, $this->vecA, 3, "Clone should return a 3 element array initialized to the values in vecA");
+	}
+
+	private function Copy()
+	{
+		$result = Vec3::Copy($this->output, $this->vecA);
+		$this->AssertArrayEqual($this->output, $this->Arr3(1, 2, 3), 3, "Copy should place values into out");
+		$this->AssertArrayEqual($result, $this->output, 3, "Copy should return output");
+	}
+
+	private function Create()
+	{
+		$result = Vec3::Create();
+		$this->AssertArrayEqual($result, $this->Arr3(0, 0, 0), 3, "Create should return a 3 element array initialized to 0s");
+	}
+
+	private function Cross()
+	{
+	}
+
+	private function Distance()
+	{
+	}
+
+	private function Divide()
+	{
+	}
+
+	private function Dot()
+	{
+	}
+
+	private function ForEach()
+	{
+	}
+
+	private function FromValues()
+	{
+		$result = Vec3::FromValues(1, 2, 3);
+		$this->AssertArrayEqual($result, $this->Arr3(1, 2, 3), 3, "FromValues should return a 3 element array initialized to the values passed");
+	}
+
+	private function Length()
+	{
+	}
+
+	private function Lerp()
+	{
+	}
+
+	private function Max()
+	{
+	}
+
+	private function Min()
+	{
+	}
+
+	private function Multiply()
+	{
+	}
+
+	private function Negate()
+	{
+	}
+
+	private function Normalize()
+	{
+	}
+
+	private function Random()
+	{
+	}
+
+	private function Scale()
+	{
+	}
+
+	private function ScaleAndAdd()
+	{
+	}
+
+	private function Set()
+	{
+		$result = Vec3::Set($this->output, 1, 2, 3);
+		$this->AssertArrayEqual($this->output, $this->Arr3(1, 2, 3), 3, "Set should place values into output");
+		$this->AssertArrayEqual($result, $this->output, 3, "Set should return output");
+	}
+
+	private function SquaredDistance()
+	{
+	}
+
+	private function SquaredLength()
+	{
+	}
+
+	private function Str()
+	{
+	}
+
+	private function Subtract()
+	{
+	}
+
+	function Test()
+	{
+		$this->errors = array();
+		$this->errorsCount = 0;
+		$this->vecA = $this->Arr3(1, 2, 3);
+		$this->vecB = $this->Arr3(4, 5, 6);
+		$this->output = $this->Arr3(0, 0, 0);
+		$this->TransformMat4WithAnIdentity();
+		$this->TransformMat4WithALookAt();
+		$this->TransformMat3WithAnIdentity();
+		$this->TransformMat3With90DegAboutX();
+		$this->TransformMat3With90DegAboutY();
+		$this->TransformMat3With90DegAboutZ();
+		$this->TransformMat3WithALookAtNormalMatrix();
+		$this->Create();
+		$this->Clone();
+		$this->FromValues();
+		$this->Copy();
+		$this->Set();
+		$this->Add();
+		$this->Subtract();
+		$this->Multiply();
+		$this->Divide();
+		$this->Min();
+		$this->Max();
+		$this->Scale();
+		$this->ScaleAndAdd();
+		$this->Distance();
+		$this->SquaredDistance();
+		$this->Length();
+		$this->SquaredLength();
+		$this->Negate();
+		$this->Normalize();
+		$this->Dot();
+		$this->Cross();
+		$this->Lerp();
+		$this->Random();
+		$this->ForEach();
+		$this->Str();
+	}
+
+	private function TransformMat3With90DegAboutX()
+	{
+		$result = Vec3::TransformMat3($this->output, $this->Arr3(0, 1, 0), $this->Arr9(1, 0, 0, 0, 0, 1, 0, -1, 0));
+		$this->AssertArrayEqual($this->output, $this->Arr3(0, 0, 1), 3, "TransformMat3With90DegAboutX should produce correct output");
+	}
+
+	private function TransformMat3With90DegAboutY()
+	{
+		$result = Vec3::TransformMat3($this->output, $this->Arr3(1, 0, 0), $this->Arr9(0, 0, -1, 0, 1, 0, 1, 0, 0));
+		$this->AssertArrayEqual($this->output, $this->Arr3(0, 0, -1), 3, "TransformMat3With90DegAboutU should produce correct output");
+	}
+
+	private function TransformMat3With90DegAboutZ()
+	{
+		$result = Vec3::TransformMat3($this->output, $this->Arr3(1, 0, 0), $this->Arr9(0, 1, 0, -1, 0, 0, 0, 0, 1));
+		$this->AssertArrayEqual($this->output, $this->Arr3(0, 1, 0), 3, "TransformMat3With90DegAboutZ should produce correct output");
+	}
+
+	private function TransformMat3WithALookAtNormalMatrix()
+	{
+		$matr = Mat4::LookAt(Mat4::Create(), $this->Arr3(5, 6, 7), $this->Arr3(2, 6, 7), $this->Arr3(0, 1, 0));
+		$n = Mat3::Create();
+		$matr = Mat3::Transpose($n, Mat3::Invert($n, Mat3::FromMat4($n, $matr)));
+		$result = Vec3::TransformMat3($this->output, $this->Arr3(1, 0, 0), $matr);
+		$this->AssertArrayEqual($this->output, $this->Arr3(0, 0, 1), 3, "TransformMat3WithALookAtNormalMatrix should rotate the input");
+		$this->AssertArrayEqual($result, $this->output, 3, "TransformMat3WithALookAtNormalMatrix should return output");
+	}
+
+	private function TransformMat3WithAnIdentity()
+	{
+		$matr = $this->Arr9(1, 0, 0, 0, 1, 0, 0, 0, 1);
+		$result = Vec3::TransformMat3($this->output, $this->vecA, $matr);
+		$this->AssertArrayEqual($this->output, $this->Arr3(1, 2, 3), 3, "TransformMat3WithAnIdentity should produce the input");
+		$this->AssertArrayEqual($result, $this->output, 3, "TransformMat3WithAnIdentity should return output");
+	}
+
+	private function TransformMat4WithALookAt()
+	{
+		$matr = Mat4::LookAt(Mat4::Create(), $this->Arr3(5, 6, 7), $this->Arr3(2, 6, 7), $this->Arr3(0, 1, 0));
+		$result = Vec3::TransformMat4($this->output, $this->vecA, $matr);
+		$this->AssertArrayEqual($this->output, $this->Arr3(4, -4, -4), 3, "TransformMat4WithALookAt should rotate and translate the input");
+		$this->AssertArrayEqual($result, $this->output, 3, "TransformMat4WithALookAt should return out");
+	}
+
+	private function TransformMat4WithAnIdentity()
+	{
+		$matr = $this->Arr16(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1);
+		$result = Vec3::TransformMat4($this->output, $this->vecA, $matr);
+		$this->AssertArrayEqual($this->output, $this->Arr3(1, 2, 3), 3, "TransformMat4WithAnIdentity should produce the input");
+		$this->AssertArrayEqual($result, $this->output, 3, "TransformMat4WithAnIdentity should return output");
+	}
+	private $errors;
+	private $errorsCount;
+	private $output;
+	private $vecA;
+	private $vecB;
+}
+
 class Vec2
 {
 

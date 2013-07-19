@@ -16,6 +16,7 @@ typedef struct Mat2d Mat2d;
 typedef struct Mat3 Mat3;
 typedef struct Mat4 Mat4;
 typedef struct Quat Quat;
+typedef struct TestVec3 TestVec3;
 typedef struct Vec2 Vec2;
 typedef struct Vec4 Vec4;
 
@@ -261,7 +262,7 @@ float const *Mat4_Copy(float *output, float const *a);
  * Creates a new identity mat4
  * Returns {mat4} a new 4x4 matrix
  */
-float const *Mat4_Create(void);
+float *Mat4_Create(void);
 
 /**
  * Calculates the determinant of a mat4
@@ -583,6 +584,11 @@ float Quat_SqrLen(float const *a);
  * **
  */
 float Quat_SquaredLength(float const *a);
+
+TestVec3 *TestVec3_New(void);
+void TestVec3_Delete(TestVec3 *self);
+
+void TestVec3_Test(TestVec3 *self);
 
 /**
  * **

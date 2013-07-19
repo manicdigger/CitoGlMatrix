@@ -4167,6 +4167,13 @@ public class Platform
             return sqrt("$a");
         }
         return 0;
+#elif JAVA
+        float ret = 0;
+        native
+        {
+            ret = (float)Math.sqrt(a);
+        }
+        return ret;
 #else
 #if CITO
         return 0;
@@ -4208,6 +4215,13 @@ public class Platform
             return cos("$a");
         }
         return 0;
+#elif JAVA
+        float ret = 0;
+        native
+        {
+            ret = (float)Math.cos(a);
+        }
+        return ret;
 #else
 #if CITO
         return 0;
@@ -4249,6 +4263,13 @@ public class Platform
             return sin("$a");
         }
         return 0;
+#elif JAVA
+        float ret = 0;
+        native
+        {
+            ret = (float)Math.sin(a);
+        }
+        return ret;
 #else
 #if CITO
         return 0;
@@ -4295,6 +4316,13 @@ public class Platform
             return tan("$a");
         }
         return 0;
+#elif JAVA
+        float ret = 0;
+        native
+        {
+            ret = (float)Math.tan(a);
+        }
+        return ret;
 #else
 #if CITO
         return 0;
@@ -4336,6 +4364,13 @@ public class Platform
             return acos("$a");
         }
         return 0;
+#elif JAVA
+        float ret = 0;
+        native
+        {
+            ret = (float)Math.acos(a);
+        }
+        return ret;
 #else
 #if CITO
         return 0;
@@ -4372,6 +4407,11 @@ public class Platform
         {
             echo("$a");
         }
+#elif JAVA
+        native
+        {
+            System.out.println(a);
+        }
 #else
 #if CITO
 #else
@@ -4406,6 +4446,11 @@ public class Platform
         native
         {
             echo("$a");
+        }
+#elif JAVA
+        native
+        {
+            System.out.println(a);
         }
 #else
 #if CITO

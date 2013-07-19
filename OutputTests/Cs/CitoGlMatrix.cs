@@ -30,7 +30,7 @@ public class CitoAssert
 		return arr;
 	}
 
-	public float[] Arr3(int p, int p_2, int p_3)
+	public float[] Arr3(float p, float p_2, float p_3)
 	{
 		float[] arr = new float[3];
 		arr[0] = p;
@@ -2143,7 +2143,7 @@ public class TestMat4
 		return this.citoassert.Arr16(p, p_2, p_3, p_4, p_5, p_6, p_7, p_8, p_9, p_10, p_11, p_12, p_13, p_14, p_15, p_16);
 	}
 
-	float[] Arr3(int p, int p_2, int p_3)
+	float[] Arr3(float p, float p_2, float p_3)
 	{
 		return this.citoassert.Arr3(p, p_2, p_3);
 	}
@@ -2193,6 +2193,9 @@ public class TestMat4
 
 	void Frustum()
 	{
+		float[] result = Mat4.Frustum(this.output, -1, 1, -1, 1, -1, 1);
+		this.AssertArrayEqual(result, this.Arr16(-1, 0, 0, 0, 0, -1, 0, 0, 0, 0, 0, -1, 0, 0, 1, 0), 16, "Frustum should place values into out");
+		this.AssertArrayEqual(result, this.output, 16, "Frustum should return out");
 	}
 
 	void Identity()
@@ -2218,6 +2221,9 @@ public class TestMat4
 
 	void LookAt()
 	{
+		this.eye = this.Arr3(0, 0, 1);
+		this.center = this.Arr3(0, 0, -1);
+		this.up = this.Arr3(0, 1, 0);
 		this.LookAtLookingDown();
 		this.LookAt74();
 		this.LookAt3();
@@ -2229,10 +2235,29 @@ public class TestMat4
 
 	void LookAt74()
 	{
+		float six = 6;
+		Mat4.LookAt(this.output, this.Arr3(0, 2, 0), this.Arr3(0, six / 10, 0), this.Arr3(0, 0, -1));
+		float[] result = Vec3.TransformMat4(Vec3.Create(), this.Arr3(0, 2, -1), this.output);
+		this.AssertArrayEqual(result, this.Arr3(0, 1, 0), 3, "LookAt74 should transform a point 'above' into local +Y");
+		result = Vec3.TransformMat4(Vec3.Create(), this.Arr3(1, 2, 0), this.output);
+		this.AssertArrayEqual(result, this.Arr3(1, 0, 0), 3, "LookAt74 should transform a point 'right of' into local +X");
+		result = Vec3.TransformMat4(Vec3.Create(), this.Arr3(0, 1, 0), this.output);
+		this.AssertArrayEqual(result, this.Arr3(0, 0, -1), 3, "LookAt74 should transform a point 'in front of' into local -Z");
 	}
 
 	void LookAtLookingDown()
 	{
+		this.view = this.Arr3(0, -1, 0);
+		this.up = this.Arr3(0, 0, -1);
+		this.right = this.Arr3(1, 0, 0);
+		float[] result = Mat4.LookAt(this.output, this.Arr3(0, 0, 0), this.view, this.up);
+		result = Vec3.TransformMat4(Vec3.Create(), this.view, this.output);
+		this.AssertArrayEqual(result, this.Arr3(0, 0, -1), 3, "LookAtLookingDown should transform view into local -Z");
+		result = Vec3.TransformMat4(Vec3.Create(), this.up, this.output);
+		this.AssertArrayEqual(result, this.Arr3(0, 1, 0), 3, "LookAtLookingDownshould transform up into local +Y");
+		result = Vec3.TransformMat4(Vec3.Create(), this.right, this.output);
+		this.AssertArrayEqual(result, this.Arr3(1, 0, 0), 3, "LookAtLookingDownshould transform right into local +X");
+		this.AssertArrayEqual(result, this.output, 3, "LookAtLookingDown should return out");
 	}
 
 	void Multiply()
@@ -2256,6 +2281,9 @@ public class TestMat4
 
 	void Ortho()
 	{
+		float[] result = Mat4.Ortho(this.output, -1, 1, -1, 1, -1, 1);
+		this.AssertArrayEqual(result, this.Arr16(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, -1, 0, 0, 0, 0, 1), 16, "Ortho should place values into out");
+		this.AssertArrayEqual(result, this.output, 16, "Ortho should return out");
 	}
 
 	void Perspective()
@@ -2427,11 +2455,16 @@ public class TestMat4
 	void TransposeWithASeparateOutputMatrix()
 	{
 	}
+	float[] center;
 	CitoAssert citoassert;
+	float[] eye;
 	float[] identity;
 	float[] matA;
 	float[] matB;
 	float[] output;
+	float[] right;
+	float[] up;
+	float[] view;
 }
 
 public class TestVec3
@@ -2466,7 +2499,7 @@ public class TestVec3
 		return this.citoassert.Arr16(p, p_2, p_3, p_4, p_5, p_6, p_7, p_8, p_9, p_10, p_11, p_12, p_13, p_14, p_15, p_16);
 	}
 
-	float[] Arr3(int p, int p_2, int p_3)
+	float[] Arr3(float p, float p_2, float p_3)
 	{
 		return this.citoassert.Arr3(p, p_2, p_3);
 	}

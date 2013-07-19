@@ -27,7 +27,7 @@ void CitoAssert_Delete(CitoAssert *self);
 
 float const *CitoAssert_Arr16(CitoAssert const *self, int p, int p_2, int p_3, int p_4, int p_5, int p_6, int p_7, int p_8, int p_9, int p_10, int p_11, int p_12, int p_13, int p_14, int p_15, int p_16);
 
-float const *CitoAssert_Arr3(CitoAssert const *self, int p, int p_2, int p_3);
+float const *CitoAssert_Arr3(CitoAssert const *self, float p, float p_2, float p_3);
 
 float const *CitoAssert_Arr9(CitoAssert const *self, int p, int p_2, int p_3, int p_4, int p_5, int p_6, int p_7, int p_8, int p_9);
 

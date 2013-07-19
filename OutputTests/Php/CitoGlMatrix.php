@@ -2183,6 +2183,9 @@ class TestMat4
 
 	private function Frustum()
 	{
+		$result = Mat4::Frustum($this->output, -1, 1, -1, 1, -1, 1);
+		$this->AssertArrayEqual($result, $this->Arr16(-1, 0, 0, 0, 0, -1, 0, 0, 0, 0, 0, -1, 0, 0, 1, 0), 16, "Frustum should place values into out");
+		$this->AssertArrayEqual($result, $this->output, 16, "Frustum should return out");
 	}
 
 	private function Identity()
@@ -2208,6 +2211,9 @@ class TestMat4
 
 	private function LookAt()
 	{
+		$this->eye = $this->Arr3(0, 0, 1);
+		$this->center = $this->Arr3(0, 0, -1);
+		$this->up = $this->Arr3(0, 1, 0);
 		$this->LookAtLookingDown();
 		$this->LookAt74();
 		$this->LookAt3();
@@ -2219,10 +2225,29 @@ class TestMat4
 
 	private function LookAt74()
 	{
+		$six = 6;
+		Mat4::LookAt($this->output, $this->Arr3(0, 2, 0), $this->Arr3(0, $six / 10, 0), $this->Arr3(0, 0, -1));
+		$result = Vec3::TransformMat4(Vec3::Create(), $this->Arr3(0, 2, -1), $this->output);
+		$this->AssertArrayEqual($result, $this->Arr3(0, 1, 0), 3, "LookAt74 should transform a point 'above' into local +Y");
+		$result = Vec3::TransformMat4(Vec3::Create(), $this->Arr3(1, 2, 0), $this->output);
+		$this->AssertArrayEqual($result, $this->Arr3(1, 0, 0), 3, "LookAt74 should transform a point 'right of' into local +X");
+		$result = Vec3::TransformMat4(Vec3::Create(), $this->Arr3(0, 1, 0), $this->output);
+		$this->AssertArrayEqual($result, $this->Arr3(0, 0, -1), 3, "LookAt74 should transform a point 'in front of' into local -Z");
 	}
 
 	private function LookAtLookingDown()
 	{
+		$this->view = $this->Arr3(0, -1, 0);
+		$this->up = $this->Arr3(0, 0, -1);
+		$this->right = $this->Arr3(1, 0, 0);
+		$result = Mat4::LookAt($this->output, $this->Arr3(0, 0, 0), $this->view, $this->up);
+		$result = Vec3::TransformMat4(Vec3::Create(), $this->view, $this->output);
+		$this->AssertArrayEqual($result, $this->Arr3(0, 0, -1), 3, "LookAtLookingDown should transform view into local -Z");
+		$result = Vec3::TransformMat4(Vec3::Create(), $this->up, $this->output);
+		$this->AssertArrayEqual($result, $this->Arr3(0, 1, 0), 3, "LookAtLookingDownshould transform up into local +Y");
+		$result = Vec3::TransformMat4(Vec3::Create(), $this->right, $this->output);
+		$this->AssertArrayEqual($result, $this->Arr3(1, 0, 0), 3, "LookAtLookingDownshould transform right into local +X");
+		$this->AssertArrayEqual($result, $this->output, 3, "LookAtLookingDown should return out");
 	}
 
 	private function Multiply()
@@ -2246,6 +2271,9 @@ class TestMat4
 
 	private function Ortho()
 	{
+		$result = Mat4::Ortho($this->output, -1, 1, -1, 1, -1, 1);
+		$this->AssertArrayEqual($result, $this->Arr16(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, -1, 0, 0, 0, 0, 1), 16, "Ortho should place values into out");
+		$this->AssertArrayEqual($result, $this->output, 16, "Ortho should return out");
 	}
 
 	private function Perspective()
@@ -2417,11 +2445,16 @@ class TestMat4
 	private function TransposeWithASeparateOutputMatrix()
 	{
 	}
+	private $center;
 	private $citoassert;
+	private $eye;
 	private $identity;
 	private $matA;
 	private $matB;
 	private $output;
+	private $right;
+	private $up;
+	private $view;
 }
 
 class TestVec3

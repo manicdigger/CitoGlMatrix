@@ -33,7 +33,7 @@ public class TestVec3
 		return this.citoassert.arr16(p, p_2, p_3, p_4, p_5, p_6, p_7, p_8, p_9, p_10, p_11, p_12, p_13, p_14, p_15, p_16);
 	}
 
-	private float[] arr3(int p, int p_2, int p_3)
+	private float[] arr3(float p, float p_2, float p_3)
 	{
 		return this.citoassert.arr3(p, p_2, p_3);
 	}

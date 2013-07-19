@@ -25,7 +25,7 @@ package
 			return this.citoassert.arr16(p, p_2, p_3, p_4, p_5, p_6, p_7, p_8, p_9, p_10, p_11, p_12, p_13, p_14, p_15, p_16);
 		}
 
-		private final function arr3(p : int, p_2 : int, p_3 : int) : Array
+		private function arr3(p : float, p_2 : float, p_3 : float) : Array
 		{
 			return this.citoassert.arr3(p, p_2, p_3);
 		}
@@ -75,6 +75,9 @@ package
 
 		private function frustum() : void
 		{
+			var result : Array = Mat4.frustum(this.output, -1, 1, -1, 1, -1, 1);
+			this.assertArrayEqual(result, this.arr16(-1, 0, 0, 0, 0, -1, 0, 0, 0, 0, 0, -1, 0, 0, 1, 0), 16, "Frustum should place values into out");
+			this.assertArrayEqual(result, this.output, 16, "Frustum should return out");
 		}
 
 		private function identity() : void
@@ -100,6 +103,9 @@ package
 
 		private function lookAt() : void
 		{
+			this.eye = this.arr3(0, 0, 1);
+			this.center = this.arr3(0, 0, -1);
+			this.up = this.arr3(0, 1, 0);
 			this.lookAtLookingDown();
 			this.lookAt74();
 			this.lookAt3();
@@ -111,10 +117,29 @@ package
 
 		private function lookAt74() : void
 		{
+			var six : float = 6;
+			Mat4.lookAt(this.output, this.arr3(0, 2, 0), this.arr3(0, six / (10), 0), this.arr3(0, 0, -1));
+			var result : Array = Vec3.transformMat4(Vec3.create(), this.arr3(0, 2, -1), this.output);
+			this.assertArrayEqual(result, this.arr3(0, 1, 0), 3, "LookAt74 should transform a point 'above' into local +Y");
+			result = Vec3.transformMat4(Vec3.create(), this.arr3(1, 2, 0), this.output);
+			this.assertArrayEqual(result, this.arr3(1, 0, 0), 3, "LookAt74 should transform a point 'right of' into local +X");
+			result = Vec3.transformMat4(Vec3.create(), this.arr3(0, 1, 0), this.output);
+			this.assertArrayEqual(result, this.arr3(0, 0, -1), 3, "LookAt74 should transform a point 'in front of' into local -Z");
 		}
 
 		private function lookAtLookingDown() : void
 		{
+			this.view = this.arr3(0, -1, 0);
+			this.up = this.arr3(0, 0, -1);
+			this.right = this.arr3(1, 0, 0);
+			var result : Array = Mat4.lookAt(this.output, this.arr3(0, 0, 0), this.view, this.up);
+			result = Vec3.transformMat4(Vec3.create(), this.view, this.output);
+			this.assertArrayEqual(result, this.arr3(0, 0, -1), 3, "LookAtLookingDown should transform view into local -Z");
+			result = Vec3.transformMat4(Vec3.create(), this.up, this.output);
+			this.assertArrayEqual(result, this.arr3(0, 1, 0), 3, "LookAtLookingDownshould transform up into local +Y");
+			result = Vec3.transformMat4(Vec3.create(), this.right, this.output);
+			this.assertArrayEqual(result, this.arr3(1, 0, 0), 3, "LookAtLookingDownshould transform right into local +X");
+			this.assertArrayEqual(result, this.output, 3, "LookAtLookingDown should return out");
 		}
 
 		private function multiply() : void
@@ -138,6 +163,9 @@ package
 
 		private function ortho() : void
 		{
+			var result : Array = Mat4.ortho(this.output, -1, 1, -1, 1, -1, 1);
+			this.assertArrayEqual(result, this.arr16(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, -1, 0, 0, 0, 0, 1), 16, "Ortho should place values into out");
+			this.assertArrayEqual(result, this.output, 16, "Ortho should return out");
 		}
 
 		private function perspective() : void
@@ -309,10 +337,15 @@ package
 		private function transposeWithASeparateOutputMatrix() : void
 		{
 		}
+		private var center : Array;
 		private var citoassert : CitoAssert;
+		private var eye : Array;
 		private var identity : Array;
 		private var matA : Array;
 		private var matB : Array;
 		private var output : Array;
+		private var right : Array;
+		private var up : Array;
+		private var view : Array;
 	}
 }

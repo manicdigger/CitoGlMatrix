@@ -1804,11 +1804,16 @@ Quat.prototype.f = function() {
 
 function TestMat4()
 {
+	this.center = null;
 	this.citoassert = null;
+	this.eye = null;
 	this.identity = null;
 	this.matA = null;
 	this.matB = null;
 	this.output = null;
+	this.right = null;
+	this.up = null;
+	this.view = null;
 }
 
 TestMat4.prototype.adjoint = function() {
@@ -1866,6 +1871,9 @@ TestMat4.prototype.determinant = function() {
 }
 
 TestMat4.prototype.frustum = function() {
+	var result = Mat4.frustum(this.output, -1, 1, -1, 1, -1, 1);
+	this.assertArrayEqual(result, this.arr16(-1, 0, 0, 0, 0, -1, 0, 0, 0, 0, 0, -1, 0, 0, 1, 0), 16, "Frustum should place values into out");
+	this.assertArrayEqual(result, this.output, 16, "Frustum should return out");
 }
 
 TestMat4.prototype.identity = function() {
@@ -1886,6 +1894,9 @@ TestMat4.prototype.invertWithASeparateOutputMatrix = function() {
 }
 
 TestMat4.prototype.lookAt = function() {
+	this.eye = this.arr3(0, 0, 1);
+	this.center = this.arr3(0, 0, -1);
+	this.up = this.arr3(0, 1, 0);
 	this.lookAtLookingDown();
 	this.lookAt74();
 	this.lookAt3();
@@ -1895,9 +1906,28 @@ TestMat4.prototype.lookAt3 = function() {
 }
 
 TestMat4.prototype.lookAt74 = function() {
+	var six = 6;
+	Mat4.lookAt(this.output, this.arr3(0, 2, 0), this.arr3(0, six / (10), 0), this.arr3(0, 0, -1));
+	var result = Vec3.transformMat4(Vec3.create(), this.arr3(0, 2, -1), this.output);
+	this.assertArrayEqual(result, this.arr3(0, 1, 0), 3, "LookAt74 should transform a point 'above' into local +Y");
+	result = Vec3.transformMat4(Vec3.create(), this.arr3(1, 2, 0), this.output);
+	this.assertArrayEqual(result, this.arr3(1, 0, 0), 3, "LookAt74 should transform a point 'right of' into local +X");
+	result = Vec3.transformMat4(Vec3.create(), this.arr3(0, 1, 0), this.output);
+	this.assertArrayEqual(result, this.arr3(0, 0, -1), 3, "LookAt74 should transform a point 'in front of' into local -Z");
 }
 
 TestMat4.prototype.lookAtLookingDown = function() {
+	this.view = this.arr3(0, -1, 0);
+	this.up = this.arr3(0, 0, -1);
+	this.right = this.arr3(1, 0, 0);
+	var result = Mat4.lookAt(this.output, this.arr3(0, 0, 0), this.view, this.up);
+	result = Vec3.transformMat4(Vec3.create(), this.view, this.output);
+	this.assertArrayEqual(result, this.arr3(0, 0, -1), 3, "LookAtLookingDown should transform view into local -Z");
+	result = Vec3.transformMat4(Vec3.create(), this.up, this.output);
+	this.assertArrayEqual(result, this.arr3(0, 1, 0), 3, "LookAtLookingDownshould transform up into local +Y");
+	result = Vec3.transformMat4(Vec3.create(), this.right, this.output);
+	this.assertArrayEqual(result, this.arr3(1, 0, 0), 3, "LookAtLookingDownshould transform right into local +X");
+	this.assertArrayEqual(result, this.output, 3, "LookAtLookingDown should return out");
 }
 
 TestMat4.prototype.multiply = function() {
@@ -1916,6 +1946,9 @@ TestMat4.prototype.multiplyWithASeparateOutputMatrix = function() {
 }
 
 TestMat4.prototype.ortho = function() {
+	var result = Mat4.ortho(this.output, -1, 1, -1, 1, -1, 1);
+	this.assertArrayEqual(result, this.arr16(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, -1, 0, 0, 0, 0, 1), 16, "Ortho should place values into out");
+	this.assertArrayEqual(result, this.output, 16, "Ortho should return out");
 }
 
 TestMat4.prototype.perspective = function() {

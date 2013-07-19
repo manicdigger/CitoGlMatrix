@@ -33,7 +33,7 @@ package
 			return arr;
 		}
 
-		public final function arr3(p : int, p_2 : int, p_3 : int) : Array
+		public final function arr3(p : float, p_2 : float, p_3 : float) : Array
 		{
 			var arr : Array = new Array(3);
 			arr[0] = p;

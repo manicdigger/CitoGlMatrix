@@ -3100,6 +3100,9 @@ sub determinant($) {
 
 sub frustum($) {
 	my ($self) = @_;
+	my $result = Mat4::frustum($self->{output}, -1, 1, -1, 1, -1, 1);
+	$self->assert_array_equal($result, $self->arr16(-1, 0, 0, 0, 0, -1, 0, 0, 0, 0, 0, -1, 0, 0, 1, 0), 16, "Frustum should place values into out");
+	$self->assert_array_equal($result, $self->{output}, 16, "Frustum should return out");
 }
 
 sub identity($) {
@@ -3125,6 +3128,9 @@ sub invert_with_a_separate_output_matrix($) {
 
 sub look_at($) {
 	my ($self) = @_;
+	$self->{eye} = $self->arr3(0, 0, 1);
+	$self->{center} = $self->arr3(0, 0, -1);
+	$self->{up} = $self->arr3(0, 1, 0);
 	$self->look_at_looking_down();
 	$self->look_at74();
 	$self->look_at3();
@@ -3136,10 +3142,29 @@ sub look_at3($) {
 
 sub look_at74($) {
 	my ($self) = @_;
+	my $six = 6;
+	Mat4::look_at($self->{output}, $self->arr3(0, 2, 0), $self->arr3(0, $six / 10, 0), $self->arr3(0, 0, -1));
+	my $result = Vec3::transform_mat4(Vec3::create(), $self->arr3(0, 2, -1), $self->{output});
+	$self->assert_array_equal($result, $self->arr3(0, 1, 0), 3, "LookAt74 should transform a point 'above' into local +Y");
+	$result = Vec3::transform_mat4(Vec3::create(), $self->arr3(1, 2, 0), $self->{output});
+	$self->assert_array_equal($result, $self->arr3(1, 0, 0), 3, "LookAt74 should transform a point 'right of' into local +X");
+	$result = Vec3::transform_mat4(Vec3::create(), $self->arr3(0, 1, 0), $self->{output});
+	$self->assert_array_equal($result, $self->arr3(0, 0, -1), 3, "LookAt74 should transform a point 'in front of' into local -Z");
 }
 
 sub look_at_looking_down($) {
 	my ($self) = @_;
+	$self->{view} = $self->arr3(0, -1, 0);
+	$self->{up} = $self->arr3(0, 0, -1);
+	$self->{right} = $self->arr3(1, 0, 0);
+	my $result = Mat4::look_at($self->{output}, $self->arr3(0, 0, 0), $self->{view}, $self->{up});
+	$result = Vec3::transform_mat4(Vec3::create(), $self->{view}, $self->{output});
+	$self->assert_array_equal($result, $self->arr3(0, 0, -1), 3, "LookAtLookingDown should transform view into local -Z");
+	$result = Vec3::transform_mat4(Vec3::create(), $self->{up}, $self->{output});
+	$self->assert_array_equal($result, $self->arr3(0, 1, 0), 3, "LookAtLookingDownshould transform up into local +Y");
+	$result = Vec3::transform_mat4(Vec3::create(), $self->{right}, $self->{output});
+	$self->assert_array_equal($result, $self->arr3(1, 0, 0), 3, "LookAtLookingDownshould transform right into local +X");
+	$self->assert_array_equal($result, $self->{output}, 3, "LookAtLookingDown should return out");
 }
 
 sub multiply($) {
@@ -3163,6 +3188,9 @@ sub multiply_with_a_separate_output_matrix($) {
 
 sub ortho($) {
 	my ($self) = @_;
+	my $result = Mat4::ortho($self->{output}, -1, 1, -1, 1, -1, 1);
+	$self->assert_array_equal($result, $self->arr16(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, -1, 0, 0, 0, 0, 1), 16, "Ortho should place values into out");
+	$self->assert_array_equal($result, $self->{output}, 16, "Ortho should return out");
 }
 
 sub perspective($) {

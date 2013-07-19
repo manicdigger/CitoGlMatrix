@@ -31,7 +31,7 @@ public class CitoAssert
 		return arr;
 	}
 
-	public final float[] arr3(int p, int p_2, int p_3)
+	public final float[] arr3(float p, float p_2, float p_3)
 	{
 		float[] arr = new float[3];
 		arr[0] = p;

@@ -17,16 +17,22 @@ static void CitoAssert_Construct(CitoAssert *self);
 
 
 struct TestMat4 {
+	float const *center;
 	CitoAssert *citoassert;
+	float const *eye;
 	float const *identity;
 	float const *matA;
 	float const *matB;
 	float *output;
+	float const *right;
+	float const *up;
+	float const *view;
 };
 static void TestMat4_Adjoint(TestMat4 const *self);
 static void TestMat4_AdjointWhenMatAIsTheOutputMatrix(TestMat4 const *self);
 static void TestMat4_AdjointWithASeparateOutputMatrix(TestMat4 const *self);
 static float *TestMat4_Arr16(TestMat4 const *self, int p, int p_2, int p_3, int p_4, int p_5, int p_6, int p_7, int p_8, int p_9, int p_10, int p_11, int p_12, int p_13, int p_14, int p_15, int p_16);
+static float const *TestMat4_Arr3(TestMat4 const *self, float p, float p_2, float p_3);
 static void TestMat4_AssertArrayEqual(TestMat4 const *self, float const *actual, float const *expected, int length, const char *msg);
 static void TestMat4_Clone(TestMat4 const *self);
 static void TestMat4_Copy(TestMat4 const *self);
@@ -37,10 +43,10 @@ static void TestMat4_Identity(TestMat4 const *self);
 static void TestMat4_Invert(TestMat4 const *self);
 static void TestMat4_InvertWhenMatAIsTheOutputMatrix(TestMat4 const *self);
 static void TestMat4_InvertWithASeparateOutputMatrix(TestMat4 const *self);
-static void TestMat4_LookAt(TestMat4 const *self);
+static void TestMat4_LookAt(TestMat4 *self);
 static void TestMat4_LookAt3(TestMat4 const *self);
 static void TestMat4_LookAt74(TestMat4 const *self);
-static void TestMat4_LookAtLookingDown(TestMat4 const *self);
+static void TestMat4_LookAtLookingDown(TestMat4 *self);
 static void TestMat4_Multiply(TestMat4 const *self);
 static void TestMat4_MultiplyWhenMatAIsTheOutputMatrix(TestMat4 const *self);
 static void TestMat4_MultiplyWhenMatBIsTheOutputMatrix(TestMat4 const *self);
@@ -84,7 +90,7 @@ static void TestVec3_AddWhenVecAIsTheOutputVector(TestVec3 const *self);
 static void TestVec3_AddWhenVecBIsTheOutputVector(TestVec3 const *self);
 static void TestVec3_AddWithASeparateOutputVector(TestVec3 const *self);
 static float const *TestVec3_Arr16(TestVec3 const *self, int p, int p_2, int p_3, int p_4, int p_5, int p_6, int p_7, int p_8, int p_9, int p_10, int p_11, int p_12, int p_13, int p_14, int p_15, int p_16);
-static float *TestVec3_Arr3(TestVec3 const *self, int p, int p_2, int p_3);
+static float *TestVec3_Arr3(TestVec3 const *self, float p, float p_2, float p_3);
 static float const *TestVec3_Arr9(TestVec3 const *self, int p, int p_2, int p_3, int p_4, int p_5, int p_6, int p_7, int p_8, int p_9);
 static void TestVec3_AssertArrayEqual(TestVec3 const *self, float const *actual, float const *expected, int length, const char *msg);
 static void TestVec3_AssertCloseTo(TestVec3 const *self, float actual, float expected, const char *msg);
@@ -198,7 +204,7 @@ float const *CitoAssert_Arr16(CitoAssert const *self, int p, int p_2, int p_3, i
 	return arr;
 }
 
-float const *CitoAssert_Arr3(CitoAssert const *self, int p, int p_2, int p_3)
+float const *CitoAssert_Arr3(CitoAssert const *self, float p, float p_2, float p_3)
 {
 	float *arr = (float *) malloc(3 * sizeof(float ));
 	arr[0] = p;
@@ -2107,6 +2113,11 @@ static float *TestMat4_Arr16(TestMat4 const *self, int p, int p_2, int p_3, int 
 	return CitoAssert_Arr16(self->citoassert, p, p_2, p_3, p_4, p_5, p_6, p_7, p_8, p_9, p_10, p_11, p_12, p_13, p_14, p_15, p_16);
 }
 
+static float const *TestMat4_Arr3(TestMat4 const *self, float p, float p_2, float p_3)
+{
+	return CitoAssert_Arr3(self->citoassert, p, p_2, p_3);
+}
+
 static void TestMat4_AssertArrayEqual(TestMat4 const *self, float const *actual, float const *expected, int length, const char *msg)
 {
 	CitoAssert_AssertArrayEqual(self->citoassert, actual, expected, length, msg);
@@ -2137,6 +2148,9 @@ static void TestMat4_Determinant(TestMat4 const *self)
 
 static void TestMat4_Frustum(TestMat4 const *self)
 {
+	float const *result = Mat4_Frustum(self->output, -1, 1, -1, 1, -1, 1);
+	TestMat4_AssertArrayEqual(self, result, TestMat4_Arr16(self, -1, 0, 0, 0, 0, -1, 0, 0, 0, 0, 0, -1, 0, 0, 1, 0), 16, "Frustum should place values into out");
+	TestMat4_AssertArrayEqual(self, result, self->output, 16, "Frustum should return out");
 }
 
 static void TestMat4_Identity(TestMat4 const *self)
@@ -2160,8 +2174,11 @@ static void TestMat4_InvertWithASeparateOutputMatrix(TestMat4 const *self)
 {
 }
 
-static void TestMat4_LookAt(TestMat4 const *self)
+static void TestMat4_LookAt(TestMat4 *self)
 {
+	self->eye = TestMat4_Arr3(self, 0, 0, 1);
+	self->center = TestMat4_Arr3(self, 0, 0, -1);
+	self->up = TestMat4_Arr3(self, 0, 1, 0);
 	TestMat4_LookAtLookingDown(self);
 	TestMat4_LookAt74(self);
 	TestMat4_LookAt3(self);
@@ -2173,10 +2190,31 @@ static void TestMat4_LookAt3(TestMat4 const *self)
 
 static void TestMat4_LookAt74(TestMat4 const *self)
 {
+	float six = 6;
+	float const *result;
+	Mat4_LookAt(self->output, TestMat4_Arr3(self, 0, 2, 0), TestMat4_Arr3(self, 0, six / 10, 0), TestMat4_Arr3(self, 0, 0, -1));
+	result = Vec3_TransformMat4(Vec3_Create(), TestMat4_Arr3(self, 0, 2, -1), self->output);
+	TestMat4_AssertArrayEqual(self, result, TestMat4_Arr3(self, 0, 1, 0), 3, "LookAt74 should transform a point 'above' into local +Y");
+	result = Vec3_TransformMat4(Vec3_Create(), TestMat4_Arr3(self, 1, 2, 0), self->output);
+	TestMat4_AssertArrayEqual(self, result, TestMat4_Arr3(self, 1, 0, 0), 3, "LookAt74 should transform a point 'right of' into local +X");
+	result = Vec3_TransformMat4(Vec3_Create(), TestMat4_Arr3(self, 0, 1, 0), self->output);
+	TestMat4_AssertArrayEqual(self, result, TestMat4_Arr3(self, 0, 0, -1), 3, "LookAt74 should transform a point 'in front of' into local -Z");
 }
 
-static void TestMat4_LookAtLookingDown(TestMat4 const *self)
+static void TestMat4_LookAtLookingDown(TestMat4 *self)
 {
+	float const *result;
+	self->view = TestMat4_Arr3(self, 0, -1, 0);
+	self->up = TestMat4_Arr3(self, 0, 0, -1);
+	self->right = TestMat4_Arr3(self, 1, 0, 0);
+	result = Mat4_LookAt(self->output, TestMat4_Arr3(self, 0, 0, 0), self->view, self->up);
+	result = Vec3_TransformMat4(Vec3_Create(), self->view, self->output);
+	TestMat4_AssertArrayEqual(self, result, TestMat4_Arr3(self, 0, 0, -1), 3, "LookAtLookingDown should transform view into local -Z");
+	result = Vec3_TransformMat4(Vec3_Create(), self->up, self->output);
+	TestMat4_AssertArrayEqual(self, result, TestMat4_Arr3(self, 0, 1, 0), 3, "LookAtLookingDownshould transform up into local +Y");
+	result = Vec3_TransformMat4(Vec3_Create(), self->right, self->output);
+	TestMat4_AssertArrayEqual(self, result, TestMat4_Arr3(self, 1, 0, 0), 3, "LookAtLookingDownshould transform right into local +X");
+	TestMat4_AssertArrayEqual(self, result, self->output, 3, "LookAtLookingDown should return out");
 }
 
 static void TestMat4_Multiply(TestMat4 const *self)
@@ -2200,6 +2238,9 @@ static void TestMat4_MultiplyWithASeparateOutputMatrix(TestMat4 const *self)
 
 static void TestMat4_Ortho(TestMat4 const *self)
 {
+	float const *result = Mat4_Ortho(self->output, -1, 1, -1, 1, -1, 1);
+	TestMat4_AssertArrayEqual(self, result, TestMat4_Arr16(self, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, -1, 0, 0, 0, 0, 1), 16, "Ortho should place values into out");
+	TestMat4_AssertArrayEqual(self, result, self->output, 16, "Ortho should return out");
 }
 
 static void TestMat4_Perspective(TestMat4 const *self)
@@ -2412,7 +2453,7 @@ static float const *TestVec3_Arr16(TestVec3 const *self, int p, int p_2, int p_3
 	return CitoAssert_Arr16(self->citoassert, p, p_2, p_3, p_4, p_5, p_6, p_7, p_8, p_9, p_10, p_11, p_12, p_13, p_14, p_15, p_16);
 }
 
-static float *TestVec3_Arr3(TestVec3 const *self, int p, int p_2, int p_3)
+static float *TestVec3_Arr3(TestVec3 const *self, float p, float p_2, float p_3)
 {
 	return CitoAssert_Arr3(self->citoassert, p, p_2, p_3);
 }

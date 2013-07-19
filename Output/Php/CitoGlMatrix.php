@@ -1650,11 +1650,6 @@ class Platform
         return 0;
 	}
 
-	static function Random()
-	{
-		return 0;
-	}
-
 	static function Sin($a)
 	{
 		
@@ -2220,15 +2215,6 @@ class Vec2
 	}
 
 	// **
-	static function Random(&$output, $scale)
-	{
-		$r = Platform::Random() * 2 * GlMatrixMath::PI();
-		$output[0] = Platform::Cos($r) * $scale;
-		$output[1] = Platform::Sin($r) * $scale;
-		return $output;
-	}
-
-	// **
 	static function Scale(&$output, &$a, $b)
 	{
 		$output[0] = $a[0] * $b;
@@ -2583,23 +2569,6 @@ class Vec3
 		return $output;
 	}
 
-	// Generates a random vector with the given scale
-	// @returns {vec3} out
-	/// <param name="output">/@param {vec3} out the receiving vector</param>
-	/// <param name="scale">/@param {Number} [scale] Length of the resulting vector. If ommitted, a unit vector will be returned</param>
-	static function Random(&$output, $scale)
-	{
-		$one = 1;
-		$two = 2;
-		$r = Platform::Random() * $two * GlMatrixMath::PI();
-		$z = Platform::Random() * $two - $one;
-		$zScale = Platform::Sqrt($one - $z * $z) * $scale;
-		$output[0] = Platform::Cos($r) * $zScale;
-		$output[1] = Platform::Sin($r) * $zScale;
-		$output[2] = $z * $scale;
-		return $output;
-	}
-
 	// Scales a vec3 by a scalar number
 	// @returns {vec3} out
 	/// <param name="output">/@param {vec3} out the receiving vector</param>
@@ -2944,18 +2913,6 @@ class Vec4
 			$output[2] = $a[2] * $len;
 			$output[3] = $a[3] * $len;
 		}
-		return $output;
-	}
-
-	// **
-	static function Random(&$output, $scale)
-	{
-		$output[0] = Platform::Random();
-		$output[1] = Platform::Random();
-		$output[2] = Platform::Random();
-		$output[3] = Platform::Random();
-		Vec4::Normalize($output, $output);
-		Vec4::Scale($output, $output, $scale);
 		return $output;
 	}
 

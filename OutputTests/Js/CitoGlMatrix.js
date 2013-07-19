@@ -1516,10 +1516,6 @@ Platform.cos = function(a) {
         return 0;
 }
 
-Platform.random = function() {
-	return 0;
-}
-
 Platform.sin = function(a) {
 	
             return Math.sin(a);
@@ -2372,9 +2368,6 @@ TestVec3.prototype.normalizeWithASeparateOutputVector = function() {
 	this.assertArrayEqual(this.vecA, this.arr3(5, 0, 0), 3, "NormalizeWithASeparateOutputVector should not modify vecA");
 }
 
-TestVec3.prototype.random = function() {
-}
-
 TestVec3.prototype.resetTests = function() {
 	this.vecA = this.arr3(1, 2, 3);
 	this.vecB = this.arr3(4, 5, 6);
@@ -2493,8 +2486,6 @@ TestVec3.prototype.test = function() {
 	this.cross();
 	this.resetTests();
 	this.lerp();
-	this.resetTests();
-	this.random();
 	this.resetTests();
 	this.forEachDo();
 	this.resetTests();
@@ -2691,13 +2682,6 @@ Vec2.normalize = function(output, a) {
 		output[0] = a[0] * len;
 		output[1] = a[1] * len;
 	}
-	return output;
-}
-
-Vec2.random = function(output, scale) {
-	var r = Platform.random() * 2 * GlMatrixMath.pI();
-	output[0] = Platform.cos(r) * scale;
-	output[1] = Platform.sin(r) * scale;
 	return output;
 }
 
@@ -2930,18 +2914,6 @@ Vec3.normalize = function(output, a) {
 		output[1] = a[1] * len;
 		output[2] = a[2] * len;
 	}
-	return output;
-}
-
-Vec3.random = function(output, scale) {
-	var one = 1;
-	var two = 2;
-	var r = Platform.random() * two * GlMatrixMath.pI();
-	var z = Platform.random() * two - one;
-	var zScale = Platform.sqrt(one - z * z) * scale;
-	output[0] = Platform.cos(r) * zScale;
-	output[1] = Platform.sin(r) * zScale;
-	output[2] = z * scale;
 	return output;
 }
 
@@ -3190,16 +3162,6 @@ Vec4.normalize = function(output, a) {
 		output[2] = a[2] * len;
 		output[3] = a[3] * len;
 	}
-	return output;
-}
-
-Vec4.random = function(output, scale) {
-	output[0] = Platform.random();
-	output[1] = Platform.random();
-	output[2] = Platform.random();
-	output[3] = Platform.random();
-	Vec4.normalize(output, output);
-	Vec4.scale(output, output, scale);
 	return output;
 }
 

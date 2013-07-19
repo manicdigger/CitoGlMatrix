@@ -1458,11 +1458,6 @@ float Platform_Cos(float a)
         return 0;
 }
 
-float Platform_Random(void)
-{
-	return 0;
-}
-
 float Platform_Sin(float a)
 {
 	
@@ -1966,14 +1961,6 @@ float const *Vec2_Normalize(float *output, float const *a)
 	return output;
 }
 
-float const *Vec2_Random(float *output, float scale)
-{
-	float r = Platform_Random() * 2 * GlMatrixMath_PI();
-	output[0] = Platform_Cos(r) * scale;
-	output[1] = Platform_Sin(r) * scale;
-	return output;
-}
-
 float const *Vec2_Scale(float *output, float const *a, float b)
 {
 	output[0] = a[0] * b;
@@ -2229,19 +2216,6 @@ float const *Vec3_Normalize(float *output, float const *a)
 		output[1] = a[1] * len;
 		output[2] = a[2] * len;
 	}
-	return output;
-}
-
-float const *Vec3_Random(float *output, float scale)
-{
-	float one = 1;
-	float two = 2;
-	float r = Platform_Random() * two * GlMatrixMath_PI();
-	float z = Platform_Random() * two - one;
-	float zScale = Platform_Sqrt(one - z * z) * scale;
-	output[0] = Platform_Cos(r) * zScale;
-	output[1] = Platform_Sin(r) * zScale;
-	output[2] = z * scale;
 	return output;
 }
 
@@ -2518,17 +2492,6 @@ float const *Vec4_Normalize(float *output, float const *a)
 		output[2] = a[2] * len;
 		output[3] = a[3] * len;
 	}
-	return output;
-}
-
-float const *Vec4_Random(float *output, float scale)
-{
-	output[0] = Platform_Random();
-	output[1] = Platform_Random();
-	output[2] = Platform_Random();
-	output[3] = Platform_Random();
-	Vec4_Normalize(output, output);
-	Vec4_Scale(output, output, scale);
 	return output;
 }
 

@@ -1649,11 +1649,6 @@ public class Platform
         return 0;
 	}
 
-	public static float Random()
-	{
-		return 0;
-	}
-
 	public static float Sin(float a)
 	{
 		
@@ -2219,15 +2214,6 @@ public class Vec2
 	}
 
 	/// <summary>**</summary>
-	public static float[] Random(float[] output, float scale)
-	{
-		float r = Platform.Random() * 2 * GlMatrixMath.PI();
-		output[0] = Platform.Cos(r) * scale;
-		output[1] = Platform.Sin(r) * scale;
-		return output;
-	}
-
-	/// <summary>**</summary>
 	public static float[] Scale(float[] output, float[] a, float b)
 	{
 		output[0] = a[0] * b;
@@ -2579,23 +2565,6 @@ public class Vec3
 			output[1] = a[1] * len;
 			output[2] = a[2] * len;
 		}
-		return output;
-	}
-
-	/// <summary>Generates a random vector with the given scale
-	/// @returns {vec3} out</summary>
-	/// <param name="output">/@param {vec3} out the receiving vector</param>
-	/// <param name="scale">/@param {Number} [scale] Length of the resulting vector. If ommitted, a unit vector will be returned</param>
-	public static float[] Random(float[] output, float scale)
-	{
-		float one = 1;
-		float two = 2;
-		float r = Platform.Random() * two * GlMatrixMath.PI();
-		float z = Platform.Random() * two - one;
-		float zScale = Platform.Sqrt(one - z * z) * scale;
-		output[0] = Platform.Cos(r) * zScale;
-		output[1] = Platform.Sin(r) * zScale;
-		output[2] = z * scale;
 		return output;
 	}
 
@@ -2958,18 +2927,6 @@ public class Vec4
 			output[2] = a[2] * len;
 			output[3] = a[3] * len;
 		}
-		return output;
-	}
-
-	/// <summary>**</summary>
-	public static float[] Random(float[] output, float scale)
-	{
-		output[0] = Platform.Random();
-		output[1] = Platform.Random();
-		output[2] = Platform.Random();
-		output[3] = Platform.Random();
-		Vec4.Normalize(output, output);
-		Vec4.Scale(output, output, scale);
 		return output;
 	}
 

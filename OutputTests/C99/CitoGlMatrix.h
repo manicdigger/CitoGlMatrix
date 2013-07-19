@@ -448,8 +448,6 @@ float Platform_Acos(float a);
 
 float Platform_Cos(float a);
 
-float Platform_Random(void);
-
 float Platform_Sin(float a);
 
 float Platform_Sqrt(float a);
@@ -715,11 +713,6 @@ float const *Vec2_Normalize(float *output, float const *a);
 /**
  * **
  */
-float const *Vec2_Random(float *output, float scale);
-
-/**
- * **
- */
 float const *Vec2_Scale(float *output, float const *a, float b);
 
 /**
@@ -936,14 +929,6 @@ float const *Vec3_Negate(float *output, float const *a);
 float const *Vec3_Normalize(float *output, float const *a);
 
 /**
- * Generates a random vector with the given scale
- * @returns {vec3} out
- * @param output /@param {vec3} out the receiving vector
- * @param scale /@param {Number} [scale] Length of the resulting vector. If ommitted, a unit vector will be returned
- */
-float const *Vec3_Random(float *output, float scale);
-
-/**
  * Scales a vec3 by a scalar number
  * @returns {vec3} out
  * @param output /@param {vec3} out the receiving vector
@@ -1152,11 +1137,6 @@ float const *Vec4_Negate(float *output, float const *a);
  * **
  */
 float const *Vec4_Normalize(float *output, float const *a);
-
-/**
- * **
- */
-float const *Vec4_Random(float *output, float scale);
 
 /**
  * **

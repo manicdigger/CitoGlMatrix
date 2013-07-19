@@ -14,11 +14,6 @@ public class Platform
 		return 0;
 	}
 
-	public static float random()
-	{
-		return 0;
-	}
-
 	public static float sin(float a)
 	{
 		return 0;

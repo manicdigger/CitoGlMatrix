@@ -269,10 +269,6 @@ public class TestVec3
 		this.assertArrayEqual(this.vecA, this.arr3(5, 0, 0), 3, "NormalizeWithASeparateOutputVector should not modify vecA");
 	}
 
-	private void random()
-	{
-	}
-
 	private void resetTests()
 	{
 		this.vecA = this.arr3(1, 2, 3);
@@ -409,8 +405,6 @@ public class TestVec3
 		this.cross();
 		this.resetTests();
 		this.lerp();
-		this.resetTests();
-		this.random();
 		this.resetTests();
 		this.forEachDo();
 		this.resetTests();

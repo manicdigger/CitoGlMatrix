@@ -16,11 +16,6 @@ package
 			return 0;
 		}
 
-		public static function random() : float
-		{
-			return 0;
-		}
-
 		public static function sin(a : float) : float
 		{
 			return 0;

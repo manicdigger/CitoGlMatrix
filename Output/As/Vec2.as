@@ -211,17 +211,6 @@ package
 		/**
 		 * **
 		 */
-		public static function random(output : Array, scale : float) : Array
-		{
-			var r : float = Platform.random() * 2 * GlMatrixMath.pI();
-			output[0] = Platform.cos(r) * scale;
-			output[1] = Platform.sin(r) * scale;
-			return output;
-		}
-
-		/**
-		 * **
-		 */
 		public static function scale(output : Array, a : Array, b : float) : Array
 		{
 			output[0] = a[0] * b;

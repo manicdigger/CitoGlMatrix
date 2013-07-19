@@ -1780,11 +1780,6 @@ class Platform
 		return 0;
 	}
 
-	static float Random()
-	{
-		return 0;
-	}
-
 	static float Sin(float a)
 	{
 		return 0;
@@ -2788,10 +2783,6 @@ class TestVec3
 		this.AssertArrayEqual(this.vecA, this.Arr3(5, 0, 0), 3, "NormalizeWithASeparateOutputVector should not modify vecA");
 	}
 
-	private void Random()
-	{
-	}
-
 	private void ResetTests()
 	{
 		this.vecA = this.Arr3(1, 2, 3);
@@ -2928,8 +2919,6 @@ class TestVec3
 		this.Cross();
 		this.ResetTests();
 		this.Lerp();
-		this.ResetTests();
-		this.Random();
 		this.ResetTests();
 		this.ForEachDo();
 		this.ResetTests();
@@ -3179,15 +3168,6 @@ class Vec2
 			output[0] = a[0] * len;
 			output[1] = a[1] * len;
 		}
-		return output;
-	}
-
-	/// **
-	static const(float)[] Random(float[] output, float scale)
-	{
-		float r = Platform.Random() * 2 * GlMatrixMath.PI();
-		output[0] = Platform.Cos(r) * scale;
-		output[1] = Platform.Sin(r) * scale;
 		return output;
 	}
 
@@ -3558,24 +3538,6 @@ class Vec3
 			output[1] = a[1] * len;
 			output[2] = a[2] * len;
 		}
-		return output;
-	}
-
-	/// Generates a random vector with the given scale
-	/// @returns {vec3} out
-	/// Params:
-	/// output = /@param {vec3} out the receiving vector
-	/// scale = /@param {Number} [scale] Length of the resulting vector. If ommitted, a unit vector will be returned
-	static const(float)[] Random(float[] output, float scale)
-	{
-		float one = 1;
-		float two = 2;
-		float r = Platform.Random() * two * GlMatrixMath.PI();
-		float z = Platform.Random() * two - one;
-		float zScale = Platform.Sqrt(one - z * z) * scale;
-		output[0] = Platform.Cos(r) * zScale;
-		output[1] = Platform.Sin(r) * zScale;
-		output[2] = z * scale;
 		return output;
 	}
 
@@ -3950,18 +3912,6 @@ class Vec4
 			output[2] = a[2] * len;
 			output[3] = a[3] * len;
 		}
-		return output;
-	}
-
-	/// **
-	static const(float)[] Random(float[] output, float scale)
-	{
-		output[0] = Platform.Random();
-		output[1] = Platform.Random();
-		output[2] = Platform.Random();
-		output[3] = Platform.Random();
-		Vec4.Normalize(output, output);
-		Vec4.Scale(output, output, scale);
 		return output;
 	}
 

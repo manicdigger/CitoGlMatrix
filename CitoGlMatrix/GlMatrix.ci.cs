@@ -2881,21 +2881,21 @@ public class Vec2
         return output;
     }
 
-    ///**
+    //**
     // * Generates a random vector with the given scale
     // *
     // * @param {vec2} output the receiving vector
     // * @param {Number} [scale] Length of the resulting vector. If ommitted, a unit vector will be returned
     // * @returns {vec2} output
     // */
-    public static float[] Random(float[] output, float scale)
-    {
-        //scale = scale || 1.0;
-        float r = Platform.Random() * 2 * GlMatrixMath.PI();
-        output[0] = Platform.Cos(r) * scale;
-        output[1] = Platform.Sin(r) * scale;
-        return output;
-    }
+    //public static float[] Random(float[] output, float scale)
+    //{
+    //    //scale = scale || 1.0;
+    //    float r = Platform.Random() * 2 * GlMatrixMath.PI();
+    //    output[0] = Platform.Cos(r) * scale;
+    //    output[1] = Platform.Sin(r) * scale;
+    //    return output;
+    //}
 
     ///**
     // * Transforms the vec2 with a mat2
@@ -3425,27 +3425,27 @@ public class Vec3
         return output;
     }
 
-    ///Generates a random vector with the given scale
-    ///@returns {vec3} out
-    public static float[] Random(
-        ////@param {vec3} out the receiving vector
-        float[] output,
-        ////@param {Number} [scale] Length of the resulting vector. If ommitted, a unit vector will be returned
-        float scale)
-    {
-        //float scale = scale || 1.0;
-        float one = 1;
-        float two = 2;
+    //Generates a random vector with the given scale
+    //@returns {vec3} out
+    //public static float[] Random(
+    //    ////@param {vec3} out the receiving vector
+    //    float[] output,
+    //    ////@param {Number} [scale] Length of the resulting vector. If ommitted, a unit vector will be returned
+    //    float scale)
+    //{
+    //    //float scale = scale || 1.0;
+    //    float one = 1;
+    //    float two = 2;
 
-        float r = Platform.Random() * two * GlMatrixMath.PI();
-        float z = (Platform.Random() * two) - one;
-        float zScale = Platform.Sqrt(one - z * z) * scale;
+    //    float r = Platform.Random() * two * GlMatrixMath.PI();
+    //    float z = (Platform.Random() * two) - one;
+    //    float zScale = Platform.Sqrt(one - z * z) * scale;
 
-        output[0] = Platform.Cos(r) * zScale;
-        output[1] = Platform.Sin(r) * zScale;
-        output[2] = z * scale;
-        return output;
-    }
+    //    output[0] = Platform.Cos(r) * zScale;
+    //    output[1] = Platform.Sin(r) * zScale;
+    //    output[2] = z * scale;
+    //    return output;
+    //}
 
     ////Transforms the vec3 with a mat4.
     ////4th vector component is implicitly '1'
@@ -4008,26 +4008,26 @@ public class Vec4
         return output;
     }
 
-    ///**
+    //**
     // * Generates a random vector with the given scale
     // *
     // * @param {vec4} output the receiving vector
     // * @param {Number} [scale] Length of the resulting vector. If ommitted, a unit vector will be returned
     // * @returns {vec4} output
     // */
-    public static float[] Random(float[] output, float scale)
-    {
-        //scale = scale || 1.0;
+    //public static float[] Random(float[] output, float scale)
+    //{
+    //    //scale = scale || 1.0;
 
-        //TODO: This is a pretty awful way of doing this. Find something better.
-        output[0] = Platform.Random();
-        output[1] = Platform.Random();
-        output[2] = Platform.Random();
-        output[3] = Platform.Random();
-        Vec4.Normalize(output, output);
-        Vec4.Scale(output, output, scale);
-        return output;
-    }
+    //    //TODO: This is a pretty awful way of doing this. Find something better.
+    //    output[0] = Platform.Random();
+    //    output[1] = Platform.Random();
+    //    output[2] = Platform.Random();
+    //    output[3] = Platform.Random();
+    //    Vec4.Normalize(output, output);
+    //    Vec4.Scale(output, output, scale);
+    //    return output;
+    //}
 
     ///**
     // * Transforms the vec4 with a mat4.
@@ -4258,10 +4258,10 @@ public class Platform
 #endif
     }
 
-    public static float Random()
-    {
-        return 0;
-    }
+    //public static float Random()
+    //{
+    //    return 0;
+    //}
 
     public static float Tan(float a)
     {
@@ -4509,7 +4509,7 @@ public class TestVec3
         Dot(); ResetTests();
         Cross(); ResetTests();
         Lerp(); ResetTests();
-        Random(); ResetTests();
+        //Random(); ResetTests();
         ForEachDo(); ResetTests();
         Str(); ResetTests();
     }
@@ -4896,9 +4896,9 @@ public class TestVec3
     {
     }
 
-    void Random()
-    {
-    }
+    //void Random()
+    //{
+    //}
 
     void ForEachDo()
     {

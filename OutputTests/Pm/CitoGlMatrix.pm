@@ -2496,14 +2496,6 @@ sub cos($) {
 	return 0;
 }
 
-=head2 C<Platform::random()>
-
-=cut
-
-sub random() {
-	return 0;
-}
-
 =head2 C<Platform::sin($a)>
 
 =cut
@@ -3695,10 +3687,6 @@ sub normalize_with_a_separate_output_vector($) {
 	$self->assert_array_equal($self->{vec_a}, $self->arr3(5, 0, 0), 3, "NormalizeWithASeparateOutputVector should not modify vecA");
 }
 
-sub random($) {
-	my ($self) = @_;
-}
-
 sub reset_tests($) {
 	my ($self) = @_;
 	$self->{vec_a} = $self->arr3(1, 2, 3);
@@ -3839,8 +3827,6 @@ sub test($) {
 	$self->cross();
 	$self->reset_tests();
 	$self->lerp();
-	$self->reset_tests();
-	$self->random();
 	$self->reset_tests();
 	$self->for_each_do();
 	$self->reset_tests();
@@ -4210,20 +4196,6 @@ sub normalize($$) {
 		$output->[0] = $a->[0] * $len;
 		$output->[1] = $a->[1] * $len;
 	}
-	return $output;
-}
-
-=head2 C<Vec2::random(\@output, $scale)>
-
-**
-
-=cut
-
-sub random($$) {
-	my ($output, $scale) = @_;
-	my $r = Platform::random() * 2 * GlMatrixMath::p_i();
-	$output->[0] = Platform::cos($r) * $scale;
-	$output->[1] = Platform::sin($r) * $scale;
 	return $output;
 }
 
@@ -4957,40 +4929,6 @@ sub normalize($$) {
 	return $output;
 }
 
-=head2 C<Vec3::random(\@output, $scale)>
-
-Generates a random vector with the given scale
-@returns {vec3} out
-
-Parameters:
-
-=over
-
-=item \@output
-
-/@param {vec3} out the receiving vector
-
-=item $scale
-
-/@param {Number} [scale] Length of the resulting vector. If ommitted, a unit vector will be returned
-
-=back
-
-=cut
-
-sub random($$) {
-	my ($output, $scale) = @_;
-	my $one = 1;
-	my $two = 2;
-	my $r = Platform::random() * $two * GlMatrixMath::p_i();
-	my $z = Platform::random() * $two - $one;
-	my $zScale = Platform::sqrt($one - $z * $z) * $scale;
-	$output->[0] = Platform::cos($r) * $zScale;
-	$output->[1] = Platform::sin($r) * $zScale;
-	$output->[2] = $z * $scale;
-	return $output;
-}
-
 =head2 C<Vec3::scale(\@output, \@a, $b)>
 
 Scales a vec3 by a scalar number
@@ -5637,23 +5575,6 @@ sub normalize($$) {
 		$output->[2] = $a->[2] * $len;
 		$output->[3] = $a->[3] * $len;
 	}
-	return $output;
-}
-
-=head2 C<Vec4::random(\@output, $scale)>
-
-**
-
-=cut
-
-sub random($$) {
-	my ($output, $scale) = @_;
-	$output->[0] = Platform::random();
-	$output->[1] = Platform::random();
-	$output->[2] = Platform::random();
-	$output->[3] = Platform::random();
-	Vec4::normalize($output, $output);
-	Vec4::scale($output, $output, $scale);
 	return $output;
 }
 

@@ -209,17 +209,6 @@ public class Vec2
 	/**
 	 * **
 	 */
-	public static float[] random(float[] output, float scale)
-	{
-		float r = Platform.random() * 2 * GlMatrixMath.pI();
-		output[0] = Platform.cos(r) * scale;
-		output[1] = Platform.sin(r) * scale;
-		return output;
-	}
-
-	/**
-	 * **
-	 */
 	public static float[] scale(float[] output, float[] a, float b)
 	{
 		output[0] = a[0] * b;

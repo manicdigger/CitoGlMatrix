@@ -288,25 +288,6 @@ package
 		}
 
 		/**
-		 * Generates a random vector with the given scale
-		 * @returns {vec3} out
-		 * @param output /@param {vec3} out the receiving vector
-		 * @param scale /@param {Number} [scale] Length of the resulting vector. If ommitted, a unit vector will be returned
-		 */
-		public static function random(output : Array, scale : float) : Array
-		{
-			var one : float = 1;
-			var two : float = 2;
-			var r : float = Platform.random() * two * GlMatrixMath.pI();
-			var z : float = Platform.random() * two - one;
-			var zScale : float = Platform.sqrt(one - z * z) * scale;
-			output[0] = Platform.cos(r) * zScale;
-			output[1] = Platform.sin(r) * zScale;
-			output[2] = z * scale;
-			return output;
-		}
-
-		/**
 		 * Scales a vec3 by a scalar number
 		 * @returns {vec3} out
 		 * @param output /@param {vec3} out the receiving vector

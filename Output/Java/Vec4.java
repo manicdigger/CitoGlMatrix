@@ -231,20 +231,6 @@ public class Vec4
 	/**
 	 * **
 	 */
-	public static float[] random(float[] output, float scale)
-	{
-		output[0] = Platform.random();
-		output[1] = Platform.random();
-		output[2] = Platform.random();
-		output[3] = Platform.random();
-		Vec4.normalize(output, output);
-		Vec4.scale(output, output, scale);
-		return output;
-	}
-
-	/**
-	 * **
-	 */
 	public static float[] scale(float[] output, float[] a, float b)
 	{
 		output[0] = a[0] * b;

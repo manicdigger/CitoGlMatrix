@@ -1505,30 +1505,44 @@ function Platform()
 }
 
 Platform.acos = function(a) {
-	return 0;
+	
+            return Math.acos(a);
+        return 0;
 }
 
 Platform.cos = function(a) {
-	return 0;
+	
+            return Math.cos(a);
+        return 0;
 }
 
 Platform.sin = function(a) {
-	return 0;
+	
+            return Math.sin(a);
+        return 0;
 }
 
 Platform.sqrt = function(a) {
-	return 0;
+	
+            return Math.sqrt(a);
+        return 0;
 }
 
 Platform.tan = function(a) {
-	return 0;
+	
+            return Math.tan(a);
+        return 0;
 }
 
 Platform.writeInt = function(a) {
-}
+	
+            console.log(a);
+        }
 
 Platform.writeString = function(a) {
-}
+	
+            console.log(a);
+        }
 
 function Quat()
 {

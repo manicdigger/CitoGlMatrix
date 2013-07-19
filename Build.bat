@@ -15,11 +15,11 @@ mkdir Output\Pm510
 mkdir Output\Php
 
 cito -D CITO -D C -l c -o Output\C\CitoGlMatrix.c CitoGlMatrix\GlMatrix.ci.cs
-cito -D CITO -D C99 -l c99 -o Output\C99\CitoGlMatrix.c CitoGlMatrix\GlMatrix.ci.cs
+cito -D CITO -D C -D C99 -l c99 -o Output\C99\CitoGlMatrix.c CitoGlMatrix\GlMatrix.ci.cs
 cito -D CITO -D JAVA -l java -o Output\Java\CitoGlMatrix.java -n CitoGlMatrix.lib  CitoGlMatrix\GlMatrix.ci.cs
 cito -D CITO -D CS -l cs -o Output\Cs\CitoGlMatrix.cs CitoGlMatrix\GlMatrix.ci.cs
 cito -D CITO -D JS -l js -o Output\Js\CitoGlMatrix.js CitoGlMatrix\GlMatrix.ci.cs
-cito -D CITO -D JSTA -l js-ta -o Output\JsTa\CitoGlMatrixTa.js CitoGlMatrix\GlMatrix.ci.cs
+cito -D CITO -D JS -D JSTA -l js-ta -o Output\JsTa\CitoGlMatrixTa.js CitoGlMatrix\GlMatrix.ci.cs
 cito -D CITO -D AS -l as -o Output\As\CitoGlMatrix.as CitoGlMatrix\GlMatrix.ci.cs
 cito -D CITO -D D -l d -o Output\D\CitoGlMatrix.d CitoGlMatrix\GlMatrix.ci.cs
 cito -D CITO -D PM -l pm -o Output\Pm\CitoGlMatrix.pm CitoGlMatrix\GlMatrix.ci.cs
@@ -40,11 +40,11 @@ mkdir OutputTests\Pm510
 mkdir OutputTests\Php
 
 cito -D CITO -D TESTS -D C -l c -o OutputTests\C\CitoGlMatrix.c CitoGlMatrix\GlMatrix.ci.cs
-cito -D CITO -D TESTS -D C99 -l c99 -o OutputTests\C99\CitoGlMatrix.c CitoGlMatrix\GlMatrix.ci.cs
+cito -D CITO -D TESTS -D C -D C99 -l c99 -o OutputTests\C99\CitoGlMatrix.c CitoGlMatrix\GlMatrix.ci.cs
 cito -D CITO -D TESTS -D JAVA -l java -o OutputTests\Java\CitoGlMatrix.java -n CitoGlMatrix.lib  CitoGlMatrix\GlMatrix.ci.cs
 cito -D CITO -D TESTS -D CS -l cs -o OutputTests\Cs\CitoGlMatrix.cs CitoGlMatrix\GlMatrix.ci.cs
 cito -D CITO -D TESTS -D JS -l js -o OutputTests\Js\CitoGlMatrix.js CitoGlMatrix\GlMatrix.ci.cs
-cito -D CITO -D TESTS -D JSTA -l js-ta -o OutputTests\JsTa\CitoGlMatrixTa.js CitoGlMatrix\GlMatrix.ci.cs
+cito -D CITO -D TESTS -D JS -D JSTA -l js-ta -o OutputTests\JsTa\CitoGlMatrixTa.js CitoGlMatrix\GlMatrix.ci.cs
 cito -D CITO -D TESTS -D AS -l as -o OutputTests\As\CitoGlMatrix.as CitoGlMatrix\GlMatrix.ci.cs
 cito -D CITO -D TESTS -D D -l d -o OutputTests\D\CitoGlMatrix.d CitoGlMatrix\GlMatrix.ci.cs
 cito -D CITO -D TESTS -D PM -l pm -o OutputTests\Pm\CitoGlMatrix.pm CitoGlMatrix\GlMatrix.ci.cs

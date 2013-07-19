@@ -8,6 +8,26 @@ package
 
 		private function add() : void
 		{
+			this.addWithASeparateOutputVector();
+			this.addWhenVecAIsTheOutputVector();
+			this.addWhenVecBIsTheOutputVector();
+		}
+
+		private function addWhenVecAIsTheOutputVector() : void
+		{
+		}
+
+		private function addWhenVecBIsTheOutputVector() : void
+		{
+		}
+
+		private function addWithASeparateOutputVector() : void
+		{
+			var result : Array = Vec3.add(this.output, this.vecA, this.vecB);
+			this.assertArrayEqual(this.output, this.arr3(5, 7, 9), 3, "Add should place values into out");
+			this.assertArrayEqual(result, this.output, 3, "Add should return out");
+			this.assertArrayEqual(this.vecA, this.arr3(1, 2, 3), 3, "Add should not modify vecA");
+			this.assertArrayEqual(this.vecB, this.arr3(4, 5, 6), 3, "Add should not modify vecB");
 		}
 
 		private function arr16(p : int, p_2 : int, p_3 : int, p_4 : int, p_5 : int, p_6 : int, p_7 : int, p_8 : int, p_9 : int, p_10 : int, p_11 : int, p_12 : int, p_13 : int, p_14 : int, p_15 : int, p_16 : int) : Array
@@ -65,6 +85,20 @@ package
 			}
 		}
 
+		private function assertCloseTo(actual : float, expected : float, msg : String) : void
+		{
+			if (GlMatrixMath.abs(actual - expected) > GlMatrixMath.gLMAT_EPSILON()) {
+				this.errors[this.errorsCount++] = msg;
+			}
+		}
+
+		private function assertEqual(actual : float, expected : float, msg : String) : void
+		{
+			if (actual != expected) {
+				this.errors[this.errorsCount++] = msg;
+			}
+		}
+
 		private function clone() : void
 		{
 			var result : Array = Vec3.clone(this.vecA);
@@ -90,6 +124,10 @@ package
 
 		private function distance() : void
 		{
+			var result : float = Vec3.distance(this.vecA, this.vecB);
+			var r : float = 5196152;
+			r /= 1000000;
+			this.assertCloseTo(result, r, "Distance should return the distance");
 		}
 
 		private function divide() : void
@@ -98,6 +136,10 @@ package
 
 		private function dot() : void
 		{
+			var result : float = Vec3.dot(this.vecA, this.vecB);
+			this.assertEqual(result, 32, "Dot should return the dot product");
+			this.assertArrayEqual(this.vecA, this.arr3(1, 2, 3), 3, "Dot should not modify vecA");
+			this.assertArrayEqual(this.vecB, this.arr3(4, 5, 6), 3, "Dot should not modify vecB");
 		}
 
 		private function forEach() : void
@@ -112,6 +154,10 @@ package
 
 		private function length() : void
 		{
+			var result : float = Vec3.length(this.vecA);
+			var r : float = 3741657;
+			r /= 1000000;
+			this.assertCloseTo(result, r, "Length should return the length");
 		}
 
 		private function lerp() : void
@@ -159,10 +205,14 @@ package
 
 		private function squaredDistance() : void
 		{
+			var result : float = Vec3.squaredDistance(this.vecA, this.vecB);
+			this.assertEqual(result, 27, "SquaredDistance should return the squared distance");
 		}
 
 		private function squaredLength() : void
 		{
+			var result : float = Vec3.squaredLength(this.vecA);
+			this.assertEqual(result, 14, "SquaredLength should return the squared length");
 		}
 
 		private function str() : void
@@ -170,6 +220,26 @@ package
 		}
 
 		private function subtract() : void
+		{
+			this.subtractShouldHaveAnAliasCalledSub();
+			this.subtractWithASeparateOutputVector();
+			this.subtractWhenVecAIsTheOutputVector();
+			this.subtractWhenVecBIsTheOutputVector();
+		}
+
+		private function subtractShouldHaveAnAliasCalledSub() : void
+		{
+		}
+
+		private function subtractWhenVecAIsTheOutputVector() : void
+		{
+		}
+
+		private function subtractWhenVecBIsTheOutputVector() : void
+		{
+		}
+
+		private function subtractWithASeparateOutputVector() : void
 		{
 		}
 
@@ -180,13 +250,7 @@ package
 			this.vecA = this.arr3(1, 2, 3);
 			this.vecB = this.arr3(4, 5, 6);
 			this.output = this.arr3(0, 0, 0);
-			this.transformMat4WithAnIdentity();
-			this.transformMat4WithALookAt();
-			this.transformMat3WithAnIdentity();
-			this.transformMat3With90DegAboutX();
-			this.transformMat3With90DegAboutY();
-			this.transformMat3With90DegAboutZ();
-			this.transformMat3WithALookAtNormalMatrix();
+			this.transformMat4();
 			this.create();
 			this.clone();
 			this.fromValues();
@@ -248,6 +312,17 @@ package
 			var result : Array = Vec3.transformMat3(this.output, this.vecA, matr);
 			this.assertArrayEqual(this.output, this.arr3(1, 2, 3), 3, "TransformMat3WithAnIdentity should produce the input");
 			this.assertArrayEqual(result, this.output, 3, "TransformMat3WithAnIdentity should return output");
+		}
+
+		private function transformMat4() : void
+		{
+			this.transformMat4WithAnIdentity();
+			this.transformMat4WithALookAt();
+			this.transformMat3WithAnIdentity();
+			this.transformMat3With90DegAboutX();
+			this.transformMat3With90DegAboutY();
+			this.transformMat3With90DegAboutZ();
+			this.transformMat3WithALookAtNormalMatrix();
 		}
 
 		private function transformMat4WithALookAt() : void

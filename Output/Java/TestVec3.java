@@ -6,6 +6,26 @@ public class TestVec3
 
 	private void add()
 	{
+		this.addWithASeparateOutputVector();
+		this.addWhenVecAIsTheOutputVector();
+		this.addWhenVecBIsTheOutputVector();
+	}
+
+	private void addWhenVecAIsTheOutputVector()
+	{
+	}
+
+	private void addWhenVecBIsTheOutputVector()
+	{
+	}
+
+	private void addWithASeparateOutputVector()
+	{
+		float[] result = Vec3.add(this.output, this.vecA, this.vecB);
+		this.assertArrayEqual(this.output, this.arr3(5, 7, 9), 3, "Add should place values into out");
+		this.assertArrayEqual(result, this.output, 3, "Add should return out");
+		this.assertArrayEqual(this.vecA, this.arr3(1, 2, 3), 3, "Add should not modify vecA");
+		this.assertArrayEqual(this.vecB, this.arr3(4, 5, 6), 3, "Add should not modify vecB");
 	}
 
 	private float[] arr16(int p, int p_2, int p_3, int p_4, int p_5, int p_6, int p_7, int p_8, int p_9, int p_10, int p_11, int p_12, int p_13, int p_14, int p_15, int p_16)
@@ -63,6 +83,20 @@ public class TestVec3
 		}
 	}
 
+	private void assertCloseTo(float actual, float expected, String msg)
+	{
+		if (GlMatrixMath.abs(actual - expected) > GlMatrixMath.gLMAT_EPSILON()) {
+			this.errors[this.errorsCount++] = msg;
+		}
+	}
+
+	private void assertEqual(float actual, float expected, String msg)
+	{
+		if (actual != expected) {
+			this.errors[this.errorsCount++] = msg;
+		}
+	}
+
 	private void clone()
 	{
 		float[] result = Vec3.clone(this.vecA);
@@ -88,6 +122,10 @@ public class TestVec3
 
 	private void distance()
 	{
+		float result = Vec3.distance(this.vecA, this.vecB);
+		float r = 5196152;
+		r /= 1000000;
+		this.assertCloseTo(result, r, "Distance should return the distance");
 	}
 
 	private void divide()
@@ -96,6 +134,10 @@ public class TestVec3
 
 	private void dot()
 	{
+		float result = Vec3.dot(this.vecA, this.vecB);
+		this.assertEqual(result, 32, "Dot should return the dot product");
+		this.assertArrayEqual(this.vecA, this.arr3(1, 2, 3), 3, "Dot should not modify vecA");
+		this.assertArrayEqual(this.vecB, this.arr3(4, 5, 6), 3, "Dot should not modify vecB");
 	}
 
 	private void forEach()
@@ -110,6 +152,10 @@ public class TestVec3
 
 	private void length()
 	{
+		float result = Vec3.length(this.vecA);
+		float r = 3741657;
+		r /= 1000000;
+		this.assertCloseTo(result, r, "Length should return the length");
 	}
 
 	private void lerp()
@@ -157,10 +203,14 @@ public class TestVec3
 
 	private void squaredDistance()
 	{
+		float result = Vec3.squaredDistance(this.vecA, this.vecB);
+		this.assertEqual(result, 27, "SquaredDistance should return the squared distance");
 	}
 
 	private void squaredLength()
 	{
+		float result = Vec3.squaredLength(this.vecA);
+		this.assertEqual(result, 14, "SquaredLength should return the squared length");
 	}
 
 	private void str()
@@ -168,6 +218,26 @@ public class TestVec3
 	}
 
 	private void subtract()
+	{
+		this.subtractShouldHaveAnAliasCalledSub();
+		this.subtractWithASeparateOutputVector();
+		this.subtractWhenVecAIsTheOutputVector();
+		this.subtractWhenVecBIsTheOutputVector();
+	}
+
+	private void subtractShouldHaveAnAliasCalledSub()
+	{
+	}
+
+	private void subtractWhenVecAIsTheOutputVector()
+	{
+	}
+
+	private void subtractWhenVecBIsTheOutputVector()
+	{
+	}
+
+	private void subtractWithASeparateOutputVector()
 	{
 	}
 
@@ -178,13 +248,7 @@ public class TestVec3
 		this.vecA = this.arr3(1, 2, 3);
 		this.vecB = this.arr3(4, 5, 6);
 		this.output = this.arr3(0, 0, 0);
-		this.transformMat4WithAnIdentity();
-		this.transformMat4WithALookAt();
-		this.transformMat3WithAnIdentity();
-		this.transformMat3With90DegAboutX();
-		this.transformMat3With90DegAboutY();
-		this.transformMat3With90DegAboutZ();
-		this.transformMat3WithALookAtNormalMatrix();
+		this.transformMat4();
 		this.create();
 		this.clone();
 		this.fromValues();
@@ -246,6 +310,17 @@ public class TestVec3
 		float[] result = Vec3.transformMat3(this.output, this.vecA, matr);
 		this.assertArrayEqual(this.output, this.arr3(1, 2, 3), 3, "TransformMat3WithAnIdentity should produce the input");
 		this.assertArrayEqual(result, this.output, 3, "TransformMat3WithAnIdentity should return output");
+	}
+
+	private void transformMat4()
+	{
+		this.transformMat4WithAnIdentity();
+		this.transformMat4WithALookAt();
+		this.transformMat3WithAnIdentity();
+		this.transformMat3With90DegAboutX();
+		this.transformMat3With90DegAboutY();
+		this.transformMat3With90DegAboutZ();
+		this.transformMat3WithALookAtNormalMatrix();
 	}
 
 	private void transformMat4WithALookAt()

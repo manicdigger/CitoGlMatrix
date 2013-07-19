@@ -1741,6 +1741,23 @@ function TestVec3()
 }
 
 TestVec3.prototype.add = function() {
+	this.addWithASeparateOutputVector();
+	this.addWhenVecAIsTheOutputVector();
+	this.addWhenVecBIsTheOutputVector();
+}
+
+TestVec3.prototype.addWhenVecAIsTheOutputVector = function() {
+}
+
+TestVec3.prototype.addWhenVecBIsTheOutputVector = function() {
+}
+
+TestVec3.prototype.addWithASeparateOutputVector = function() {
+	var result = Vec3.add(this.output, this.vecA, this.vecB);
+	this.assertArrayEqual(this.output, this.arr3(5, 7, 9), 3, "Add should place values into out");
+	this.assertArrayEqual(result, this.output, 3, "Add should return out");
+	this.assertArrayEqual(this.vecA, this.arr3(1, 2, 3), 3, "Add should not modify vecA");
+	this.assertArrayEqual(this.vecB, this.arr3(4, 5, 6), 3, "Add should not modify vecB");
 }
 
 TestVec3.prototype.arr16 = function(p, p_2, p_3, p_4, p_5, p_6, p_7, p_8, p_9, p_10, p_11, p_12, p_13, p_14, p_15, p_16) {
@@ -1794,6 +1811,18 @@ TestVec3.prototype.assertArrayEqual = function(actual, expected, length, msg) {
 	}
 }
 
+TestVec3.prototype.assertCloseTo = function(actual, expected, msg) {
+	if (GlMatrixMath.abs(actual - expected) > GlMatrixMath.gLMAT_EPSILON()) {
+		this.errors[this.errorsCount++] = msg;
+	}
+}
+
+TestVec3.prototype.assertEqual = function(actual, expected, msg) {
+	if (actual != expected) {
+		this.errors[this.errorsCount++] = msg;
+	}
+}
+
 TestVec3.prototype.clone = function() {
 	var result = Vec3.clone(this.vecA);
 	this.assertArrayEqual(result, this.vecA, 3, "Clone should return a 3 element array initialized to the values in vecA");
@@ -1814,12 +1843,20 @@ TestVec3.prototype.cross = function() {
 }
 
 TestVec3.prototype.distance = function() {
+	var result = Vec3.distance(this.vecA, this.vecB);
+	var r = 5196152;
+	r /= 1000000;
+	this.assertCloseTo(result, r, "Distance should return the distance");
 }
 
 TestVec3.prototype.divide = function() {
 }
 
 TestVec3.prototype.dot = function() {
+	var result = Vec3.dot(this.vecA, this.vecB);
+	this.assertEqual(result, 32, "Dot should return the dot product");
+	this.assertArrayEqual(this.vecA, this.arr3(1, 2, 3), 3, "Dot should not modify vecA");
+	this.assertArrayEqual(this.vecB, this.arr3(4, 5, 6), 3, "Dot should not modify vecB");
 }
 
 TestVec3.prototype.forEach = function() {
@@ -1831,6 +1868,10 @@ TestVec3.prototype.fromValues = function() {
 }
 
 TestVec3.prototype.length = function() {
+	var result = Vec3.length(this.vecA);
+	var r = 3741657;
+	r /= 1000000;
+	this.assertCloseTo(result, r, "Length should return the length");
 }
 
 TestVec3.prototype.lerp = function() {
@@ -1867,15 +1908,35 @@ TestVec3.prototype.set = function() {
 }
 
 TestVec3.prototype.squaredDistance = function() {
+	var result = Vec3.squaredDistance(this.vecA, this.vecB);
+	this.assertEqual(result, 27, "SquaredDistance should return the squared distance");
 }
 
 TestVec3.prototype.squaredLength = function() {
+	var result = Vec3.squaredLength(this.vecA);
+	this.assertEqual(result, 14, "SquaredLength should return the squared length");
 }
 
 TestVec3.prototype.str = function() {
 }
 
 TestVec3.prototype.subtract = function() {
+	this.subtractShouldHaveAnAliasCalledSub();
+	this.subtractWithASeparateOutputVector();
+	this.subtractWhenVecAIsTheOutputVector();
+	this.subtractWhenVecBIsTheOutputVector();
+}
+
+TestVec3.prototype.subtractShouldHaveAnAliasCalledSub = function() {
+}
+
+TestVec3.prototype.subtractWhenVecAIsTheOutputVector = function() {
+}
+
+TestVec3.prototype.subtractWhenVecBIsTheOutputVector = function() {
+}
+
+TestVec3.prototype.subtractWithASeparateOutputVector = function() {
 }
 
 TestVec3.prototype.test = function() {
@@ -1884,13 +1945,7 @@ TestVec3.prototype.test = function() {
 	this.vecA = this.arr3(1, 2, 3);
 	this.vecB = this.arr3(4, 5, 6);
 	this.output = this.arr3(0, 0, 0);
-	this.transformMat4WithAnIdentity();
-	this.transformMat4WithALookAt();
-	this.transformMat3WithAnIdentity();
-	this.transformMat3With90DegAboutX();
-	this.transformMat3With90DegAboutY();
-	this.transformMat3With90DegAboutZ();
-	this.transformMat3WithALookAtNormalMatrix();
+	this.transformMat4();
 	this.create();
 	this.clone();
 	this.fromValues();
@@ -1947,6 +2002,16 @@ TestVec3.prototype.transformMat3WithAnIdentity = function() {
 	var result = Vec3.transformMat3(this.output, this.vecA, matr);
 	this.assertArrayEqual(this.output, this.arr3(1, 2, 3), 3, "TransformMat3WithAnIdentity should produce the input");
 	this.assertArrayEqual(result, this.output, 3, "TransformMat3WithAnIdentity should return output");
+}
+
+TestVec3.prototype.transformMat4 = function() {
+	this.transformMat4WithAnIdentity();
+	this.transformMat4WithALookAt();
+	this.transformMat3WithAnIdentity();
+	this.transformMat3With90DegAboutX();
+	this.transformMat3With90DegAboutY();
+	this.transformMat3With90DegAboutZ();
+	this.transformMat3WithALookAtNormalMatrix();
 }
 
 TestVec3.prototype.transformMat4WithALookAt = function() {

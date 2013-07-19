@@ -4257,13 +4257,7 @@ public class TestVec3
         vecA = Arr3(1, 2, 3);
         vecB = Arr3(4, 5, 6);
         output = Arr3(0, 0, 0);
-        TransformMat4WithAnIdentity();
-        TransformMat4WithALookAt();
-        TransformMat3WithAnIdentity();
-        TransformMat3With90DegAboutX();
-        TransformMat3With90DegAboutY();
-        TransformMat3With90DegAboutZ();
-        TransformMat3WithALookAtNormalMatrix();
+        TransformMat4();
         Create();
         Clone();
         FromValues();
@@ -4294,6 +4288,17 @@ public class TestVec3
     float[] vecA;
     float[] vecB;
     float[] output;
+
+    void TransformMat4()
+    {
+        TransformMat4WithAnIdentity();
+        TransformMat4WithALookAt();
+        TransformMat3WithAnIdentity();
+        TransformMat3With90DegAboutX();
+        TransformMat3With90DegAboutY();
+        TransformMat3With90DegAboutZ();
+        TransformMat3WithALookAtNormalMatrix();
+    }
 
     void TransformMat4WithAnIdentity()
     {
@@ -4382,9 +4387,49 @@ public class TestVec3
 
     void Add()
     {
+        AddWithASeparateOutputVector();
+        AddWhenVecAIsTheOutputVector();
+        AddWhenVecBIsTheOutputVector();
+    }
+
+    void AddWithASeparateOutputVector()
+    {
+        float[] result = Vec3.Add(output, vecA, vecB);
+        AssertArrayEqual(output, Arr3(5, 7, 9), 3, "Add should place values into out");
+        AssertArrayEqual(result, output, 3, "Add should return out");
+        AssertArrayEqual(vecA, Arr3(1, 2, 3), 3, "Add should not modify vecA");
+        AssertArrayEqual(vecB, Arr3(4, 5, 6), 3, "Add should not modify vecB");
+    }
+
+    void AddWhenVecAIsTheOutputVector()
+    {
+    }
+
+    void AddWhenVecBIsTheOutputVector()
+    {
     }
 
     void Subtract()
+    {
+        SubtractShouldHaveAnAliasCalledSub();
+        SubtractWithASeparateOutputVector();
+        SubtractWhenVecAIsTheOutputVector();
+        SubtractWhenVecBIsTheOutputVector();
+    }
+
+    void SubtractShouldHaveAnAliasCalledSub()
+    {
+    }
+
+    void SubtractWithASeparateOutputVector()
+    {
+    }
+
+    void SubtractWhenVecAIsTheOutputVector()
+    {
+    }
+
+    void SubtractWhenVecBIsTheOutputVector()
     {
     }
 
@@ -4414,18 +4459,30 @@ public class TestVec3
 
     void Distance()
     {
+        float result = Vec3.Distance(vecA, vecB);
+        float r = 5196152;
+        r /= 1000 * 1000; // 5.196152
+        AssertCloseTo(result, r, "Distance should return the distance");
     }
 
     void SquaredDistance()
     {
+        float result = Vec3.SquaredDistance(vecA, vecB);
+        AssertEqual(result, 27, "SquaredDistance should return the squared distance");
     }
 
     void Length()
     {
+        float result = Vec3.Length(vecA);
+        float r = 3741657;
+        r /= 1000 * 1000;// 3.741657
+        AssertCloseTo(result, r, "Length should return the length");
     }
 
     void SquaredLength()
     {
+        float result = Vec3.SquaredLength(vecA);
+        AssertEqual(result, 14, "SquaredLength should return the squared length");
     }
 
     void Negate()
@@ -4438,6 +4495,10 @@ public class TestVec3
 
     void Dot()
     {
+        float result = Vec3.Dot(vecA, vecB);
+        AssertEqual(result, 32, "Dot should return the dot product");
+        AssertArrayEqual(vecA, Arr3(1, 2, 3), 3, "Dot should not modify vecA");
+        AssertArrayEqual(vecB, Arr3(4, 5, 6), 3, "Dot should not modify vecB");
     }
 
     void Cross()
@@ -4458,6 +4519,22 @@ public class TestVec3
 
     void Str()
     {
+    }
+
+    void AssertEqual(float actual, float expected, string msg)
+    {
+        if (actual != expected)
+        {
+            errors[errorsCount++] = msg;
+        }
+    }
+
+    void AssertCloseTo(float actual, float expected, string msg)
+    {
+        if (GlMatrixMath.Abs(actual - expected) > GlMatrixMath.GLMAT_EPSILON())
+        {
+            errors[errorsCount++] = msg;
+        }
     }
 
     void AssertArrayEqual(float[] actual, float[] expected, int length, string msg)

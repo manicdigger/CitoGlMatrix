@@ -2923,6 +2923,26 @@ sub new($) {
 
 sub add($) {
 	my ($self) = @_;
+	$self->add_with_a_separate_output_vector();
+	$self->add_when_vec_a_is_the_output_vector();
+	$self->add_when_vec_b_is_the_output_vector();
+}
+
+sub add_when_vec_a_is_the_output_vector($) {
+	my ($self) = @_;
+}
+
+sub add_when_vec_b_is_the_output_vector($) {
+	my ($self) = @_;
+}
+
+sub add_with_a_separate_output_vector($) {
+	my ($self) = @_;
+	my $result = Vec3::add($self->{output}, $self->{vec_a}, $self->{vec_b});
+	$self->assert_array_equal($self->{output}, $self->arr3(5, 7, 9), 3, "Add should place values into out");
+	$self->assert_array_equal($result, $self->{output}, 3, "Add should return out");
+	$self->assert_array_equal($self->{vec_a}, $self->arr3(1, 2, 3), 3, "Add should not modify vecA");
+	$self->assert_array_equal($self->{vec_b}, $self->arr3(4, 5, 6), 3, "Add should not modify vecB");
 }
 
 sub arr16($$$$$$$$$$$$$$$$$) {
@@ -2980,6 +3000,20 @@ sub assert_array_equal($$$$$) {
 	}
 }
 
+sub assert_close_to($$$$) {
+	my ($self, $actual, $expected, $msg) = @_;
+	if (GlMatrixMath::abs($actual - $expected) > GlMatrixMath::g_l_m_a_t__e_p_s_i_l_o_n()) {
+		$self->{errors}->[$self->{errors_count}++] = $msg;
+	}
+}
+
+sub assert_equal($$$$) {
+	my ($self, $actual, $expected, $msg) = @_;
+	if ($actual != $expected) {
+		$self->{errors}->[$self->{errors_count}++] = $msg;
+	}
+}
+
 sub clone($) {
 	my ($self) = @_;
 	my $result = Vec3::clone($self->{vec_a});
@@ -3005,6 +3039,10 @@ sub cross($) {
 
 sub distance($) {
 	my ($self) = @_;
+	my $result = Vec3::distance($self->{vec_a}, $self->{vec_b});
+	my $r = 5196152;
+	$r /= 1000000;
+	$self->assert_close_to($result, $r, "Distance should return the distance");
 }
 
 sub divide($) {
@@ -3013,6 +3051,10 @@ sub divide($) {
 
 sub dot($) {
 	my ($self) = @_;
+	my $result = Vec3::dot($self->{vec_a}, $self->{vec_b});
+	$self->assert_equal($result, 32, "Dot should return the dot product");
+	$self->assert_array_equal($self->{vec_a}, $self->arr3(1, 2, 3), 3, "Dot should not modify vecA");
+	$self->assert_array_equal($self->{vec_b}, $self->arr3(4, 5, 6), 3, "Dot should not modify vecB");
 }
 
 sub for_each($) {
@@ -3027,6 +3069,10 @@ sub from_values($) {
 
 sub length($) {
 	my ($self) = @_;
+	my $result = Vec3::length($self->{vec_a});
+	my $r = 3741657;
+	$r /= 1000000;
+	$self->assert_close_to($result, $r, "Length should return the length");
 }
 
 sub lerp($) {
@@ -3074,10 +3120,14 @@ sub set($) {
 
 sub squared_distance($) {
 	my ($self) = @_;
+	my $result = Vec3::squared_distance($self->{vec_a}, $self->{vec_b});
+	$self->assert_equal($result, 27, "SquaredDistance should return the squared distance");
 }
 
 sub squared_length($) {
 	my ($self) = @_;
+	my $result = Vec3::squared_length($self->{vec_a});
+	$self->assert_equal($result, 14, "SquaredLength should return the squared length");
 }
 
 sub str($) {
@@ -3085,6 +3135,26 @@ sub str($) {
 }
 
 sub subtract($) {
+	my ($self) = @_;
+	$self->subtract_should_have_an_alias_called_sub();
+	$self->subtract_with_a_separate_output_vector();
+	$self->subtract_when_vec_a_is_the_output_vector();
+	$self->subtract_when_vec_b_is_the_output_vector();
+}
+
+sub subtract_should_have_an_alias_called_sub($) {
+	my ($self) = @_;
+}
+
+sub subtract_when_vec_a_is_the_output_vector($) {
+	my ($self) = @_;
+}
+
+sub subtract_when_vec_b_is_the_output_vector($) {
+	my ($self) = @_;
+}
+
+sub subtract_with_a_separate_output_vector($) {
 	my ($self) = @_;
 }
 
@@ -3099,13 +3169,7 @@ sub test($) {
 	$self->{vec_a} = $self->arr3(1, 2, 3);
 	$self->{vec_b} = $self->arr3(4, 5, 6);
 	$self->{output} = $self->arr3(0, 0, 0);
-	$self->transform_mat4_with_an_identity();
-	$self->transform_mat4_with_a_look_at();
-	$self->transform_mat3_with_an_identity();
-	$self->transform_mat3_with90_deg_about_x();
-	$self->transform_mat3_with90_deg_about_y();
-	$self->transform_mat3_with90_deg_about_z();
-	$self->transform_mat3_with_a_look_at_normal_matrix();
+	$self->transform_mat4();
 	$self->create();
 	$self->clone();
 	$self->from_values();
@@ -3167,6 +3231,17 @@ sub transform_mat3_with_an_identity($) {
 	my $result = Vec3::transform_mat3($self->{output}, $self->{vec_a}, $matr);
 	$self->assert_array_equal($self->{output}, $self->arr3(1, 2, 3), 3, "TransformMat3WithAnIdentity should produce the input");
 	$self->assert_array_equal($result, $self->{output}, 3, "TransformMat3WithAnIdentity should return output");
+}
+
+sub transform_mat4($) {
+	my ($self) = @_;
+	$self->transform_mat4_with_an_identity();
+	$self->transform_mat4_with_a_look_at();
+	$self->transform_mat3_with_an_identity();
+	$self->transform_mat3_with90_deg_about_x();
+	$self->transform_mat3_with90_deg_about_y();
+	$self->transform_mat3_with90_deg_about_z();
+	$self->transform_mat3_with_a_look_at_normal_matrix();
 }
 
 sub transform_mat4_with_a_look_at($) {

@@ -2058,6 +2058,26 @@ class TestVec3
 
 	private void Add()
 	{
+		this.AddWithASeparateOutputVector();
+		this.AddWhenVecAIsTheOutputVector();
+		this.AddWhenVecBIsTheOutputVector();
+	}
+
+	private void AddWhenVecAIsTheOutputVector()
+	{
+	}
+
+	private void AddWhenVecBIsTheOutputVector()
+	{
+	}
+
+	private void AddWithASeparateOutputVector()
+	{
+		const(float)[] result = Vec3.Add(this.output, this.vecA, this.vecB);
+		this.AssertArrayEqual(this.output, this.Arr3(5, 7, 9), 3, "Add should place values into out");
+		this.AssertArrayEqual(result, this.output, 3, "Add should return out");
+		this.AssertArrayEqual(this.vecA, this.Arr3(1, 2, 3), 3, "Add should not modify vecA");
+		this.AssertArrayEqual(this.vecB, this.Arr3(4, 5, 6), 3, "Add should not modify vecB");
 	}
 
 	private const(float)[] Arr16(int p, int p_2, int p_3, int p_4, int p_5, int p_6, int p_7, int p_8, int p_9, int p_10, int p_11, int p_12, int p_13, int p_14, int p_15, int p_16)
@@ -2115,6 +2135,20 @@ class TestVec3
 		}
 	}
 
+	private void AssertCloseTo(float actual, float expected, string msg)
+	{
+		if (GlMatrixMath.Abs(actual - expected) > GlMatrixMath.GLMAT_EPSILON()) {
+			this.errors[this.errorsCount++] = msg;
+		}
+	}
+
+	private void AssertEqual(float actual, float expected, string msg)
+	{
+		if (actual != expected) {
+			this.errors[this.errorsCount++] = msg;
+		}
+	}
+
 	private void Clone()
 	{
 		const(float)[] result = Vec3.Clone(this.vecA);
@@ -2140,6 +2174,10 @@ class TestVec3
 
 	private void Distance()
 	{
+		float result = Vec3.Distance(this.vecA, this.vecB);
+		float r = 5196152;
+		r /= 1000000;
+		this.AssertCloseTo(result, r, "Distance should return the distance");
 	}
 
 	private void Divide()
@@ -2148,6 +2186,10 @@ class TestVec3
 
 	private void Dot()
 	{
+		float result = Vec3.Dot(this.vecA, this.vecB);
+		this.AssertEqual(result, 32, "Dot should return the dot product");
+		this.AssertArrayEqual(this.vecA, this.Arr3(1, 2, 3), 3, "Dot should not modify vecA");
+		this.AssertArrayEqual(this.vecB, this.Arr3(4, 5, 6), 3, "Dot should not modify vecB");
 	}
 
 	private void ForEach()
@@ -2162,6 +2204,10 @@ class TestVec3
 
 	private void Length()
 	{
+		float result = Vec3.Length(this.vecA);
+		float r = 3741657;
+		r /= 1000000;
+		this.AssertCloseTo(result, r, "Length should return the length");
 	}
 
 	private void Lerp()
@@ -2209,10 +2255,14 @@ class TestVec3
 
 	private void SquaredDistance()
 	{
+		float result = Vec3.SquaredDistance(this.vecA, this.vecB);
+		this.AssertEqual(result, 27, "SquaredDistance should return the squared distance");
 	}
 
 	private void SquaredLength()
 	{
+		float result = Vec3.SquaredLength(this.vecA);
+		this.AssertEqual(result, 14, "SquaredLength should return the squared length");
 	}
 
 	private void Str()
@@ -2220,6 +2270,26 @@ class TestVec3
 	}
 
 	private void Subtract()
+	{
+		this.SubtractShouldHaveAnAliasCalledSub();
+		this.SubtractWithASeparateOutputVector();
+		this.SubtractWhenVecAIsTheOutputVector();
+		this.SubtractWhenVecBIsTheOutputVector();
+	}
+
+	private void SubtractShouldHaveAnAliasCalledSub()
+	{
+	}
+
+	private void SubtractWhenVecAIsTheOutputVector()
+	{
+	}
+
+	private void SubtractWhenVecBIsTheOutputVector()
+	{
+	}
+
+	private void SubtractWithASeparateOutputVector()
 	{
 	}
 
@@ -2230,13 +2300,7 @@ class TestVec3
 		this.vecA = this.Arr3(1, 2, 3);
 		this.vecB = this.Arr3(4, 5, 6);
 		this.output = this.Arr3(0, 0, 0);
-		this.TransformMat4WithAnIdentity();
-		this.TransformMat4WithALookAt();
-		this.TransformMat3WithAnIdentity();
-		this.TransformMat3With90DegAboutX();
-		this.TransformMat3With90DegAboutY();
-		this.TransformMat3With90DegAboutZ();
-		this.TransformMat3WithALookAtNormalMatrix();
+		this.TransformMat4();
 		this.Create();
 		this.Clone();
 		this.FromValues();
@@ -2298,6 +2362,17 @@ class TestVec3
 		const(float)[] result = Vec3.TransformMat3(this.output, this.vecA, matr);
 		this.AssertArrayEqual(this.output, this.Arr3(1, 2, 3), 3, "TransformMat3WithAnIdentity should produce the input");
 		this.AssertArrayEqual(result, this.output, 3, "TransformMat3WithAnIdentity should return output");
+	}
+
+	private void TransformMat4()
+	{
+		this.TransformMat4WithAnIdentity();
+		this.TransformMat4WithALookAt();
+		this.TransformMat3WithAnIdentity();
+		this.TransformMat3With90DegAboutX();
+		this.TransformMat3With90DegAboutY();
+		this.TransformMat3With90DegAboutZ();
+		this.TransformMat3WithALookAtNormalMatrix();
 	}
 
 	private void TransformMat4WithALookAt()

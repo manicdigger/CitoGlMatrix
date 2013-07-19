@@ -27,7 +27,7 @@ public class Vec3
 	 * Returns {vec3} a new 3D vector
 	 * @param a a vector to clone
 	 */
-	public static float[] clone(float[] a)
+	public static float[] cloneIt(float[] a)
 	{
 		float[] output = new float[3];
 		output[0] = a[0];

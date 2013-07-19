@@ -65,7 +65,7 @@ float const *Mat2_Adjoint(float *output, float const *a)
 	return output;
 }
 
-float const *Mat2_Clone(float const *a)
+float const *Mat2_CloneIt(float const *a)
 {
 	float *output = (float *) malloc(4 * sizeof(float ));
 	output[0] = a[0];
@@ -189,7 +189,7 @@ float const *Mat2_Transpose(float *output, float const *a)
 	return output;
 }
 
-float const *Mat2d_Clone(float const *a)
+float const *Mat2d_CloneIt(float const *a)
 {
 	float *output = (float *) malloc(6 * sizeof(float ));
 	output[0] = a[0];
@@ -358,7 +358,7 @@ float const *Mat3_Adjoint(float *output, float const *a)
 	return output;
 }
 
-float const *Mat3_Clone(float const *a)
+float const *Mat3_CloneIt(float const *a)
 {
 	float *output = (float *) malloc(9 * sizeof(float ));
 	output[0] = a[0];
@@ -724,7 +724,7 @@ float const *Mat4_Adjoint(float *output, float const *a)
 	return output;
 }
 
-float const *Mat4_Clone(float const *a)
+float const *Mat4_CloneIt(float const *a)
 {
 	float *output = (float *) malloc(16 * sizeof(float ));
 	output[0] = a[0];
@@ -1520,9 +1520,9 @@ float const *Quat_CalculateW(float *output, float const *a)
 	return output;
 }
 
-float const *Quat_Clone(float const *a)
+float const *Quat_CloneIt(float const *a)
 {
-	return Vec4_Clone(a);
+	return Vec4_CloneIt(a);
 }
 
 float const *Quat_Conjugate(Quat const *self, float *output, float const *a)
@@ -1861,7 +1861,7 @@ float const *Vec2_Add(float *output, float const *a, float const *b)
 	return output;
 }
 
-float const *Vec2_Clone(float const *a)
+float const *Vec2_CloneIt(float const *a)
 {
 	float *output = (float *) malloc(2 * sizeof(float ));
 	output[0] = a[0];
@@ -2105,7 +2105,7 @@ float const *Vec3_Add(float *output, float const *a, float const *b)
 	return output;
 }
 
-float const *Vec3_Clone(float const *a)
+float const *Vec3_CloneIt(float const *a)
 {
 	float *output = (float *) malloc(3 * sizeof(float ));
 	output[0] = a[0];
@@ -2393,7 +2393,7 @@ float const *Vec4_Add(float *output, float const *a, float const *b)
 	return output;
 }
 
-float const *Vec4_Clone(float const *a)
+float const *Vec4_CloneIt(float const *a)
 {
 	float *output = (float *) malloc(4 * sizeof(float ));
 	output[0] = a[0];

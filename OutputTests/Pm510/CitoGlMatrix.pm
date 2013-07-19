@@ -252,7 +252,7 @@ sub adjoint($$) {
 	return $output;
 }
 
-=head2 C<Mat2::clone(\@a)>
+=head2 C<Mat2::clone_it(\@a)>
 
 Creates a new mat2 initialized with values from an existing matrix
 @returns {mat2} a new 2x2 matrix
@@ -269,7 +269,7 @@ Parameters:
 
 =cut
 
-sub clone($) {
+sub clone_it($) {
 	my ($a) = @_;
 	my $output = [];
 	$output->[0] = $a->[0];
@@ -475,13 +475,13 @@ sub new($) {
 	return $self;
 }
 
-=head2 C<Mat2d::clone(\@a)>
+=head2 C<Mat2d::clone_it(\@a)>
 
 **
 
 =cut
 
-sub clone($) {
+sub clone_it($) {
 	my ($a) = @_;
 	my $output = [];
 	$output->[0] = $a->[0];
@@ -733,13 +733,13 @@ sub adjoint($$) {
 	return $output;
 }
 
-=head2 C<Mat3::clone(\@a)>
+=head2 C<Mat3::clone_it(\@a)>
 
 **
 
 =cut
 
-sub clone($) {
+sub clone_it($) {
 	my ($a) = @_;
 	my $output = [];
 	$output->[0] = $a->[0];
@@ -1234,7 +1234,7 @@ sub adjoint($$) {
 	return $output;
 }
 
-=head2 C<Mat4::clone(\@a)>
+=head2 C<Mat4::clone_it(\@a)>
 
 Creates a new mat4 initialized with values from an existing matrix
 Returns {mat4} a new 4x4 matrix
@@ -1251,7 +1251,7 @@ Parameters:
 
 =cut
 
-sub clone($) {
+sub clone_it($) {
 	my ($a) = @_;
 	my $output = [];
 	$output->[0] = $a->[0];
@@ -2592,15 +2592,15 @@ sub calculate_w($$) {
 	return $output;
 }
 
-=head2 C<Quat::clone(\@a)>
+=head2 C<Quat::clone_it(\@a)>
 
 **
 
 =cut
 
-sub clone($) {
+sub clone_it($) {
 	my ($a) = @_;
-	return Vec4::clone($a);
+	return Vec4::clone_it($a);
 }
 
 =head2 C<$quat-E<gt>conjugate(\@output, \@a)>
@@ -3123,9 +3123,9 @@ sub assert_equal($$$$) {
 	$self->{citoassert}->assert_equal($actual, $expected, $msg);
 }
 
-sub clone($) {
+sub clone_it($) {
 	my ($self) = @_;
-	my $result = Mat4::clone($self->{mat_a});
+	my $result = Mat4::clone_it($self->{mat_a});
 	$self->assert_array_equal($result, $self->{mat_a}, 16, "Clone should return a 16 element array initialized to the values in matA");
 }
 
@@ -3347,7 +3347,7 @@ sub test($) {
 	$self->reset_tests();
 	$self->create();
 	$self->reset_tests();
-	$self->clone();
+	$self->clone_it();
 	$self->reset_tests();
 	$self->copy();
 	$self->reset_tests();
@@ -3484,9 +3484,9 @@ sub assert_equal($$$$) {
 	$self->{citoassert}->assert_equal($actual, $expected, $msg);
 }
 
-sub clone($) {
+sub clone_it($) {
 	my ($self) = @_;
-	my $result = Vec3::clone($self->{vec_a});
+	my $result = Vec3::clone_it($self->{vec_a});
 	$self->assert_array_equal($result, $self->{vec_a}, 3, "Clone should return a 3 element array initialized to the values in vecA");
 }
 
@@ -3557,7 +3557,7 @@ sub dot($) {
 	$self->assert_array_equal($self->{vec_b}, $self->arr3(4, 5, 6), 3, "Dot should not modify vecB");
 }
 
-sub for_each($) {
+sub for_each_do($) {
 	my ($self) = @_;
 }
 
@@ -3798,7 +3798,7 @@ sub test($) {
 	$self->reset_tests();
 	$self->create();
 	$self->reset_tests();
-	$self->clone();
+	$self->clone_it();
 	$self->reset_tests();
 	$self->from_values();
 	$self->reset_tests();
@@ -3842,7 +3842,7 @@ sub test($) {
 	$self->reset_tests();
 	$self->random();
 	$self->reset_tests();
-	$self->for_each();
+	$self->for_each_do();
 	$self->reset_tests();
 	$self->str();
 	$self->reset_tests();
@@ -3965,13 +3965,13 @@ sub add($$$) {
 	return $output;
 }
 
-=head2 C<Vec2::clone(\@a)>
+=head2 C<Vec2::clone_it(\@a)>
 
 **
 
 =cut
 
-sub clone($) {
+sub clone_it($) {
 	my ($a) = @_;
 	my $output = [];
 	$output->[0] = $a->[0];
@@ -4452,7 +4452,7 @@ sub add($$$) {
 	return $output;
 }
 
-=head2 C<Vec3::clone(\@a)>
+=head2 C<Vec3::clone_it(\@a)>
 
 Creates a new vec3 initialized with values from an existing vector
 Returns {vec3} a new 3D vector
@@ -4469,7 +4469,7 @@ a vector to clone
 
 =cut
 
-sub clone($) {
+sub clone_it($) {
 	my ($a) = @_;
 	my $output = [];
 	$output->[0] = $a->[0];
@@ -5375,13 +5375,13 @@ sub add($$$) {
 	return $output;
 }
 
-=head2 C<Vec4::clone(\@a)>
+=head2 C<Vec4::clone_it(\@a)>
 
 **
 
 =cut
 
-sub clone($) {
+sub clone_it($) {
 	my ($a) = @_;
 	my $output = [];
 	$output->[0] = $a->[0];

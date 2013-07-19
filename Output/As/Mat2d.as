@@ -9,7 +9,7 @@ package
 		/**
 		 * **
 		 */
-		public static function clone(a : Array) : Array
+		public static function cloneIt(a : Array) : Array
 		{
 			var output : Array = new Array(6);
 			output[0] = a[0];

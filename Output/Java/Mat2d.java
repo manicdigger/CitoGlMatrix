@@ -7,7 +7,7 @@ public class Mat2d
 	/**
 	 * **
 	 */
-	public static float[] clone(float[] a)
+	public static float[] cloneIt(float[] a)
 	{
 		float[] output = new float[6];
 		output[0] = a[0];

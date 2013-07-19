@@ -66,7 +66,7 @@ class Mat2
 	/// @returns {mat2} a new 2x2 matrix
 	/// Params:
 	/// a = @param {mat2} a matrix to clone
-	static const(float)[] Clone(const(float)[] a)
+	static const(float)[] CloneIt(const(float)[] a)
 	{
 		float[] output = new float[4];
 		output[0] = a[0];
@@ -216,7 +216,7 @@ class Mat2d
 {
 
 	/// **
-	static const(float)[] Clone(const(float)[] a)
+	static const(float)[] CloneIt(const(float)[] a)
 	{
 		float[] output = new float[6];
 		output[0] = a[0];
@@ -405,7 +405,7 @@ class Mat3
 	}
 
 	/// **
-	static const(float)[] Clone(const(float)[] a)
+	static const(float)[] CloneIt(const(float)[] a)
 	{
 		float[] output = new float[9];
 		output[0] = a[0];
@@ -803,7 +803,7 @@ class Mat4
 	/// Returns {mat4} a new 4x4 matrix
 	/// Params:
 	/// a = {mat4} a matrix to clone
-	static const(float)[] Clone(const(float)[] a)
+	static const(float)[] CloneIt(const(float)[] a)
 	{
 		float[] output = new float[16];
 		output[0] = a[0];
@@ -1720,9 +1720,9 @@ class Quat
 	}
 
 	/// **
-	static const(float)[] Clone(const(float)[] a)
+	static const(float)[] CloneIt(const(float)[] a)
 	{
-		return Vec4.Clone(a);
+		return Vec4.CloneIt(a);
 	}
 
 	/// **
@@ -2073,7 +2073,7 @@ class Vec2
 	}
 
 	/// **
-	static const(float)[] Clone(const(float)[] a)
+	static const(float)[] CloneIt(const(float)[] a)
 	{
 		float[] output = new float[2];
 		output[0] = a[0];
@@ -2370,7 +2370,7 @@ class Vec3
 	/// Returns {vec3} a new 3D vector
 	/// Params:
 	/// a = a vector to clone
-	static const(float)[] Clone(const(float)[] a)
+	static const(float)[] CloneIt(const(float)[] a)
 	{
 		float[] output = new float[3];
 		output[0] = a[0];
@@ -2822,7 +2822,7 @@ class Vec4
 	}
 
 	/// **
-	static const(float)[] Clone(const(float)[] a)
+	static const(float)[] CloneIt(const(float)[] a)
 	{
 		float[] output = new float[4];
 		output[0] = a[0];

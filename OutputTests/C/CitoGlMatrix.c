@@ -35,7 +35,7 @@ static void TestMat4_AdjointWithASeparateOutputMatrix(TestMat4 const *self);
 static float *TestMat4_Arr16(TestMat4 const *self, int p, int p_2, int p_3, int p_4, int p_5, int p_6, int p_7, int p_8, int p_9, int p_10, int p_11, int p_12, int p_13, int p_14, int p_15, int p_16);
 static float const *TestMat4_Arr3(TestMat4 const *self, float p, float p_2, float p_3);
 static void TestMat4_AssertArrayEqual(TestMat4 const *self, float const *actual, float const *expected, int length, const char *msg);
-static void TestMat4_Clone(TestMat4 const *self);
+static void TestMat4_CloneIt(TestMat4 const *self);
 static void TestMat4_Copy(TestMat4 const *self);
 static void TestMat4_Create(TestMat4 const *self);
 static void TestMat4_Determinant(TestMat4 const *self);
@@ -96,7 +96,7 @@ static float const *TestVec3_Arr9(TestVec3 const *self, int p, int p_2, int p_3,
 static void TestVec3_AssertArrayEqual(TestVec3 const *self, float const *actual, float const *expected, int length, const char *msg);
 static void TestVec3_AssertCloseTo(TestVec3 const *self, float actual, float expected, const char *msg);
 static void TestVec3_AssertEqual(TestVec3 const *self, float actual, float expected, const char *msg);
-static void TestVec3_Clone(TestVec3 const *self);
+static void TestVec3_CloneIt(TestVec3 const *self);
 static void TestVec3_Copy(TestVec3 const *self);
 static void TestVec3_Create(TestVec3 const *self);
 static void TestVec3_Cross(TestVec3 const *self);
@@ -109,7 +109,7 @@ static void TestVec3_DivideWhenVecAIsTheOutputVector(TestVec3 const *self);
 static void TestVec3_DivideWhenVecBIsTheOutputVector(TestVec3 const *self);
 static void TestVec3_DivideWithASeparateOutputVector(TestVec3 const *self);
 static void TestVec3_Dot(TestVec3 const *self);
-static void TestVec3_ForEach(TestVec3 const *self);
+static void TestVec3_ForEachDo(TestVec3 const *self);
 static void TestVec3_FromValues(TestVec3 const *self);
 static void TestVec3_Length(TestVec3 const *self);
 static void TestVec3_Lerp(TestVec3 const *self);
@@ -341,7 +341,7 @@ float const *Mat2_Adjoint(float *output, float const *a)
 	return output;
 }
 
-float const *Mat2_Clone(float const *a)
+float const *Mat2_CloneIt(float const *a)
 {
 	float *output = (float *) malloc(4 * sizeof(float ));
 	output[0] = a[0];
@@ -465,7 +465,7 @@ float const *Mat2_Transpose(float *output, float const *a)
 	return output;
 }
 
-float const *Mat2d_Clone(float const *a)
+float const *Mat2d_CloneIt(float const *a)
 {
 	float *output = (float *) malloc(6 * sizeof(float ));
 	output[0] = a[0];
@@ -634,7 +634,7 @@ float const *Mat3_Adjoint(float *output, float const *a)
 	return output;
 }
 
-float const *Mat3_Clone(float const *a)
+float const *Mat3_CloneIt(float const *a)
 {
 	float *output = (float *) malloc(9 * sizeof(float ));
 	output[0] = a[0];
@@ -1000,7 +1000,7 @@ float const *Mat4_Adjoint(float *output, float const *a)
 	return output;
 }
 
-float const *Mat4_Clone(float const *a)
+float const *Mat4_CloneIt(float const *a)
 {
 	float *output = (float *) malloc(16 * sizeof(float ));
 	output[0] = a[0];
@@ -1796,9 +1796,9 @@ float const *Quat_CalculateW(float *output, float const *a)
 	return output;
 }
 
-float const *Quat_Clone(float const *a)
+float const *Quat_CloneIt(float const *a)
 {
-	return Vec4_Clone(a);
+	return Vec4_CloneIt(a);
 }
 
 float const *Quat_Conjugate(Quat const *self, float *output, float const *a)
@@ -2170,9 +2170,9 @@ static void TestMat4_AssertArrayEqual(TestMat4 const *self, float const *actual,
 	CitoAssert_AssertArrayEqual(self->citoassert, actual, expected, length, msg);
 }
 
-static void TestMat4_Clone(TestMat4 const *self)
+static void TestMat4_CloneIt(TestMat4 const *self)
 {
-	float const *result = Mat4_Clone(self->matA);
+	float const *result = Mat4_CloneIt(self->matA);
 	TestMat4_AssertArrayEqual(self, result, self->matA, 16, "Clone should return a 16 element array initialized to the values in matA");
 }
 
@@ -2392,7 +2392,7 @@ void TestMat4_Test(TestMat4 *self)
 	TestMat4_ResetTests(self);
 	TestMat4_Create(self);
 	TestMat4_ResetTests(self);
-	TestMat4_Clone(self);
+	TestMat4_CloneIt(self);
 	TestMat4_ResetTests(self);
 	TestMat4_Copy(self);
 	TestMat4_ResetTests(self);
@@ -2525,9 +2525,9 @@ static void TestVec3_AssertEqual(TestVec3 const *self, float actual, float expec
 	CitoAssert_AssertEqual(self->citoassert, actual, expected, msg);
 }
 
-static void TestVec3_Clone(TestVec3 const *self)
+static void TestVec3_CloneIt(TestVec3 const *self)
 {
-	float const *result = Vec3_Clone(self->vecA);
+	float const *result = Vec3_CloneIt(self->vecA);
 	TestVec3_AssertArrayEqual(self, result, self->vecA, 3, "Clone should return a 3 element array initialized to the values in vecA");
 }
 
@@ -2598,7 +2598,7 @@ static void TestVec3_Dot(TestVec3 const *self)
 	TestVec3_AssertArrayEqual(self, self->vecB, TestVec3_Arr3(self, 4, 5, 6), 3, "Dot should not modify vecB");
 }
 
-static void TestVec3_ForEach(TestVec3 const *self)
+static void TestVec3_ForEachDo(TestVec3 const *self)
 {
 }
 
@@ -2836,7 +2836,7 @@ void TestVec3_Test(TestVec3 *self)
 	TestVec3_ResetTests(self);
 	TestVec3_Create(self);
 	TestVec3_ResetTests(self);
-	TestVec3_Clone(self);
+	TestVec3_CloneIt(self);
 	TestVec3_ResetTests(self);
 	TestVec3_FromValues(self);
 	TestVec3_ResetTests(self);
@@ -2880,7 +2880,7 @@ void TestVec3_Test(TestVec3 *self)
 	TestVec3_ResetTests(self);
 	TestVec3_Random(self);
 	TestVec3_ResetTests(self);
-	TestVec3_ForEach(self);
+	TestVec3_ForEachDo(self);
 	TestVec3_ResetTests(self);
 	TestVec3_Str(self);
 	TestVec3_ResetTests(self);
@@ -2966,7 +2966,7 @@ float const *Vec2_Add(float *output, float const *a, float const *b)
 	return output;
 }
 
-float const *Vec2_Clone(float const *a)
+float const *Vec2_CloneIt(float const *a)
 {
 	float *output = (float *) malloc(2 * sizeof(float ));
 	output[0] = a[0];
@@ -3210,7 +3210,7 @@ float const *Vec3_Add(float *output, float const *a, float const *b)
 	return output;
 }
 
-float const *Vec3_Clone(float const *a)
+float const *Vec3_CloneIt(float const *a)
 {
 	float *output = (float *) malloc(3 * sizeof(float ));
 	output[0] = a[0];
@@ -3498,7 +3498,7 @@ float const *Vec4_Add(float *output, float const *a, float const *b)
 	return output;
 }
 
-float const *Vec4_Clone(float const *a)
+float const *Vec4_CloneIt(float const *a)
 {
 	float *output = (float *) malloc(4 * sizeof(float ));
 	output[0] = a[0];

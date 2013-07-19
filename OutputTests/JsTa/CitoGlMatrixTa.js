@@ -158,7 +158,7 @@ Mat2.adjoint = function(output, a) {
 	return output;
 }
 
-Mat2.clone = function(a) {
+Mat2.cloneIt = function(a) {
 	var output = new Float32Array(new ArrayBuffer(4 << 2));
 	output[0] = a[0];
 	output[1] = a[1];
@@ -277,7 +277,7 @@ function Mat2d()
 {
 }
 
-Mat2d.clone = function(a) {
+Mat2d.cloneIt = function(a) {
 	var output = new Float32Array(new ArrayBuffer(6 << 2));
 	output[0] = a[0];
 	output[1] = a[1];
@@ -440,7 +440,7 @@ Mat3.adjoint = function(output, a) {
 	return output;
 }
 
-Mat3.clone = function(a) {
+Mat3.cloneIt = function(a) {
 	var output = new Float32Array(new ArrayBuffer(9 << 2));
 	output[0] = a[0];
 	output[1] = a[1];
@@ -794,7 +794,7 @@ Mat4.adjoint = function(output, a) {
 	return output;
 }
 
-Mat4.clone = function(a) {
+Mat4.cloneIt = function(a) {
 	var output = new Float32Array(new ArrayBuffer(16 << 2));
 	output[0] = a[0];
 	output[1] = a[1];
@@ -1554,8 +1554,8 @@ Quat.calculateW = function(output, a) {
 	return output;
 }
 
-Quat.clone = function(a) {
-	return Vec4.clone(a);
+Quat.cloneIt = function(a) {
+	return Vec4.cloneIt(a);
 }
 
 Quat.prototype.conjugate = function(output, a) {
@@ -1890,8 +1890,8 @@ TestMat4.prototype.assertEqual = function(actual, expected, msg) {
 	this.citoassert.assertEqual(actual, expected, msg);
 }
 
-TestMat4.prototype.clone = function() {
-	var result = Mat4.clone(this.matA);
+TestMat4.prototype.cloneIt = function() {
+	var result = Mat4.cloneIt(this.matA);
 	this.assertArrayEqual(result, this.matA, 16, "Clone should return a 16 element array initialized to the values in matA");
 }
 
@@ -2071,7 +2071,7 @@ TestMat4.prototype.test = function() {
 	this.resetTests();
 	this.create();
 	this.resetTests();
-	this.clone();
+	this.cloneIt();
 	this.resetTests();
 	this.copy();
 	this.resetTests();
@@ -2185,8 +2185,8 @@ TestVec3.prototype.assertEqual = function(actual, expected, msg) {
 	this.citoassert.assertEqual(actual, expected, msg);
 }
 
-TestVec3.prototype.clone = function() {
-	var result = Vec3.clone(this.vecA);
+TestVec3.prototype.cloneIt = function() {
+	var result = Vec3.cloneIt(this.vecA);
 	this.assertArrayEqual(result, this.vecA, 3, "Clone should return a 3 element array initialized to the values in vecA");
 }
 
@@ -2245,7 +2245,7 @@ TestVec3.prototype.dot = function() {
 	this.assertArrayEqual(this.vecB, this.arr3(4, 5, 6), 3, "Dot should not modify vecB");
 }
 
-TestVec3.prototype.forEach = function() {
+TestVec3.prototype.forEachDo = function() {
 }
 
 TestVec3.prototype.fromValues = function() {
@@ -2438,7 +2438,7 @@ TestVec3.prototype.test = function() {
 	this.resetTests();
 	this.create();
 	this.resetTests();
-	this.clone();
+	this.cloneIt();
 	this.resetTests();
 	this.fromValues();
 	this.resetTests();
@@ -2482,7 +2482,7 @@ TestVec3.prototype.test = function() {
 	this.resetTests();
 	this.random();
 	this.resetTests();
-	this.forEach();
+	this.forEachDo();
 	this.resetTests();
 	this.str();
 	this.resetTests();
@@ -2564,7 +2564,7 @@ Vec2.add = function(output, a, b) {
 	return output;
 }
 
-Vec2.clone = function(a) {
+Vec2.cloneIt = function(a) {
 	var output = new Float32Array(new ArrayBuffer(2 << 2));
 	output[0] = a[0];
 	output[1] = a[1];
@@ -2781,7 +2781,7 @@ Vec3.add = function(output, a, b) {
 	return output;
 }
 
-Vec3.clone = function(a) {
+Vec3.cloneIt = function(a) {
 	var output = new Float32Array(new ArrayBuffer(3 << 2));
 	output[0] = a[0];
 	output[1] = a[1];
@@ -3039,7 +3039,7 @@ Vec4.add = function(output, a, b) {
 	return output;
 }
 
-Vec4.clone = function(a) {
+Vec4.cloneIt = function(a) {
 	var output = new Float32Array(new ArrayBuffer(4 << 2));
 	output[0] = a[0];
 	output[1] = a[1];

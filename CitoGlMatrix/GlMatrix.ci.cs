@@ -38,7 +38,7 @@ public class Mat2
 
     /// Creates a new mat2 initialized with values from an existing matrix
     /// @returns {mat2} a new 2x2 matrix
-    public static float[] Clone(
+    public static float[] CloneIt(
         /// @param {mat2} a matrix to clone
         float[] a)
     {
@@ -272,7 +272,7 @@ public class Mat2d
     // * @param {mat2d} a matrix to clone
     // * @returns {mat2d} a new 2x3 matrix
     // */
-    public static float[] Clone(float[] a)
+    public static float[] CloneIt(float[] a)
     {
         float[] output = new float[6];
         output[0] = a[0];
@@ -535,7 +535,7 @@ public class Mat3
     // * @param {mat3} a matrix to clone
     // * @returns {mat3} a new 3x3 matrix
     // */
-    public static float[] Clone(float[] a)
+    public static float[] CloneIt(float[] a)
     {
         float[] output = new float[9];
         output[0] = a[0];
@@ -994,7 +994,7 @@ public class Mat4
 
     /// Creates a new mat4 initialized with values from an existing matrix
     /// Returns {mat4} a new 4x4 matrix
-    public static float[] Clone(
+    public static float[] CloneIt(
         /// {mat4} a matrix to clone
         float[] a)
     {
@@ -1997,9 +1997,9 @@ public class Quat
     // * @returns {quat} a new quaternion
     // * @function
     // */
-    public static float[] Clone(float[] a)
+    public static float[] CloneIt(float[] a)
     {
-        return Vec4.Clone(a);
+        return Vec4.CloneIt(a);
     }
 
     ///**
@@ -2507,7 +2507,7 @@ public class Vec2
     // * @param {vec2} a vector to clone
     // * @returns {vec2} a new 2D vector
     // */
-    public static float[] Clone(float[] a)
+    public static float[] CloneIt(float[] a)
     {
         float[] output = new float[2];
         output[0] = a[0];
@@ -3043,7 +3043,7 @@ public class Vec3
 
     /// Creates a new vec3 initialized with values from an existing vector
     /// Returns {vec3} a new 3D vector
-    public static float[] Clone(
+    public static float[] CloneIt(
         /// a vector to clone
         float[] a)
     {
@@ -3603,7 +3603,7 @@ public class Vec4
     // * @param {vec4} a vector to clone
     // * @returns {vec4} a new 4D vector
     // */
-    public static float[] Clone(float[] a)
+    public static float[] CloneIt(float[] a)
     {
         float[] output = new float[4];
         output[0] = a[0];
@@ -4488,7 +4488,7 @@ public class TestVec3
         ResetTests();
         TransformMat4(); ResetTests();
         Create(); ResetTests();
-        Clone(); ResetTests();
+        CloneIt(); ResetTests();
         FromValues(); ResetTests();
         Copy(); ResetTests();
         Set(); ResetTests();
@@ -4510,7 +4510,7 @@ public class TestVec3
         Cross(); ResetTests();
         Lerp(); ResetTests();
         Random(); ResetTests();
-        ForEach(); ResetTests();
+        ForEachDo(); ResetTests();
         Str(); ResetTests();
     }
 
@@ -4595,9 +4595,9 @@ public class TestVec3
         AssertArrayEqual(result, Arr3(0, 0, 0), 3, "Create should return a 3 element array initialized to 0s");
     }
 
-    void Clone()
+    void CloneIt()
     {
-        float[] result = Vec3.Clone(vecA);
+        float[] result = Vec3.CloneIt(vecA);
         AssertArrayEqual(result, vecA, 3, "Clone should return a 3 element array initialized to the values in vecA");
     }
 
@@ -4900,7 +4900,7 @@ public class TestVec3
     {
     }
 
-    void ForEach()
+    void ForEachDo()
     {
     }
 
@@ -4948,7 +4948,7 @@ public class TestMat4
         citoassert = new CitoAssert();
         ResetTests();
         Create(); ResetTests();
-        Clone(); ResetTests();
+        CloneIt(); ResetTests();
         Copy(); ResetTests();
         Identity(); ResetTests();
         Transpose(); ResetTests();
@@ -5004,9 +5004,9 @@ public class TestMat4
         AssertArrayEqual(result, identity, 16, "Create should return a 16 element array initialized to a 4x4 identity matrix");
     }
 
-    void Clone()
+    void CloneIt()
     {
-        float[] result = Mat4.Clone(matA);
+        float[] result = Mat4.CloneIt(matA);
         AssertArrayEqual(result, matA, 16, "Clone should return a 16 element array initialized to the values in matA");
     }
 

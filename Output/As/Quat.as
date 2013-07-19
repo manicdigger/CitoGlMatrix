@@ -33,9 +33,9 @@ package
 		/**
 		 * **
 		 */
-		public static function clone(a : Array) : Array
+		public static function cloneIt(a : Array) : Array
 		{
-			return Vec4.clone(a);
+			return Vec4.cloneIt(a);
 		}
 
 		/**

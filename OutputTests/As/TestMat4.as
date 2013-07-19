@@ -50,9 +50,9 @@ package
 			this.citoassert.assertEqual(actual, expected, msg);
 		}
 
-		private function clone() : void
+		private function cloneIt() : void
 		{
-			var result : Array = Mat4.clone(this.matA);
+			var result : Array = Mat4.cloneIt(this.matA);
 			this.assertArrayEqual(result, this.matA, 16, "Clone should return a 16 element array initialized to the values in matA");
 		}
 
@@ -270,7 +270,7 @@ package
 			this.resetTests();
 			this.create();
 			this.resetTests();
-			this.clone();
+			this.cloneIt();
 			this.resetTests();
 			this.copy();
 			this.resetTests();

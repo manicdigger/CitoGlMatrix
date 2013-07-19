@@ -31,9 +31,9 @@ public class Quat
 	/**
 	 * **
 	 */
-	public static float[] clone(float[] a)
+	public static float[] cloneIt(float[] a)
 	{
-		return Vec4.clone(a);
+		return Vec4.cloneIt(a);
 	}
 
 	/**

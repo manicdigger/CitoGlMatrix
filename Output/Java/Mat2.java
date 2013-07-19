@@ -25,7 +25,7 @@ public class Mat2
 	 * @returns {mat2} a new 2x2 matrix
 	 * @param a @param {mat2} a matrix to clone
 	 */
-	public static float[] clone(float[] a)
+	public static float[] cloneIt(float[] a)
 	{
 		float[] output = new float[4];
 		output[0] = a[0];

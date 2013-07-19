@@ -39,7 +39,7 @@ float const *Mat2_Adjoint(float *output, float const *a);
  * @returns {mat2} a new 2x2 matrix
  * @param a @param {mat2} a matrix to clone
  */
-float const *Mat2_Clone(float const *a);
+float const *Mat2_CloneIt(float const *a);
 
 /**
  * Copy the values from one mat2 to another
@@ -97,7 +97,7 @@ float const *Mat2_Transpose(float *output, float const *a);
 /**
  * **
  */
-float const *Mat2d_Clone(float const *a);
+float const *Mat2d_CloneIt(float const *a);
 
 /**
  * **
@@ -157,7 +157,7 @@ float const *Mat3_Adjoint(float *output, float const *a);
 /**
  * **
  */
-float const *Mat3_Clone(float const *a);
+float const *Mat3_CloneIt(float const *a);
 
 /**
  * **
@@ -247,7 +247,7 @@ float const *Mat4_Adjoint(float *output, float const *a);
  * Returns {mat4} a new 4x4 matrix
  * @param a {mat4} a matrix to clone
  */
-float const *Mat4_Clone(float const *a);
+float const *Mat4_CloneIt(float const *a);
 
 /**
  * Copy the values from one mat4 to another
@@ -461,7 +461,7 @@ float const *Quat_CalculateW(float *output, float const *a);
 /**
  * **
  */
-float const *Quat_Clone(float const *a);
+float const *Quat_CloneIt(float const *a);
 
 /**
  * **
@@ -596,7 +596,7 @@ float const *Vec2_Add(float *output, float const *a, float const *b);
 /**
  * **
  */
-float const *Vec2_Clone(float const *a);
+float const *Vec2_CloneIt(float const *a);
 
 /**
  * **
@@ -772,7 +772,7 @@ float const *Vec3_Add(float *output, float const *a, float const *b);
  * Returns {vec3} a new 3D vector
  * @param a a vector to clone
  */
-float const *Vec3_Clone(float const *a);
+float const *Vec3_CloneIt(float const *a);
 
 /**
  * Copy the values from one vec3 to another
@@ -1042,7 +1042,7 @@ float const *Vec4_Add(float *output, float const *a, float const *b);
 /**
  * **
  */
-float const *Vec4_Clone(float const *a);
+float const *Vec4_CloneIt(float const *a);
 
 /**
  * **

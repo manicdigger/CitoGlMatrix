@@ -55,7 +55,7 @@ public class Mat4
 	 * Returns {mat4} a new 4x4 matrix
 	 * @param a {mat4} a matrix to clone
 	 */
-	public static float[] clone(float[] a)
+	public static float[] cloneIt(float[] a)
 	{
 		float[] output = new float[16];
 		output[0] = a[0];

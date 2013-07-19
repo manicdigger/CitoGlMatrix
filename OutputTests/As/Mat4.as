@@ -57,7 +57,7 @@ package
 		 * Returns {mat4} a new 4x4 matrix
 		 * @param a {mat4} a matrix to clone
 		 */
-		public static function clone(a : Array) : Array
+		public static function cloneIt(a : Array) : Array
 		{
 			var output : Array = new Array(16);
 			output[0] = a[0];

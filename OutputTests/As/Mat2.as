@@ -27,7 +27,7 @@ package
 		 * @returns {mat2} a new 2x2 matrix
 		 * @param a @param {mat2} a matrix to clone
 		 */
-		public static function clone(a : Array) : Array
+		public static function cloneIt(a : Array) : Array
 		{
 			var output : Array = new Array(4);
 			output[0] = a[0];

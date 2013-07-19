@@ -177,7 +177,7 @@ class Mat2
 	// Creates a new mat2 initialized with values from an existing matrix
 	// @returns {mat2} a new 2x2 matrix
 	/// <param name="a">@param {mat2} a matrix to clone</param>
-	static function Clone(&$a)
+	static function CloneIt(&$a)
 	{
 		$output = array();
 		$output[0] = $a[0];
@@ -327,7 +327,7 @@ class Mat2d
 {
 
 	// **
-	static function Clone(&$a)
+	static function CloneIt(&$a)
 	{
 		$output = array();
 		$output[0] = $a[0];
@@ -516,7 +516,7 @@ class Mat3
 	}
 
 	// **
-	static function Clone(&$a)
+	static function CloneIt(&$a)
 	{
 		$output = array();
 		$output[0] = $a[0];
@@ -912,7 +912,7 @@ class Mat4
 	// Creates a new mat4 initialized with values from an existing matrix
 	// Returns {mat4} a new 4x4 matrix
 	/// <param name="a">{mat4} a matrix to clone</param>
-	static function Clone(&$a)
+	static function CloneIt(&$a)
 	{
 		$output = array();
 		$output[0] = $a[0];
@@ -1825,9 +1825,9 @@ class Quat
 	}
 
 	// **
-	static function Clone(&$a)
+	static function CloneIt(&$a)
 	{
-		return Vec4::Clone($a);
+		return Vec4::CloneIt($a);
 	}
 
 	// **
@@ -2213,9 +2213,9 @@ class TestMat4
 		$this->citoassert->AssertEqual($actual, $expected, $msg);
 	}
 
-	private function Clone()
+	private function CloneIt()
 	{
-		$result = Mat4::Clone($this->matA);
+		$result = Mat4::CloneIt($this->matA);
 		$this->AssertArrayEqual($result, $this->matA, 16, "Clone should return a 16 element array initialized to the values in matA");
 	}
 
@@ -2433,7 +2433,7 @@ class TestMat4
 		$this->ResetTests();
 		$this->Create();
 		$this->ResetTests();
-		$this->Clone();
+		$this->CloneIt();
 		$this->ResetTests();
 		$this->Copy();
 		$this->ResetTests();
@@ -2569,9 +2569,9 @@ class TestVec3
 		$this->citoassert->AssertEqual($actual, $expected, $msg);
 	}
 
-	private function Clone()
+	private function CloneIt()
 	{
-		$result = Vec3::Clone($this->vecA);
+		$result = Vec3::CloneIt($this->vecA);
 		$this->AssertArrayEqual($result, $this->vecA, 3, "Clone should return a 3 element array initialized to the values in vecA");
 	}
 
@@ -2642,7 +2642,7 @@ class TestVec3
 		$this->AssertArrayEqual($this->vecB, $this->Arr3(4, 5, 6), 3, "Dot should not modify vecB");
 	}
 
-	private function ForEach()
+	private function ForEachDo()
 	{
 	}
 
@@ -2879,7 +2879,7 @@ class TestVec3
 		$this->ResetTests();
 		$this->Create();
 		$this->ResetTests();
-		$this->Clone();
+		$this->CloneIt();
 		$this->ResetTests();
 		$this->FromValues();
 		$this->ResetTests();
@@ -2923,7 +2923,7 @@ class TestVec3
 		$this->ResetTests();
 		$this->Random();
 		$this->ResetTests();
-		$this->ForEach();
+		$this->ForEachDo();
 		$this->ResetTests();
 		$this->Str();
 		$this->ResetTests();
@@ -3021,7 +3021,7 @@ class Vec2
 	}
 
 	// **
-	static function Clone(&$a)
+	static function CloneIt(&$a)
 	{
 		$output = array();
 		$output[0] = $a[0];
@@ -3316,7 +3316,7 @@ class Vec3
 	// Creates a new vec3 initialized with values from an existing vector
 	// Returns {vec3} a new 3D vector
 	/// <param name="a">a vector to clone</param>
-	static function Clone(&$a)
+	static function CloneIt(&$a)
 	{
 		$output = array();
 		$output[0] = $a[0];
@@ -3727,7 +3727,7 @@ class Vec4
 	}
 
 	// **
-	static function Clone(&$a)
+	static function CloneIt(&$a)
 	{
 		$output = array();
 		$output[0] = $a[0];

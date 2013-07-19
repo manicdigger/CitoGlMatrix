@@ -54,7 +54,7 @@ Mat2.adjoint = function(output, a) {
 	return output;
 }
 
-Mat2.clone = function(a) {
+Mat2.cloneIt = function(a) {
 	var output = new Float32Array(new ArrayBuffer(4 << 2));
 	output[0] = a[0];
 	output[1] = a[1];
@@ -173,7 +173,7 @@ function Mat2d()
 {
 }
 
-Mat2d.clone = function(a) {
+Mat2d.cloneIt = function(a) {
 	var output = new Float32Array(new ArrayBuffer(6 << 2));
 	output[0] = a[0];
 	output[1] = a[1];
@@ -336,7 +336,7 @@ Mat3.adjoint = function(output, a) {
 	return output;
 }
 
-Mat3.clone = function(a) {
+Mat3.cloneIt = function(a) {
 	var output = new Float32Array(new ArrayBuffer(9 << 2));
 	output[0] = a[0];
 	output[1] = a[1];
@@ -690,7 +690,7 @@ Mat4.adjoint = function(output, a) {
 	return output;
 }
 
-Mat4.clone = function(a) {
+Mat4.cloneIt = function(a) {
 	var output = new Float32Array(new ArrayBuffer(16 << 2));
 	output[0] = a[0];
 	output[1] = a[1];
@@ -1450,8 +1450,8 @@ Quat.calculateW = function(output, a) {
 	return output;
 }
 
-Quat.clone = function(a) {
-	return Vec4.clone(a);
+Quat.cloneIt = function(a) {
+	return Vec4.cloneIt(a);
 }
 
 Quat.prototype.conjugate = function(output, a) {
@@ -1747,7 +1747,7 @@ Vec2.add = function(output, a, b) {
 	return output;
 }
 
-Vec2.clone = function(a) {
+Vec2.cloneIt = function(a) {
 	var output = new Float32Array(new ArrayBuffer(2 << 2));
 	output[0] = a[0];
 	output[1] = a[1];
@@ -1964,7 +1964,7 @@ Vec3.add = function(output, a, b) {
 	return output;
 }
 
-Vec3.clone = function(a) {
+Vec3.cloneIt = function(a) {
 	var output = new Float32Array(new ArrayBuffer(3 << 2));
 	output[0] = a[0];
 	output[1] = a[1];
@@ -2222,7 +2222,7 @@ Vec4.add = function(output, a, b) {
 	return output;
 }
 
-Vec4.clone = function(a) {
+Vec4.cloneIt = function(a) {
 	var output = new Float32Array(new ArrayBuffer(4 << 2));
 	output[0] = a[0];
 	output[1] = a[1];

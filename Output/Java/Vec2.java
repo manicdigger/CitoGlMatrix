@@ -17,7 +17,7 @@ public class Vec2
 	/**
 	 * **
 	 */
-	public static float[] clone(float[] a)
+	public static float[] cloneIt(float[] a)
 	{
 		float[] output = new float[2];
 		output[0] = a[0];

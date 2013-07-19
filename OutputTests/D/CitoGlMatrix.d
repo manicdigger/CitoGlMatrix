@@ -179,7 +179,7 @@ class Mat2
 	/// @returns {mat2} a new 2x2 matrix
 	/// Params:
 	/// a = @param {mat2} a matrix to clone
-	static const(float)[] Clone(const(float)[] a)
+	static const(float)[] CloneIt(const(float)[] a)
 	{
 		float[] output = new float[4];
 		output[0] = a[0];
@@ -329,7 +329,7 @@ class Mat2d
 {
 
 	/// **
-	static const(float)[] Clone(const(float)[] a)
+	static const(float)[] CloneIt(const(float)[] a)
 	{
 		float[] output = new float[6];
 		output[0] = a[0];
@@ -518,7 +518,7 @@ class Mat3
 	}
 
 	/// **
-	static const(float)[] Clone(const(float)[] a)
+	static const(float)[] CloneIt(const(float)[] a)
 	{
 		float[] output = new float[9];
 		output[0] = a[0];
@@ -916,7 +916,7 @@ class Mat4
 	/// Returns {mat4} a new 4x4 matrix
 	/// Params:
 	/// a = {mat4} a matrix to clone
-	static const(float)[] Clone(const(float)[] a)
+	static const(float)[] CloneIt(const(float)[] a)
 	{
 		float[] output = new float[16];
 		output[0] = a[0];
@@ -1833,9 +1833,9 @@ class Quat
 	}
 
 	/// **
-	static const(float)[] Clone(const(float)[] a)
+	static const(float)[] CloneIt(const(float)[] a)
 	{
-		return Vec4.Clone(a);
+		return Vec4.CloneIt(a);
 	}
 
 	/// **
@@ -2221,9 +2221,9 @@ class TestMat4
 		this.citoassert.AssertEqual(actual, expected, msg);
 	}
 
-	private void Clone()
+	private void CloneIt()
 	{
-		const(float)[] result = Mat4.Clone(this.matA);
+		const(float)[] result = Mat4.CloneIt(this.matA);
 		this.AssertArrayEqual(result, this.matA, 16, "Clone should return a 16 element array initialized to the values in matA");
 	}
 
@@ -2441,7 +2441,7 @@ class TestMat4
 		this.ResetTests();
 		this.Create();
 		this.ResetTests();
-		this.Clone();
+		this.CloneIt();
 		this.ResetTests();
 		this.Copy();
 		this.ResetTests();
@@ -2577,9 +2577,9 @@ class TestVec3
 		this.citoassert.AssertEqual(actual, expected, msg);
 	}
 
-	private void Clone()
+	private void CloneIt()
 	{
-		const(float)[] result = Vec3.Clone(this.vecA);
+		const(float)[] result = Vec3.CloneIt(this.vecA);
 		this.AssertArrayEqual(result, this.vecA, 3, "Clone should return a 3 element array initialized to the values in vecA");
 	}
 
@@ -2650,7 +2650,7 @@ class TestVec3
 		this.AssertArrayEqual(this.vecB, this.Arr3(4, 5, 6), 3, "Dot should not modify vecB");
 	}
 
-	private void ForEach()
+	private void ForEachDo()
 	{
 	}
 
@@ -2887,7 +2887,7 @@ class TestVec3
 		this.ResetTests();
 		this.Create();
 		this.ResetTests();
-		this.Clone();
+		this.CloneIt();
 		this.ResetTests();
 		this.FromValues();
 		this.ResetTests();
@@ -2931,7 +2931,7 @@ class TestVec3
 		this.ResetTests();
 		this.Random();
 		this.ResetTests();
-		this.ForEach();
+		this.ForEachDo();
 		this.ResetTests();
 		this.Str();
 		this.ResetTests();
@@ -3029,7 +3029,7 @@ class Vec2
 	}
 
 	/// **
-	static const(float)[] Clone(const(float)[] a)
+	static const(float)[] CloneIt(const(float)[] a)
 	{
 		float[] output = new float[2];
 		output[0] = a[0];
@@ -3326,7 +3326,7 @@ class Vec3
 	/// Returns {vec3} a new 3D vector
 	/// Params:
 	/// a = a vector to clone
-	static const(float)[] Clone(const(float)[] a)
+	static const(float)[] CloneIt(const(float)[] a)
 	{
 		float[] output = new float[3];
 		output[0] = a[0];
@@ -3778,7 +3778,7 @@ class Vec4
 	}
 
 	/// **
-	static const(float)[] Clone(const(float)[] a)
+	static const(float)[] CloneIt(const(float)[] a)
 	{
 		float[] output = new float[4];
 		output[0] = a[0];

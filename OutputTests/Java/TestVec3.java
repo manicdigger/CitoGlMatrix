@@ -58,9 +58,9 @@ public class TestVec3
 		this.citoassert.assertEqual(actual, expected, msg);
 	}
 
-	private void clone()
+	private void cloneIt()
 	{
-		float[] result = Vec3.clone(this.vecA);
+		float[] result = Vec3.cloneIt(this.vecA);
 		this.assertArrayEqual(result, this.vecA, 3, "Clone should return a 3 element array initialized to the values in vecA");
 	}
 
@@ -131,7 +131,7 @@ public class TestVec3
 		this.assertArrayEqual(this.vecB, this.arr3(4, 5, 6), 3, "Dot should not modify vecB");
 	}
 
-	private void forEach()
+	private void forEachDo()
 	{
 	}
 
@@ -368,7 +368,7 @@ public class TestVec3
 		this.resetTests();
 		this.create();
 		this.resetTests();
-		this.clone();
+		this.cloneIt();
 		this.resetTests();
 		this.fromValues();
 		this.resetTests();
@@ -412,7 +412,7 @@ public class TestVec3
 		this.resetTests();
 		this.random();
 		this.resetTests();
-		this.forEach();
+		this.forEachDo();
 		this.resetTests();
 		this.str();
 		this.resetTests();

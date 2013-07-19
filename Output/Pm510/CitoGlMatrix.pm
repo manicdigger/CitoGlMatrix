@@ -110,7 +110,7 @@ sub adjoint($$) {
 	return $output;
 }
 
-=head2 C<Mat2::clone(\@a)>
+=head2 C<Mat2::clone_it(\@a)>
 
 Creates a new mat2 initialized with values from an existing matrix
 @returns {mat2} a new 2x2 matrix
@@ -127,7 +127,7 @@ Parameters:
 
 =cut
 
-sub clone($) {
+sub clone_it($) {
 	my ($a) = @_;
 	my $output = [];
 	$output->[0] = $a->[0];
@@ -333,13 +333,13 @@ sub new($) {
 	return $self;
 }
 
-=head2 C<Mat2d::clone(\@a)>
+=head2 C<Mat2d::clone_it(\@a)>
 
 **
 
 =cut
 
-sub clone($) {
+sub clone_it($) {
 	my ($a) = @_;
 	my $output = [];
 	$output->[0] = $a->[0];
@@ -591,13 +591,13 @@ sub adjoint($$) {
 	return $output;
 }
 
-=head2 C<Mat3::clone(\@a)>
+=head2 C<Mat3::clone_it(\@a)>
 
 **
 
 =cut
 
-sub clone($) {
+sub clone_it($) {
 	my ($a) = @_;
 	my $output = [];
 	$output->[0] = $a->[0];
@@ -1092,7 +1092,7 @@ sub adjoint($$) {
 	return $output;
 }
 
-=head2 C<Mat4::clone(\@a)>
+=head2 C<Mat4::clone_it(\@a)>
 
 Creates a new mat4 initialized with values from an existing matrix
 Returns {mat4} a new 4x4 matrix
@@ -1109,7 +1109,7 @@ Parameters:
 
 =cut
 
-sub clone($) {
+sub clone_it($) {
 	my ($a) = @_;
 	my $output = [];
 	$output->[0] = $a->[0];
@@ -2450,15 +2450,15 @@ sub calculate_w($$) {
 	return $output;
 }
 
-=head2 C<Quat::clone(\@a)>
+=head2 C<Quat::clone_it(\@a)>
 
 **
 
 =cut
 
-sub clone($) {
+sub clone_it($) {
 	my ($a) = @_;
-	return Vec4::clone($a);
+	return Vec4::clone_it($a);
 }
 
 =head2 C<$quat-E<gt>conjugate(\@output, \@a)>
@@ -2950,13 +2950,13 @@ sub add($$$) {
 	return $output;
 }
 
-=head2 C<Vec2::clone(\@a)>
+=head2 C<Vec2::clone_it(\@a)>
 
 **
 
 =cut
 
-sub clone($) {
+sub clone_it($) {
 	my ($a) = @_;
 	my $output = [];
 	$output->[0] = $a->[0];
@@ -3437,7 +3437,7 @@ sub add($$$) {
 	return $output;
 }
 
-=head2 C<Vec3::clone(\@a)>
+=head2 C<Vec3::clone_it(\@a)>
 
 Creates a new vec3 initialized with values from an existing vector
 Returns {vec3} a new 3D vector
@@ -3454,7 +3454,7 @@ a vector to clone
 
 =cut
 
-sub clone($) {
+sub clone_it($) {
 	my ($a) = @_;
 	my $output = [];
 	$output->[0] = $a->[0];
@@ -4360,13 +4360,13 @@ sub add($$$) {
 	return $output;
 }
 
-=head2 C<Vec4::clone(\@a)>
+=head2 C<Vec4::clone_it(\@a)>
 
 **
 
 =cut
 
-sub clone($) {
+sub clone_it($) {
 	my ($a) = @_;
 	my $output = [];
 	$output->[0] = $a->[0];

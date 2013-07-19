@@ -65,7 +65,7 @@ class Mat2
 	// Creates a new mat2 initialized with values from an existing matrix
 	// @returns {mat2} a new 2x2 matrix
 	/// <param name="a">@param {mat2} a matrix to clone</param>
-	static function Clone(&$a)
+	static function CloneIt(&$a)
 	{
 		$output = array();
 		$output[0] = $a[0];
@@ -215,7 +215,7 @@ class Mat2d
 {
 
 	// **
-	static function Clone(&$a)
+	static function CloneIt(&$a)
 	{
 		$output = array();
 		$output[0] = $a[0];
@@ -404,7 +404,7 @@ class Mat3
 	}
 
 	// **
-	static function Clone(&$a)
+	static function CloneIt(&$a)
 	{
 		$output = array();
 		$output[0] = $a[0];
@@ -800,7 +800,7 @@ class Mat4
 	// Creates a new mat4 initialized with values from an existing matrix
 	// Returns {mat4} a new 4x4 matrix
 	/// <param name="a">{mat4} a matrix to clone</param>
-	static function Clone(&$a)
+	static function CloneIt(&$a)
 	{
 		$output = array();
 		$output[0] = $a[0];
@@ -1713,9 +1713,9 @@ class Quat
 	}
 
 	// **
-	static function Clone(&$a)
+	static function CloneIt(&$a)
 	{
-		return Vec4::Clone($a);
+		return Vec4::CloneIt($a);
 	}
 
 	// **
@@ -2066,7 +2066,7 @@ class Vec2
 	}
 
 	// **
-	static function Clone(&$a)
+	static function CloneIt(&$a)
 	{
 		$output = array();
 		$output[0] = $a[0];
@@ -2361,7 +2361,7 @@ class Vec3
 	// Creates a new vec3 initialized with values from an existing vector
 	// Returns {vec3} a new 3D vector
 	/// <param name="a">a vector to clone</param>
-	static function Clone(&$a)
+	static function CloneIt(&$a)
 	{
 		$output = array();
 		$output[0] = $a[0];
@@ -2772,7 +2772,7 @@ class Vec4
 	}
 
 	// **
-	static function Clone(&$a)
+	static function CloneIt(&$a)
 	{
 		$output = array();
 		$output[0] = $a[0];

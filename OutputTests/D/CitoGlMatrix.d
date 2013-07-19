@@ -2138,9 +2138,19 @@ class TestMat4
 
 	private void Adjoint()
 	{
+		this.AdjointWithASeparateOutputMatrix();
+		this.AdjointWhenMatAIsTheOutputMatrix();
 	}
 
-	private const(float)[] Arr16(int p, int p_2, int p_3, int p_4, int p_5, int p_6, int p_7, int p_8, int p_9, int p_10, int p_11, int p_12, int p_13, int p_14, int p_15, int p_16)
+	private void AdjointWhenMatAIsTheOutputMatrix()
+	{
+	}
+
+	private void AdjointWithASeparateOutputMatrix()
+	{
+	}
+
+	private float[] Arr16(int p, int p_2, int p_3, int p_4, int p_5, int p_6, int p_7, int p_8, int p_9, int p_10, int p_11, int p_12, int p_13, int p_14, int p_15, int p_16)
 	{
 		return this.citoassert.Arr16(p, p_2, p_3, p_4, p_5, p_6, p_7, p_8, p_9, p_10, p_11, p_12, p_13, p_14, p_15, p_16);
 	}
@@ -2155,7 +2165,7 @@ class TestMat4
 		return this.citoassert.Arr9(p, p_2, p_3, p_4, p_5, p_6, p_7, p_8, p_9);
 	}
 
-	private final void AssertArrayEqual(const(float)[] actual, const(float)[] expected, int length, string msg)
+	private void AssertArrayEqual(const(float)[] actual, const(float)[] expected, int length, string msg)
 	{
 		this.citoassert.AssertArrayEqual(actual, expected, length, msg);
 	}
@@ -2172,14 +2182,21 @@ class TestMat4
 
 	private void Clone()
 	{
+		const(float)[] result = Mat4.Clone(this.matA);
+		this.AssertArrayEqual(result, this.matA, 16, "Clone should return a 16 element array initialized to the values in matA");
 	}
 
 	private void Copy()
 	{
+		const(float)[] result = Mat4.Copy(this.output, this.matA);
+		this.AssertArrayEqual(this.output, this.matA, 16, "Copy should place values into out");
+		this.AssertArrayEqual(result, this.output, 16, "Copy should return out");
 	}
 
 	private void Create()
 	{
+		const(float)[] result = Mat4.Create();
+		this.AssertArrayEqual(result, this.identity, 16, "Create should return a 16 element array initialized to a 4x4 identity matrix");
 	}
 
 	private void Determinant()
@@ -2192,21 +2209,78 @@ class TestMat4
 
 	private void Identity()
 	{
+		const(float)[] result = Mat4.Identity(this.output);
+		this.AssertArrayEqual(this.output, this.identity, 16, "Copy should place values into out");
+		this.AssertArrayEqual(result, this.output, 16, "Copy should return out");
 	}
 
 	private void Invert()
+	{
+		this.InvertWithASeparateOutputMatrix();
+		this.InvertWhenMatAIsTheOutputMatrix();
+	}
+
+	private void InvertWhenMatAIsTheOutputMatrix()
+	{
+	}
+
+	private void InvertWithASeparateOutputMatrix()
 	{
 	}
 
 	private void LookAt()
 	{
+		this.LookAtLookingDown();
+		this.LookAt74();
+		this.LookAt3();
+	}
+
+	private void LookAt3()
+	{
+	}
+
+	private void LookAt74()
+	{
+	}
+
+	private void LookAtLookingDown()
+	{
 	}
 
 	private void Multiply()
 	{
+		this.MultiplyWithASeparateOutputMatrix();
+		this.MultiplyWhenMatAIsTheOutputMatrix();
+		this.MultiplyWhenMatBIsTheOutputMatrix();
+	}
+
+	private void MultiplyWhenMatAIsTheOutputMatrix()
+	{
+	}
+
+	private void MultiplyWhenMatBIsTheOutputMatrix()
+	{
+	}
+
+	private void MultiplyWithASeparateOutputMatrix()
+	{
 	}
 
 	private void Ortho()
+	{
+	}
+
+	private void Perspective()
+	{
+		this.Perspective1();
+		this.PerspectiveWithNonzeroNear45degFovyAndRealisticAspectRatio();
+	}
+
+	private void Perspective1()
+	{
+	}
+
+	private void PerspectiveWithNonzeroNear45degFovyAndRealisticAspectRatio()
 	{
 	}
 
@@ -2220,21 +2294,71 @@ class TestMat4
 
 	private void Rotate()
 	{
+		this.RotateWithASeparateOutputMatrix();
+		this.RotateWhenMatAIsTheOutputMatrix();
+	}
+
+	private void RotateWhenMatAIsTheOutputMatrix()
+	{
+	}
+
+	private void RotateWithASeparateOutputMatrix()
+	{
 	}
 
 	private void RotateX()
+	{
+		this.RotateXWithASeparateOutputMatrix();
+		this.RotateXWhenMatAIsTheOutputMatrix();
+	}
+
+	private void RotateXWhenMatAIsTheOutputMatrix()
+	{
+	}
+
+	private void RotateXWithASeparateOutputMatrix()
 	{
 	}
 
 	private void RotateY()
 	{
+		this.RotateYWithASeparateOutputMatrix();
+		this.RotateYWhenMatAIsTheOutputMatrix();
+	}
+
+	private void RotateYWhenMatAIsTheOutputMatrix()
+	{
+	}
+
+	private void RotateYWithASeparateOutputMatrix()
+	{
 	}
 
 	private void RotateZ()
 	{
+		this.RotateZWithASeparateOutputMatrix();
+		this.RotateZWhenMatAIsTheOutputMatrix();
+	}
+
+	private void RotateZWhenMatAIsTheOutputMatrix()
+	{
+	}
+
+	private void RotateZWithASeparateOutputMatrix()
+	{
 	}
 
 	private void Scale()
+	{
+		this.ScaleWithASeparateOutputMatrix();
+		this.ScaleWhenMatAIsTheOutputMatrix();
+	}
+
+	private void ScaleWhenMatAIsTheOutputMatrix()
+	{
+	}
+
+	private void ScaleWithASeparateOutputMatrix()
 	{
 	}
 
@@ -2278,6 +2402,8 @@ class TestMat4
 		this.ResetTests();
 		this.Frustum();
 		this.ResetTests();
+		this.Perspective();
+		this.ResetTests();
 		this.Ortho();
 		this.ResetTests();
 		this.LookAt();
@@ -2288,16 +2414,36 @@ class TestMat4
 
 	private void Translate()
 	{
+		this.TranslateWithASeparateOutputMatrix();
+		this.TranslateWhenMatAIsTheOutputMatrix();
+	}
+
+	private void TranslateWhenMatAIsTheOutputMatrix()
+	{
+	}
+
+	private void TranslateWithASeparateOutputMatrix()
+	{
 	}
 
 	private void Transpose()
+	{
+		this.TransposeWithASeparateOutputMatrix();
+		this.TransposeWhenMatAIsTheOutputMatrix();
+	}
+
+	private void TransposeWhenMatAIsTheOutputMatrix()
+	{
+	}
+
+	private void TransposeWithASeparateOutputMatrix()
 	{
 	}
 	private CitoAssert citoassert;
 	private const(float)[] identity;
 	private const(float)[] matA;
 	private const(float)[] matB;
-	private const(float)[] output;
+	private float[] output;
 }
 
 class TestVec3

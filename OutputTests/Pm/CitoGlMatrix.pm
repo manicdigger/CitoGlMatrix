@@ -3033,6 +3033,16 @@ sub new($) {
 
 sub adjoint($) {
 	my ($self) = @_;
+	$self->adjoint_with_a_separate_output_matrix();
+	$self->adjoint_when_mat_a_is_the_output_matrix();
+}
+
+sub adjoint_when_mat_a_is_the_output_matrix($) {
+	my ($self) = @_;
+}
+
+sub adjoint_with_a_separate_output_matrix($) {
+	my ($self) = @_;
 }
 
 sub arr16($$$$$$$$$$$$$$$$$) {
@@ -3067,14 +3077,21 @@ sub assert_equal($$$$) {
 
 sub clone($) {
 	my ($self) = @_;
+	my $result = Mat4::clone($self->{mat_a});
+	$self->assert_array_equal($result, $self->{mat_a}, 16, "Clone should return a 16 element array initialized to the values in matA");
 }
 
 sub copy($) {
 	my ($self) = @_;
+	my $result = Mat4::copy($self->{output}, $self->{mat_a});
+	$self->assert_array_equal($self->{output}, $self->{mat_a}, 16, "Copy should place values into out");
+	$self->assert_array_equal($result, $self->{output}, 16, "Copy should return out");
 }
 
 sub create($) {
 	my ($self) = @_;
+	my $result = Mat4::create();
+	$self->assert_array_equal($result, $self->{identity}, 16, "Create should return a 16 element array initialized to a 4x4 identity matrix");
 }
 
 sub determinant($) {
@@ -3087,21 +3104,78 @@ sub frustum($) {
 
 sub identity($) {
 	my ($self) = @_;
+	my $result = Mat4::identity($self->{output});
+	$self->assert_array_equal($self->{output}, $self->{identity}, 16, "Copy should place values into out");
+	$self->assert_array_equal($result, $self->{output}, 16, "Copy should return out");
 }
 
 sub invert($) {
+	my ($self) = @_;
+	$self->invert_with_a_separate_output_matrix();
+	$self->invert_when_mat_a_is_the_output_matrix();
+}
+
+sub invert_when_mat_a_is_the_output_matrix($) {
+	my ($self) = @_;
+}
+
+sub invert_with_a_separate_output_matrix($) {
 	my ($self) = @_;
 }
 
 sub look_at($) {
 	my ($self) = @_;
+	$self->look_at_looking_down();
+	$self->look_at74();
+	$self->look_at3();
+}
+
+sub look_at3($) {
+	my ($self) = @_;
+}
+
+sub look_at74($) {
+	my ($self) = @_;
+}
+
+sub look_at_looking_down($) {
+	my ($self) = @_;
 }
 
 sub multiply($) {
 	my ($self) = @_;
+	$self->multiply_with_a_separate_output_matrix();
+	$self->multiply_when_mat_a_is_the_output_matrix();
+	$self->multiply_when_mat_b_is_the_output_matrix();
+}
+
+sub multiply_when_mat_a_is_the_output_matrix($) {
+	my ($self) = @_;
+}
+
+sub multiply_when_mat_b_is_the_output_matrix($) {
+	my ($self) = @_;
+}
+
+sub multiply_with_a_separate_output_matrix($) {
+	my ($self) = @_;
 }
 
 sub ortho($) {
+	my ($self) = @_;
+}
+
+sub perspective($) {
+	my ($self) = @_;
+	$self->perspective1();
+	$self->perspective_with_nonzero_near45deg_fovy_and_realistic_aspect_ratio();
+}
+
+sub perspective1($) {
+	my ($self) = @_;
+}
+
+sub perspective_with_nonzero_near45deg_fovy_and_realistic_aspect_ratio($) {
 	my ($self) = @_;
 }
 
@@ -3115,21 +3189,71 @@ sub reset_tests($) {
 
 sub rotate($) {
 	my ($self) = @_;
+	$self->rotate_with_a_separate_output_matrix();
+	$self->rotate_when_mat_a_is_the_output_matrix();
+}
+
+sub rotate_when_mat_a_is_the_output_matrix($) {
+	my ($self) = @_;
+}
+
+sub rotate_with_a_separate_output_matrix($) {
+	my ($self) = @_;
 }
 
 sub rotate_x($) {
+	my ($self) = @_;
+	$self->rotate_x_with_a_separate_output_matrix();
+	$self->rotate_x_when_mat_a_is_the_output_matrix();
+}
+
+sub rotate_x_when_mat_a_is_the_output_matrix($) {
+	my ($self) = @_;
+}
+
+sub rotate_x_with_a_separate_output_matrix($) {
 	my ($self) = @_;
 }
 
 sub rotate_y($) {
 	my ($self) = @_;
+	$self->rotate_y_with_a_separate_output_matrix();
+	$self->rotate_y_when_mat_a_is_the_output_matrix();
+}
+
+sub rotate_y_when_mat_a_is_the_output_matrix($) {
+	my ($self) = @_;
+}
+
+sub rotate_y_with_a_separate_output_matrix($) {
+	my ($self) = @_;
 }
 
 sub rotate_z($) {
 	my ($self) = @_;
+	$self->rotate_z_with_a_separate_output_matrix();
+	$self->rotate_z_when_mat_a_is_the_output_matrix();
+}
+
+sub rotate_z_when_mat_a_is_the_output_matrix($) {
+	my ($self) = @_;
+}
+
+sub rotate_z_with_a_separate_output_matrix($) {
+	my ($self) = @_;
 }
 
 sub scale($) {
+	my ($self) = @_;
+	$self->scale_with_a_separate_output_matrix();
+	$self->scale_when_mat_a_is_the_output_matrix();
+}
+
+sub scale_when_mat_a_is_the_output_matrix($) {
+	my ($self) = @_;
+}
+
+sub scale_with_a_separate_output_matrix($) {
 	my ($self) = @_;
 }
 
@@ -3177,6 +3301,8 @@ sub test($) {
 	$self->reset_tests();
 	$self->frustum();
 	$self->reset_tests();
+	$self->perspective();
+	$self->reset_tests();
 	$self->ortho();
 	$self->reset_tests();
 	$self->look_at();
@@ -3187,9 +3313,29 @@ sub test($) {
 
 sub translate($) {
 	my ($self) = @_;
+	$self->translate_with_a_separate_output_matrix();
+	$self->translate_when_mat_a_is_the_output_matrix();
+}
+
+sub translate_when_mat_a_is_the_output_matrix($) {
+	my ($self) = @_;
+}
+
+sub translate_with_a_separate_output_matrix($) {
+	my ($self) = @_;
 }
 
 sub transpose($) {
+	my ($self) = @_;
+	$self->transpose_with_a_separate_output_matrix();
+	$self->transpose_when_mat_a_is_the_output_matrix();
+}
+
+sub transpose_when_mat_a_is_the_output_matrix($) {
+	my ($self) = @_;
+}
+
+sub transpose_with_a_separate_output_matrix($) {
 	my ($self) = @_;
 }
 

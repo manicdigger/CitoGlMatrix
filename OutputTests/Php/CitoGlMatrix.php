@@ -2116,6 +2116,16 @@ class TestMat4
 
 	private function Adjoint()
 	{
+		$this->AdjointWithASeparateOutputMatrix();
+		$this->AdjointWhenMatAIsTheOutputMatrix();
+	}
+
+	private function AdjointWhenMatAIsTheOutputMatrix()
+	{
+	}
+
+	private function AdjointWithASeparateOutputMatrix()
+	{
 	}
 
 	private function Arr16($p, $p_2, $p_3, $p_4, $p_5, $p_6, $p_7, $p_8, $p_9, $p_10, $p_11, $p_12, $p_13, $p_14, $p_15, $p_16)
@@ -2150,14 +2160,21 @@ class TestMat4
 
 	private function Clone()
 	{
+		$result = Mat4::Clone($this->matA);
+		$this->AssertArrayEqual($result, $this->matA, 16, "Clone should return a 16 element array initialized to the values in matA");
 	}
 
 	private function Copy()
 	{
+		$result = Mat4::Copy($this->output, $this->matA);
+		$this->AssertArrayEqual($this->output, $this->matA, 16, "Copy should place values into out");
+		$this->AssertArrayEqual($result, $this->output, 16, "Copy should return out");
 	}
 
 	private function Create()
 	{
+		$result = Mat4::Create();
+		$this->AssertArrayEqual($result, $this->identity, 16, "Create should return a 16 element array initialized to a 4x4 identity matrix");
 	}
 
 	private function Determinant()
@@ -2170,21 +2187,78 @@ class TestMat4
 
 	private function Identity()
 	{
+		$result = Mat4::Identity($this->output);
+		$this->AssertArrayEqual($this->output, $this->identity, 16, "Copy should place values into out");
+		$this->AssertArrayEqual($result, $this->output, 16, "Copy should return out");
 	}
 
 	private function Invert()
+	{
+		$this->InvertWithASeparateOutputMatrix();
+		$this->InvertWhenMatAIsTheOutputMatrix();
+	}
+
+	private function InvertWhenMatAIsTheOutputMatrix()
+	{
+	}
+
+	private function InvertWithASeparateOutputMatrix()
 	{
 	}
 
 	private function LookAt()
 	{
+		$this->LookAtLookingDown();
+		$this->LookAt74();
+		$this->LookAt3();
+	}
+
+	private function LookAt3()
+	{
+	}
+
+	private function LookAt74()
+	{
+	}
+
+	private function LookAtLookingDown()
+	{
 	}
 
 	private function Multiply()
 	{
+		$this->MultiplyWithASeparateOutputMatrix();
+		$this->MultiplyWhenMatAIsTheOutputMatrix();
+		$this->MultiplyWhenMatBIsTheOutputMatrix();
+	}
+
+	private function MultiplyWhenMatAIsTheOutputMatrix()
+	{
+	}
+
+	private function MultiplyWhenMatBIsTheOutputMatrix()
+	{
+	}
+
+	private function MultiplyWithASeparateOutputMatrix()
+	{
 	}
 
 	private function Ortho()
+	{
+	}
+
+	private function Perspective()
+	{
+		$this->Perspective1();
+		$this->PerspectiveWithNonzeroNear45degFovyAndRealisticAspectRatio();
+	}
+
+	private function Perspective1()
+	{
+	}
+
+	private function PerspectiveWithNonzeroNear45degFovyAndRealisticAspectRatio()
 	{
 	}
 
@@ -2198,21 +2272,71 @@ class TestMat4
 
 	private function Rotate()
 	{
+		$this->RotateWithASeparateOutputMatrix();
+		$this->RotateWhenMatAIsTheOutputMatrix();
+	}
+
+	private function RotateWhenMatAIsTheOutputMatrix()
+	{
+	}
+
+	private function RotateWithASeparateOutputMatrix()
+	{
 	}
 
 	private function RotateX()
+	{
+		$this->RotateXWithASeparateOutputMatrix();
+		$this->RotateXWhenMatAIsTheOutputMatrix();
+	}
+
+	private function RotateXWhenMatAIsTheOutputMatrix()
+	{
+	}
+
+	private function RotateXWithASeparateOutputMatrix()
 	{
 	}
 
 	private function RotateY()
 	{
+		$this->RotateYWithASeparateOutputMatrix();
+		$this->RotateYWhenMatAIsTheOutputMatrix();
+	}
+
+	private function RotateYWhenMatAIsTheOutputMatrix()
+	{
+	}
+
+	private function RotateYWithASeparateOutputMatrix()
+	{
 	}
 
 	private function RotateZ()
 	{
+		$this->RotateZWithASeparateOutputMatrix();
+		$this->RotateZWhenMatAIsTheOutputMatrix();
+	}
+
+	private function RotateZWhenMatAIsTheOutputMatrix()
+	{
+	}
+
+	private function RotateZWithASeparateOutputMatrix()
+	{
 	}
 
 	private function Scale()
+	{
+		$this->ScaleWithASeparateOutputMatrix();
+		$this->ScaleWhenMatAIsTheOutputMatrix();
+	}
+
+	private function ScaleWhenMatAIsTheOutputMatrix()
+	{
+	}
+
+	private function ScaleWithASeparateOutputMatrix()
 	{
 	}
 
@@ -2256,6 +2380,8 @@ class TestMat4
 		$this->ResetTests();
 		$this->Frustum();
 		$this->ResetTests();
+		$this->Perspective();
+		$this->ResetTests();
 		$this->Ortho();
 		$this->ResetTests();
 		$this->LookAt();
@@ -2266,9 +2392,29 @@ class TestMat4
 
 	private function Translate()
 	{
+		$this->TranslateWithASeparateOutputMatrix();
+		$this->TranslateWhenMatAIsTheOutputMatrix();
+	}
+
+	private function TranslateWhenMatAIsTheOutputMatrix()
+	{
+	}
+
+	private function TranslateWithASeparateOutputMatrix()
+	{
 	}
 
 	private function Transpose()
+	{
+		$this->TransposeWithASeparateOutputMatrix();
+		$this->TransposeWhenMatAIsTheOutputMatrix();
+	}
+
+	private function TransposeWhenMatAIsTheOutputMatrix()
+	{
+	}
+
+	private function TransposeWithASeparateOutputMatrix()
 	{
 	}
 	private $citoassert;

@@ -21,10 +21,13 @@ struct TestMat4 {
 	float const *identity;
 	float const *matA;
 	float const *matB;
-	float const *output;
+	float *output;
 };
 static void TestMat4_Adjoint(TestMat4 const *self);
-static float const *TestMat4_Arr16(TestMat4 const *self, int p, int p_2, int p_3, int p_4, int p_5, int p_6, int p_7, int p_8, int p_9, int p_10, int p_11, int p_12, int p_13, int p_14, int p_15, int p_16);
+static void TestMat4_AdjointWhenMatAIsTheOutputMatrix(TestMat4 const *self);
+static void TestMat4_AdjointWithASeparateOutputMatrix(TestMat4 const *self);
+static float *TestMat4_Arr16(TestMat4 const *self, int p, int p_2, int p_3, int p_4, int p_5, int p_6, int p_7, int p_8, int p_9, int p_10, int p_11, int p_12, int p_13, int p_14, int p_15, int p_16);
+static void TestMat4_AssertArrayEqual(TestMat4 const *self, float const *actual, float const *expected, int length, const char *msg);
 static void TestMat4_Clone(TestMat4 const *self);
 static void TestMat4_Copy(TestMat4 const *self);
 static void TestMat4_Create(TestMat4 const *self);
@@ -32,18 +35,43 @@ static void TestMat4_Determinant(TestMat4 const *self);
 static void TestMat4_Frustum(TestMat4 const *self);
 static void TestMat4_Identity(TestMat4 const *self);
 static void TestMat4_Invert(TestMat4 const *self);
+static void TestMat4_InvertWhenMatAIsTheOutputMatrix(TestMat4 const *self);
+static void TestMat4_InvertWithASeparateOutputMatrix(TestMat4 const *self);
 static void TestMat4_LookAt(TestMat4 const *self);
+static void TestMat4_LookAt3(TestMat4 const *self);
+static void TestMat4_LookAt74(TestMat4 const *self);
+static void TestMat4_LookAtLookingDown(TestMat4 const *self);
 static void TestMat4_Multiply(TestMat4 const *self);
+static void TestMat4_MultiplyWhenMatAIsTheOutputMatrix(TestMat4 const *self);
+static void TestMat4_MultiplyWhenMatBIsTheOutputMatrix(TestMat4 const *self);
+static void TestMat4_MultiplyWithASeparateOutputMatrix(TestMat4 const *self);
 static void TestMat4_Ortho(TestMat4 const *self);
+static void TestMat4_Perspective(TestMat4 const *self);
+static void TestMat4_Perspective1(TestMat4 const *self);
+static void TestMat4_PerspectiveWithNonzeroNear45degFovyAndRealisticAspectRatio(TestMat4 const *self);
 static void TestMat4_ResetTests(TestMat4 *self);
 static void TestMat4_Rotate(TestMat4 const *self);
+static void TestMat4_RotateWhenMatAIsTheOutputMatrix(TestMat4 const *self);
+static void TestMat4_RotateWithASeparateOutputMatrix(TestMat4 const *self);
 static void TestMat4_RotateX(TestMat4 const *self);
+static void TestMat4_RotateXWhenMatAIsTheOutputMatrix(TestMat4 const *self);
+static void TestMat4_RotateXWithASeparateOutputMatrix(TestMat4 const *self);
 static void TestMat4_RotateY(TestMat4 const *self);
+static void TestMat4_RotateYWhenMatAIsTheOutputMatrix(TestMat4 const *self);
+static void TestMat4_RotateYWithASeparateOutputMatrix(TestMat4 const *self);
 static void TestMat4_RotateZ(TestMat4 const *self);
+static void TestMat4_RotateZWhenMatAIsTheOutputMatrix(TestMat4 const *self);
+static void TestMat4_RotateZWithASeparateOutputMatrix(TestMat4 const *self);
 static void TestMat4_Scale(TestMat4 const *self);
+static void TestMat4_ScaleWhenMatAIsTheOutputMatrix(TestMat4 const *self);
+static void TestMat4_ScaleWithASeparateOutputMatrix(TestMat4 const *self);
 static void TestMat4_Str(TestMat4 const *self);
 static void TestMat4_Translate(TestMat4 const *self);
+static void TestMat4_TranslateWhenMatAIsTheOutputMatrix(TestMat4 const *self);
+static void TestMat4_TranslateWithASeparateOutputMatrix(TestMat4 const *self);
 static void TestMat4_Transpose(TestMat4 const *self);
+static void TestMat4_TransposeWhenMatAIsTheOutputMatrix(TestMat4 const *self);
+static void TestMat4_TransposeWithASeparateOutputMatrix(TestMat4 const *self);
 
 struct TestVec3 {
 	CitoAssert *citoassert;
@@ -2062,23 +2090,45 @@ void TestMat4_Delete(TestMat4 *self)
 
 static void TestMat4_Adjoint(TestMat4 const *self)
 {
+	TestMat4_AdjointWithASeparateOutputMatrix(self);
+	TestMat4_AdjointWhenMatAIsTheOutputMatrix(self);
 }
 
-static float const *TestMat4_Arr16(TestMat4 const *self, int p, int p_2, int p_3, int p_4, int p_5, int p_6, int p_7, int p_8, int p_9, int p_10, int p_11, int p_12, int p_13, int p_14, int p_15, int p_16)
+static void TestMat4_AdjointWhenMatAIsTheOutputMatrix(TestMat4 const *self)
+{
+}
+
+static void TestMat4_AdjointWithASeparateOutputMatrix(TestMat4 const *self)
+{
+}
+
+static float *TestMat4_Arr16(TestMat4 const *self, int p, int p_2, int p_3, int p_4, int p_5, int p_6, int p_7, int p_8, int p_9, int p_10, int p_11, int p_12, int p_13, int p_14, int p_15, int p_16)
 {
 	return CitoAssert_Arr16(self->citoassert, p, p_2, p_3, p_4, p_5, p_6, p_7, p_8, p_9, p_10, p_11, p_12, p_13, p_14, p_15, p_16);
 }
 
+static void TestMat4_AssertArrayEqual(TestMat4 const *self, float const *actual, float const *expected, int length, const char *msg)
+{
+	CitoAssert_AssertArrayEqual(self->citoassert, actual, expected, length, msg);
+}
+
 static void TestMat4_Clone(TestMat4 const *self)
 {
+	float const *result = Mat4_Clone(self->matA);
+	TestMat4_AssertArrayEqual(self, result, self->matA, 16, "Clone should return a 16 element array initialized to the values in matA");
 }
 
 static void TestMat4_Copy(TestMat4 const *self)
 {
+	float const *result = Mat4_Copy(self->output, self->matA);
+	TestMat4_AssertArrayEqual(self, self->output, self->matA, 16, "Copy should place values into out");
+	TestMat4_AssertArrayEqual(self, result, self->output, 16, "Copy should return out");
 }
 
 static void TestMat4_Create(TestMat4 const *self)
 {
+	float const *result = Mat4_Create();
+	TestMat4_AssertArrayEqual(self, result, self->identity, 16, "Create should return a 16 element array initialized to a 4x4 identity matrix");
 }
 
 static void TestMat4_Determinant(TestMat4 const *self)
@@ -2091,21 +2141,78 @@ static void TestMat4_Frustum(TestMat4 const *self)
 
 static void TestMat4_Identity(TestMat4 const *self)
 {
+	float const *result = Mat4_Identity(self->output);
+	TestMat4_AssertArrayEqual(self, self->output, self->identity, 16, "Copy should place values into out");
+	TestMat4_AssertArrayEqual(self, result, self->output, 16, "Copy should return out");
 }
 
 static void TestMat4_Invert(TestMat4 const *self)
+{
+	TestMat4_InvertWithASeparateOutputMatrix(self);
+	TestMat4_InvertWhenMatAIsTheOutputMatrix(self);
+}
+
+static void TestMat4_InvertWhenMatAIsTheOutputMatrix(TestMat4 const *self)
+{
+}
+
+static void TestMat4_InvertWithASeparateOutputMatrix(TestMat4 const *self)
 {
 }
 
 static void TestMat4_LookAt(TestMat4 const *self)
 {
+	TestMat4_LookAtLookingDown(self);
+	TestMat4_LookAt74(self);
+	TestMat4_LookAt3(self);
+}
+
+static void TestMat4_LookAt3(TestMat4 const *self)
+{
+}
+
+static void TestMat4_LookAt74(TestMat4 const *self)
+{
+}
+
+static void TestMat4_LookAtLookingDown(TestMat4 const *self)
+{
 }
 
 static void TestMat4_Multiply(TestMat4 const *self)
 {
+	TestMat4_MultiplyWithASeparateOutputMatrix(self);
+	TestMat4_MultiplyWhenMatAIsTheOutputMatrix(self);
+	TestMat4_MultiplyWhenMatBIsTheOutputMatrix(self);
+}
+
+static void TestMat4_MultiplyWhenMatAIsTheOutputMatrix(TestMat4 const *self)
+{
+}
+
+static void TestMat4_MultiplyWhenMatBIsTheOutputMatrix(TestMat4 const *self)
+{
+}
+
+static void TestMat4_MultiplyWithASeparateOutputMatrix(TestMat4 const *self)
+{
 }
 
 static void TestMat4_Ortho(TestMat4 const *self)
+{
+}
+
+static void TestMat4_Perspective(TestMat4 const *self)
+{
+	TestMat4_Perspective1(self);
+	TestMat4_PerspectiveWithNonzeroNear45degFovyAndRealisticAspectRatio(self);
+}
+
+static void TestMat4_Perspective1(TestMat4 const *self)
+{
+}
+
+static void TestMat4_PerspectiveWithNonzeroNear45degFovyAndRealisticAspectRatio(TestMat4 const *self)
 {
 }
 
@@ -2119,21 +2226,71 @@ static void TestMat4_ResetTests(TestMat4 *self)
 
 static void TestMat4_Rotate(TestMat4 const *self)
 {
+	TestMat4_RotateWithASeparateOutputMatrix(self);
+	TestMat4_RotateWhenMatAIsTheOutputMatrix(self);
+}
+
+static void TestMat4_RotateWhenMatAIsTheOutputMatrix(TestMat4 const *self)
+{
+}
+
+static void TestMat4_RotateWithASeparateOutputMatrix(TestMat4 const *self)
+{
 }
 
 static void TestMat4_RotateX(TestMat4 const *self)
+{
+	TestMat4_RotateXWithASeparateOutputMatrix(self);
+	TestMat4_RotateXWhenMatAIsTheOutputMatrix(self);
+}
+
+static void TestMat4_RotateXWhenMatAIsTheOutputMatrix(TestMat4 const *self)
+{
+}
+
+static void TestMat4_RotateXWithASeparateOutputMatrix(TestMat4 const *self)
 {
 }
 
 static void TestMat4_RotateY(TestMat4 const *self)
 {
+	TestMat4_RotateYWithASeparateOutputMatrix(self);
+	TestMat4_RotateYWhenMatAIsTheOutputMatrix(self);
+}
+
+static void TestMat4_RotateYWhenMatAIsTheOutputMatrix(TestMat4 const *self)
+{
+}
+
+static void TestMat4_RotateYWithASeparateOutputMatrix(TestMat4 const *self)
+{
 }
 
 static void TestMat4_RotateZ(TestMat4 const *self)
 {
+	TestMat4_RotateZWithASeparateOutputMatrix(self);
+	TestMat4_RotateZWhenMatAIsTheOutputMatrix(self);
+}
+
+static void TestMat4_RotateZWhenMatAIsTheOutputMatrix(TestMat4 const *self)
+{
+}
+
+static void TestMat4_RotateZWithASeparateOutputMatrix(TestMat4 const *self)
+{
 }
 
 static void TestMat4_Scale(TestMat4 const *self)
+{
+	TestMat4_ScaleWithASeparateOutputMatrix(self);
+	TestMat4_ScaleWhenMatAIsTheOutputMatrix(self);
+}
+
+static void TestMat4_ScaleWhenMatAIsTheOutputMatrix(TestMat4 const *self)
+{
+}
+
+static void TestMat4_ScaleWithASeparateOutputMatrix(TestMat4 const *self)
 {
 }
 
@@ -2177,6 +2334,8 @@ void TestMat4_Test(TestMat4 *self)
 	TestMat4_ResetTests(self);
 	TestMat4_Frustum(self);
 	TestMat4_ResetTests(self);
+	TestMat4_Perspective(self);
+	TestMat4_ResetTests(self);
 	TestMat4_Ortho(self);
 	TestMat4_ResetTests(self);
 	TestMat4_LookAt(self);
@@ -2187,9 +2346,29 @@ void TestMat4_Test(TestMat4 *self)
 
 static void TestMat4_Translate(TestMat4 const *self)
 {
+	TestMat4_TranslateWithASeparateOutputMatrix(self);
+	TestMat4_TranslateWhenMatAIsTheOutputMatrix(self);
+}
+
+static void TestMat4_TranslateWhenMatAIsTheOutputMatrix(TestMat4 const *self)
+{
+}
+
+static void TestMat4_TranslateWithASeparateOutputMatrix(TestMat4 const *self)
+{
 }
 
 static void TestMat4_Transpose(TestMat4 const *self)
+{
+	TestMat4_TransposeWithASeparateOutputMatrix(self);
+	TestMat4_TransposeWhenMatAIsTheOutputMatrix(self);
+}
+
+static void TestMat4_TransposeWhenMatAIsTheOutputMatrix(TestMat4 const *self)
+{
+}
+
+static void TestMat4_TransposeWithASeparateOutputMatrix(TestMat4 const *self)
 {
 }
 

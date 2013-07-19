@@ -1822,6 +1822,14 @@ function TestMat4()
 }
 
 TestMat4.prototype.adjoint = function() {
+	this.adjointWithASeparateOutputMatrix();
+	this.adjointWhenMatAIsTheOutputMatrix();
+}
+
+TestMat4.prototype.adjointWhenMatAIsTheOutputMatrix = function() {
+}
+
+TestMat4.prototype.adjointWithASeparateOutputMatrix = function() {
 }
 
 TestMat4.prototype.arr16 = function(p, p_2, p_3, p_4, p_5, p_6, p_7, p_8, p_9, p_10, p_11, p_12, p_13, p_14, p_15, p_16) {
@@ -1849,12 +1857,19 @@ TestMat4.prototype.assertEqual = function(actual, expected, msg) {
 }
 
 TestMat4.prototype.clone = function() {
+	var result = Mat4.clone(this.matA);
+	this.assertArrayEqual(result, this.matA, 16, "Clone should return a 16 element array initialized to the values in matA");
 }
 
 TestMat4.prototype.copy = function() {
+	var result = Mat4.copy(this.output, this.matA);
+	this.assertArrayEqual(this.output, this.matA, 16, "Copy should place values into out");
+	this.assertArrayEqual(result, this.output, 16, "Copy should return out");
 }
 
 TestMat4.prototype.create = function() {
+	var result = Mat4.create();
+	this.assertArrayEqual(result, this.identity, 16, "Create should return a 16 element array initialized to a 4x4 identity matrix");
 }
 
 TestMat4.prototype.determinant = function() {
@@ -1864,18 +1879,64 @@ TestMat4.prototype.frustum = function() {
 }
 
 TestMat4.prototype.identity = function() {
+	var result = Mat4.identity(this.output);
+	this.assertArrayEqual(this.output, this.identity, 16, "Copy should place values into out");
+	this.assertArrayEqual(result, this.output, 16, "Copy should return out");
 }
 
 TestMat4.prototype.invert = function() {
+	this.invertWithASeparateOutputMatrix();
+	this.invertWhenMatAIsTheOutputMatrix();
+}
+
+TestMat4.prototype.invertWhenMatAIsTheOutputMatrix = function() {
+}
+
+TestMat4.prototype.invertWithASeparateOutputMatrix = function() {
 }
 
 TestMat4.prototype.lookAt = function() {
+	this.lookAtLookingDown();
+	this.lookAt74();
+	this.lookAt3();
+}
+
+TestMat4.prototype.lookAt3 = function() {
+}
+
+TestMat4.prototype.lookAt74 = function() {
+}
+
+TestMat4.prototype.lookAtLookingDown = function() {
 }
 
 TestMat4.prototype.multiply = function() {
+	this.multiplyWithASeparateOutputMatrix();
+	this.multiplyWhenMatAIsTheOutputMatrix();
+	this.multiplyWhenMatBIsTheOutputMatrix();
+}
+
+TestMat4.prototype.multiplyWhenMatAIsTheOutputMatrix = function() {
+}
+
+TestMat4.prototype.multiplyWhenMatBIsTheOutputMatrix = function() {
+}
+
+TestMat4.prototype.multiplyWithASeparateOutputMatrix = function() {
 }
 
 TestMat4.prototype.ortho = function() {
+}
+
+TestMat4.prototype.perspective = function() {
+	this.perspective1();
+	this.perspectiveWithNonzeroNear45degFovyAndRealisticAspectRatio();
+}
+
+TestMat4.prototype.perspective1 = function() {
+}
+
+TestMat4.prototype.perspectiveWithNonzeroNear45degFovyAndRealisticAspectRatio = function() {
 }
 
 TestMat4.prototype.resetTests = function() {
@@ -1886,18 +1947,58 @@ TestMat4.prototype.resetTests = function() {
 }
 
 TestMat4.prototype.rotate = function() {
+	this.rotateWithASeparateOutputMatrix();
+	this.rotateWhenMatAIsTheOutputMatrix();
+}
+
+TestMat4.prototype.rotateWhenMatAIsTheOutputMatrix = function() {
+}
+
+TestMat4.prototype.rotateWithASeparateOutputMatrix = function() {
 }
 
 TestMat4.prototype.rotateX = function() {
+	this.rotateXWithASeparateOutputMatrix();
+	this.rotateXWhenMatAIsTheOutputMatrix();
+}
+
+TestMat4.prototype.rotateXWhenMatAIsTheOutputMatrix = function() {
+}
+
+TestMat4.prototype.rotateXWithASeparateOutputMatrix = function() {
 }
 
 TestMat4.prototype.rotateY = function() {
+	this.rotateYWithASeparateOutputMatrix();
+	this.rotateYWhenMatAIsTheOutputMatrix();
+}
+
+TestMat4.prototype.rotateYWhenMatAIsTheOutputMatrix = function() {
+}
+
+TestMat4.prototype.rotateYWithASeparateOutputMatrix = function() {
 }
 
 TestMat4.prototype.rotateZ = function() {
+	this.rotateZWithASeparateOutputMatrix();
+	this.rotateZWhenMatAIsTheOutputMatrix();
+}
+
+TestMat4.prototype.rotateZWhenMatAIsTheOutputMatrix = function() {
+}
+
+TestMat4.prototype.rotateZWithASeparateOutputMatrix = function() {
 }
 
 TestMat4.prototype.scale = function() {
+	this.scaleWithASeparateOutputMatrix();
+	this.scaleWhenMatAIsTheOutputMatrix();
+}
+
+TestMat4.prototype.scaleWhenMatAIsTheOutputMatrix = function() {
+}
+
+TestMat4.prototype.scaleWithASeparateOutputMatrix = function() {
 }
 
 TestMat4.prototype.str = function() {
@@ -1938,6 +2039,8 @@ TestMat4.prototype.test = function() {
 	this.resetTests();
 	this.frustum();
 	this.resetTests();
+	this.perspective();
+	this.resetTests();
 	this.ortho();
 	this.resetTests();
 	this.lookAt();
@@ -1947,9 +2050,25 @@ TestMat4.prototype.test = function() {
 }
 
 TestMat4.prototype.translate = function() {
+	this.translateWithASeparateOutputMatrix();
+	this.translateWhenMatAIsTheOutputMatrix();
+}
+
+TestMat4.prototype.translateWhenMatAIsTheOutputMatrix = function() {
+}
+
+TestMat4.prototype.translateWithASeparateOutputMatrix = function() {
 }
 
 TestMat4.prototype.transpose = function() {
+	this.transposeWithASeparateOutputMatrix();
+	this.transposeWhenMatAIsTheOutputMatrix();
+}
+
+TestMat4.prototype.transposeWhenMatAIsTheOutputMatrix = function() {
+}
+
+TestMat4.prototype.transposeWithASeparateOutputMatrix = function() {
 }
 
 function TestVec3()

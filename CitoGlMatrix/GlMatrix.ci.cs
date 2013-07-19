@@ -4831,6 +4831,7 @@ public class TestMat4
         RotateY(); ResetTests();
         RotateZ(); ResetTests();
         Frustum(); ResetTests();
+        Perspective(); ResetTests();
         Ortho(); ResetTests();
         LookAt(); ResetTests();
         Str(); ResetTests();
@@ -4867,35 +4868,72 @@ public class TestMat4
 
     void Create()
     {
-
+        float[] result = Mat4.Create();
+        AssertArrayEqual(result, identity, 16, "Create should return a 16 element array initialized to a 4x4 identity matrix");
     }
 
     void Clone()
     {
-
+        float[] result = Mat4.Clone(matA);
+        AssertArrayEqual(result, matA, 16, "Clone should return a 16 element array initialized to the values in matA");
     }
 
     void Copy()
     {
-
+        float[] result = Mat4.Copy(output, matA);
+        AssertArrayEqual(output, matA, 16, "Copy should place values into out");
+        AssertArrayEqual(result, output, 16, "Copy should return out");
     }
 
     void Identity()
     {
-
+        float[] result = Mat4.Identity(output);
+        AssertArrayEqual(output, identity, 16, "Copy should place values into out");
+        AssertArrayEqual(result, output, 16, "Copy should return out");
     }
 
     void Transpose()
     {
+        TransposeWithASeparateOutputMatrix();
+        TransposeWhenMatAIsTheOutputMatrix();
+    }
 
+    void TransposeWithASeparateOutputMatrix()
+    {
+    }
+
+    void TransposeWhenMatAIsTheOutputMatrix()
+    {
     }
 
     void Invert()
+    {
+        InvertWithASeparateOutputMatrix();
+        InvertWhenMatAIsTheOutputMatrix();
+    }
+
+    void InvertWithASeparateOutputMatrix()
+    {
+
+    }
+
+    void InvertWhenMatAIsTheOutputMatrix()
     {
 
     }
 
     void Adjoint()
+    {
+        AdjointWithASeparateOutputMatrix();
+        AdjointWhenMatAIsTheOutputMatrix();
+    }
+
+    void AdjointWithASeparateOutputMatrix()
+    {
+
+    }
+
+    void AdjointWhenMatAIsTheOutputMatrix()
     {
 
     }
@@ -4907,40 +4945,139 @@ public class TestMat4
 
     void Multiply()
     {
+        MultiplyWithASeparateOutputMatrix();
+        MultiplyWhenMatAIsTheOutputMatrix();
+        MultiplyWhenMatBIsTheOutputMatrix();
+    }
+
+    void MultiplyWithASeparateOutputMatrix()
+    {
+
+    }
+
+    void MultiplyWhenMatAIsTheOutputMatrix()
+    {
+
+    }
+
+    void MultiplyWhenMatBIsTheOutputMatrix()
+    {
 
     }
 
     void Translate()
+    {
+        TranslateWithASeparateOutputMatrix();
+        TranslateWhenMatAIsTheOutputMatrix();
+    }
+
+    void TranslateWithASeparateOutputMatrix()
+    {
+
+    }
+
+    void TranslateWhenMatAIsTheOutputMatrix()
     {
 
     }
 
     void Scale()
     {
+        ScaleWithASeparateOutputMatrix();
+        ScaleWhenMatAIsTheOutputMatrix();
+    }
+
+    void ScaleWithASeparateOutputMatrix()
+    {
+
+    }
+
+    void ScaleWhenMatAIsTheOutputMatrix()
+    {
 
     }
 
     void Rotate()
+    {
+        RotateWithASeparateOutputMatrix();
+        RotateWhenMatAIsTheOutputMatrix();
+    }
+
+    void RotateWithASeparateOutputMatrix()
+    {
+
+    }
+
+    void RotateWhenMatAIsTheOutputMatrix()
     {
 
     }
 
     void RotateX()
     {
+        RotateXWithASeparateOutputMatrix();
+        RotateXWhenMatAIsTheOutputMatrix();
+    }
+
+    void RotateXWithASeparateOutputMatrix()
+    {
+
+    }
+
+    void RotateXWhenMatAIsTheOutputMatrix()
+    {
 
     }
 
     void RotateY()
+    {
+        RotateYWithASeparateOutputMatrix();
+        RotateYWhenMatAIsTheOutputMatrix();
+    }
+
+    void RotateYWithASeparateOutputMatrix()
+    {
+
+    }
+
+    void RotateYWhenMatAIsTheOutputMatrix()
     {
 
     }
 
     void RotateZ()
     {
+        RotateZWithASeparateOutputMatrix();
+        RotateZWhenMatAIsTheOutputMatrix();
+    }
+
+    void RotateZWithASeparateOutputMatrix()
+    {
+
+    }
+
+    void RotateZWhenMatAIsTheOutputMatrix()
+    {
 
     }
 
     void Frustum()
+    {
+
+    }
+
+    void Perspective()
+    {
+        Perspective1();
+        PerspectiveWithNonzeroNear45degFovyAndRealisticAspectRatio();
+    }
+
+    void Perspective1()
+    {
+
+    }
+
+    void PerspectiveWithNonzeroNear45degFovyAndRealisticAspectRatio()
     {
 
     }
@@ -4952,7 +5089,24 @@ public class TestMat4
 
     void LookAt()
     {
+        LookAtLookingDown();
+        LookAt74();
+        LookAt3();
+    }
 
+    void LookAtLookingDown()
+    {
+
+    }
+
+    void LookAt74()
+    {
+
+    }
+
+    void LookAt3()
+    {
+        
     }
 
     void Str()

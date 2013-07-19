@@ -2126,6 +2126,16 @@ public class TestMat4
 
 	void Adjoint()
 	{
+		this.AdjointWithASeparateOutputMatrix();
+		this.AdjointWhenMatAIsTheOutputMatrix();
+	}
+
+	void AdjointWhenMatAIsTheOutputMatrix()
+	{
+	}
+
+	void AdjointWithASeparateOutputMatrix()
+	{
 	}
 
 	float[] Arr16(int p, int p_2, int p_3, int p_4, int p_5, int p_6, int p_7, int p_8, int p_9, int p_10, int p_11, int p_12, int p_13, int p_14, int p_15, int p_16)
@@ -2160,14 +2170,21 @@ public class TestMat4
 
 	void Clone()
 	{
+		float[] result = Mat4.Clone(this.matA);
+		this.AssertArrayEqual(result, this.matA, 16, "Clone should return a 16 element array initialized to the values in matA");
 	}
 
 	void Copy()
 	{
+		float[] result = Mat4.Copy(this.output, this.matA);
+		this.AssertArrayEqual(this.output, this.matA, 16, "Copy should place values into out");
+		this.AssertArrayEqual(result, this.output, 16, "Copy should return out");
 	}
 
 	void Create()
 	{
+		float[] result = Mat4.Create();
+		this.AssertArrayEqual(result, this.identity, 16, "Create should return a 16 element array initialized to a 4x4 identity matrix");
 	}
 
 	void Determinant()
@@ -2180,21 +2197,78 @@ public class TestMat4
 
 	void Identity()
 	{
+		float[] result = Mat4.Identity(this.output);
+		this.AssertArrayEqual(this.output, this.identity, 16, "Copy should place values into out");
+		this.AssertArrayEqual(result, this.output, 16, "Copy should return out");
 	}
 
 	void Invert()
+	{
+		this.InvertWithASeparateOutputMatrix();
+		this.InvertWhenMatAIsTheOutputMatrix();
+	}
+
+	void InvertWhenMatAIsTheOutputMatrix()
+	{
+	}
+
+	void InvertWithASeparateOutputMatrix()
 	{
 	}
 
 	void LookAt()
 	{
+		this.LookAtLookingDown();
+		this.LookAt74();
+		this.LookAt3();
+	}
+
+	void LookAt3()
+	{
+	}
+
+	void LookAt74()
+	{
+	}
+
+	void LookAtLookingDown()
+	{
 	}
 
 	void Multiply()
 	{
+		this.MultiplyWithASeparateOutputMatrix();
+		this.MultiplyWhenMatAIsTheOutputMatrix();
+		this.MultiplyWhenMatBIsTheOutputMatrix();
+	}
+
+	void MultiplyWhenMatAIsTheOutputMatrix()
+	{
+	}
+
+	void MultiplyWhenMatBIsTheOutputMatrix()
+	{
+	}
+
+	void MultiplyWithASeparateOutputMatrix()
+	{
 	}
 
 	void Ortho()
+	{
+	}
+
+	void Perspective()
+	{
+		this.Perspective1();
+		this.PerspectiveWithNonzeroNear45degFovyAndRealisticAspectRatio();
+	}
+
+	void Perspective1()
+	{
+	}
+
+	void PerspectiveWithNonzeroNear45degFovyAndRealisticAspectRatio()
 	{
 	}
 
@@ -2208,21 +2282,71 @@ public class TestMat4
 
 	void Rotate()
 	{
+		this.RotateWithASeparateOutputMatrix();
+		this.RotateWhenMatAIsTheOutputMatrix();
+	}
+
+	void RotateWhenMatAIsTheOutputMatrix()
+	{
+	}
+
+	void RotateWithASeparateOutputMatrix()
+	{
 	}
 
 	void RotateX()
+	{
+		this.RotateXWithASeparateOutputMatrix();
+		this.RotateXWhenMatAIsTheOutputMatrix();
+	}
+
+	void RotateXWhenMatAIsTheOutputMatrix()
+	{
+	}
+
+	void RotateXWithASeparateOutputMatrix()
 	{
 	}
 
 	void RotateY()
 	{
+		this.RotateYWithASeparateOutputMatrix();
+		this.RotateYWhenMatAIsTheOutputMatrix();
+	}
+
+	void RotateYWhenMatAIsTheOutputMatrix()
+	{
+	}
+
+	void RotateYWithASeparateOutputMatrix()
+	{
 	}
 
 	void RotateZ()
 	{
+		this.RotateZWithASeparateOutputMatrix();
+		this.RotateZWhenMatAIsTheOutputMatrix();
+	}
+
+	void RotateZWhenMatAIsTheOutputMatrix()
+	{
+	}
+
+	void RotateZWithASeparateOutputMatrix()
+	{
 	}
 
 	void Scale()
+	{
+		this.ScaleWithASeparateOutputMatrix();
+		this.ScaleWhenMatAIsTheOutputMatrix();
+	}
+
+	void ScaleWhenMatAIsTheOutputMatrix()
+	{
+	}
+
+	void ScaleWithASeparateOutputMatrix()
 	{
 	}
 
@@ -2266,6 +2390,8 @@ public class TestMat4
 		this.ResetTests();
 		this.Frustum();
 		this.ResetTests();
+		this.Perspective();
+		this.ResetTests();
 		this.Ortho();
 		this.ResetTests();
 		this.LookAt();
@@ -2276,9 +2402,29 @@ public class TestMat4
 
 	void Translate()
 	{
+		this.TranslateWithASeparateOutputMatrix();
+		this.TranslateWhenMatAIsTheOutputMatrix();
+	}
+
+	void TranslateWhenMatAIsTheOutputMatrix()
+	{
+	}
+
+	void TranslateWithASeparateOutputMatrix()
+	{
 	}
 
 	void Transpose()
+	{
+		this.TransposeWithASeparateOutputMatrix();
+		this.TransposeWhenMatAIsTheOutputMatrix();
+	}
+
+	void TransposeWhenMatAIsTheOutputMatrix()
+	{
+	}
+
+	void TransposeWithASeparateOutputMatrix()
 	{
 	}
 	CitoAssert citoassert;

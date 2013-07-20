@@ -348,7 +348,9 @@ class Mat2
 class Mat2d
 {
 
-	// **
+	// Creates a new mat2d initialized with values from an existing matrix
+	// Returns a new 2x3 matrix
+	/// <param name="a">matrix to clone</param>
 	static function CloneIt(&$a)
 	{
 		$output = array();
@@ -361,7 +363,10 @@ class Mat2d
 		return $output;
 	}
 
-	// **
+	// Copy the values from one mat2d to another
+	// Returns output
+	/// <param name="output">the receiving matrix</param>
+	/// <param name="a">the source matrix</param>
 	static function Copy(&$output, &$a)
 	{
 		$output[0] = $a[0];
@@ -373,7 +378,8 @@ class Mat2d
 		return $output;
 	}
 
-	// **
+	// Creates a new identity mat2d
+	// Returns a new 2x3 matrix
 	static function Create()
 	{
 		$output = array();
@@ -386,13 +392,17 @@ class Mat2d
 		return $output;
 	}
 
-	// **
+	// Calculates the determinant of a mat2d
+	// Returns determinant of a
+	/// <param name="a">the source matrix</param>
 	static function Determinant(&$a)
 	{
 		return $a[0] * $a[3] - $a[1] * $a[2];
 	}
 
-	// **
+	// Set a mat2d to the identity matrix
+	// Returns output
+	/// <param name="output">the receiving matrix</param>
 	static function Identity_(&$output)
 	{
 		$output[0] = 1;
@@ -404,7 +414,10 @@ class Mat2d
 		return $output;
 	}
 
-	// **
+	// Inverts a mat2d
+	// Returns output
+	/// <param name="output">the receiving matrix</param>
+	/// <param name="a">the source matrix</param>
 	static function Invert(&$output, &$a)
 	{
 		$aa = $a[0];
@@ -428,13 +441,17 @@ class Mat2d
 		return $output;
 	}
 
-	// **
+	// Alias for {@link mat2d.multiply} @function
 	static function Mul(&$output, &$a, &$b)
 	{
 		return Mat2d::Multiply($output, $a, $b);
 	}
 
-	// **
+	// Multiplies two mat2d's
+	// Returns output
+	/// <param name="output">the receiving matrix</param>
+	/// <param name="a">the first operand</param>
+	/// <param name="b">the second operand</param>
 	static function Multiply(&$output, &$a, &$b)
 	{
 		$aa = $a[0];
@@ -458,7 +475,11 @@ class Mat2d
 		return $output;
 	}
 
-	// **
+	// Rotates a mat2d by the given angle
+	// Returns output
+	/// <param name="output">the receiving matrix</param>
+	/// <param name="a">the matrix to rotate</param>
+	/// <param name="rad">the angle to rotate the matrix by</param>
 	static function Rotate(&$output, &$a, $rad)
 	{
 		$aa = $a[0];
@@ -478,7 +499,11 @@ class Mat2d
 		return $output;
 	}
 
-	// **
+	// Scales the mat2d by the dimensions in the given vec2
+	// Returns output
+	/// <param name="output">the receiving matrix</param>
+	/// <param name="a">the matrix to translate</param>
+	/// <param name="v">the vec2 to scale the matrix by</param>
 	static function Scale(&$output, &$a, &$v)
 	{
 		$vx = $v[0];
@@ -492,7 +517,11 @@ class Mat2d
 		return $output;
 	}
 
-	// **
+	// Translates the mat2d by the dimensions in the given vec2
+	// Returns output
+	/// <param name="output">the receiving matrix</param>
+	/// <param name="a">the matrix to translate</param>
+	/// <param name="v">the vec2 to translate the matrix by</param>
 	static function Translate(&$output, &$a, &$v)
 	{
 		$output[0] = $a[0];

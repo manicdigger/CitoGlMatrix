@@ -612,7 +612,18 @@ sub new($) {
 
 =head2 C<Mat2d::clone_it(\@a)>
 
-**
+Creates a new mat2d initialized with values from an existing matrix
+Returns a new 2x3 matrix
+
+Parameters:
+
+=over
+
+=item \@a
+
+matrix to clone
+
+=back
 
 =cut
 
@@ -630,7 +641,22 @@ sub clone_it($) {
 
 =head2 C<Mat2d::copy(\@output, \@a)>
 
-**
+Copy the values from one mat2d to another
+Returns output
+
+Parameters:
+
+=over
+
+=item \@output
+
+the receiving matrix
+
+=item \@a
+
+the source matrix
+
+=back
 
 =cut
 
@@ -647,7 +673,8 @@ sub copy($$) {
 
 =head2 C<Mat2d::create()>
 
-**
+Creates a new identity mat2d
+Returns a new 2x3 matrix
 
 =cut
 
@@ -664,7 +691,18 @@ sub create() {
 
 =head2 C<Mat2d::determinant(\@a)>
 
-**
+Calculates the determinant of a mat2d
+Returns determinant of a
+
+Parameters:
+
+=over
+
+=item \@a
+
+the source matrix
+
+=back
 
 =cut
 
@@ -675,7 +713,18 @@ sub determinant($) {
 
 =head2 C<Mat2d::identity_(\@output)>
 
-**
+Set a mat2d to the identity matrix
+Returns output
+
+Parameters:
+
+=over
+
+=item \@output
+
+the receiving matrix
+
+=back
 
 =cut
 
@@ -692,7 +741,22 @@ sub identity_($) {
 
 =head2 C<Mat2d::invert(\@output, \@a)>
 
-**
+Inverts a mat2d
+Returns output
+
+Parameters:
+
+=over
+
+=item \@output
+
+the receiving matrix
+
+=item \@a
+
+the source matrix
+
+=back
 
 =cut
 
@@ -721,7 +785,7 @@ sub invert($$) {
 
 =head2 C<Mat2d::mul(\@output, \@a, \@b)>
 
-**
+Alias for {@link mat2d.multiply} @function
 
 =cut
 
@@ -732,7 +796,26 @@ sub mul($$$) {
 
 =head2 C<Mat2d::multiply(\@output, \@a, \@b)>
 
-**
+Multiplies two mat2d's
+Returns output
+
+Parameters:
+
+=over
+
+=item \@output
+
+the receiving matrix
+
+=item \@a
+
+the first operand
+
+=item \@b
+
+the second operand
+
+=back
 
 =cut
 
@@ -761,7 +844,26 @@ sub multiply($$$) {
 
 =head2 C<Mat2d::rotate(\@output, \@a, $rad)>
 
-**
+Rotates a mat2d by the given angle
+Returns output
+
+Parameters:
+
+=over
+
+=item \@output
+
+the receiving matrix
+
+=item \@a
+
+the matrix to rotate
+
+=item $rad
+
+the angle to rotate the matrix by
+
+=back
 
 =cut
 
@@ -786,7 +888,26 @@ sub rotate($$$) {
 
 =head2 C<Mat2d::scale(\@output, \@a, \@v)>
 
-**
+Scales the mat2d by the dimensions in the given vec2
+Returns output
+
+Parameters:
+
+=over
+
+=item \@output
+
+the receiving matrix
+
+=item \@a
+
+the matrix to translate
+
+=item \@v
+
+the vec2 to scale the matrix by
+
+=back
 
 =cut
 
@@ -805,7 +926,26 @@ sub scale($$$) {
 
 =head2 C<Mat2d::translate(\@output, \@a, \@v)>
 
-**
+Translates the mat2d by the dimensions in the given vec2
+Returns output
+
+Parameters:
+
+=over
+
+=item \@output
+
+the receiving matrix
+
+=item \@a
+
+the matrix to translate
+
+=item \@v
+
+the vec2 to translate the matrix by
+
+=back
 
 =cut
 

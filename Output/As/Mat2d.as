@@ -7,7 +7,9 @@ package
 	{
 
 		/**
-		 * **
+		 * Creates a new mat2d initialized with values from an existing matrix
+		 * Returns a new 2x3 matrix
+		 * @param a matrix to clone
 		 */
 		public static function cloneIt(a : Array) : Array
 		{
@@ -22,7 +24,10 @@ package
 		}
 
 		/**
-		 * **
+		 * Copy the values from one mat2d to another
+		 * Returns output
+		 * @param output the receiving matrix
+		 * @param a the source matrix
 		 */
 		public static function copy(output : Array, a : Array) : Array
 		{
@@ -36,7 +41,8 @@ package
 		}
 
 		/**
-		 * **
+		 * Creates a new identity mat2d
+		 * Returns a new 2x3 matrix
 		 */
 		public static function create() : Array
 		{
@@ -51,7 +57,9 @@ package
 		}
 
 		/**
-		 * **
+		 * Calculates the determinant of a mat2d
+		 * Returns determinant of a
+		 * @param a the source matrix
 		 */
 		public static function determinant(a : Array) : float
 		{
@@ -59,7 +67,9 @@ package
 		}
 
 		/**
-		 * **
+		 * Set a mat2d to the identity matrix
+		 * Returns output
+		 * @param output the receiving matrix
 		 */
 		public static function identity_(output : Array) : Array
 		{
@@ -73,7 +83,10 @@ package
 		}
 
 		/**
-		 * **
+		 * Inverts a mat2d
+		 * Returns output
+		 * @param output the receiving matrix
+		 * @param a the source matrix
 		 */
 		public static function invert(output : Array, a : Array) : Array
 		{
@@ -99,7 +112,7 @@ package
 		}
 
 		/**
-		 * **
+		 * Alias for {@link mat2d.multiply} @function
 		 */
 		public static function mul(output : Array, a : Array, b : Array) : Array
 		{
@@ -107,7 +120,11 @@ package
 		}
 
 		/**
-		 * **
+		 * Multiplies two mat2d's
+		 * Returns output
+		 * @param output the receiving matrix
+		 * @param a the first operand
+		 * @param b the second operand
 		 */
 		public static function multiply(output : Array, a : Array, b : Array) : Array
 		{
@@ -133,7 +150,11 @@ package
 		}
 
 		/**
-		 * **
+		 * Rotates a mat2d by the given angle
+		 * Returns output
+		 * @param output the receiving matrix
+		 * @param a the matrix to rotate
+		 * @param rad the angle to rotate the matrix by
 		 */
 		public static function rotate(output : Array, a : Array, rad : float) : Array
 		{
@@ -155,7 +176,11 @@ package
 		}
 
 		/**
-		 * **
+		 * Scales the mat2d by the dimensions in the given vec2
+		 * Returns output
+		 * @param output the receiving matrix
+		 * @param a the matrix to translate
+		 * @param v the vec2 to scale the matrix by
 		 */
 		public static function scale(output : Array, a : Array, v : Array) : Array
 		{
@@ -171,7 +196,11 @@ package
 		}
 
 		/**
-		 * **
+		 * Translates the mat2d by the dimensions in the given vec2
+		 * Returns output
+		 * @param output the receiving matrix
+		 * @param a the matrix to translate
+		 * @param v the vec2 to translate the matrix by
 		 */
 		public static function translate(output : Array, a : Array, v : Array) : Array
 		{

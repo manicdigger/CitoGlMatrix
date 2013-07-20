@@ -139,57 +139,86 @@ float const *Mat2_Scale(float *output, float const *a, float const *v);
 float const *Mat2_Transpose(float *output, float const *a);
 
 /**
- * **
+ * Creates a new mat2d initialized with values from an existing matrix
+ * Returns a new 2x3 matrix
+ * @param a matrix to clone
  */
 float const *Mat2d_CloneIt(float const *a);
 
 /**
- * **
+ * Copy the values from one mat2d to another
+ * Returns output
+ * @param output the receiving matrix
+ * @param a the source matrix
  */
 float const *Mat2d_Copy(float *output, float const *a);
 
 /**
- * **
+ * Creates a new identity mat2d
+ * Returns a new 2x3 matrix
  */
 float const *Mat2d_Create(void);
 
 /**
- * **
+ * Calculates the determinant of a mat2d
+ * Returns determinant of a
+ * @param a the source matrix
  */
 float Mat2d_Determinant(float const *a);
 
 /**
- * **
+ * Set a mat2d to the identity matrix
+ * Returns output
+ * @param output the receiving matrix
  */
 float const *Mat2d_Identity_(float *output);
 
 /**
- * **
+ * Inverts a mat2d
+ * Returns output
+ * @param output the receiving matrix
+ * @param a the source matrix
  */
 float const *Mat2d_Invert(float *output, float const *a);
 
 /**
- * **
+ * Alias for {@link mat2d.multiply} @function
  */
 float const *Mat2d_Mul(float *output, float const *a, float const *b);
 
 /**
- * **
+ * Multiplies two mat2d's
+ * Returns output
+ * @param output the receiving matrix
+ * @param a the first operand
+ * @param b the second operand
  */
 float const *Mat2d_Multiply(float *output, float const *a, float const *b);
 
 /**
- * **
+ * Rotates a mat2d by the given angle
+ * Returns output
+ * @param output the receiving matrix
+ * @param a the matrix to rotate
+ * @param rad the angle to rotate the matrix by
  */
 float const *Mat2d_Rotate(float *output, float const *a, float rad);
 
 /**
- * **
+ * Scales the mat2d by the dimensions in the given vec2
+ * Returns output
+ * @param output the receiving matrix
+ * @param a the matrix to translate
+ * @param v the vec2 to scale the matrix by
  */
 float const *Mat2d_Scale(float *output, float const *a, float const *v);
 
 /**
- * **
+ * Translates the mat2d by the dimensions in the given vec2
+ * Returns output
+ * @param output the receiving matrix
+ * @param a the matrix to translate
+ * @param v the vec2 to translate the matrix by
  */
 float const *Mat2d_Translate(float *output, float const *a, float const *v);
 

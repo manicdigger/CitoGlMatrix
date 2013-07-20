@@ -5,7 +5,9 @@ public class Mat2d
 {
 
 	/**
-	 * **
+	 * Creates a new mat2d initialized with values from an existing matrix
+	 * Returns a new 2x3 matrix
+	 * @param a matrix to clone
 	 */
 	public static float[] cloneIt(float[] a)
 	{
@@ -20,7 +22,10 @@ public class Mat2d
 	}
 
 	/**
-	 * **
+	 * Copy the values from one mat2d to another
+	 * Returns output
+	 * @param output the receiving matrix
+	 * @param a the source matrix
 	 */
 	public static float[] copy(float[] output, float[] a)
 	{
@@ -34,7 +39,8 @@ public class Mat2d
 	}
 
 	/**
-	 * **
+	 * Creates a new identity mat2d
+	 * Returns a new 2x3 matrix
 	 */
 	public static float[] create()
 	{
@@ -49,7 +55,9 @@ public class Mat2d
 	}
 
 	/**
-	 * **
+	 * Calculates the determinant of a mat2d
+	 * Returns determinant of a
+	 * @param a the source matrix
 	 */
 	public static float determinant(float[] a)
 	{
@@ -57,7 +65,9 @@ public class Mat2d
 	}
 
 	/**
-	 * **
+	 * Set a mat2d to the identity matrix
+	 * Returns output
+	 * @param output the receiving matrix
 	 */
 	public static float[] identity_(float[] output)
 	{
@@ -71,7 +81,10 @@ public class Mat2d
 	}
 
 	/**
-	 * **
+	 * Inverts a mat2d
+	 * Returns output
+	 * @param output the receiving matrix
+	 * @param a the source matrix
 	 */
 	public static float[] invert(float[] output, float[] a)
 	{
@@ -97,7 +110,7 @@ public class Mat2d
 	}
 
 	/**
-	 * **
+	 * Alias for {@link mat2d.multiply} @function
 	 */
 	public static float[] mul(float[] output, float[] a, float[] b)
 	{
@@ -105,7 +118,11 @@ public class Mat2d
 	}
 
 	/**
-	 * **
+	 * Multiplies two mat2d's
+	 * Returns output
+	 * @param output the receiving matrix
+	 * @param a the first operand
+	 * @param b the second operand
 	 */
 	public static float[] multiply(float[] output, float[] a, float[] b)
 	{
@@ -131,7 +148,11 @@ public class Mat2d
 	}
 
 	/**
-	 * **
+	 * Rotates a mat2d by the given angle
+	 * Returns output
+	 * @param output the receiving matrix
+	 * @param a the matrix to rotate
+	 * @param rad the angle to rotate the matrix by
 	 */
 	public static float[] rotate(float[] output, float[] a, float rad)
 	{
@@ -153,7 +174,11 @@ public class Mat2d
 	}
 
 	/**
-	 * **
+	 * Scales the mat2d by the dimensions in the given vec2
+	 * Returns output
+	 * @param output the receiving matrix
+	 * @param a the matrix to translate
+	 * @param v the vec2 to scale the matrix by
 	 */
 	public static float[] scale(float[] output, float[] a, float[] v)
 	{
@@ -169,7 +194,11 @@ public class Mat2d
 	}
 
 	/**
-	 * **
+	 * Translates the mat2d by the dimensions in the given vec2
+	 * Returns output
+	 * @param output the receiving matrix
+	 * @param a the matrix to translate
+	 * @param v the vec2 to translate the matrix by
 	 */
 	public static float[] translate(float[] output, float[] a, float[] v)
 	{

@@ -261,11 +261,8 @@ public class Mat2d
     // */
     //var mat2d = {};
 
-    ///**
-    // * Creates a new identity mat2d
-    // *
-    // * @returns {mat2d} a new 2x3 matrix
-    // */
+    /// Creates a new identity mat2d
+    /// Returns a new 2x3 matrix
     public static float[] Create()
     {
         float[] output = new float[6];
@@ -278,13 +275,11 @@ public class Mat2d
         return output;
     }
 
-    ///**
-    // * Creates a new mat2d initialized with values from an existing matrix
-    // *
-    // * @param {mat2d} a matrix to clone
-    // * @returns {mat2d} a new 2x3 matrix
-    // */
-    public static float[] CloneIt(float[] a)
+    /// Creates a new mat2d initialized with values from an existing matrix
+    /// Returns a new 2x3 matrix
+    public static float[] CloneIt(
+        /// matrix to clone
+        float[] a)
     {
         float[] output = new float[6];
         output[0] = a[0];
@@ -296,14 +291,13 @@ public class Mat2d
         return output;
     }
 
-    ///**
-    // * Copy the values from one mat2d to another
-    // *
-    // * @param {mat2d} output the receiving matrix
-    // * @param {mat2d} a the source matrix
-    // * @returns {mat2d} output
-    // */
-    public static float[] Copy(float[] output, float[] a)
+    /// Copy the values from one mat2d to another
+    /// Returns output
+    public static float[] Copy(
+        /// the receiving matrix
+        float[] output,
+        /// the source matrix
+        float[] a)
     {
         output[0] = a[0];
         output[1] = a[1];
@@ -314,13 +308,11 @@ public class Mat2d
         return output;
     }
 
-    ///**
-    // * Set a mat2d to the identity matrix
-    // *
-    // * @param {mat2d} output the receiving matrix
-    // * @returns {mat2d} output
-    // */
-    public static float[] Identity_(float[] output)
+    /// Set a mat2d to the identity matrix
+    /// Returns output
+    public static float[] Identity_(
+        /// the receiving matrix
+        float[] output)
     {
         output[0] = 1;
         output[1] = 0;
@@ -331,14 +323,13 @@ public class Mat2d
         return output;
     }
 
-    ///**
-    // * Inverts a mat2d
-    // *
-    // * @param {mat2d} output the receiving matrix
-    // * @param {mat2d} a the source matrix
-    // * @returns {mat2d} output
-    // */
-    public static float[] Invert(float[] output, float[] a)
+    /// Inverts a mat2d
+    /// Returns output
+    public static float[] Invert(
+        /// the receiving matrix
+        float[] output,
+        /// the source matrix
+        float[] a)
     {
         float aa = a[0]; float ab = a[1]; float ac = a[2]; float ad = a[3];
         float atx = a[4]; float aty = a[5];
@@ -360,26 +351,24 @@ public class Mat2d
         return output;
     }
 
-    ///**
-    // * Calculates the determinant of a mat2d
-    // *
-    // * @param {mat2d} a the source matrix
-    // * @returns {Number} determinant of a
-    // */
-    public static float Determinant(float[] a)
+    /// Calculates the determinant of a mat2d
+    /// Returns determinant of a
+    public static float Determinant(
+        /// the source matrix
+        float[] a)
     {
         return a[0] * a[3] - a[1] * a[2];
     }
 
-    ///**
-    // * Multiplies two mat2d's
-    // *
-    // * @param {mat2d} output the receiving matrix
-    // * @param {mat2d} a the first operand
-    // * @param {mat2d} b the second operand
-    // * @returns {mat2d} output
-    // */
-    public static float[] Multiply(float[] output, float[] a, float[] b)
+    /// Multiplies two mat2d's
+    /// Returns output
+    public static float[] Multiply(
+        /// the receiving matrix
+        float[] output,
+        /// the first operand
+        float[] a,
+        /// the second operand
+        float[] b)
     {
         float aa = a[0]; float ab = a[1]; float ac = a[2]; float ad = a[3];
         float atx = a[4]; float aty = a[5];
@@ -395,25 +384,22 @@ public class Mat2d
         return output;
     }
 
-    ///**
-    // * Alias for {@link mat2d.multiply}
-    // * @function
-    // */
+    /// Alias for {@link mat2d.multiply} @function
     public static float[] Mul(float[] output, float[] a, float[] b)
     {
         return Multiply(output, a, b);
     }
 
 
-    ///**
-    // * Rotates a mat2d by the given angle
-    // *
-    // * @param {mat2d} output the receiving matrix
-    // * @param {mat2d} a the matrix to rotate
-    // * @param {Number} rad the angle to rotate the matrix by
-    // * @returns {mat2d} output
-    // */
-    public static float[] Rotate(float[] output, float[] a, float rad)
+    /// Rotates a mat2d by the given angle
+    /// Returns output
+    public static float[] Rotate(
+        /// the receiving matrix
+        float[] output,
+        /// the matrix to rotate
+        float[] a,
+        /// the angle to rotate the matrix by
+        float rad)
     {
         float aa = a[0];
         float ab = a[1];
@@ -433,15 +419,15 @@ public class Mat2d
         return output;
     }
 
-    ///**
-    // * Scales the mat2d by the dimensions in the given vec2
-    // *
-    // * @param {mat2d} output the receiving matrix
-    // * @param {mat2d} a the matrix to translate
-    // * @param {vec2} v the vec2 to scale the matrix by
-    // * @returns {mat2d} output
-    // **/
-    public static float[] Scale(float[] output, float[] a, float[] v)
+    /// Scales the mat2d by the dimensions in the given vec2
+    /// Returns output
+    public static float[] Scale(
+        /// the receiving matrix
+        float[] output,
+        /// the matrix to translate
+        float[] a,
+        /// the vec2 to scale the matrix by
+        float[] v)
     {
         float vx = v[0]; float vy = v[1];
         output[0] = a[0] * vx;
@@ -453,15 +439,15 @@ public class Mat2d
         return output;
     }
 
-    ///**
-    // * Translates the mat2d by the dimensions in the given vec2
-    // *
-    // * @param {mat2d} output the receiving matrix
-    // * @param {mat2d} a the matrix to translate
-    // * @param {vec2} v the vec2 to translate the matrix by
-    // * @returns {mat2d} output
-    // **/
-    public static float[] Translate(float[] output, float[] a, float[] v)
+    /// Translates the mat2d by the dimensions in the given vec2
+    /// Returns output
+    public static float[] Translate(
+        /// the receiving matrix
+        float[] output,
+        /// the matrix to translate
+        float[] a,
+        /// the vec2 to translate the matrix by
+        float[] v)
     {
         output[0] = a[0];
         output[1] = a[1];

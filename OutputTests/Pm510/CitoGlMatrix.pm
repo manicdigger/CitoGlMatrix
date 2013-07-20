@@ -239,6 +239,21 @@ sub new($) {
 =head2 C<Mat2::adjoint(\@output, \@a)>
 
 Calculates the adjugate of a mat2
+Returns output
+
+Parameters:
+
+=over
+
+=item \@output
+
+the receiving matrix
+
+=item \@a
+
+the source matrix
+
+=back
 
 =cut
 
@@ -255,7 +270,7 @@ sub adjoint($$) {
 =head2 C<Mat2::clone_it(\@a)>
 
 Creates a new mat2 initialized with values from an existing matrix
-@returns {mat2} a new 2x2 matrix
+Returns a new 2x2 matrix
 
 Parameters:
 
@@ -263,7 +278,7 @@ Parameters:
 
 =item \@a
 
-@param {mat2} a matrix to clone
+matrix to clone
 
 =back
 
@@ -282,9 +297,21 @@ sub clone_it($) {
 =head2 C<Mat2::copy(\@output, \@a)>
 
 Copy the values from one mat2 to another
-@param {mat2} output the receiving matrix
-@param {mat2} a the source matrix
-@returns {mat2} output
+Returns output
+
+Parameters:
+
+=over
+
+=item \@output
+
+the receiving matrix
+
+=item \@a
+
+the source matrix
+
+=back
 
 =cut
 
@@ -300,7 +327,7 @@ sub copy($$) {
 =head2 C<Mat2::create()>
 
 Creates a new identity mat2
-@returns {mat2} a new 2x2 matrix
+Returns a new 2x2 matrix
 
 =cut
 
@@ -315,6 +342,19 @@ sub create() {
 
 =head2 C<Mat2::determinant(\@a)>
 
+Calculates the determinant of a mat2
+Returns determinant of a
+
+Parameters:
+
+=over
+
+=item \@a
+
+the source matrix
+
+=back
+
 =cut
 
 sub determinant($) {
@@ -325,8 +365,17 @@ sub determinant($) {
 =head2 C<Mat2::identity_(\@output)>
 
 Set a mat2 to the identity matrix
-@param {mat2} output the receiving matrix
-@returns {mat2} output
+Returns output
+
+Parameters:
+
+=over
+
+=item \@output
+
+the receiving matrix
+
+=back
 
 =cut
 
@@ -342,6 +391,21 @@ sub identity_($) {
 =head2 C<Mat2::invert(\@output, \@a)>
 
 Inverts a mat2
+Returns output
+
+Parameters:
+
+=over
+
+=item \@output
+
+the receiving matrix
+
+=item \@a
+
+the source matrix
+
+=back
 
 =cut
 
@@ -377,6 +441,27 @@ sub mul($$$) {
 
 =head2 C<Mat2::multiply(\@output, \@a, \@b)>
 
+Multiplies two mat2's
+Returns output
+
+Parameters:
+
+=over
+
+=item \@output
+
+the receiving matrix
+
+=item \@a
+
+the first operand
+
+=item \@b
+
+the second operand
+
+=back
+
 =cut
 
 sub multiply($$$) {
@@ -398,7 +483,26 @@ sub multiply($$$) {
 
 =head2 C<Mat2::rotate(\@output, \@a, $rad)>
 
-**
+Rotates a mat2 by the given angle
+Returns output
+
+Parameters:
+
+=over
+
+=item \@output
+
+the receiving matrix
+
+=item \@a
+
+the matrix to rotate
+
+=item $rad
+
+the angle to rotate the matrix by
+
+=back
 
 =cut
 
@@ -419,7 +523,26 @@ sub rotate($$$) {
 
 =head2 C<Mat2::scale(\@output, \@a, \@v)>
 
-**
+Scales the mat2 by the dimensions in the given vec2
+Returns output
+
+Parameters:
+
+=over
+
+=item \@output
+
+the receiving matrix
+
+=item \@a
+
+the matrix to rotate
+
+=item \@v
+
+the vec2 to scale the matrix by
+
+=back
 
 =cut
 
@@ -441,9 +564,21 @@ sub scale($$$) {
 =head2 C<Mat2::transpose(\@output, \@a)>
 
 Transpose the values of a mat2
-@param {mat2} output the receiving matrix
-@param {mat2} a the source matrix
-@returns {mat2} output
+Returns output
+
+Parameters:
+
+=over
+
+=item \@output
+
+the receiving matrix
+
+=item \@a
+
+the source matrix
+
+=back
 
 =cut
 

@@ -50,7 +50,10 @@ public class GlMatrixMath
 public class Mat2
 {
 
-	/// <summary>Calculates the adjugate of a mat2</summary>
+	/// <summary>Calculates the adjugate of a mat2
+	/// Returns output</summary>
+	/// <param name="output">the receiving matrix</param>
+	/// <param name="a">the source matrix</param>
 	public static float[] Adjoint(float[] output, float[] a)
 	{
 		float a0 = a[0];
@@ -62,8 +65,8 @@ public class Mat2
 	}
 
 	/// <summary>Creates a new mat2 initialized with values from an existing matrix
-	/// @returns {mat2} a new 2x2 matrix</summary>
-	/// <param name="a">@param {mat2} a matrix to clone</param>
+	/// Returns a new 2x2 matrix</summary>
+	/// <param name="a">matrix to clone</param>
 	public static float[] CloneIt(float[] a)
 	{
 		float[] output = new float[4];
@@ -75,9 +78,9 @@ public class Mat2
 	}
 
 	/// <summary>Copy the values from one mat2 to another
-	/// @param {mat2} output the receiving matrix
-	/// @param {mat2} a the source matrix
-	/// @returns {mat2} output</summary>
+	/// Returns output</summary>
+	/// <param name="output">the receiving matrix</param>
+	/// <param name="a">the source matrix</param>
 	public static float[] Copy(float[] output, float[] a)
 	{
 		output[0] = a[0];
@@ -88,7 +91,7 @@ public class Mat2
 	}
 
 	/// <summary>Creates a new identity mat2
-	/// @returns {mat2} a new 2x2 matrix</summary>
+	/// Returns a new 2x2 matrix</summary>
 	public static float[] Create()
 	{
 		float[] output = new float[4];
@@ -99,14 +102,17 @@ public class Mat2
 		return output;
 	}
 
+	/// <summary>Calculates the determinant of a mat2
+	/// Returns determinant of a</summary>
+	/// <param name="a">the source matrix</param>
 	public static float Determinant(float[] a)
 	{
 		return a[0] * a[3] - a[2] * a[1];
 	}
 
 	/// <summary>Set a mat2 to the identity matrix
-	/// @param {mat2} output the receiving matrix
-	/// @returns {mat2} output</summary>
+	/// Returns output</summary>
+	/// <param name="output">the receiving matrix</param>
 	public static float[] Identity_(float[] output)
 	{
 		output[0] = 1;
@@ -116,7 +122,10 @@ public class Mat2
 		return output;
 	}
 
-	/// <summary>Inverts a mat2</summary>
+	/// <summary>Inverts a mat2
+	/// Returns output</summary>
+	/// <param name="output">the receiving matrix</param>
+	/// <param name="a">the source matrix</param>
 	public static float[] Invert(float[] output, float[] a)
 	{
 		float a0 = a[0];
@@ -142,6 +151,11 @@ public class Mat2
 		return Mat2.Multiply(output, a, b);
 	}
 
+	/// <summary>Multiplies two mat2's
+	/// Returns output</summary>
+	/// <param name="output">the receiving matrix</param>
+	/// <param name="a">the first operand</param>
+	/// <param name="b">the second operand</param>
 	public static float[] Multiply(float[] output, float[] a, float[] b)
 	{
 		float a0 = a[0];
@@ -159,7 +173,11 @@ public class Mat2
 		return output;
 	}
 
-	/// <summary>**</summary>
+	/// <summary>Rotates a mat2 by the given angle
+	/// Returns output</summary>
+	/// <param name="output">the receiving matrix</param>
+	/// <param name="a">the matrix to rotate</param>
+	/// <param name="rad">the angle to rotate the matrix by</param>
 	public static float[] Rotate(float[] output, float[] a, float rad)
 	{
 		float a0 = a[0];
@@ -175,7 +193,11 @@ public class Mat2
 		return output;
 	}
 
-	/// <summary>**</summary>
+	/// <summary>Scales the mat2 by the dimensions in the given vec2
+	/// Returns output</summary>
+	/// <param name="output">the receiving matrix</param>
+	/// <param name="a">the matrix to rotate</param>
+	/// <param name="v">the vec2 to scale the matrix by</param>
 	public static float[] Scale(float[] output, float[] a, float[] v)
 	{
 		float a0 = a[0];
@@ -192,9 +214,9 @@ public class Mat2
 	}
 
 	/// <summary>Transpose the values of a mat2
-	/// @param {mat2} output the receiving matrix
-	/// @param {mat2} a the source matrix
-	/// @returns {mat2} output</summary>
+	/// Returns output</summary>
+	/// <param name="output">the receiving matrix</param>
+	/// <param name="a">the source matrix</param>
 	public static float[] Transpose(float[] output, float[] a)
 	{
 		output[0] = a[0];

@@ -49,41 +49,52 @@ float GlMatrixMath_min(float a, float b);
 
 /**
  * Calculates the adjugate of a mat2
+ * Returns output
+ * @param output the receiving matrix
+ * @param a the source matrix
  */
 float const *Mat2_Adjoint(float *output, float const *a);
 
 /**
  * Creates a new mat2 initialized with values from an existing matrix
- * @returns {mat2} a new 2x2 matrix
- * @param a @param {mat2} a matrix to clone
+ * Returns a new 2x2 matrix
+ * @param a matrix to clone
  */
 float const *Mat2_CloneIt(float const *a);
 
 /**
  * Copy the values from one mat2 to another
- * @param {mat2} output the receiving matrix
- * @param {mat2} a the source matrix
- * @returns {mat2} output
+ * Returns output
+ * @param output the receiving matrix
+ * @param a the source matrix
  */
 float const *Mat2_Copy(float *output, float const *a);
 
 /**
  * Creates a new identity mat2
- * @returns {mat2} a new 2x2 matrix
+ * Returns a new 2x2 matrix
  */
 float const *Mat2_Create(void);
 
+/**
+ * Calculates the determinant of a mat2
+ * Returns determinant of a
+ * @param a the source matrix
+ */
 float Mat2_Determinant(float const *a);
 
 /**
  * Set a mat2 to the identity matrix
- * @param {mat2} output the receiving matrix
- * @returns {mat2} output
+ * Returns output
+ * @param output the receiving matrix
  */
 float const *Mat2_Identity_(float *output);
 
 /**
  * Inverts a mat2
+ * Returns output
+ * @param output the receiving matrix
+ * @param a the source matrix
  */
 float const *Mat2_Invert(float *output, float const *a);
 
@@ -92,23 +103,38 @@ float const *Mat2_Invert(float *output, float const *a);
  */
 float const *Mat2_Mul(float *output, float const *a, float const *b);
 
+/**
+ * Multiplies two mat2's
+ * Returns output
+ * @param output the receiving matrix
+ * @param a the first operand
+ * @param b the second operand
+ */
 float const *Mat2_Multiply(float *output, float const *a, float const *b);
 
 /**
- * **
+ * Rotates a mat2 by the given angle
+ * Returns output
+ * @param output the receiving matrix
+ * @param a the matrix to rotate
+ * @param rad the angle to rotate the matrix by
  */
 float const *Mat2_Rotate(float *output, float const *a, float rad);
 
 /**
- * **
+ * Scales the mat2 by the dimensions in the given vec2
+ * Returns output
+ * @param output the receiving matrix
+ * @param a the matrix to rotate
+ * @param v the vec2 to scale the matrix by
  */
 float const *Mat2_Scale(float *output, float const *a, float const *v);
 
 /**
  * Transpose the values of a mat2
- * @param {mat2} output the receiving matrix
- * @param {mat2} a the source matrix
- * @returns {mat2} output
+ * Returns output
+ * @param output the receiving matrix
+ * @param a the source matrix
  */
 float const *Mat2_Transpose(float *output, float const *a);
 

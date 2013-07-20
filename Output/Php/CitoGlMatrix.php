@@ -52,6 +52,9 @@ class Mat2
 {
 
 	// Calculates the adjugate of a mat2
+	// Returns output
+	/// <param name="output">the receiving matrix</param>
+	/// <param name="a">the source matrix</param>
 	static function Adjoint(&$output, &$a)
 	{
 		$a0 = $a[0];
@@ -63,8 +66,8 @@ class Mat2
 	}
 
 	// Creates a new mat2 initialized with values from an existing matrix
-	// @returns {mat2} a new 2x2 matrix
-	/// <param name="a">@param {mat2} a matrix to clone</param>
+	// Returns a new 2x2 matrix
+	/// <param name="a">matrix to clone</param>
 	static function CloneIt(&$a)
 	{
 		$output = array();
@@ -76,9 +79,9 @@ class Mat2
 	}
 
 	// Copy the values from one mat2 to another
-	// @param {mat2} output the receiving matrix
-	// @param {mat2} a the source matrix
-	// @returns {mat2} output
+	// Returns output
+	/// <param name="output">the receiving matrix</param>
+	/// <param name="a">the source matrix</param>
 	static function Copy(&$output, &$a)
 	{
 		$output[0] = $a[0];
@@ -89,7 +92,7 @@ class Mat2
 	}
 
 	// Creates a new identity mat2
-	// @returns {mat2} a new 2x2 matrix
+	// Returns a new 2x2 matrix
 	static function Create()
 	{
 		$output = array();
@@ -100,14 +103,17 @@ class Mat2
 		return $output;
 	}
 
+	// Calculates the determinant of a mat2
+	// Returns determinant of a
+	/// <param name="a">the source matrix</param>
 	static function Determinant(&$a)
 	{
 		return $a[0] * $a[3] - $a[2] * $a[1];
 	}
 
 	// Set a mat2 to the identity matrix
-	// @param {mat2} output the receiving matrix
-	// @returns {mat2} output
+	// Returns output
+	/// <param name="output">the receiving matrix</param>
 	static function Identity_(&$output)
 	{
 		$output[0] = 1;
@@ -118,6 +124,9 @@ class Mat2
 	}
 
 	// Inverts a mat2
+	// Returns output
+	/// <param name="output">the receiving matrix</param>
+	/// <param name="a">the source matrix</param>
 	static function Invert(&$output, &$a)
 	{
 		$a0 = $a[0];
@@ -143,6 +152,11 @@ class Mat2
 		return Mat2::Multiply($output, $a, $b);
 	}
 
+	// Multiplies two mat2's
+	// Returns output
+	/// <param name="output">the receiving matrix</param>
+	/// <param name="a">the first operand</param>
+	/// <param name="b">the second operand</param>
 	static function Multiply(&$output, &$a, &$b)
 	{
 		$a0 = $a[0];
@@ -160,7 +174,11 @@ class Mat2
 		return $output;
 	}
 
-	// **
+	// Rotates a mat2 by the given angle
+	// Returns output
+	/// <param name="output">the receiving matrix</param>
+	/// <param name="a">the matrix to rotate</param>
+	/// <param name="rad">the angle to rotate the matrix by</param>
 	static function Rotate(&$output, &$a, $rad)
 	{
 		$a0 = $a[0];
@@ -176,7 +194,11 @@ class Mat2
 		return $output;
 	}
 
-	// **
+	// Scales the mat2 by the dimensions in the given vec2
+	// Returns output
+	/// <param name="output">the receiving matrix</param>
+	/// <param name="a">the matrix to rotate</param>
+	/// <param name="v">the vec2 to scale the matrix by</param>
 	static function Scale(&$output, &$a, &$v)
 	{
 		$a0 = $a[0];
@@ -193,9 +215,9 @@ class Mat2
 	}
 
 	// Transpose the values of a mat2
-	// @param {mat2} output the receiving matrix
-	// @param {mat2} a the source matrix
-	// @returns {mat2} output
+	// Returns output
+	/// <param name="output">the receiving matrix</param>
+	/// <param name="a">the source matrix</param>
 	static function Transpose(&$output, &$a)
 	{
 		$output[0] = $a[0];

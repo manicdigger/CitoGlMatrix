@@ -52,6 +52,10 @@ class Mat2
 {
 
 	/// Calculates the adjugate of a mat2
+	/// Returns output
+	/// Params:
+	/// output = the receiving matrix
+	/// a = the source matrix
 	static const(float)[] Adjoint(float[] output, const(float)[] a)
 	{
 		float a0 = a[0];
@@ -63,9 +67,9 @@ class Mat2
 	}
 
 	/// Creates a new mat2 initialized with values from an existing matrix
-	/// @returns {mat2} a new 2x2 matrix
+	/// Returns a new 2x2 matrix
 	/// Params:
-	/// a = @param {mat2} a matrix to clone
+	/// a = matrix to clone
 	static const(float)[] CloneIt(const(float)[] a)
 	{
 		float[] output = new float[4];
@@ -77,9 +81,10 @@ class Mat2
 	}
 
 	/// Copy the values from one mat2 to another
-	/// @param {mat2} output the receiving matrix
-	/// @param {mat2} a the source matrix
-	/// @returns {mat2} output
+	/// Returns output
+	/// Params:
+	/// output = the receiving matrix
+	/// a = the source matrix
 	static const(float)[] Copy(float[] output, const(float)[] a)
 	{
 		output[0] = a[0];
@@ -90,7 +95,7 @@ class Mat2
 	}
 
 	/// Creates a new identity mat2
-	/// @returns {mat2} a new 2x2 matrix
+	/// Returns a new 2x2 matrix
 	static const(float)[] Create()
 	{
 		float[] output = new float[4];
@@ -101,14 +106,19 @@ class Mat2
 		return output;
 	}
 
+	/// Calculates the determinant of a mat2
+	/// Returns determinant of a
+	/// Params:
+	/// a = the source matrix
 	static float Determinant(const(float)[] a)
 	{
 		return a[0] * a[3] - a[2] * a[1];
 	}
 
 	/// Set a mat2 to the identity matrix
-	/// @param {mat2} output the receiving matrix
-	/// @returns {mat2} output
+	/// Returns output
+	/// Params:
+	/// output = the receiving matrix
 	static const(float)[] Identity_(float[] output)
 	{
 		output[0] = 1;
@@ -119,6 +129,10 @@ class Mat2
 	}
 
 	/// Inverts a mat2
+	/// Returns output
+	/// Params:
+	/// output = the receiving matrix
+	/// a = the source matrix
 	static const(float)[] Invert(float[] output, const(float)[] a)
 	{
 		float a0 = a[0];
@@ -144,6 +158,12 @@ class Mat2
 		return Mat2.Multiply(output, a, b);
 	}
 
+	/// Multiplies two mat2's
+	/// Returns output
+	/// Params:
+	/// output = the receiving matrix
+	/// a = the first operand
+	/// b = the second operand
 	static const(float)[] Multiply(float[] output, const(float)[] a, const(float)[] b)
 	{
 		float a0 = a[0];
@@ -161,7 +181,12 @@ class Mat2
 		return output;
 	}
 
-	/// **
+	/// Rotates a mat2 by the given angle
+	/// Returns output
+	/// Params:
+	/// output = the receiving matrix
+	/// a = the matrix to rotate
+	/// rad = the angle to rotate the matrix by
 	static const(float)[] Rotate(float[] output, const(float)[] a, float rad)
 	{
 		float a0 = a[0];
@@ -177,7 +202,12 @@ class Mat2
 		return output;
 	}
 
-	/// **
+	/// Scales the mat2 by the dimensions in the given vec2
+	/// Returns output
+	/// Params:
+	/// output = the receiving matrix
+	/// a = the matrix to rotate
+	/// v = the vec2 to scale the matrix by
 	static const(float)[] Scale(float[] output, const(float)[] a, const(float)[] v)
 	{
 		float a0 = a[0];
@@ -194,9 +224,10 @@ class Mat2
 	}
 
 	/// Transpose the values of a mat2
-	/// @param {mat2} output the receiving matrix
-	/// @param {mat2} a the source matrix
-	/// @returns {mat2} output
+	/// Returns output
+	/// Params:
+	/// output = the receiving matrix
+	/// a = the source matrix
 	static const(float)[] Transpose(float[] output, const(float)[] a)
 	{
 		output[0] = a[0];

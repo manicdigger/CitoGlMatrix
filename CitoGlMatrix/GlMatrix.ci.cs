@@ -25,7 +25,7 @@
 public class Mat2
 {
     /// Creates a new identity mat2
-    /// @returns {mat2} a new 2x2 matrix
+    /// Returns a new 2x2 matrix
     public static float[] Create()
     {
         float[] output = new float[4];
@@ -37,9 +37,9 @@ public class Mat2
     }
 
     /// Creates a new mat2 initialized with values from an existing matrix
-    /// @returns {mat2} a new 2x2 matrix
+    /// Returns a new 2x2 matrix
     public static float[] CloneIt(
-        /// @param {mat2} a matrix to clone
+        /// matrix to clone
         float[] a)
     {
         float[] output = new float[4];
@@ -51,10 +51,12 @@ public class Mat2
     }
 
     /// Copy the values from one mat2 to another
-    /// @param {mat2} output the receiving matrix
-    /// @param {mat2} a the source matrix
-    /// @returns {mat2} output
-    public static float[] Copy(float[] output, float[] a)
+    /// Returns output
+    public static float[] Copy(
+        /// the receiving matrix
+        float[] output,
+        /// the source matrix
+        float[] a)
     {
         output[0] = a[0];
         output[1] = a[1];
@@ -64,9 +66,10 @@ public class Mat2
     }
 
     /// Set a mat2 to the identity matrix
-    /// @param {mat2} output the receiving matrix
-    /// @returns {mat2} output
-    public static float[] Identity_(float[] output)
+    /// Returns output
+    public static float[] Identity_(
+        /// the receiving matrix
+        float[] output)
     {
         output[0] = 1;
         output[1] = 0;
@@ -76,10 +79,12 @@ public class Mat2
     }
 
     /// Transpose the values of a mat2
-    /// @param {mat2} output the receiving matrix
-    /// @param {mat2} a the source matrix
-    /// @returns {mat2} output
-    public static float[] Transpose(float[] output, float[] a)
+    /// Returns output
+    public static float[] Transpose(
+        /// the receiving matrix
+        float[] output,
+        /// the source matrix
+        float[] a)
     {
         // If we are transposing ourselves we can skip a few steps but have to cache some values
         //if (output === a) {
@@ -97,10 +102,12 @@ public class Mat2
     }
 
     /// Inverts a mat2
-    // * @param {mat2} output the receiving matrix
-    // * @param {mat2} a the source matrix
-    // * @returns {mat2} output
-    public static float[] Invert(float[] output, float[] a)
+    /// Returns output
+    public static float[] Invert(
+        /// the receiving matrix
+        float[] output,
+        /// the source matrix
+        float[] a)
     {
         float a0 = a[0]; float a1 = a[1]; float a2 = a[2]; float a3 = a[3];
 
@@ -123,10 +130,12 @@ public class Mat2
     }
 
     /// Calculates the adjugate of a mat2
-    // * @param {mat2} output the receiving matrix
-    // * @param {mat2} a the source matrix
-    // * @returns {mat2} output
-    public static float[] Adjoint(float[] output, float[] a)
+    /// Returns output
+    public static float[] Adjoint(
+        /// the receiving matrix
+        float[] output,
+        /// the source matrix
+        float[] a)
     {
         // Caching this value is nessecary if output == a
         float a0 = a[0];
@@ -138,21 +147,24 @@ public class Mat2
         return output;
     }
 
-    // * Calculates the determinant of a mat2
-    // * @param {mat2} a the source matrix
-    // * @returns {Number} determinant of a
-    public static float Determinant(float[] a)
+    /// Calculates the determinant of a mat2
+    /// Returns determinant of a
+    public static float Determinant(
+        /// the source matrix
+        float[] a)
     {
         return a[0] * a[3] - a[2] * a[1];
     }
 
-    // * Multiplies two mat2's
-    // *
-    // * @param {mat2} output the receiving matrix
-    // * @param {mat2} a the first operand
-    // * @param {mat2} b the second operand
-    // * @returns {mat2} output
-    public static float[] Multiply(float[] output, float[] a, float[] b)
+    /// Multiplies two mat2's
+    /// Returns output
+    public static float[] Multiply(
+        /// the receiving matrix
+        float[] output,
+        /// the first operand
+        float[] a,
+        /// the second operand
+        float[] b)
     {
         float a0 = a[0]; float a1 = a[1]; float a2 = a[2]; float a3 = a[3];
         float b0 = b[0]; float b1 = b[1]; float b2 = b[2]; float b3 = b[3];
@@ -169,15 +181,15 @@ public class Mat2
         return Multiply(output, a, b);
     }
 
-    ///**
-    // * Rotates a mat2 by the given angle
-    // *
-    // * @param {mat2} output the receiving matrix
-    // * @param {mat2} a the matrix to rotate
-    // * @param {Number} rad the angle to rotate the matrix by
-    // * @returns {mat2} output
-    // */
-    public static float[] Rotate(float[] output, float[] a, float rad)
+    /// Rotates a mat2 by the given angle
+    /// Returns output
+    public static float[] Rotate(
+        /// the receiving matrix
+        float[] output,
+        /// the matrix to rotate
+        float[] a,
+        /// the angle to rotate the matrix by
+        float rad)
     {
         float a0 = a[0]; float a1 = a[1]; float a2 = a[2]; float a3 = a[3];
         float s = Platform.Sin(rad);
@@ -189,15 +201,15 @@ public class Mat2
         return output;
     }
 
-    ///**
-    // * Scales the mat2 by the dimensions in the given vec2
-    // *
-    // * @param {mat2} output the receiving matrix
-    // * @param {mat2} a the matrix to rotate
-    // * @param {vec2} v the vec2 to scale the matrix by
-    // * @returns {mat2} output
-    // **/
-    public static float[] Scale(float[] output, float[] a, float[] v)
+    /// Scales the mat2 by the dimensions in the given vec2
+    /// Returns output
+    public static float[] Scale(
+        /// the receiving matrix
+        float[] output,
+        /// the matrix to rotate
+        float[] a,
+        /// the vec2 to scale the matrix by
+        float[] v)
     {
         float a0 = a[0]; float a1 = a[1]; float a2 = a[2]; float a3 = a[3];
         float v0 = v[0]; float v1 = v[1];

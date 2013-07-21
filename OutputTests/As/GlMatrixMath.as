@@ -1,12 +1,12 @@
 // Generated automatically with "cito". Do not edit.
-package
+package CitoGlMatrix
 {
 	import flash.utils.ByteArray;
 
 	public class GlMatrixMath
 	{
 
-		public static function abs(len : float) : float
+		public static function abs(len : Number) : Number
 		{
 			if (len < 0) {
 				return -len;
@@ -16,19 +16,19 @@ package
 			}
 		}
 
-		public static function gLMAT_EPSILON() : float
+		public static function gLMAT_EPSILON() : Number
 		{
-			var one : float = 1;
+			var one : Number = 1;
 			return one / (1000000);
 		}
 
-		public static function pI() : float
+		public static function pI() : Number
 		{
-			var a : float = 3141592;
+			var a : Number = 3141592;
 			return a / (1000000);
 		}
 
-		public static function max(a : float, b : float) : float
+		public static function max(a : Number, b : Number) : Number
 		{
 			if (a > b) {
 				return a;
@@ -38,7 +38,7 @@ package
 			}
 		}
 
-		public static function min(a : float, b : float) : float
+		public static function min(a : Number, b : Number) : Number
 		{
 			if (a < b) {
 				return a;

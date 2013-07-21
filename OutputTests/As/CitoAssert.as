@@ -1,5 +1,5 @@
 // Generated automatically with "cito". Do not edit.
-package
+package CitoGlMatrix
 {
 	import flash.utils.ByteArray;
 
@@ -34,7 +34,7 @@ package
 			return arr;
 		}
 
-		public final function arr3(p : float, p_2 : float, p_3 : float) : Array
+		public final function arr3(p : Number, p_2 : Number, p_3 : Number) : Array
 		{
 			var arr : Array = new Array(3);
 			arr[0] = p;
@@ -80,7 +80,7 @@ package
 			this.testI++;
 		}
 
-		public final function assertCloseTo(actual : float, expected : float, msg : String) : void
+		public final function assertCloseTo(actual : Number, expected : Number, msg : String) : void
 		{
 			Platform.writeString("Test ");
 			Platform.writeInt(this.testI);
@@ -96,7 +96,7 @@ package
 			this.testI++;
 		}
 
-		public final function assertEqual(actual : float, expected : float, msg : String) : void
+		public final function assertEqual(actual : Number, expected : Number, msg : String) : void
 		{
 			Platform.writeString("Test ");
 			Platform.writeInt(this.testI);

@@ -1,5 +1,5 @@
 // Generated automatically with "cito". Do not edit.
-package
+package CitoGlMatrix
 {
 	import flash.utils.ByteArray;
 

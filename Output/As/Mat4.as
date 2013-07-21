@@ -1,5 +1,5 @@
 // Generated automatically with "cito". Do not edit.
-package
+package CitoGlMatrix
 {
 	import flash.utils.ByteArray;
 
@@ -17,22 +17,22 @@ package
 		 */
 		public static function adjoint(output : Array, a : Array) : Array
 		{
-			var a00 : float = a[0];
-			var a01 : float = a[1];
-			var a02 : float = a[2];
-			var a03 : float = a[3];
-			var a10 : float = a[4];
-			var a11 : float = a[5];
-			var a12 : float = a[6];
-			var a13 : float = a[7];
-			var a20 : float = a[8];
-			var a21 : float = a[9];
-			var a22 : float = a[10];
-			var a23 : float = a[11];
-			var a30 : float = a[12];
-			var a31 : float = a[13];
-			var a32 : float = a[14];
-			var a33 : float = a[15];
+			var a00 : Number = a[0];
+			var a01 : Number = a[1];
+			var a02 : Number = a[2];
+			var a03 : Number = a[3];
+			var a10 : Number = a[4];
+			var a11 : Number = a[5];
+			var a12 : Number = a[6];
+			var a13 : Number = a[7];
+			var a20 : Number = a[8];
+			var a21 : Number = a[9];
+			var a22 : Number = a[10];
+			var a23 : Number = a[11];
+			var a30 : Number = a[12];
+			var a31 : Number = a[13];
+			var a32 : Number = a[14];
+			var a33 : Number = a[15];
 			output[0] = a11 * (a22 * a33 - a23 * a32) - a21 * (a12 * a33 - a13 * a32) + a31 * (a12 * a23 - a13 * a22);
 			output[1] = -(a01 * (a22 * a33 - a23 * a32) - a21 * (a02 * a33 - a03 * a32) + a31 * (a02 * a23 - a03 * a22));
 			output[2] = a01 * (a12 * a33 - a13 * a32) - a11 * (a02 * a33 - a03 * a32) + a31 * (a02 * a13 - a03 * a12);
@@ -137,36 +137,36 @@ package
 		 * @returns {Number} determinant of a
 		 * @param a @param {mat4} a the source matrix
 		 */
-		public static function determinant(a : Array) : float
+		public static function determinant(a : Array) : Number
 		{
-			var a00 : float = a[0];
-			var a01 : float = a[1];
-			var a02 : float = a[2];
-			var a03 : float = a[3];
-			var a10 : float = a[4];
-			var a11 : float = a[5];
-			var a12 : float = a[6];
-			var a13 : float = a[7];
-			var a20 : float = a[8];
-			var a21 : float = a[9];
-			var a22 : float = a[10];
-			var a23 : float = a[11];
-			var a30 : float = a[12];
-			var a31 : float = a[13];
-			var a32 : float = a[14];
-			var a33 : float = a[15];
-			var b00 : float = a00 * a11 - a01 * a10;
-			var b01 : float = a00 * a12 - a02 * a10;
-			var b02 : float = a00 * a13 - a03 * a10;
-			var b03 : float = a01 * a12 - a02 * a11;
-			var b04 : float = a01 * a13 - a03 * a11;
-			var b05 : float = a02 * a13 - a03 * a12;
-			var b06 : float = a20 * a31 - a21 * a30;
-			var b07 : float = a20 * a32 - a22 * a30;
-			var b08 : float = a20 * a33 - a23 * a30;
-			var b09 : float = a21 * a32 - a22 * a31;
-			var b10 : float = a21 * a33 - a23 * a31;
-			var b11 : float = a22 * a33 - a23 * a32;
+			var a00 : Number = a[0];
+			var a01 : Number = a[1];
+			var a02 : Number = a[2];
+			var a03 : Number = a[3];
+			var a10 : Number = a[4];
+			var a11 : Number = a[5];
+			var a12 : Number = a[6];
+			var a13 : Number = a[7];
+			var a20 : Number = a[8];
+			var a21 : Number = a[9];
+			var a22 : Number = a[10];
+			var a23 : Number = a[11];
+			var a30 : Number = a[12];
+			var a31 : Number = a[13];
+			var a32 : Number = a[14];
+			var a33 : Number = a[15];
+			var b00 : Number = a00 * a11 - a01 * a10;
+			var b01 : Number = a00 * a12 - a02 * a10;
+			var b02 : Number = a00 * a13 - a03 * a10;
+			var b03 : Number = a01 * a12 - a02 * a11;
+			var b04 : Number = a01 * a13 - a03 * a11;
+			var b05 : Number = a02 * a13 - a03 * a12;
+			var b06 : Number = a20 * a31 - a21 * a30;
+			var b07 : Number = a20 * a32 - a22 * a30;
+			var b08 : Number = a20 * a33 - a23 * a30;
+			var b09 : Number = a21 * a32 - a22 * a31;
+			var b10 : Number = a21 * a33 - a23 * a31;
+			var b11 : Number = a22 * a33 - a23 * a32;
 			return b00 * b11 - b01 * b10 + b02 * b09 + b03 * b08 - b04 * b07 + b05 * b06;
 		}
 
@@ -178,22 +178,22 @@ package
 		 */
 		public static function fromQuat(output : Array, q : Array) : Array
 		{
-			var x : float = q[0];
-			var y : float = q[1];
-			var z : float = q[2];
-			var w : float = q[3];
-			var x2 : float = x + x;
-			var y2 : float = y + y;
-			var z2 : float = z + z;
-			var xx : float = x * x2;
-			var xy : float = x * y2;
-			var xz : float = x * z2;
-			var yy : float = y * y2;
-			var yz : float = y * z2;
-			var zz : float = z * z2;
-			var wx : float = w * x2;
-			var wy : float = w * y2;
-			var wz : float = w * z2;
+			var x : Number = q[0];
+			var y : Number = q[1];
+			var z : Number = q[2];
+			var w : Number = q[3];
+			var x2 : Number = x + x;
+			var y2 : Number = y + y;
+			var z2 : Number = z + z;
+			var xx : Number = x * x2;
+			var xy : Number = x * y2;
+			var xz : Number = x * z2;
+			var yy : Number = y * y2;
+			var yz : Number = y * z2;
+			var zz : Number = z * z2;
+			var wx : Number = w * x2;
+			var wy : Number = w * y2;
+			var wz : Number = w * z2;
 			output[0] = 1 - (yy + zz);
 			output[1] = xy + wz;
 			output[2] = xz - wy;
@@ -228,22 +228,22 @@ package
 		 */
 		public static function fromRotationTranslation(output : Array, q : Array, v : Array) : Array
 		{
-			var x : float = q[0];
-			var y : float = q[1];
-			var z : float = q[2];
-			var w : float = q[3];
-			var x2 : float = x + x;
-			var y2 : float = y + y;
-			var z2 : float = z + z;
-			var xx : float = x * x2;
-			var xy : float = x * y2;
-			var xz : float = x * z2;
-			var yy : float = y * y2;
-			var yz : float = y * z2;
-			var zz : float = z * z2;
-			var wx : float = w * x2;
-			var wy : float = w * y2;
-			var wz : float = w * z2;
+			var x : Number = q[0];
+			var y : Number = q[1];
+			var z : Number = q[2];
+			var w : Number = q[3];
+			var x2 : Number = x + x;
+			var y2 : Number = y + y;
+			var z2 : Number = z + z;
+			var xx : Number = x * x2;
+			var xy : Number = x * y2;
+			var xz : Number = x * z2;
+			var yy : Number = y * y2;
+			var yz : Number = y * z2;
+			var zz : Number = z * z2;
+			var wx : Number = w * x2;
+			var wy : Number = w * y2;
+			var wz : Number = w * z2;
 			output[0] = 1 - (yy + zz);
 			output[1] = xy + wz;
 			output[2] = xz - wy;
@@ -274,11 +274,11 @@ package
 		 * @param near {Number} near Near bound of the frustum
 		 * @param far {Number} far Far bound of the frustum
 		 */
-		public static function frustum(output : Array, left : float, right : float, bottom : float, top : float, near : float, far : float) : Array
+		public static function frustum(output : Array, left : Number, right : Number, bottom : Number, top : Number, near : Number, far : Number) : Array
 		{
-			var rl : float = 1 / (right - left);
-			var tb : float = 1 / (top - bottom);
-			var nf : float = 1 / (near - far);
+			var rl : Number = 1 / (right - left);
+			var tb : Number = 1 / (top - bottom);
+			var nf : Number = 1 / (near - far);
 			output[0] = near * 2 * rl;
 			output[1] = 0;
 			output[2] = 0;
@@ -332,39 +332,39 @@ package
 		 */
 		public static function invert(output : Array, a : Array) : Array
 		{
-			var a00 : float = a[0];
-			var a01 : float = a[1];
-			var a02 : float = a[2];
-			var a03 : float = a[3];
-			var a10 : float = a[4];
-			var a11 : float = a[5];
-			var a12 : float = a[6];
-			var a13 : float = a[7];
-			var a20 : float = a[8];
-			var a21 : float = a[9];
-			var a22 : float = a[10];
-			var a23 : float = a[11];
-			var a30 : float = a[12];
-			var a31 : float = a[13];
-			var a32 : float = a[14];
-			var a33 : float = a[15];
-			var b00 : float = a00 * a11 - a01 * a10;
-			var b01 : float = a00 * a12 - a02 * a10;
-			var b02 : float = a00 * a13 - a03 * a10;
-			var b03 : float = a01 * a12 - a02 * a11;
-			var b04 : float = a01 * a13 - a03 * a11;
-			var b05 : float = a02 * a13 - a03 * a12;
-			var b06 : float = a20 * a31 - a21 * a30;
-			var b07 : float = a20 * a32 - a22 * a30;
-			var b08 : float = a20 * a33 - a23 * a30;
-			var b09 : float = a21 * a32 - a22 * a31;
-			var b10 : float = a21 * a33 - a23 * a31;
-			var b11 : float = a22 * a33 - a23 * a32;
-			var det : float = b00 * b11 - b01 * b10 + b02 * b09 + b03 * b08 - b04 * b07 + b05 * b06;
+			var a00 : Number = a[0];
+			var a01 : Number = a[1];
+			var a02 : Number = a[2];
+			var a03 : Number = a[3];
+			var a10 : Number = a[4];
+			var a11 : Number = a[5];
+			var a12 : Number = a[6];
+			var a13 : Number = a[7];
+			var a20 : Number = a[8];
+			var a21 : Number = a[9];
+			var a22 : Number = a[10];
+			var a23 : Number = a[11];
+			var a30 : Number = a[12];
+			var a31 : Number = a[13];
+			var a32 : Number = a[14];
+			var a33 : Number = a[15];
+			var b00 : Number = a00 * a11 - a01 * a10;
+			var b01 : Number = a00 * a12 - a02 * a10;
+			var b02 : Number = a00 * a13 - a03 * a10;
+			var b03 : Number = a01 * a12 - a02 * a11;
+			var b04 : Number = a01 * a13 - a03 * a11;
+			var b05 : Number = a02 * a13 - a03 * a12;
+			var b06 : Number = a20 * a31 - a21 * a30;
+			var b07 : Number = a20 * a32 - a22 * a30;
+			var b08 : Number = a20 * a33 - a23 * a30;
+			var b09 : Number = a21 * a32 - a22 * a31;
+			var b10 : Number = a21 * a33 - a23 * a31;
+			var b11 : Number = a22 * a33 - a23 * a32;
+			var det : Number = b00 * b11 - b01 * b10 + b02 * b09 + b03 * b08 - b04 * b07 + b05 * b06;
 			if (det == 0) {
 				return null;
 			}
-			var one : float = 1;
+			var one : Number = 1;
 			det = one / (det);
 			output[0] = (a11 * b11 - a12 * b10 + a13 * b09) * det;
 			output[1] = (a02 * b10 - a01 * b11 - a03 * b09) * det;
@@ -395,25 +395,25 @@ package
 		 */
 		public static function lookAt(output : Array, eye : Array, center : Array, up : Array) : Array
 		{
-			var x0 : float;
-			var x1 : float;
-			var x2 : float;
-			var y0 : float;
-			var y1 : float;
-			var y2 : float;
-			var z0 : float;
-			var z1 : float;
-			var z2 : float;
-			var len : float;
-			var eyex : float = eye[0];
-			var eyey : float = eye[1];
-			var eyez : float = eye[2];
-			var upx : float = up[0];
-			var upy : float = up[1];
-			var upz : float = up[2];
-			var centerx : float = center[0];
-			var centery : float = center[1];
-			var centerz : float = center[2];
+			var x0 : Number;
+			var x1 : Number;
+			var x2 : Number;
+			var y0 : Number;
+			var y1 : Number;
+			var y2 : Number;
+			var z0 : Number;
+			var z1 : Number;
+			var z2 : Number;
+			var len : Number;
+			var eyex : Number = eye[0];
+			var eyey : Number = eye[1];
+			var eyez : Number = eye[2];
+			var upx : Number = up[0];
+			var upy : Number = up[1];
+			var upz : Number = up[2];
+			var centerx : Number = center[0];
+			var centery : Number = center[1];
+			var centerz : Number = center[2];
 			if (GlMatrixMath.abs(eyex - centerx) < GlMatrixMath.gLMAT_EPSILON() && GlMatrixMath.abs(eyey - centery) < GlMatrixMath.gLMAT_EPSILON() && GlMatrixMath.abs(eyez - centerz) < GlMatrixMath.gLMAT_EPSILON()) {
 				return Mat4.identity_(output);
 			}
@@ -490,26 +490,26 @@ package
 		 */
 		public static function multiply(output : Array, a : Array, b : Array) : Array
 		{
-			var a00 : float = a[0];
-			var a01 : float = a[1];
-			var a02 : float = a[2];
-			var a03 : float = a[3];
-			var a10 : float = a[4];
-			var a11 : float = a[5];
-			var a12 : float = a[6];
-			var a13 : float = a[7];
-			var a20 : float = a[8];
-			var a21 : float = a[9];
-			var a22 : float = a[10];
-			var a23 : float = a[11];
-			var a30 : float = a[12];
-			var a31 : float = a[13];
-			var a32 : float = a[14];
-			var a33 : float = a[15];
-			var b0 : float = b[0];
-			var b1 : float = b[1];
-			var b2 : float = b[2];
-			var b3 : float = b[3];
+			var a00 : Number = a[0];
+			var a01 : Number = a[1];
+			var a02 : Number = a[2];
+			var a03 : Number = a[3];
+			var a10 : Number = a[4];
+			var a11 : Number = a[5];
+			var a12 : Number = a[6];
+			var a13 : Number = a[7];
+			var a20 : Number = a[8];
+			var a21 : Number = a[9];
+			var a22 : Number = a[10];
+			var a23 : Number = a[11];
+			var a30 : Number = a[12];
+			var a31 : Number = a[13];
+			var a32 : Number = a[14];
+			var a33 : Number = a[15];
+			var b0 : Number = b[0];
+			var b1 : Number = b[1];
+			var b2 : Number = b[2];
+			var b3 : Number = b[3];
 			output[0] = b0 * a00 + b1 * a10 + b2 * a20 + b3 * a30;
 			output[1] = b0 * a01 + b1 * a11 + b2 * a21 + b3 * a31;
 			output[2] = b0 * a02 + b1 * a12 + b2 * a22 + b3 * a32;
@@ -552,11 +552,11 @@ package
 		 * @param near {number} near Near bound of the frustum
 		 * @param far {number} far Far bound of the frustum
 		 */
-		public static function ortho(output : Array, left : float, right : float, bottom : float, top : float, near : float, far : float) : Array
+		public static function ortho(output : Array, left : Number, right : Number, bottom : Number, top : Number, near : Number, far : Number) : Array
 		{
-			var lr : float = 1 / (left - right);
-			var bt : float = 1 / (bottom - top);
-			var nf : float = 1 / (near - far);
+			var lr : Number = 1 / (left - right);
+			var bt : Number = 1 / (bottom - top);
+			var nf : Number = 1 / (near - far);
 			output[0] = -2 * lr;
 			output[1] = 0;
 			output[2] = 0;
@@ -585,11 +585,11 @@ package
 		 * @param near {number} near Near bound of the frustum
 		 * @param far {number} far Far bound of the frustum
 		 */
-		public static function perspective(output : Array, fovy : float, aspect : float, near : float, far : float) : Array
+		public static function perspective(output : Array, fovy : Number, aspect : Number, near : Number, far : Number) : Array
 		{
-			var one : float = 1;
-			var f : float = one / (Platform.tan(fovy / (2)));
-			var nf : float = 1 / (near - far);
+			var one : Number = 1;
+			var f : Number = one / (Platform.tan(fovy / (2)));
+			var nf : Number = 1 / (near - far);
 			output[0] = f / (aspect);
 			output[1] = 0;
 			output[2] = 0;
@@ -617,36 +617,36 @@ package
 		 * @param rad {Number} rad the angle to rotate the matrix by
 		 * @param axis {vec3} axis the axis to rotate around
 		 */
-		public static function rotate(output : Array, a : Array, rad : float, axis : Array) : Array
+		public static function rotate(output : Array, a : Array, rad : Number, axis : Array) : Array
 		{
-			var x : float = axis[0];
-			var y : float = axis[1];
-			var z : float = axis[2];
-			var len : float = Platform.sqrt(x * x + y * y + z * z);
-			var s : float;
-			var c : float;
-			var t : float;
-			var a00 : float;
-			var a01 : float;
-			var a02 : float;
-			var a03 : float;
-			var a10 : float;
-			var a11 : float;
-			var a12 : float;
-			var a13 : float;
-			var a20 : float;
-			var a21 : float;
-			var a22 : float;
-			var a23 : float;
-			var b00 : float;
-			var b01 : float;
-			var b02 : float;
-			var b10 : float;
-			var b11 : float;
-			var b12 : float;
-			var b20 : float;
-			var b21 : float;
-			var b22 : float;
+			var x : Number = axis[0];
+			var y : Number = axis[1];
+			var z : Number = axis[2];
+			var len : Number = Platform.sqrt(x * x + y * y + z * z);
+			var s : Number;
+			var c : Number;
+			var t : Number;
+			var a00 : Number;
+			var a01 : Number;
+			var a02 : Number;
+			var a03 : Number;
+			var a10 : Number;
+			var a11 : Number;
+			var a12 : Number;
+			var a13 : Number;
+			var a20 : Number;
+			var a21 : Number;
+			var a22 : Number;
+			var a23 : Number;
+			var b00 : Number;
+			var b01 : Number;
+			var b02 : Number;
+			var b10 : Number;
+			var b11 : Number;
+			var b12 : Number;
+			var b20 : Number;
+			var b21 : Number;
+			var b22 : Number;
 			if (GlMatrixMath.abs(len) < GlMatrixMath.gLMAT_EPSILON()) {
 				return null;
 			}
@@ -704,18 +704,18 @@ package
 		 * @param a {mat4} a the matrix to rotate
 		 * @param rad {Number} rad the angle to rotate the matrix by
 		 */
-		public static function rotateX(output : Array, a : Array, rad : float) : Array
+		public static function rotateX(output : Array, a : Array, rad : Number) : Array
 		{
-			var s : float = Platform.sin(rad);
-			var c : float = Platform.cos(rad);
-			var a10 : float = a[4];
-			var a11 : float = a[5];
-			var a12 : float = a[6];
-			var a13 : float = a[7];
-			var a20 : float = a[8];
-			var a21 : float = a[9];
-			var a22 : float = a[10];
-			var a23 : float = a[11];
+			var s : Number = Platform.sin(rad);
+			var c : Number = Platform.cos(rad);
+			var a10 : Number = a[4];
+			var a11 : Number = a[5];
+			var a12 : Number = a[6];
+			var a13 : Number = a[7];
+			var a20 : Number = a[8];
+			var a21 : Number = a[9];
+			var a22 : Number = a[10];
+			var a23 : Number = a[11];
 			output[0] = a[0];
 			output[1] = a[1];
 			output[2] = a[2];
@@ -742,18 +742,18 @@ package
 		 * @param a {mat4} a the matrix to rotate
 		 * @param rad {Number} rad the angle to rotate the matrix by
 		 */
-		public static function rotateY(output : Array, a : Array, rad : float) : Array
+		public static function rotateY(output : Array, a : Array, rad : Number) : Array
 		{
-			var s : float = Platform.sin(rad);
-			var c : float = Platform.cos(rad);
-			var a00 : float = a[0];
-			var a01 : float = a[1];
-			var a02 : float = a[2];
-			var a03 : float = a[3];
-			var a20 : float = a[8];
-			var a21 : float = a[9];
-			var a22 : float = a[10];
-			var a23 : float = a[11];
+			var s : Number = Platform.sin(rad);
+			var c : Number = Platform.cos(rad);
+			var a00 : Number = a[0];
+			var a01 : Number = a[1];
+			var a02 : Number = a[2];
+			var a03 : Number = a[3];
+			var a20 : Number = a[8];
+			var a21 : Number = a[9];
+			var a22 : Number = a[10];
+			var a23 : Number = a[11];
 			output[4] = a[4];
 			output[5] = a[5];
 			output[6] = a[6];
@@ -780,18 +780,18 @@ package
 		 * @param a {mat4} a the matrix to rotate
 		 * @param rad {Number} rad the angle to rotate the matrix by
 		 */
-		public static function rotateZ(output : Array, a : Array, rad : float) : Array
+		public static function rotateZ(output : Array, a : Array, rad : Number) : Array
 		{
-			var s : float = Platform.sin(rad);
-			var c : float = Platform.cos(rad);
-			var a00 : float = a[0];
-			var a01 : float = a[1];
-			var a02 : float = a[2];
-			var a03 : float = a[3];
-			var a10 : float = a[4];
-			var a11 : float = a[5];
-			var a12 : float = a[6];
-			var a13 : float = a[7];
+			var s : Number = Platform.sin(rad);
+			var c : Number = Platform.cos(rad);
+			var a00 : Number = a[0];
+			var a01 : Number = a[1];
+			var a02 : Number = a[2];
+			var a03 : Number = a[3];
+			var a10 : Number = a[4];
+			var a11 : Number = a[5];
+			var a12 : Number = a[6];
+			var a13 : Number = a[7];
 			output[8] = a[8];
 			output[9] = a[9];
 			output[10] = a[10];
@@ -820,9 +820,9 @@ package
 		 */
 		public static function scale(output : Array, a : Array, v : Array) : Array
 		{
-			var x : float = v[0];
-			var y : float = v[1];
-			var z : float = v[2];
+			var x : Number = v[0];
+			var y : Number = v[1];
+			var z : Number = v[2];
 			output[0] = a[0] * x;
 			output[1] = a[1] * x;
 			output[2] = a[2] * x;
@@ -851,21 +851,21 @@ package
 		 */
 		public static function translate(output : Array, a : Array, v : Array) : Array
 		{
-			var x : float = v[0];
-			var y : float = v[1];
-			var z : float = v[2];
-			var a00 : float;
-			var a01 : float;
-			var a02 : float;
-			var a03 : float;
-			var a10 : float;
-			var a11 : float;
-			var a12 : float;
-			var a13 : float;
-			var a20 : float;
-			var a21 : float;
-			var a22 : float;
-			var a23 : float;
+			var x : Number = v[0];
+			var y : Number = v[1];
+			var z : Number = v[2];
+			var a00 : Number;
+			var a01 : Number;
+			var a02 : Number;
+			var a03 : Number;
+			var a10 : Number;
+			var a11 : Number;
+			var a12 : Number;
+			var a13 : Number;
+			var a20 : Number;
+			var a21 : Number;
+			var a22 : Number;
+			var a23 : Number;
 			a00 = a[0];
 			a01 = a[1];
 			a02 = a[2];

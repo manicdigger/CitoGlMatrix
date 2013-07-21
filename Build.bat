@@ -20,7 +20,7 @@ cito -D CITO -D JAVA -l java -o Output\Java\CitoGlMatrix.java -n CitoGlMatrix.li
 cito -D CITO -D CS -l cs -o Output\Cs\CitoGlMatrix.cs CitoGlMatrix\GlMatrix.ci.cs
 cito -D CITO -D JS -l js -o Output\Js\CitoGlMatrix.js CitoGlMatrix\GlMatrix.ci.cs
 cito -D CITO -D JS -D JSTA -l js-ta -o Output\JsTa\CitoGlMatrixTa.js CitoGlMatrix\GlMatrix.ci.cs
-cito -D CITO -D AS -l as -o Output\As\CitoGlMatrix.as CitoGlMatrix\GlMatrix.ci.cs
+cito -D CITO -D AS -l as -n CitoGlMatrix -o Output\As\CitoGlMatrix.as CitoGlMatrix\GlMatrix.ci.cs
 cito -D CITO -D D -l d -o Output\D\CitoGlMatrix.d CitoGlMatrix\GlMatrix.ci.cs
 cito -D CITO -D PM -l pm -o Output\Pm\CitoGlMatrix.pm CitoGlMatrix\GlMatrix.ci.cs
 cito -D CITO -D PM510 -l pm510 -o Output\Pm510\CitoGlMatrix.pm CitoGlMatrix\GlMatrix.ci.cs
@@ -45,7 +45,7 @@ cito -D CITO -D TESTS -D JAVA -l java -o OutputTests\Java\CitoGlMatrix.java -n C
 cito -D CITO -D TESTS -D CS -l cs -o OutputTests\Cs\CitoGlMatrix.cs CitoGlMatrix\GlMatrix.ci.cs
 cito -D CITO -D TESTS -D JS -l js -o OutputTests\Js\CitoGlMatrix.js CitoGlMatrix\GlMatrix.ci.cs
 cito -D CITO -D TESTS -D JS -D JSTA -l js-ta -o OutputTests\JsTa\CitoGlMatrixTa.js CitoGlMatrix\GlMatrix.ci.cs
-cito -D CITO -D TESTS -D AS -l as -o OutputTests\As\CitoGlMatrix.as CitoGlMatrix\GlMatrix.ci.cs
+cito -D CITO -D TESTS -D AS -l as -n CitoGlMatrix -o OutputTests\As\CitoGlMatrix.as CitoGlMatrix\GlMatrix.ci.cs
 cito -D CITO -D TESTS -D D -l d -o OutputTests\D\CitoGlMatrix.d CitoGlMatrix\GlMatrix.ci.cs
 cito -D CITO -D TESTS -D PM -l pm -o OutputTests\Pm\CitoGlMatrix.pm CitoGlMatrix\GlMatrix.ci.cs
 cito -D CITO -D TESTS -D PM510 -l pm510 -o OutputTests\Pm510\CitoGlMatrix.pm CitoGlMatrix\GlMatrix.ci.cs

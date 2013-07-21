@@ -1,5 +1,5 @@
 // Generated automatically with "cito". Do not edit.
-package
+package CitoGlMatrix
 {
 	import flash.utils.ByteArray;
 
@@ -27,7 +27,7 @@ package
 			return arr;
 		}
 
-		private function arr3(p : float, p_2 : float, p_3 : float) : Array
+		private function arr3(p : Number, p_2 : Number, p_3 : Number) : Array
 		{
 			var arr : Array = this.citoassert.arr3(p, p_2, p_3);
 			arr[0] = arr[0];
@@ -44,12 +44,12 @@ package
 			this.citoassert.assertArrayEqual(actual, expected, length, msg);
 		}
 
-		private final function assertCloseTo(actual : float, expected : float, msg : String) : void
+		private final function assertCloseTo(actual : Number, expected : Number, msg : String) : void
 		{
 			this.citoassert.assertCloseTo(actual, expected, msg);
 		}
 
-		private final function assertEqual(actual : float, expected : float, msg : String) : void
+		private final function assertEqual(actual : Number, expected : Number, msg : String) : void
 		{
 			this.citoassert.assertEqual(actual, expected, msg);
 		}
@@ -121,7 +121,7 @@ package
 
 		private function lookAt74() : void
 		{
-			var six : float = 6;
+			var six : Number = 6;
 			Mat4.lookAt(this.output, this.arr3(0, 2, 0), this.arr3(0, six / (10), 0), this.arr3(0, 0, -1));
 			var result : Array = Vec3.transformMat4(Vec3.create(), this.arr3(0, 2, -1), this.output);
 			this.assertArrayEqual(result, this.arr3(0, 1, 0), 3, "LookAt74 should transform a point 'above' into local +Y");

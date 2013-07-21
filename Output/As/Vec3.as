@@ -1,5 +1,5 @@
 // Generated automatically with "cito". Do not edit.
-package
+package CitoGlMatrix
 {
 	import flash.utils.ByteArray;
 
@@ -74,12 +74,12 @@ package
 		 */
 		public static function cross(output : Array, a : Array, b : Array) : Array
 		{
-			var ax : float = a[0];
-			var ay : float = a[1];
-			var az : float = a[2];
-			var bx : float = b[0];
-			var by : float = b[1];
-			var bz : float = b[2];
+			var ax : Number = a[0];
+			var ay : Number = a[1];
+			var az : Number = a[2];
+			var bx : Number = b[0];
+			var by : Number = b[1];
+			var bz : Number = b[2];
 			output[0] = ay * bz - az * by;
 			output[1] = az * bx - ax * bz;
 			output[2] = ax * by - ay * bx;
@@ -89,7 +89,7 @@ package
 		/**
 		 * Alias for {@link vec3.distance}
 		 */
-		public static function dist(a : Array, b : Array) : float
+		public static function dist(a : Array, b : Array) : Number
 		{
 			return Vec3.distance(a, b);
 		}
@@ -100,11 +100,11 @@ package
 		 * @param a /@param {vec3} a the first operand
 		 * @param b /@param {vec3} b the second operand
 		 */
-		public static function distance(a : Array, b : Array) : float
+		public static function distance(a : Array, b : Array) : Number
 		{
-			var x : float = b[0] - a[0];
-			var y : float = b[1] - a[1];
-			var z : float = b[2] - a[2];
+			var x : Number = b[0] - a[0];
+			var y : Number = b[1] - a[1];
+			var z : Number = b[2] - a[2];
 			return Platform.sqrt(x * x + y * y + z * z);
 		}
 
@@ -137,7 +137,7 @@ package
 		 * @param a /@param {vec3} a the first operand
 		 * @param b /@param {vec3} b the second operand
 		 */
-		public static function dot(a : Array, b : Array) : float
+		public static function dot(a : Array, b : Array) : Number
 		{
 			return a[0] * b[0] + a[1] * b[1] + a[2] * b[2];
 		}
@@ -149,7 +149,7 @@ package
 		 * @param y Y component
 		 * @param z Z component
 		 */
-		public static function fromValues(x : float, y : float, z : float) : Array
+		public static function fromValues(x : Number, y : Number, z : Number) : Array
 		{
 			var output : Array = new Array(3);
 			output[0] = x;
@@ -161,7 +161,7 @@ package
 		/**
 		 * Alias for {@link vec3.length}
 		 */
-		public static function len(a : Array) : float
+		public static function len(a : Array) : Number
 		{
 			return Vec3.length_(a);
 		}
@@ -171,11 +171,11 @@ package
 		 * @returns {Number} length of a
 		 * @param a /@param {vec3} a vector to calculate length of
 		 */
-		public static function length_(a : Array) : float
+		public static function length_(a : Array) : Number
 		{
-			var x : float = a[0];
-			var y : float = a[1];
-			var z : float = a[2];
+			var x : Number = a[0];
+			var y : Number = a[1];
+			var z : Number = a[2];
 			return Platform.sqrt(x * x + y * y + z * z);
 		}
 
@@ -187,11 +187,11 @@ package
 		 * @param b /@param {vec3} b the second operand
 		 * @param t /@param {Number} t interpolation amount between the two inputs
 		 */
-		public static function lerp(output : Array, a : Array, b : Array, t : float) : Array
+		public static function lerp(output : Array, a : Array, b : Array, t : Number) : Array
 		{
-			var ax : float = a[0];
-			var ay : float = a[1];
-			var az : float = a[2];
+			var ax : Number = a[0];
+			var ay : Number = a[1];
+			var az : Number = a[2];
 			output[0] = ax + t * (b[0] - ax);
 			output[1] = ay + t * (b[1] - ay);
 			output[2] = az + t * (b[2] - az);
@@ -273,12 +273,12 @@ package
 		 */
 		public static function normalize(output : Array, a : Array) : Array
 		{
-			var x : float = a[0];
-			var y : float = a[1];
-			var z : float = a[2];
-			var len : float = x * x + y * y + z * z;
+			var x : Number = a[0];
+			var y : Number = a[1];
+			var z : Number = a[2];
+			var len : Number = x * x + y * y + z * z;
 			if (len > 0) {
-				var one : float = 1;
+				var one : Number = 1;
 				len = one / (Platform.sqrt(len));
 				output[0] = a[0] * len;
 				output[1] = a[1] * len;
@@ -294,7 +294,7 @@ package
 		 * @param a /@param {vec3} a the vector to scale
 		 * @param b /@param {Number} b amount to scale the vector by
 		 */
-		public static function scale(output : Array, a : Array, b : float) : Array
+		public static function scale(output : Array, a : Array, b : Number) : Array
 		{
 			output[0] = a[0] * b;
 			output[1] = a[1] * b;
@@ -310,7 +310,7 @@ package
 		 * @param b /@param {vec3} b the second operand
 		 * @param scale /@param {Number} scale the amount to scale b by before adding
 		 */
-		public static function scaleAndAdd(output : Array, a : Array, b : Array, scale : float) : Array
+		public static function scaleAndAdd(output : Array, a : Array, b : Array, scale : Number) : Array
 		{
 			output[0] = a[0] + b[0] * scale;
 			output[1] = a[1] + b[1] * scale;
@@ -326,7 +326,7 @@ package
 		 * @param y /@param {Number} y Y component
 		 * @param z /@param {Number} z Z component
 		 */
-		public static function set(output : Array, x : float, y : float, z : float) : Array
+		public static function set(output : Array, x : Number, y : Number, z : Number) : Array
 		{
 			output[0] = x;
 			output[1] = y;
@@ -338,7 +338,7 @@ package
 		 * Alias for {@link vec3.squaredDistance}
 		 * @function
 		 */
-		public static function sqrDist(a : Array, b : Array) : float
+		public static function sqrDist(a : Array, b : Array) : Number
 		{
 			return Vec3.squaredDistance(a, b);
 		}
@@ -346,7 +346,7 @@ package
 		/**
 		 * Alias for {@link vec3.squaredLength}
 		 */
-		public static function sqrLen(a : Array) : float
+		public static function sqrLen(a : Array) : Number
 		{
 			return Vec3.squaredLength(a);
 		}
@@ -357,11 +357,11 @@ package
 		 * @param a /@param {vec3} a the first operand
 		 * @param b /@param {vec3} b the second operand
 		 */
-		public static function squaredDistance(a : Array, b : Array) : float
+		public static function squaredDistance(a : Array, b : Array) : Number
 		{
-			var x : float = b[0] - a[0];
-			var y : float = b[1] - a[1];
-			var z : float = b[2] - a[2];
+			var x : Number = b[0] - a[0];
+			var y : Number = b[1] - a[1];
+			var z : Number = b[2] - a[2];
 			return x * x + y * y + z * z;
 		}
 
@@ -370,11 +370,11 @@ package
 		 * @returns {Number} squared length of a
 		 * @param a /@param {vec3} a vector to calculate squared length of
 		 */
-		public static function squaredLength(a : Array) : float
+		public static function squaredLength(a : Array) : Number
 		{
-			var x : float = a[0];
-			var y : float = a[1];
-			var z : float = a[2];
+			var x : Number = a[0];
+			var y : Number = a[1];
+			var z : Number = a[2];
 			return x * x + y * y + z * z;
 		}
 
@@ -411,9 +411,9 @@ package
 		 */
 		public static function transformMat3(output : Array, a : Array, m : Array) : Array
 		{
-			var x : float = a[0];
-			var y : float = a[1];
-			var z : float = a[2];
+			var x : Number = a[0];
+			var y : Number = a[1];
+			var z : Number = a[2];
 			output[0] = x * m[0] + y * m[3] + z * m[6];
 			output[1] = x * m[1] + y * m[4] + z * m[7];
 			output[2] = x * m[2] + y * m[5] + z * m[8];
@@ -430,9 +430,9 @@ package
 		 */
 		public static function transformMat4(output : Array, a : Array, m : Array) : Array
 		{
-			var x : float = a[0];
-			var y : float = a[1];
-			var z : float = a[2];
+			var x : Number = a[0];
+			var y : Number = a[1];
+			var z : Number = a[2];
 			output[0] = m[0] * x + m[4] * y + m[8] * z + m[12];
 			output[1] = m[1] * x + m[5] * y + m[9] * z + m[13];
 			output[2] = m[2] * x + m[6] * y + m[10] * z + m[14];
@@ -448,17 +448,17 @@ package
 		 */
 		public static function transformQuat(output : Array, a : Array, q : Array) : Array
 		{
-			var x : float = a[0];
-			var y : float = a[1];
-			var z : float = a[2];
-			var qx : float = q[0];
-			var qy : float = q[1];
-			var qz : float = q[2];
-			var qw : float = q[3];
-			var ix : float = qw * x + qy * z - qz * y;
-			var iy : float = qw * y + qz * x - qx * z;
-			var iz : float = qw * z + qx * y - qy * x;
-			var iw : float = (0 - qx) * x - qy * y - qz * z;
+			var x : Number = a[0];
+			var y : Number = a[1];
+			var z : Number = a[2];
+			var qx : Number = q[0];
+			var qy : Number = q[1];
+			var qz : Number = q[2];
+			var qw : Number = q[3];
+			var ix : Number = qw * x + qy * z - qz * y;
+			var iy : Number = qw * y + qz * x - qx * z;
+			var iz : Number = qw * z + qx * y - qy * x;
+			var iw : Number = (0 - qx) * x - qy * y - qz * z;
 			output[0] = ix * qw + iw * (0 - qx) + iy * (0 - qz) - iz * (0 - qy);
 			output[1] = iy * qw + iw * (0 - qy) + iz * (0 - qx) - ix * (0 - qz);
 			output[2] = iz * qw + iw * (0 - qz) + ix * (0 - qy) - iy * (0 - qx);

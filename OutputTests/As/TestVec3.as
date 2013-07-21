@@ -1,5 +1,5 @@
 // Generated automatically with "cito". Do not edit.
-package
+package CitoGlMatrix
 {
 	import flash.utils.ByteArray;
 
@@ -35,7 +35,7 @@ package
 			return this.citoassert.arr16(p, p_2, p_3, p_4, p_5, p_6, p_7, p_8, p_9, p_10, p_11, p_12, p_13, p_14, p_15, p_16);
 		}
 
-		private function arr3(p : float, p_2 : float, p_3 : float) : Array
+		private function arr3(p : Number, p_2 : Number, p_3 : Number) : Array
 		{
 			return this.citoassert.arr3(p, p_2, p_3);
 		}
@@ -50,12 +50,12 @@ package
 			this.citoassert.assertArrayEqual(actual, expected, length, msg);
 		}
 
-		private function assertCloseTo(actual : float, expected : float, msg : String) : void
+		private function assertCloseTo(actual : Number, expected : Number, msg : String) : void
 		{
 			this.citoassert.assertCloseTo(actual, expected, msg);
 		}
 
-		private function assertEqual(actual : float, expected : float, msg : String) : void
+		private function assertEqual(actual : Number, expected : Number, msg : String) : void
 		{
 			this.citoassert.assertEqual(actual, expected, msg);
 		}
@@ -100,8 +100,8 @@ package
 
 		private function distance() : void
 		{
-			var result : float = Vec3.distance(this.vecA, this.vecB);
-			var r : float = 5196152;
+			var result : Number = Vec3.distance(this.vecA, this.vecB);
+			var r : Number = 5196152;
 			r /= 1000000;
 			this.assertCloseTo(result, r, "Distance should return the distance");
 		}
@@ -127,7 +127,7 @@ package
 
 		private function dot() : void
 		{
-			var result : float = Vec3.dot(this.vecA, this.vecB);
+			var result : Number = Vec3.dot(this.vecA, this.vecB);
 			this.assertEqual(result, 32, "Dot should return the dot product");
 			this.assertArrayEqual(this.vecA, this.arr3(1, 2, 3), 3, "Dot should not modify vecA");
 			this.assertArrayEqual(this.vecB, this.arr3(4, 5, 6), 3, "Dot should not modify vecB");
@@ -145,8 +145,8 @@ package
 
 		private function length_() : void
 		{
-			var result : float = Vec3.length_(this.vecA);
-			var r : float = 3741657;
+			var result : Number = Vec3.length_(this.vecA);
+			var r : Number = 3741657;
 			r /= 1000000;
 			this.assertCloseTo(result, r, "Length should return the length");
 		}
@@ -320,13 +320,13 @@ package
 
 		private function squaredDistance() : void
 		{
-			var result : float = Vec3.squaredDistance(this.vecA, this.vecB);
+			var result : Number = Vec3.squaredDistance(this.vecA, this.vecB);
 			this.assertEqual(result, 27, "SquaredDistance should return the squared distance");
 		}
 
 		private function squaredLength() : void
 		{
-			var result : float = Vec3.squaredLength(this.vecA);
+			var result : Number = Vec3.squaredLength(this.vecA);
 			this.assertEqual(result, 14, "SquaredLength should return the squared length");
 		}
 

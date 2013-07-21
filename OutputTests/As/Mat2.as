@@ -1,5 +1,5 @@
 // Generated automatically with "cito". Do not edit.
-package
+package CitoGlMatrix
 {
 	import flash.utils.ByteArray;
 
@@ -17,7 +17,7 @@ package
 		 */
 		public static function adjoint(output : Array, a : Array) : Array
 		{
-			var a0 : float = a[0];
+			var a0 : Number = a[0];
 			output[0] = a[3];
 			output[1] = -a[1];
 			output[2] = -a[2];
@@ -74,7 +74,7 @@ package
 		 * Returns determinant of a
 		 * @param a the source matrix
 		 */
-		public static function determinant(a : Array) : float
+		public static function determinant(a : Array) : Number
 		{
 			return a[0] * a[3] - a[2] * a[1];
 		}
@@ -101,15 +101,15 @@ package
 		 */
 		public static function invert(output : Array, a : Array) : Array
 		{
-			var a0 : float = a[0];
-			var a1 : float = a[1];
-			var a2 : float = a[2];
-			var a3 : float = a[3];
-			var det : float = a0 * a3 - a2 * a1;
+			var a0 : Number = a[0];
+			var a1 : Number = a[1];
+			var a2 : Number = a[2];
+			var a3 : Number = a[3];
+			var det : Number = a0 * a3 - a2 * a1;
 			if (det == 0) {
 				return null;
 			}
-			var one : float = 1;
+			var one : Number = 1;
 			det = one / (det);
 			output[0] = a3 * det;
 			output[1] = -a1 * det;
@@ -135,14 +135,14 @@ package
 		 */
 		public static function multiply(output : Array, a : Array, b : Array) : Array
 		{
-			var a0 : float = a[0];
-			var a1 : float = a[1];
-			var a2 : float = a[2];
-			var a3 : float = a[3];
-			var b0 : float = b[0];
-			var b1 : float = b[1];
-			var b2 : float = b[2];
-			var b3 : float = b[3];
+			var a0 : Number = a[0];
+			var a1 : Number = a[1];
+			var a2 : Number = a[2];
+			var a3 : Number = a[3];
+			var b0 : Number = b[0];
+			var b1 : Number = b[1];
+			var b2 : Number = b[2];
+			var b3 : Number = b[3];
 			output[0] = a0 * b0 + a1 * b2;
 			output[1] = a0 * b1 + a1 * b3;
 			output[2] = a2 * b0 + a3 * b2;
@@ -157,14 +157,14 @@ package
 		 * @param a the matrix to rotate
 		 * @param rad the angle to rotate the matrix by
 		 */
-		public static function rotate(output : Array, a : Array, rad : float) : Array
+		public static function rotate(output : Array, a : Array, rad : Number) : Array
 		{
-			var a0 : float = a[0];
-			var a1 : float = a[1];
-			var a2 : float = a[2];
-			var a3 : float = a[3];
-			var s : float = Platform.sin(rad);
-			var c : float = Platform.cos(rad);
+			var a0 : Number = a[0];
+			var a1 : Number = a[1];
+			var a2 : Number = a[2];
+			var a3 : Number = a[3];
+			var s : Number = Platform.sin(rad);
+			var c : Number = Platform.cos(rad);
 			output[0] = a0 * c + a1 * s;
 			output[1] = a0 * -s + a1 * c;
 			output[2] = a2 * c + a3 * s;
@@ -181,12 +181,12 @@ package
 		 */
 		public static function scale(output : Array, a : Array, v : Array) : Array
 		{
-			var a0 : float = a[0];
-			var a1 : float = a[1];
-			var a2 : float = a[2];
-			var a3 : float = a[3];
-			var v0 : float = v[0];
-			var v1 : float = v[1];
+			var a0 : Number = a[0];
+			var a1 : Number = a[1];
+			var a2 : Number = a[2];
+			var a3 : Number = a[3];
+			var v0 : Number = v[0];
+			var v1 : Number = v[1];
 			output[0] = a0 * v0;
 			output[1] = a1 * v1;
 			output[2] = a2 * v0;

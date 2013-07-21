@@ -1,5 +1,5 @@
 // Generated automatically with "cito". Do not edit.
-package
+package CitoGlMatrix
 {
 	import flash.utils.ByteArray;
 
@@ -59,7 +59,7 @@ package
 		/**
 		 * **
 		 */
-		public static function dist(a : Array, b : Array) : float
+		public static function dist(a : Array, b : Array) : Number
 		{
 			return Vec4.distance(a, b);
 		}
@@ -67,12 +67,12 @@ package
 		/**
 		 * **
 		 */
-		public static function distance(a : Array, b : Array) : float
+		public static function distance(a : Array, b : Array) : Number
 		{
-			var x : float = b[0] - a[0];
-			var y : float = b[1] - a[1];
-			var z : float = b[2] - a[2];
-			var w : float = b[3] - a[3];
+			var x : Number = b[0] - a[0];
+			var y : Number = b[1] - a[1];
+			var z : Number = b[2] - a[2];
+			var w : Number = b[3] - a[3];
 			return Platform.sqrt(x * x + y * y + z * z + w * w);
 		}
 
@@ -99,7 +99,7 @@ package
 		/**
 		 * **
 		 */
-		public static function dot(a : Array, b : Array) : float
+		public static function dot(a : Array, b : Array) : Number
 		{
 			return a[0] * b[0] + a[1] * b[1] + a[2] * b[2] + a[3] * b[3];
 		}
@@ -107,7 +107,7 @@ package
 		/**
 		 * **
 		 */
-		public static function fromValues(x : float, y : float, z : float, w : float) : Array
+		public static function fromValues(x : Number, y : Number, z : Number, w : Number) : Array
 		{
 			var output : Array = new Array(4);
 			output[0] = x;
@@ -120,7 +120,7 @@ package
 		/**
 		 * **
 		 */
-		public static function len(a : Array) : float
+		public static function len(a : Array) : Number
 		{
 			return Vec4.length_(a);
 		}
@@ -128,24 +128,24 @@ package
 		/**
 		 * **
 		 */
-		public static function length_(a : Array) : float
+		public static function length_(a : Array) : Number
 		{
-			var x : float = a[0];
-			var y : float = a[1];
-			var z : float = a[2];
-			var w : float = a[3];
+			var x : Number = a[0];
+			var y : Number = a[1];
+			var z : Number = a[2];
+			var w : Number = a[3];
 			return Platform.sqrt(x * x + y * y + z * z + w * w);
 		}
 
 		/**
 		 * **
 		 */
-		public static function lerp(output : Array, a : Array, b : Array, t : float) : Array
+		public static function lerp(output : Array, a : Array, b : Array, t : Number) : Array
 		{
-			var ax : float = a[0];
-			var ay : float = a[1];
-			var az : float = a[2];
-			var aw : float = a[3];
+			var ax : Number = a[0];
+			var ay : Number = a[1];
+			var az : Number = a[2];
+			var aw : Number = a[3];
 			output[0] = ax + t * (b[0] - ax);
 			output[1] = ay + t * (b[1] - ay);
 			output[2] = az + t * (b[2] - az);
@@ -214,13 +214,13 @@ package
 		 */
 		public static function normalize(output : Array, a : Array) : Array
 		{
-			var x : float = a[0];
-			var y : float = a[1];
-			var z : float = a[2];
-			var w : float = a[3];
-			var len : float = x * x + y * y + z * z + w * w;
+			var x : Number = a[0];
+			var y : Number = a[1];
+			var z : Number = a[2];
+			var w : Number = a[3];
+			var len : Number = x * x + y * y + z * z + w * w;
 			if (len > 0) {
-				var one : float = 1;
+				var one : Number = 1;
 				len = one / (Platform.sqrt(len));
 				output[0] = a[0] * len;
 				output[1] = a[1] * len;
@@ -233,7 +233,7 @@ package
 		/**
 		 * **
 		 */
-		public static function scale(output : Array, a : Array, b : float) : Array
+		public static function scale(output : Array, a : Array, b : Number) : Array
 		{
 			output[0] = a[0] * b;
 			output[1] = a[1] * b;
@@ -245,7 +245,7 @@ package
 		/**
 		 * **
 		 */
-		public static function scaleAndAdd(output : Array, a : Array, b : Array, scale : float) : Array
+		public static function scaleAndAdd(output : Array, a : Array, b : Array, scale : Number) : Array
 		{
 			output[0] = a[0] + b[0] * scale;
 			output[1] = a[1] + b[1] * scale;
@@ -257,7 +257,7 @@ package
 		/**
 		 * **
 		 */
-		public static function set(output : Array, x : float, y : float, z : float, w : float) : Array
+		public static function set(output : Array, x : Number, y : Number, z : Number, w : Number) : Array
 		{
 			output[0] = x;
 			output[1] = y;
@@ -269,7 +269,7 @@ package
 		/**
 		 * **
 		 */
-		public static function sqrDist(a : Array, b : Array) : float
+		public static function sqrDist(a : Array, b : Array) : Number
 		{
 			return Vec4.squaredDistance(a, b);
 		}
@@ -277,7 +277,7 @@ package
 		/**
 		 * **
 		 */
-		public static function sqrLen(a : Array) : float
+		public static function sqrLen(a : Array) : Number
 		{
 			return Vec4.squaredLength(a);
 		}
@@ -285,24 +285,24 @@ package
 		/**
 		 * **
 		 */
-		public static function squaredDistance(a : Array, b : Array) : float
+		public static function squaredDistance(a : Array, b : Array) : Number
 		{
-			var x : float = b[0] - a[0];
-			var y : float = b[1] - a[1];
-			var z : float = b[2] - a[2];
-			var w : float = b[3] - a[3];
+			var x : Number = b[0] - a[0];
+			var y : Number = b[1] - a[1];
+			var z : Number = b[2] - a[2];
+			var w : Number = b[3] - a[3];
 			return x * x + y * y + z * z + w * w;
 		}
 
 		/**
 		 * **
 		 */
-		public static function squaredLength(a : Array) : float
+		public static function squaredLength(a : Array) : Number
 		{
-			var x : float = a[0];
-			var y : float = a[1];
-			var z : float = a[2];
-			var w : float = a[3];
+			var x : Number = a[0];
+			var y : Number = a[1];
+			var z : Number = a[2];
+			var w : Number = a[3];
 			return x * x + y * y + z * z + w * w;
 		}
 
@@ -331,10 +331,10 @@ package
 		 */
 		public static function transformMat4(output : Array, a : Array, m : Array) : Array
 		{
-			var x : float = a[0];
-			var y : float = a[1];
-			var z : float = a[2];
-			var w : float = a[3];
+			var x : Number = a[0];
+			var y : Number = a[1];
+			var z : Number = a[2];
+			var w : Number = a[3];
 			output[0] = m[0] * x + m[4] * y + m[8] * z + m[12] * w;
 			output[1] = m[1] * x + m[5] * y + m[9] * z + m[13] * w;
 			output[2] = m[2] * x + m[6] * y + m[10] * z + m[14] * w;
@@ -355,17 +355,17 @@ package
 		 */
 		public static function transformQuat(output : Array, a : Array, q : Array) : Array
 		{
-			var x : float = a[0];
-			var y : float = a[1];
-			var z : float = a[2];
-			var qx : float = q[0];
-			var qy : float = q[1];
-			var qz : float = q[2];
-			var qw : float = q[3];
-			var ix : float = qw * x + qy * z - qz * y;
-			var iy : float = qw * y + qz * x - qx * z;
-			var iz : float = qw * z + qx * y - qy * x;
-			var iw : float = -qx * x - qy * y - qz * z;
+			var x : Number = a[0];
+			var y : Number = a[1];
+			var z : Number = a[2];
+			var qx : Number = q[0];
+			var qy : Number = q[1];
+			var qz : Number = q[2];
+			var qw : Number = q[3];
+			var ix : Number = qw * x + qy * z - qz * y;
+			var iy : Number = qw * y + qz * x - qx * z;
+			var iz : Number = qw * z + qx * y - qy * x;
+			var iw : Number = -qx * x - qy * y - qz * z;
 			output[0] = ix * qw + iw * -qx + iy * -qz - iz * -qy;
 			output[1] = iy * qw + iw * -qy + iz * -qx - ix * -qz;
 			output[2] = iz * qw + iw * -qz + ix * -qy - iy * -qx;

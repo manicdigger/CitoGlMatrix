@@ -1,5 +1,5 @@
 // Generated automatically with "cito". Do not edit.
-package
+package CitoGlMatrix
 {
 	import flash.utils.ByteArray;
 
@@ -19,13 +19,13 @@ package
 		 */
 		public static function calculateW(output : Array, a : Array) : Array
 		{
-			var x : float = a[0];
-			var y : float = a[1];
-			var z : float = a[2];
+			var x : Number = a[0];
+			var y : Number = a[1];
+			var z : Number = a[2];
 			output[0] = x;
 			output[1] = y;
 			output[2] = z;
-			var one : float = 1;
+			var one : Number = 1;
 			output[3] = -Platform.sqrt(GlMatrixMath.abs(one - x * x - y * y - z * z));
 			return output;
 		}
@@ -74,7 +74,7 @@ package
 		/**
 		 * **
 		 */
-		public static function dot(a : Array, b : Array) : float
+		public static function dot(a : Array, b : Array) : Number
 		{
 			return Vec4.dot(a, b);
 		}
@@ -84,11 +84,11 @@ package
 		 */
 		public static function fromMat3(output : Array, m : Array) : Array
 		{
-			var fTrace : float = m[0] + m[4] + m[8];
-			var fRoot : float;
-			var zero : float = 0;
-			var one : float = 1;
-			var half : float = one / (2);
+			var fTrace : Number = m[0] + m[4] + m[8];
+			var fRoot : Number;
+			var zero : Number = 0;
+			var one : Number = 1;
+			var half : Number = one / (2);
 			if (fTrace > zero) {
 				fRoot = Platform.sqrt(fTrace + one);
 				output[3] = half * fRoot;
@@ -118,7 +118,7 @@ package
 		/**
 		 * **
 		 */
-		public static function fromValues(x : float, y : float, z : float, w : float) : Array
+		public static function fromValues(x : Number, y : Number, z : Number, w : Number) : Array
 		{
 			return Vec4.fromValues(x, y, z, w);
 		}
@@ -140,13 +140,13 @@ package
 		 */
 		public final function invert(output : Array, a : Array) : Array
 		{
-			var a0 : float = a[0];
-			var a1 : float = a[1];
-			var a2 : float = a[2];
-			var a3 : float = a[3];
-			var dot : float = a0 * a0 + a1 * a1 + a2 * a2 + a3 * a3;
-			var one : float = 1;
-			var invDot : float = dot != 0 ? one / (dot) : 0;
+			var a0 : Number = a[0];
+			var a1 : Number = a[1];
+			var a2 : Number = a[2];
+			var a3 : Number = a[3];
+			var dot : Number = a0 * a0 + a1 * a1 + a2 * a2 + a3 * a3;
+			var one : Number = 1;
+			var invDot : Number = dot != 0 ? one / (dot) : 0;
 			output[0] = -a0 * invDot;
 			output[1] = -a1 * invDot;
 			output[2] = -a2 * invDot;
@@ -157,7 +157,7 @@ package
 		/**
 		 * **
 		 */
-		public static function len(a : Array) : float
+		public static function len(a : Array) : Number
 		{
 			return Quat.length_(a);
 		}
@@ -165,7 +165,7 @@ package
 		/**
 		 * **
 		 */
-		public static function length_(a : Array) : float
+		public static function length_(a : Array) : Number
 		{
 			return Vec4.length_(a);
 		}
@@ -173,7 +173,7 @@ package
 		/**
 		 * **
 		 */
-		public static function lerp(output : Array, a : Array, b : Array, t : float) : Array
+		public static function lerp(output : Array, a : Array, b : Array, t : Number) : Array
 		{
 			return Vec4.lerp(output, a, b, t);
 		}
@@ -191,14 +191,14 @@ package
 		 */
 		public static function multiply(output : Array, a : Array, b : Array) : Array
 		{
-			var ax : float = a[0];
-			var ay : float = a[1];
-			var az : float = a[2];
-			var aw : float = a[3];
-			var bx : float = b[0];
-			var by : float = b[1];
-			var bz : float = b[2];
-			var bw : float = b[3];
+			var ax : Number = a[0];
+			var ay : Number = a[1];
+			var az : Number = a[2];
+			var aw : Number = a[3];
+			var bx : Number = b[0];
+			var by : Number = b[1];
+			var bz : Number = b[2];
+			var bw : Number = b[3];
 			output[0] = ax * bw + aw * bx + ay * bz - az * by;
 			output[1] = ay * bw + aw * by + az * bx - ax * bz;
 			output[2] = az * bw + aw * bz + ax * by - ay * bx;
@@ -217,15 +217,15 @@ package
 		/**
 		 * **
 		 */
-		public static function rotateX(output : Array, a : Array, rad : float) : Array
+		public static function rotateX(output : Array, a : Array, rad : Number) : Array
 		{
 			rad /= 2;
-			var ax : float = a[0];
-			var ay : float = a[1];
-			var az : float = a[2];
-			var aw : float = a[3];
-			var bx : float = Platform.sin(rad);
-			var bw : float = Platform.cos(rad);
+			var ax : Number = a[0];
+			var ay : Number = a[1];
+			var az : Number = a[2];
+			var aw : Number = a[3];
+			var bx : Number = Platform.sin(rad);
+			var bw : Number = Platform.cos(rad);
 			output[0] = ax * bw + aw * bx;
 			output[1] = ay * bw + az * bx;
 			output[2] = az * bw - ay * bx;
@@ -236,15 +236,15 @@ package
 		/**
 		 * **
 		 */
-		public static function rotateY(output : Array, a : Array, rad : float) : Array
+		public static function rotateY(output : Array, a : Array, rad : Number) : Array
 		{
 			rad /= 2;
-			var ax : float = a[0];
-			var ay : float = a[1];
-			var az : float = a[2];
-			var aw : float = a[3];
-			var by : float = Platform.sin(rad);
-			var bw : float = Platform.cos(rad);
+			var ax : Number = a[0];
+			var ay : Number = a[1];
+			var az : Number = a[2];
+			var aw : Number = a[3];
+			var by : Number = Platform.sin(rad);
+			var bw : Number = Platform.cos(rad);
 			output[0] = ax * bw - az * by;
 			output[1] = ay * bw + aw * by;
 			output[2] = az * bw + ax * by;
@@ -255,15 +255,15 @@ package
 		/**
 		 * **
 		 */
-		public static function rotateZ(output : Array, a : Array, rad : float) : Array
+		public static function rotateZ(output : Array, a : Array, rad : Number) : Array
 		{
 			rad /= 2;
-			var ax : float = a[0];
-			var ay : float = a[1];
-			var az : float = a[2];
-			var aw : float = a[3];
-			var bz : float = Platform.sin(rad);
-			var bw : float = Platform.cos(rad);
+			var ax : Number = a[0];
+			var ay : Number = a[1];
+			var az : Number = a[2];
+			var aw : Number = a[3];
+			var bz : Number = Platform.sin(rad);
+			var bw : Number = Platform.cos(rad);
 			output[0] = ax * bw + ay * bz;
 			output[1] = ay * bw - ax * bz;
 			output[2] = az * bw + aw * bz;
@@ -279,10 +279,10 @@ package
 			var tmpvec3 : Array = Vec3.create();
 			var xUnitVec3 : Array = Vec3.fromValues(1, 0, 0);
 			var yUnitVec3 : Array = Vec3.fromValues(0, 1, 0);
-			var dot : float = Vec3.dot(a, b);
-			var nines : float = 999999;
+			var dot : Number = Vec3.dot(a, b);
+			var nines : Number = 999999;
 			nines /= 1000000;
-			var epsilon : float = 1;
+			var epsilon : Number = 1;
 			epsilon /= 1000000;
 			if (dot < -nines) {
 				Vec3.cross(tmpvec3, xUnitVec3, a);
@@ -312,7 +312,7 @@ package
 		/**
 		 * **
 		 */
-		public static function scale(output : Array, a : Array, b : float) : Array
+		public static function scale(output : Array, a : Array, b : Number) : Array
 		{
 			return Vec4.scale(output, a, b);
 		}
@@ -320,7 +320,7 @@ package
 		/**
 		 * **
 		 */
-		public static function set(output : Array, x : float, y : float, z : float, w : float) : Array
+		public static function set(output : Array, x : Number, y : Number, z : Number, w : Number) : Array
 		{
 			return Vec4.set(output, x, y, z, w);
 		}
@@ -346,10 +346,10 @@ package
 		/**
 		 * **
 		 */
-		public static function setAxisAngle(output : Array, axis : Array, rad : float) : Array
+		public static function setAxisAngle(output : Array, axis : Array, rad : Number) : Array
 		{
 			rad = rad / (2);
-			var s : float = Platform.sin(rad);
+			var s : Number = Platform.sin(rad);
 			output[0] = s * axis[0];
 			output[1] = s * axis[1];
 			output[2] = s * axis[2];
@@ -360,21 +360,21 @@ package
 		/**
 		 * **
 		 */
-		public static function slerp(output : Array, a : Array, b : Array, t : float) : Array
+		public static function slerp(output : Array, a : Array, b : Array, t : Number) : Array
 		{
-			var ax : float = a[0];
-			var ay : float = a[1];
-			var az : float = a[2];
-			var aw : float = a[3];
-			var bx : float = b[0];
-			var by : float = b[1];
-			var bz : float = b[2];
-			var bw : float = b[3];
-			var omega : float;
-			var cosom : float;
-			var sinom : float;
-			var scale0 : float;
-			var scale1 : float;
+			var ax : Number = a[0];
+			var ay : Number = a[1];
+			var az : Number = a[2];
+			var aw : Number = a[3];
+			var bx : Number = b[0];
+			var by : Number = b[1];
+			var bz : Number = b[2];
+			var bw : Number = b[3];
+			var omega : Number;
+			var cosom : Number;
+			var sinom : Number;
+			var scale0 : Number;
+			var scale1 : Number;
 			cosom = ax * bx + ay * by + az * bz + aw * bw;
 			if (cosom < 0) {
 				cosom = -cosom;
@@ -383,8 +383,8 @@ package
 				bz = -bz;
 				bw = -bw;
 			}
-			var one : float = 1;
-			var epsilon : float = one / (1000000);
+			var one : Number = 1;
+			var epsilon : Number = one / (1000000);
 			if (one - cosom > epsilon) {
 				omega = Platform.acos(cosom);
 				sinom = Platform.sin(omega);
@@ -405,7 +405,7 @@ package
 		/**
 		 * **
 		 */
-		public static function sqrLen(a : Array) : float
+		public static function sqrLen(a : Array) : Number
 		{
 			return Quat.squaredLength(a);
 		}
@@ -413,7 +413,7 @@ package
 		/**
 		 * **
 		 */
-		public static function squaredLength(a : Array) : float
+		public static function squaredLength(a : Array) : Number
 		{
 			return Vec4.squaredLength(a);
 		}

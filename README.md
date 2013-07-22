@@ -16,7 +16,7 @@ CitoGlMatrix is automatically translated to the following languages:
 * Perl 5.10+ Module (not tested)
 * PHP (partially tested)
 
-**Do not use it yet! It's not tested.**
+**Be careful when using it! It's not fully tested yet.**
 
 ### Installation
 Copy files from Output/Language/ to your project.

@@ -18,8 +18,6 @@ CitoGlMatrix is automatically translated to the following languages:
 
 **Be careful when using it! It's not fully tested yet.**
 
-**Matrix transpose is wrong!**
-
 ### Installation
 Copy files from Output/Language/ to your project.
 

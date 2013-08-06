@@ -10,13 +10,15 @@ CitoGlMatrix is automatically translated to the following languages:
 * C# (partially tested)
 * JavaScript (partially tested)
 * JavaScript with Typed Arrays (partially tested)
-* ActionScript 3
+* ActionScript 3 (partially tested)
 * D (partially tested)
-* Perl 5 Module
-* Perl 5.10+ Module
+* Perl 5 Module (not tested)
+* Perl 5.10+ Module (not tested)
 * PHP (partially tested)
 
-**Do not use it yet! It's not tested.**
+**Be careful when using it! It's not fully tested yet.**
+
+**Matrix transpose is wrong!**
 
 ### Installation
 Copy files from Output/Language/ to your project.

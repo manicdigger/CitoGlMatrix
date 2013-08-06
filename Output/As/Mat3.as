@@ -395,15 +395,28 @@ package CitoGlMatrix
 		 */
 		public static function transpose(output : Array, a : Array) : Array
 		{
-			output[0] = a[0];
-			output[1] = a[3];
-			output[2] = a[6];
-			output[3] = a[1];
-			output[4] = a[4];
-			output[5] = a[7];
-			output[6] = a[2];
-			output[7] = a[5];
-			output[8] = a[8];
+			if (output == a) {
+				var a01 : Number = a[1];
+				var a02 : Number = a[2];
+				var a12 : Number = a[5];
+				output[1] = a[3];
+				output[2] = a[6];
+				output[3] = a01;
+				output[5] = a[7];
+				output[6] = a02;
+				output[7] = a12;
+			}
+			else {
+				output[0] = a[0];
+				output[1] = a[3];
+				output[2] = a[6];
+				output[3] = a[1];
+				output[4] = a[4];
+				output[5] = a[7];
+				output[6] = a[2];
+				output[7] = a[5];
+				output[8] = a[8];
+			}
 			return output;
 		}
 

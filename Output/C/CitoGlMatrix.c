@@ -675,15 +675,28 @@ float const *Mat3_Translate(float *output, float const *a, float const *v)
 
 float const *Mat3_Transpose(float *output, float const *a)
 {
-	output[0] = a[0];
-	output[1] = a[3];
-	output[2] = a[6];
-	output[3] = a[1];
-	output[4] = a[4];
-	output[5] = a[7];
-	output[6] = a[2];
-	output[7] = a[5];
-	output[8] = a[8];
+	if (output == a) {
+		float a01 = a[1];
+		float a02 = a[2];
+		float a12 = a[5];
+		output[1] = a[3];
+		output[2] = a[6];
+		output[3] = a01;
+		output[5] = a[7];
+		output[6] = a02;
+		output[7] = a12;
+	}
+	else {
+		output[0] = a[0];
+		output[1] = a[3];
+		output[2] = a[6];
+		output[3] = a[1];
+		output[4] = a[4];
+		output[5] = a[7];
+		output[6] = a[2];
+		output[7] = a[5];
+		output[8] = a[8];
+	}
 	return output;
 }
 
@@ -1256,10 +1269,12 @@ float const *Mat4_Rotate(float *output, float const *a, float rad, float const *
 	output[9] = a01 * b20 + a11 * b21 + a21 * b22;
 	output[10] = a02 * b20 + a12 * b21 + a22 * b22;
 	output[11] = a03 * b20 + a13 * b21 + a23 * b22;
-	output[12] = a[12];
-	output[13] = a[13];
-	output[14] = a[14];
-	output[15] = a[15];
+	if (a != output) {
+		output[12] = a[12];
+		output[13] = a[13];
+		output[14] = a[14];
+		output[15] = a[15];
+	}
 	return output;
 }
 
@@ -1275,14 +1290,16 @@ float const *Mat4_RotateX(float *output, float const *a, float rad)
 	float a21 = a[9];
 	float a22 = a[10];
 	float a23 = a[11];
-	output[0] = a[0];
-	output[1] = a[1];
-	output[2] = a[2];
-	output[3] = a[3];
-	output[12] = a[12];
-	output[13] = a[13];
-	output[14] = a[14];
-	output[15] = a[15];
+	if (a != output) {
+		output[0] = a[0];
+		output[1] = a[1];
+		output[2] = a[2];
+		output[3] = a[3];
+		output[12] = a[12];
+		output[13] = a[13];
+		output[14] = a[14];
+		output[15] = a[15];
+	}
 	output[4] = a10 * c + a20 * s;
 	output[5] = a11 * c + a21 * s;
 	output[6] = a12 * c + a22 * s;
@@ -1306,14 +1323,16 @@ float const *Mat4_RotateY(float *output, float const *a, float rad)
 	float a21 = a[9];
 	float a22 = a[10];
 	float a23 = a[11];
-	output[4] = a[4];
-	output[5] = a[5];
-	output[6] = a[6];
-	output[7] = a[7];
-	output[12] = a[12];
-	output[13] = a[13];
-	output[14] = a[14];
-	output[15] = a[15];
+	if (a != output) {
+		output[4] = a[4];
+		output[5] = a[5];
+		output[6] = a[6];
+		output[7] = a[7];
+		output[12] = a[12];
+		output[13] = a[13];
+		output[14] = a[14];
+		output[15] = a[15];
+	}
 	output[0] = a00 * c - a20 * s;
 	output[1] = a01 * c - a21 * s;
 	output[2] = a02 * c - a22 * s;
@@ -1337,14 +1356,16 @@ float const *Mat4_RotateZ(float *output, float const *a, float rad)
 	float a11 = a[5];
 	float a12 = a[6];
 	float a13 = a[7];
-	output[8] = a[8];
-	output[9] = a[9];
-	output[10] = a[10];
-	output[11] = a[11];
-	output[12] = a[12];
-	output[13] = a[13];
-	output[14] = a[14];
-	output[15] = a[15];
+	if (a != output) {
+		output[8] = a[8];
+		output[9] = a[9];
+		output[10] = a[10];
+		output[11] = a[11];
+		output[12] = a[12];
+		output[13] = a[13];
+		output[14] = a[14];
+		output[15] = a[15];
+	}
 	output[0] = a00 * c + a10 * s;
 	output[1] = a01 * c + a11 * s;
 	output[2] = a02 * c + a12 * s;
@@ -1397,55 +1418,85 @@ float const *Mat4_Translate(float *output, float const *a, float const *v)
 	float a21;
 	float a22;
 	float a23;
-	a00 = a[0];
-	a01 = a[1];
-	a02 = a[2];
-	a03 = a[3];
-	a10 = a[4];
-	a11 = a[5];
-	a12 = a[6];
-	a13 = a[7];
-	a20 = a[8];
-	a21 = a[9];
-	a22 = a[10];
-	a23 = a[11];
-	output[0] = a00;
-	output[1] = a01;
-	output[2] = a02;
-	output[3] = a03;
-	output[4] = a10;
-	output[5] = a11;
-	output[6] = a12;
-	output[7] = a13;
-	output[8] = a20;
-	output[9] = a21;
-	output[10] = a22;
-	output[11] = a23;
-	output[12] = a00 * x + a10 * y + a20 * z + a[12];
-	output[13] = a01 * x + a11 * y + a21 * z + a[13];
-	output[14] = a02 * x + a12 * y + a22 * z + a[14];
-	output[15] = a03 * x + a13 * y + a23 * z + a[15];
+	if (a == output) {
+		output[12] = a[0] * x + a[4] * y + a[8] * z + a[12];
+		output[13] = a[1] * x + a[5] * y + a[9] * z + a[13];
+		output[14] = a[2] * x + a[6] * y + a[10] * z + a[14];
+		output[15] = a[3] * x + a[7] * y + a[11] * z + a[15];
+	}
+	else {
+		a00 = a[0];
+		a01 = a[1];
+		a02 = a[2];
+		a03 = a[3];
+		a10 = a[4];
+		a11 = a[5];
+		a12 = a[6];
+		a13 = a[7];
+		a20 = a[8];
+		a21 = a[9];
+		a22 = a[10];
+		a23 = a[11];
+		output[0] = a00;
+		output[1] = a01;
+		output[2] = a02;
+		output[3] = a03;
+		output[4] = a10;
+		output[5] = a11;
+		output[6] = a12;
+		output[7] = a13;
+		output[8] = a20;
+		output[9] = a21;
+		output[10] = a22;
+		output[11] = a23;
+		output[12] = a00 * x + a10 * y + a20 * z + a[12];
+		output[13] = a01 * x + a11 * y + a21 * z + a[13];
+		output[14] = a02 * x + a12 * y + a22 * z + a[14];
+		output[15] = a03 * x + a13 * y + a23 * z + a[15];
+	}
 	return output;
 }
 
 float const *Mat4_Transpose(float *output, float const *a)
 {
-	output[0] = a[0];
-	output[1] = a[4];
-	output[2] = a[8];
-	output[3] = a[12];
-	output[4] = a[1];
-	output[5] = a[5];
-	output[6] = a[9];
-	output[7] = a[13];
-	output[8] = a[2];
-	output[9] = a[6];
-	output[10] = a[10];
-	output[11] = a[14];
-	output[12] = a[3];
-	output[13] = a[7];
-	output[14] = a[11];
-	output[15] = a[15];
+	if (output == a) {
+		float a01 = a[1];
+		float a02 = a[2];
+		float a03 = a[3];
+		float a12 = a[6];
+		float a13 = a[7];
+		float a23 = a[11];
+		output[1] = a[4];
+		output[2] = a[8];
+		output[3] = a[12];
+		output[4] = a01;
+		output[6] = a[9];
+		output[7] = a[13];
+		output[8] = a02;
+		output[9] = a12;
+		output[11] = a[14];
+		output[12] = a03;
+		output[13] = a13;
+		output[14] = a23;
+	}
+	else {
+		output[0] = a[0];
+		output[1] = a[4];
+		output[2] = a[8];
+		output[3] = a[12];
+		output[4] = a[1];
+		output[5] = a[5];
+		output[6] = a[9];
+		output[7] = a[13];
+		output[8] = a[2];
+		output[9] = a[6];
+		output[10] = a[10];
+		output[11] = a[14];
+		output[12] = a[3];
+		output[13] = a[7];
+		output[14] = a[11];
+		output[15] = a[15];
+	}
 	return output;
 }
 

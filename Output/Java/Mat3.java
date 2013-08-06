@@ -393,15 +393,28 @@ public class Mat3
 	 */
 	public static float[] transpose(float[] output, float[] a)
 	{
-		output[0] = a[0];
-		output[1] = a[3];
-		output[2] = a[6];
-		output[3] = a[1];
-		output[4] = a[4];
-		output[5] = a[7];
-		output[6] = a[2];
-		output[7] = a[5];
-		output[8] = a[8];
+		if (output == a) {
+			float a01 = a[1];
+			float a02 = a[2];
+			float a12 = a[5];
+			output[1] = a[3];
+			output[2] = a[6];
+			output[3] = a01;
+			output[5] = a[7];
+			output[6] = a02;
+			output[7] = a12;
+		}
+		else {
+			output[0] = a[0];
+			output[1] = a[3];
+			output[2] = a[6];
+			output[3] = a[1];
+			output[4] = a[4];
+			output[5] = a[7];
+			output[6] = a[2];
+			output[7] = a[5];
+			output[8] = a[8];
+		}
 		return output;
 	}
 

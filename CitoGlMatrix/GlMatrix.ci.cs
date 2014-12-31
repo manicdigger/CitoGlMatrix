@@ -5602,3 +5602,9 @@ public class CitoAssert
     }
 }
 #endif
+
+public class Test__
+{
+    public void f() {}
+}
+}

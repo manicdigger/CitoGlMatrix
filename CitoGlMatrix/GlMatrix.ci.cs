@@ -5607,4 +5607,3 @@ public class Test__
 {
     public void f() {}
 }
-}

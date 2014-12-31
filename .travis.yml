@@ -1,0 +1,26 @@
+language: c
+
+install:
+ - sudo apt-get install mono-gmcs cli-common-dev > /dev/null
+
+script:
+ - xbuild /p:Configuration=Release
+
+# builds
+ - rm -rf out || exit 0;
+ - mkdir out;
+ - cd out
+ - git init
+ - git config user.name "Travis-CI"
+ - git config user.email "travis@example.com"
+ - cp -r ../Output/* ./
+ - cp -r ../OutputTests/* ./
+ - git add .
+ - git commit -m "Deployed to Github Pages"
+ - git push --force --quiet "https://${GH_TOKEN}@${GH_REF}" master:gh-pages > /dev/null 2>&1
+
+env:
+  global:
+  - GH_REF: github.com/manicdigger/CitoGlMatrix-builds
+  - secure: "RvV0A3eAslGZDSnlnSXaGz3TmMnG6Gf2VFSoU/aErQcvRR0I8ZkFtPeBJkKzu7IiXWQsmivFW6vTXVidHQGzRXjMQk9NlwuBAxGb7rh5uVTXcaERQP+elJ1QiiTUvXCHdzN8waadPJ7a76vy0u4Ty5ZyD+tdH7Eq7mkcUtqpwCI="
+ 

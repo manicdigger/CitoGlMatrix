@@ -20,8 +20,8 @@ CitoGlMatrix is automatically translated to the following languages:
 
 **C target leaks memory in Quat.RotationTo and Quat.SetAxes**
 
-### Installation
-Copy files from Output/Language/ to your project.
+### Download
+https://github.com/manicdigger/CitoGlMatrix-builds
 
 ### Usage
 

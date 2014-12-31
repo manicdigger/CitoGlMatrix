@@ -1,3 +1,4 @@
+[![Build Status](https://travis-ci.org/manicdigger/CitoGlMatrix.svg?branch=master)](https://travis-ci.org/manicdigger/CitoGlMatrix)
 CitoGlMatrix
 ============
 

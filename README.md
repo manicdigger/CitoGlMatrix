@@ -29,7 +29,7 @@ https://github.com/manicdigger/CitoGlMatrix-builds
 See http://glmatrix.net/ for documentation.
 
 ### Compilation
-Cito currently doesn't support floating point variables, so a modified version is required: (https://github.com/uilbcvnj/CitoMod).
+Cito currently doesn't support floating point variables, so a modified version is required: (https://github.com/manicdigger/cito).
 
 ### TODO
 * Port missing unit tests
